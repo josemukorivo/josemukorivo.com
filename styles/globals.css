@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  @apply font-body scroll-smooth 2xl:text-xl;
+}
+body {
+  @apply dark:bg-slate-900 bg-slate-100 transition duration-100 ease-in-out text-slate-900 dark:text-slate-400;
+}
+code {
+  @apply font-mono;
+}

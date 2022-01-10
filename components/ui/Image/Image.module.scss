@@ -1,0 +1,14 @@
+.root {
+  width: 100%;
+
+  > span,
+  div {
+    position: unset !important;
+  }
+}
+
+.image {
+  @apply w-full relative #{!important};
+  height: auto !important;
+  object-fit: contain;
+}

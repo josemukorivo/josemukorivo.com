@@ -1,0 +1,17 @@
+module.exports = {
+  darkMode: 'media',
+  content: ['pages/**/*.{js,ts,jsx,tsx}', 'components/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    fontFamily: {
+      body: ['TT Commons', 'sans-serif'],
+      heading: ['Oswald', 'sans-serif'],
+      mono: ['Syne Mono', 'monospace'],
+    },
+    extend: {
+      maxWidth: {
+        '8xl': '1920px',
+      },
+    },
+  },
+  plugins: [require('@tailwindcss/typography')],
+};
