@@ -2,6 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'TT Commons';
+  src: url('/fonts/TT.Commons/TTCommons-Regular.ttf');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TT Commons Demibold';
+  src: url('/fonts/TT.Commons/TTCommons-DemiBold.ttf');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TT Commons Medium';
+  src: url('/fonts/TT.Commons/TTCommons-Medium.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Commons Bold';
+  src: url('/fonts/TT.Commons/TTCommons-Bold.ttf');
+  font-display: swap;
+}
+
 html,
 body {
   @apply font-body scroll-smooth 2xl:text-xl;
