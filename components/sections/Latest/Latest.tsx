@@ -21,7 +21,9 @@ export const LatestBlogs = ({ articles }) => {
     <Container full className={s.root} id='latest'>
       <Container className='mb-5'>
         <Box className='flex justify-between items-center'>
-          <Text as='h2'>Latest Blogs</Text>
+          <Text as='h2' className='font-medium'>
+            Latest Blogs
+          </Text>
           <Link
             href='/blog'
             className='font-heading uppercase hidden md:block text-sm font-medium'
@@ -29,7 +31,7 @@ export const LatestBlogs = ({ articles }) => {
             See the full blog
           </Link>
         </Box>
-        <Text>
+        <Text className='md:hidden'>
           Swipe left or right to see the latest articles or click{' '}
           <Link href='/blog' className='text-rose-500 font-medium'>
             here

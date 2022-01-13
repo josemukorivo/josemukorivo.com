@@ -38,7 +38,9 @@ export const TechStack = () => {
     <Container full className={s.root}>
       <Container className='2xl:px-16'>
         <Box className='flex justify-between items-center'>
-          <Text as='h2'>Tech Stack</Text>
+          <Text as='h2' className='font-medium'>
+            Tech Stack
+          </Text>
           <Link
             href='https://docs.google.com/document/d/16-sqqDzL3SR1vomlTW6gKOKIqJ7xd_MgfJXrDLkqbnU/'
             target='_blank'

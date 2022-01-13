@@ -1,7 +1,7 @@
 .root {
   @apply mb-4;
   &:is(h1, h2, h3, h4, h5, h6) {
-    @apply mb-7 2xl:mb-10 font-medium leading-tight dark:text-slate-200;
+    @apply mb-7 2xl:mb-10 leading-tight dark:text-slate-200;
   }
 }
 
@@ -13,7 +13,7 @@
 }
 
 .h1 {
-  @apply text-4xl md:text-5xl font-heading uppercase;
+  @apply text-4xl md:text-5xl font-heading font-medium uppercase;
 }
 
 .h2 {

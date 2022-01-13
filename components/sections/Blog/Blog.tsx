@@ -5,15 +5,23 @@ export const Blog = ({ articles }) => {
   return (
     <Container>
       <BlogHero />
-      <Box className='grid grid-cols-3 gap-8'>
+      <Box className='grid grid-cols-3 gap-7'>
         {articles.map(
-          ({ id, title, published_at, description, cover_image }) => (
+          ({
+            id,
+            title,
+            published_at,
+            reading_time_minutes,
+            slug,
+            cover_image,
+          }) => (
             <BlogSummary
               key={id}
+              slug={slug}
               title={title}
               date={published_at}
-              description={description}
               coverImage={cover_image}
+              readTime={reading_time_minutes}
             />
           )
         )}

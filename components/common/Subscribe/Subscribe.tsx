@@ -4,7 +4,7 @@ import s from './Subscribe.module.scss';
 export const Subscribe = () => {
   return (
     <form>
-      <Text as='h6' className='mt-10 font-heading uppercase'>
+      <Text as='h6' className='mt-10 font-heading uppercase font-medium'>
         Stay up to date
       </Text>
       <Text className='2xl:mb-8'>

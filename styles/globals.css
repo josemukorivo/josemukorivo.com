@@ -31,6 +31,16 @@ body {
 body {
   @apply dark:bg-slate-900 bg-slate-100 transition duration-100 ease-in-out text-slate-900 dark:text-slate-400;
 }
+.prose pre {
+  @apply bg-slate-800 dark:bg-[#0d1424] !important;
+}
 code {
-  @apply font-mono;
+  @apply font-mono !important;
+}
+.prose code {
+  @apply font-mono text-sm !important;
+}
+.prose svg {
+  width: 0;
+  height: 0;
 }

@@ -26,7 +26,7 @@ export const Footer = () => {
     <footer>
       <Container className='relative md:grid grid-cols-5 gap-20 mb-10 2xl:px-16'>
         <Box className='col-span-3 max-w-lg'>
-          <Text as='h4' className='font-heading uppercase'>
+          <Text as='h4' className='font-heading uppercase font-medium'>
             Joseph Mukorivo
           </Text>
           <Text>
@@ -40,7 +40,7 @@ export const Footer = () => {
           <Subscribe />
         </Box>
         <Box className='hidden md:block col-span-2'>
-          <Text as='h6' className='font-heading uppercase'>
+          <Text as='h6' className='font-heading font-medium uppercase'>
             Quick Links
           </Text>
           <Link href='#top' className='block mb-3 font-medium 2xl:text-lg'>

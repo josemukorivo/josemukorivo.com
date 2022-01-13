@@ -1,33 +1,17 @@
-import { Box, Link, Button, Text } from '@components/ui';
-import Image from 'next/image';
+import { Box, Link, Text } from '@components/ui';
 
-export const BlogSummary = ({ title, date, description, coverImage }) => {
+export const BlogSummary = ({ title, date, slug, readTime, coverImage }) => {
   return (
     <Link
-      href='/'
-      className='block bg-slate-800 relative h-[350px] w-[350px] 2xl:min-w-[630px] 2xl:h-[500px] mb-4 overflow-hidden group transition duration-500 ease-in-out dark:ring-offset-slate-900 hover:ring ring-rose-500 ring-offset-4 hover:scale-105'
+      href={`/blog/${slug}`}
+      className='block bg-slate-200 dark:bg-slate-800 rounded-lg relative h-[310px] 2xl:h-[400px] overflow-hidden group transition duration-500 ease-in-out dark:ring-offset-slate-900 hover:ring ring-rose-500 ring-offset-4'
     >
-      <Image
-        src={coverImage}
-        className='transition duration-300 ease-in-out group-hover:scale-110'
-        layout='fill'
-        objectFit='cover'
-        alt=''
-      />
-      {/* <Button
-        variant='naked'
-        className='absolute hidden group-hover:inline-block ring-offset-rose-900 z-10 top-5 left-5 text-lg font-medium rounded'
-      >
-        Click to copy url
-      </Button>
-
-      <Box className='absolute text-white inset-0 flex flex-col justify-end p-5 bg-slate-900 bg-opacity-60 dark:bg-opacity-40'>
-        <Text className='text-3xl 2xl:text-4xl text-white font-medium'>
-          {title}
-        </Text>
+      <Box className='absolute dark:text-white inset-0 flex flex-col justify-between p-5'>
         <Box className='flex justify-between 2xl:mt-5'>
-          <Text className='text-white font-medium'>5 min read</Text>
-          <Text className='text-white font-medium'>
+          <Text className='text-slate-600 dark:text-slate-400 font-medium'>
+            {readTime} min read
+          </Text>
+          <Text className='text-slate-600 dark:text-slate-400 font-medium'>
             {new Date(date).toLocaleDateString('en-US', {
               month: 'long',
               day: 'numeric',
@@ -35,7 +19,10 @@ export const BlogSummary = ({ title, date, description, coverImage }) => {
             })}
           </Text>
         </Box>
-      </Box> */}
+        <Text className='text-3xl 2xl:text-4xl dark:text-white font-medium'>
+          {title}
+        </Text>
+      </Box>
     </Link>
   );
 };

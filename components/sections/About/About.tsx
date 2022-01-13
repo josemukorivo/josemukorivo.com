@@ -5,7 +5,9 @@ export const About = () => {
   return (
     <Container className='grid md:grid-cols-5 gap-10 mb-20 md:mb-40 max-w-[1180px] 2xl:max-w-7xl'>
       <Box className='md:col-span-3'>
-        <Text as='h2'>Get to know me</Text>
+        <Text as='h2' className='font-medium'>
+          Get to know me
+        </Text>
         <Text className='md:columns-2 gap-5 2xl:gap-10'>
           I began programming in 2016, when I started my Bachelors degree in
           Information Technology. I spend the majority of my time learning about

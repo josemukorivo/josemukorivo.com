@@ -22,12 +22,6 @@ export const Hero = () => {
               hello@josemukorivo.dev
             </Link>
           </Box>
-
-          <Box>
-            <span className='ml-5 uppercase font-heading text-sm'>Blog</span>
-            <span className='ml-5 uppercase font-heading text-sm'>About</span>
-            <span className='ml-5 uppercase font-heading text-sm'>Contact</span>
-          </Box>
         </Box>
         <Box className='max-w-xl order-1 md:order-2'>
           <Text as='h1'>

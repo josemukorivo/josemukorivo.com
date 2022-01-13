@@ -37,12 +37,12 @@ export const ToggleDark = () => {
     }
   }, [theme]);
   return (
-    <Button
-      className='px-2 rounded-lg bg-slate-200 dark:bg-slate-800 dark:text-slate-100 ring-0 hover:ring-0'
+    <button
+      className='rounded-lg p-2 bg-slate-300 dark:bg-slate-800 bg-transparent dark:text-slate-100 ring-0 hover:ring-0'
       onClick={() => toggleTheme()}
     >
       {theme === 'light' && <FiSun className='h-[18px] w-auto' />}
       {theme === 'dark' && <BsMoonStars className='h-[18px] w-auto' />}
-    </Button>
+    </button>
   );
 };

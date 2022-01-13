@@ -5,7 +5,7 @@ export const Card = ({ title, date, readingTime, coverImage }) => {
   return (
     <Link
       href='/'
-      className='block bg-slate-800 border md:border-0 relative rounded md:rounded-none h-[350px] min-w-full md:min-w-[470px] 2xl:min-w-[630px] 2xl:h-[500px] mb-4 overflow-hidden group transition duration-500 ease-in-out dark:ring-offset-slate-900 hover:ring ring-rose-500 ring-offset-4 hover:scale-105'
+      className='block bg-slate-800 relative rounded md:rounded-none h-[350px] min-w-full md:min-w-[470px] 2xl:min-w-[630px] 2xl:h-[500px] mb-4 overflow-hidden group transition duration-500 ease-in-out dark:ring-offset-slate-900 hover:ring ring-rose-500 ring-offset-4 hover:scale-105'
     >
       <Image
         src={coverImage}
@@ -21,8 +21,8 @@ export const Card = ({ title, date, readingTime, coverImage }) => {
         Click to copy url
       </Button>
 
-      <Box className='absolute text-white inset-0 flex flex-col justify-end p-5 bg-slate-900 bg-opacity-60 dark:bg-opacity-40'>
-        <Text className='text-3xl 2xl:text-4xl text-white font-medium'>
+      <Box className='absolute text-white inset-0 flex flex-col justify-end p-5 bg-slate-900 bg-opacity-20 dark:bg-opacity-40'>
+        <Text className='text-3xl 2xl:text-4xl text-white font-bold'>
           {title}
         </Text>
         <Box className='flex justify-between 2xl:mt-5'>
