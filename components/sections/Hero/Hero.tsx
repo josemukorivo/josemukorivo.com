@@ -30,13 +30,13 @@ export const Hero = () => {
             </code>
             , this is where I share my knowledge about Software Development and
             Cloud Native Technologies. I&apos;m a Software Engineer and Blogger
-            living in Harare, Zimbabwe but working{' '}
+            living in Harare, Zimbabwe working for{' '}
             <Link
               className='font-medium text-rose-500 dark:text-rose-500'
               target='_blank'
-              href='https://www.linkedin.com/in/josemukorivo/'
+              href='https://vocinity.com/'
             >
-              remotely in the USA.
+              Vocinity.
             </Link>
           </Text>
           <Button
