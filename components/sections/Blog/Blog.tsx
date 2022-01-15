@@ -5,7 +5,7 @@ export const Blog = ({ articles }) => {
   return (
     <Container>
       <BlogHero />
-      <Box className='grid grid-cols-3 gap-7'>
+      <Box className='grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-7'>
         {articles.map(
           ({
             id,

@@ -49,7 +49,12 @@ export const SideBar = () => {
 
         <Box>
           {links.map(({ href, Icon }) => (
-            <Link key={href} href={href} className='block mb-5'>
+            <Link
+              key={href}
+              href={href}
+              target='_blank'
+              className='block mb-5 dark:hover:text-rose-500'
+            >
               <Icon className={s.icon} />
             </Link>
           ))}

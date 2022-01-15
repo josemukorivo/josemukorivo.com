@@ -1,0 +1,11 @@
+.root {
+  @apply block bg-slate-800 relative rounded md:rounded-none h-[350px] min-w-full md:min-w-[470px] 2xl:min-w-[630px] 2xl:h-[500px] mb-4 overflow-hidden transition duration-500 ease-in-out dark:ring-offset-slate-900 hover:ring ring-rose-500 ring-offset-4 md:hover:scale-105;
+}
+
+.image {
+  @apply transition duration-300 ease-in-out group-hover:scale-110;
+}
+
+.content {
+  @apply absolute text-white inset-0 flex flex-col justify-end p-5 bg-opacity-95 md:bg-slate-900 md:bg-opacity-20  md:dark:bg-opacity-40;
+}

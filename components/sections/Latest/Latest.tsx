@@ -17,6 +17,13 @@ export const LatestBlogs = ({ articles }) => {
     setX((prev) => prev + pos);
   };
 
+  const colors = [
+    'bg-cyan-900',
+    'bg-slate-700',
+    'bg-sky-900',
+    'bg-teal-900',
+    'bg-fuchsia-900',
+  ];
   return (
     <Container full className={s.root} id='latest'>
       <Container className='mb-5'>
@@ -33,7 +40,7 @@ export const LatestBlogs = ({ articles }) => {
         </Box>
         <Text className='md:hidden'>
           Swipe left or right to see the latest articles or click{' '}
-          <Link href='/blog' className='text-rose-500 font-medium'>
+          <Link href='/blog' className='text-rose-500 font-bold'>
             here
           </Link>{' '}
           to go to the blog.
@@ -44,15 +51,21 @@ export const LatestBlogs = ({ articles }) => {
         <Swiper effect={'cards'} grabCursor={true}>
           {articles?.length &&
             articles.map(
-              ({
-                id,
-                title,
-                published_at,
-                reading_time_minutes,
-                cover_image,
-              }) => (
+              (
+                {
+                  id,
+                  slug,
+                  title,
+                  published_at,
+                  reading_time_minutes,
+                  cover_image,
+                },
+                idx
+              ) => (
                 <SwiperSlide key={id}>
                   <Card
+                    color={colors[idx]}
+                    slug={slug}
                     title={title}
                     date={published_at}
                     readingTime={reading_time_minutes}
@@ -72,6 +85,7 @@ export const LatestBlogs = ({ articles }) => {
           articles.map(
             ({
               id,
+              slug,
               title,
               published_at,
               reading_time_minutes,
@@ -79,6 +93,7 @@ export const LatestBlogs = ({ articles }) => {
             }) => (
               <Card
                 key={id}
+                slug={slug}
                 title={title}
                 date={published_at}
                 readingTime={reading_time_minutes}

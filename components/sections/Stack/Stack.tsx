@@ -44,7 +44,7 @@ export const TechStack = () => {
           <Link
             href='https://docs.google.com/document/d/16-sqqDzL3SR1vomlTW6gKOKIqJ7xd_MgfJXrDLkqbnU/'
             target='_blank'
-            className='font-heading uppercase text-sm font-medium'
+            className='font-heading uppercase text-sm font-medium mb-6 md:mb-0'
           >
             See my resume
           </Link>

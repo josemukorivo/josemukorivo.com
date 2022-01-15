@@ -9,7 +9,7 @@ import { Text, Box, Container, Link, Button, ToggleDark } from '@components/ui';
 export const Hero = () => {
   return (
     <Box className='grid md:grid-cols-2 md:h-screen mb-20 md:mb-40' id='top'>
-      <Container className='w-full md:pl-16 py-10 flex flex-col justify-between order-1 md:order-0'>
+      <Container className='w-full md:pl-16 pb-12 pt-5 flex flex-col justify-between order-1 md:order-0'>
         <Box className='order-3 md:order-1 mt-10 md:mt-0 flex justify-between'>
           <Box>
             <span className='mr-2 uppercase font-heading text-sm'>
@@ -36,7 +36,7 @@ export const Hero = () => {
             Cloud Native Technologies. I&apos;m a Software Engineer and Blogger
             living in Harare, Zimbabwe but working{' '}
             <Link
-              className='font-medium dark:text-slate-100'
+              className='font-medium text-rose-500 dark:text-rose-500'
               target='_blank'
               href='https://www.linkedin.com/in/josemukorivo/'
             >
@@ -62,12 +62,8 @@ export const Hero = () => {
         </Box>
       </Container>
       <Box
-        className={`bg-[url('/images/jose.jpg')] md:bg-[url('/images/jose.png')] bg-cover bg-top order-0 md:order-1 h-96 md:h-full relative md:right-10 py-10 flex justify-end`}
-      >
-        <Box>
-          <ToggleDark />
-        </Box>
-      </Box>
+        className={`bg-[url('/images/jose.png')] bg-slate-800 dark:bg-[#0d1424] md:bg-transparent bg-cover bg-top order-0 md:order-1 h-[60vh] md:h-full relative md:right-10 py-10 flex justify-end`}
+      />
     </Box>
   );
 };

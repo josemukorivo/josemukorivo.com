@@ -13,8 +13,8 @@ const Header = ({ date, title }) => {
   }, []);
 
   return (
-    <Box className='mb-16 max-w-3xl mx-auto sticky top-0'>
-      <Text className='text-center'>
+    <Box className='md:mb-16 max-w-3xl mx-auto'>
+      <Text className='md:text-center'>
         {new Date(date).toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'long',
@@ -23,7 +23,7 @@ const Header = ({ date, title }) => {
       </Text>
       <Text
         as='h2'
-        className='text-center normal-case font-body font-extrabold'
+        className='md:text-center normal-case font-body font-extrabold'
       >
         {title}
       </Text>
@@ -35,18 +35,18 @@ export default function Home({ article }) {
   return (
     <Container className='mt-10'>
       <Header date={article?.published_at} title={article?.title} />
-      <Box className='mx-auto w-max'>
-        <Box className='grid gap-10 grid-cols-[200px_auto]'>
-          <Box className='text-base sticky top-0'>
+      <Box className='mx-auto md:w-max'>
+        <Box className='grid md:gap-10 md:grid-cols-[200px_auto] 2xl:grid-cols-[260px_auto]'>
+          <Box className='text-base'>
             <Link
               href='/blog'
-              className='flex items-center pb-2 border-b dark:border-slate-700 hover:text-rose-500'
+              className='hidden md:flex items-center pb-2 border-b dark:border-slate-700 hover:text-rose-500'
             >
               <MdOutlineKeyboardArrowLeft className='relative top-[-2px] mr-3' />{' '}
               Go back to blog
             </Link>
 
-            <Box className='flex gap-4 items-center mt-5'>
+            <Box className='flex gap-4 items-center md:mt-5'>
               <Image
                 src={article?.user.profile_image}
                 height={45}
@@ -69,7 +69,7 @@ export default function Home({ article }) {
             </Box>
 
             <Text className='mt-8 dark:text-slate-200'>Tags:</Text>
-            <Box className='flex flex-wrap'>
+            <Box className='flex flex-wrap mb-4 md:mb-0'>
               {article?.tags.map((tag) => (
                 <span
                   key={tag}
@@ -81,7 +81,7 @@ export default function Home({ article }) {
             </Box>
           </Box>
           {article && (
-            <Box className='prose min-w-[800px] Code language-js dark:prose-invert prose-lg'>
+            <Box className='prose prose-sm  md:min-w-[800px] 2xl:min-w-[960px] Code language-js dark:prose-invert md:prose-lg'>
               <Box className='w-full h-96 relative'>
                 <Image src={article?.cover_image} alt='' layout='fill' />
               </Box>

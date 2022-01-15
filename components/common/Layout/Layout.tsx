@@ -3,6 +3,7 @@ import { Box } from '@components/ui';
 import { SideBar } from '@components/common';
 
 import s from './Layout.module.scss';
+import { Nav } from '../Nav/Nav';
 interface Props {
   className?: string;
   style?: CSSProperties;
@@ -13,13 +14,16 @@ interface Props {
 
 export const Layout: FC<Props> = ({ children }) => {
   return (
-    <div className={s.root}>
-      <Box className='md:h-screen'>
-        <SideBar />
+    <Box>
+      <Nav />
+      <Box className={s.root}>
+        <Box className='md:h-screen'>
+          <SideBar />
+        </Box>
+        <Box className='overflow-x-hidden'>
+          <main>{children}</main>
+        </Box>
       </Box>
-      <Box className='overflow-x-hidden'>
-        <main>{children}</main>
-      </Box>
-    </div>
+    </Box>
   );
 };
