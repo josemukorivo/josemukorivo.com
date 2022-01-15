@@ -1,8 +1,4 @@
 import { AiOutlineArrowDown } from 'react-icons/ai';
-import { VscMenu } from 'react-icons/vsc';
-import { FiSun } from 'react-icons/fi';
-import { BsMoonStars } from 'react-icons/bs';
-import { HiOutlineDesktopComputer } from 'react-icons/hi';
 
 import { Text, Box, Container, Link, Button, ToggleDark } from '@components/ui';
 
@@ -62,8 +58,12 @@ export const Hero = () => {
         </Box>
       </Container>
       <Box
-        className={`bg-[url('/images/jose.png')] bg-slate-800 dark:bg-[#0d1424] md:bg-transparent bg-cover bg-top order-0 md:order-1 h-[60vh] md:h-full relative md:right-10 py-10 flex justify-end`}
-      />
+        className={`bg-[url('/images/jose.png')] bg-slate-800 dark:bg-[#0d1424] md:bg-transparent md:dark:bg-transparent bg-cover bg-top order-0 md:order-1 h-[70vh] md:h-full relative md:right-10 pt-6 flex justify-end`}
+      >
+        <Box className='hidden md:block'>
+          <ToggleDark />
+        </Box>
+      </Box>
     </Box>
   );
 };

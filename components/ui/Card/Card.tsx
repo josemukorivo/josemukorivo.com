@@ -27,7 +27,7 @@ export const Card = ({
         Click to copy url
       </Button>
 
-      <Box className={cn(s.content, color)}>
+      <Box className={cn(s.content, color, 'bg-opacity-95')}>
         <Text className='text-3xl 2xl:text-4xl text-white font-bold'>
           {title}
         </Text>
