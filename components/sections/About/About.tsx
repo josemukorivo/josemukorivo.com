@@ -8,7 +8,7 @@ export const About = () => {
         <Text as='h2' className='font-medium'>
           Get to know me
         </Text>
-        <Text className='md: columns-2 gap-5 2xl:gap-10'>
+        <Text className='md:columns-2 gap-5 2xl:gap-10'>
           I began programming in 2016, when I started my Bachelors degree in
           Information Technology. I spend the majority of my time learning about
           new technologies, coding, and occasionally blogging. After one of my
