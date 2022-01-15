@@ -81,9 +81,14 @@ export default function Home({ article }) {
             </Box>
           </Box>
           {article && (
-            <Box className='prose prose-sm  md:min-w-[800px] 2xl:min-w-[960px] Code language-js dark:prose-invert md:prose-lg'>
-              <Box className='w-full h-96 relative'>
-                <Image src={article?.cover_image} alt='' layout='fill' />
+            <Box className='prose max-w-[89vw] md:max-w-[800px] md:min-w-[800px] 2xl:min-w-[960px] Code language-js dark:prose-invert md:prose-lg'>
+              <Box className='w-full h-56 md:h-96 relative'>
+                <Image
+                  src={article?.cover_image}
+                  alt=''
+                  objectFit='cover'
+                  layout='fill'
+                />
               </Box>
 
               <Box html={article?.body_html} className='mt-6' />
