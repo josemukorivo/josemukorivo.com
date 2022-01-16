@@ -22,9 +22,10 @@ export const About = () => {
           >
             Vocinty
           </Link>
-          . I'm obsessed with making software that end-user centric by applying
-          Agile methodologies. I've worked for a variety of companies over the
-          years, ranging from startups to large corporations, such as{' '}
+          . I&lsquo;m obsessed with making software that end-user centric by
+          applying Agile methodologies. I&lsquo;ve worked for a variety of
+          companies over the years, ranging from startups to large corporations,
+          such as{' '}
           <Link
             className='text-rose-500 dark:text-rose-500 font-bold'
             target='_blank'
