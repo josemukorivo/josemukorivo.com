@@ -8,11 +8,11 @@ export const Hero = () => {
       <Container className='w-full md:pl-16 pb-12 pt-5 flex flex-col justify-between order-1 md:order-0'>
         <Box className='order-3 md:order-1 mt-10 md:mt-0 flex justify-between'>
           <Box>
-            <span className='mr-2 uppercase font-heading text-sm'>
+            <span className='mr-2 uppercase font-heading text-sm 2xl:text-xs'>
               Mail me:
             </span>
             <Link
-              className='uppercase font-heading text-sm border-b pb-[1px] border-slate-500 dark:border-slate-200 hover:border-rose-500'
+              className='uppercase font-heading text-sm 2xl:text-xs border-b pb-[1px] border-slate-500 dark:border-slate-200 hover:border-rose-500'
               href='maito:hello@josemukorivo.dev'
             >
               hello@josemukorivo.dev

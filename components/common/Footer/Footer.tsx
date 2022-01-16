@@ -4,7 +4,7 @@ import { Container, Box, Text, Link } from '@components/ui';
 import { Subscribe } from '@components/common';
 
 const Copyright = () => (
-  <Container className='border-t border-slate-300 dark:border-slate-800 pt-5 flex flex-col md:flex-row justify-between'>
+  <Container className='border-t border-slate-300 dark:border-slate-700 pt-5 flex flex-col md:flex-row justify-between'>
     <Text className='text-sm md:text-base'>
       Copyright © {new Date().getFullYear()} | All rights reserved.
     </Text>

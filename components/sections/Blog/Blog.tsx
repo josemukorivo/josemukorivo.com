@@ -3,9 +3,9 @@ import { Box, Container } from '@components/ui';
 
 export const Blog = ({ articles }) => {
   return (
-    <Container>
+    <Box>
       <BlogHero />
-      <Box className='grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-7'>
+      <Container className='grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-7'>
         {articles.map(
           ({ id, title, published_at, reading_time_minutes, slug }) => (
             <BlogSummary
@@ -17,7 +17,7 @@ export const Blog = ({ articles }) => {
             />
           )
         )}
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 };
