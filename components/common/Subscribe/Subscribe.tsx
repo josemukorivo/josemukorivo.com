@@ -1,18 +1,15 @@
-import { useState } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
+import MailchimpSubscribe from 'react-mailchimp-subscribe';
 
-import { Text, Input, Button } from '@components/ui';
+import { Text, Input, Button, Box } from '@components/ui';
 
-export const Subscribe = () => {
+const Form = ({ status, message, onValidated }) => {
   const [form, setForm] = useState({
     first_name: '',
     email: '',
   });
 
-  const API_KEY = '3k-JJ_9KdDdWYNiOyeeMOA';
-  const API_URL = 'https://api.convertkit.com/v3/';
-  const FORM_ID = 2009145;
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm({
       ...form,
@@ -20,20 +17,14 @@ export const Subscribe = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const URL = `${API_URL}forms/${FORM_ID}/subscribe`;
-    const data = {
-      ...form,
-      api_key: API_KEY,
+    const { email, first_name: firstName } = form;
+    const submitData = {
+      EMAIL: email,
+      MERGE1: firstName,
     };
-    fetch(URL, {
-      method: 'POST',
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    email && email.indexOf('@') > -1 && firstName && onValidated(submitData);
   };
 
   return (
@@ -42,8 +33,11 @@ export const Subscribe = () => {
         Stay up to date
       </Text>
       <Text className='2xl:mb-8'>
-        Subscribe to my newsletter to stay up to date with articles, tips and
-        much more!
+        {status === 'success' ? (
+          <span className='text-green-500 text-base font-bold'>{message}</span>
+        ) : (
+          'Subscribe to my newsletter to stay up to date with articles, tips and much more!'
+        )}
       </Text>
       <Input
         placeholder='Joseph'
@@ -60,19 +54,42 @@ export const Subscribe = () => {
         label='Email *'
         required
       />
-
+      {status === 'error' && (
+        <Box
+          className='bg-rose-200 prose prose-lg prose-rose p-3 text-rose-900 mb-8'
+          html={message}
+        />
+      )}
       <Button
         variant='primary'
         type='submit'
         size='lg'
+        disabled={status === 'sending' || status === 'success'}
         className='uppercase font-heading ring-offset-2'
       >
-        Sign me up
+        {status === 'sending' ? 'Sending...' : 'Sign me up'}
       </Button>
       <Text className='text-sm mt-3'>
         *NB* I will not spam your inbox, and you can also unsubscribe at any
         time.
       </Text>
     </form>
+  );
+};
+
+export const Subscribe = () => {
+  const API_URL = `https://dev.us20.list-manage.com/subscribe/post?u=${process.env.NEXT_PUBLIC_MAILCHIMP_USER}&id=${process.env.NEXT_PUBLIC_MAILCHIMP_ID}`;
+
+  return (
+    <MailchimpSubscribe
+      url={API_URL}
+      render={({ subscribe, status, message }) => (
+        <Form
+          status={status}
+          message={message}
+          onValidated={(formData) => subscribe(formData)}
+        />
+      )}
+    />
   );
 };
