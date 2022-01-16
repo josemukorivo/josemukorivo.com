@@ -37,7 +37,7 @@ export const ToggleDark = () => {
   }, [theme]);
   return (
     <button
-      className='rounded-lg p-2 bg-slate-400 bg-opacity-30 dark:bg-slate-800 bg-transparent dark:text-slate-100 ring-0 hover:ring-0'
+      className='rounded-lg p-2 bg-slate-500 bg-opacity-20 dark:bg-slate-800 bg-transparent dark:text-slate-100 ring-0 hover:ring-0'
       onClick={() => toggleTheme()}
     >
       {theme === 'light' && <FiSun className='h-[18px] w-auto' />}

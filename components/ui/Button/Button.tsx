@@ -16,6 +16,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   disabled?: boolean;
   loading?: boolean;
+  target?: '_blank' | '_self' | '_parent' | '_top';
   size?: 'sm' | 'md' | 'lg';
   type?: 'button' | 'submit' | 'reset';
   variant?: 'primary' | 'secondary' | 'naked';
@@ -28,6 +29,7 @@ export const Button: FC<ButtonProps> = forwardRef((props, buttonRef) => {
     variant = 'naked',
     size = 'md',
     type = 'button',
+    target = '_self',
     href,
     className,
     disabled,
@@ -54,7 +56,9 @@ export const Button: FC<ButtonProps> = forwardRef((props, buttonRef) => {
       {href ? (
         <Tag ref={mergeRefs([ref, buttonRef])} {...rest}>
           <Link href={href}>
-            <a className={classes}>{children}</a>
+            <a className={classes} target={target}>
+              {children}
+            </a>
           </Link>
         </Tag>
       ) : (

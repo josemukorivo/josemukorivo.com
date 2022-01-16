@@ -12,7 +12,7 @@ const Copyright = () => (
       Made with ❤️ in Zimbabwe by{' '}
       <Link
         href='https://josemukorivo.dev'
-        className='font-medium text-rose-500 hover:text-rose-600'
+        className='font-bold text-rose-500 dark:text-rose-500 hover:text-rose-600'
       >
         Joseph Mukorivo
       </Link>
@@ -43,22 +43,25 @@ export const Footer = () => {
           <Text as='h6' className='font-heading font-medium uppercase'>
             Quick Links
           </Text>
-          <Link href='#top' className='block mb-3 font-medium 2xl:text-lg'>
+          <Link
+            href='mailto:hello@josemukorivo.dev'
+            className='block mb-3 font-medium text-base'
+          >
             <code>{'<Email me/>'}</code>
           </Link>
-          <Link href='#top' className='block mb-3 font-medium 2xl:text-lg'>
+          <Link href='/blog' className='block mb-3 font-medium text-base'>
             <code>{'<Read the Blog/>'}</code>
           </Link>
-          <Link href='#top' className='block mb-3 font-medium 2xl:text-lg'>
+          <Link href='#about' className='block mb-3 font-medium text-base'>
             <code>{'<About Joseph/>'}</code>
           </Link>
         </Box>
 
         <Link
           href='#top'
-          className='absolute 2xl:text-lg hidden transition duration-300 ease-in-out group bottom-0 right-10 md:flex font-medium gap-2 items-center text-rose-500 hover:text-rose-600'
+          className='absolute text-base hidden transition duration-300 ease-in-out group bottom-0 right-10 md:flex font-bold gap-2 items-center dark:text-rose-500 text-rose-500 hover:text-rose-600'
         >
-          Scroll to top
+          Back to top
           <AiOutlineArrowUp className='w-5 h-5 relative -top-[2px] transition duration-300 ease-in-out transform group-hover:-translate-y-1' />
         </Link>
       </Container>

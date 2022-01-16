@@ -4,7 +4,7 @@ import { Text, Box, Container, Link, Button, ToggleDark } from '@components/ui';
 
 export const Hero = () => {
   return (
-    <Box className='grid md:grid-cols-2 md:h-screen mb-20 md:mb-40' id='top'>
+    <Box className='grid md:grid-cols-2 md:h-screen mb-10 md:mb-40' id='top'>
       <Container className='w-full md:pl-16 pb-12 pt-5 flex flex-col justify-between order-1 md:order-0'>
         <Box className='order-3 md:order-1 mt-10 md:mt-0 flex justify-between'>
           <Box>
@@ -25,19 +25,13 @@ export const Hero = () => {
             Enthusiat.
           </Text>
           <Text className='mb-6 2xl:mb-10'>
-            <code className='font-medium dark:text-slate-100 text-base 2xl:text-xl'>
+            <code className='font-medium dark:text-slate-100 text-base 2xl:text-lg'>
               &lt;Welcome😎/&gt;
             </code>
-            , this is where I share my knowledge about Software Development and
-            Cloud Native Technologies. I&apos;m a Software Engineer and Blogger
-            living in Harare, Zimbabwe working for{' '}
-            <Link
-              className='font-medium text-rose-500 dark:text-rose-500'
-              target='_blank'
-              href='https://vocinity.com/'
-            >
-              Vocinity.
-            </Link>
+            , nice to meet you. I occasionaly write about Software Development
+            and Cloud Native Technologies here. I enjoy turning business
+            problems into digital solutions through{' '}
+            <code className='text-base 2xl:text-lg'>{'<code/>'}</code>.
           </Text>
           <Button
             variant='primary'
@@ -45,7 +39,16 @@ export const Hero = () => {
             href='/blog'
             className='text-sm font-heading uppercase mr-3'
           >
-            Read the blog
+            Read my blog
+          </Button>
+          <Button
+            variant='secondary'
+            size='lg'
+            target='_blank'
+            href='https://docs.google.com/document/d/16-sqqDzL3SR1vomlTW6gKOKIqJ7xd_MgfJXrDLkqbnU/edit'
+            className='text-sm font-heading uppercase mr-3'
+          >
+            View my resume
           </Button>
         </Box>
         <Box className='hidden md:block order-2 md:order-3'>

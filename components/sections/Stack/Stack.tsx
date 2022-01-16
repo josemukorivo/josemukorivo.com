@@ -4,34 +4,34 @@ import { FC } from 'react';
 import { Box, Container, Link, Marquee, Text } from '@components/ui';
 import s from './Stack.module.scss';
 
-const Stack: FC<{ src: string; href: string }> = ({ src, href }) => {
+const Stack: FC<{ src: string }> = ({ src }) => {
   return (
-    <Link target='_blank' href={href} className={s.stack}>
+    <Box className={s.stack}>
       <img
         src={src}
         alt=''
         className='h-12 md:h-12 2xl:h-16 w-auto block mr-2 md:mr-10 2xl:mr-12'
       />
-    </Link>
+    </Box>
   );
 };
 
 export const TechStack = () => {
   const techStack = [
-    { href: 'htts://next.org', icon: '/images/stack/next.svg' },
-    { href: '', icon: '/images/stack/kubernetes-icon.svg' },
-    { href: '', icon: '/images/stack/golang-official.svg' },
-    { href: '', icon: '/images/stack/styled-components.svg' },
-    { href: '', icon: '/images/stack/reactjs-icon.svg' },
-    { href: '', icon: '/images/stack/strapi.svg' },
-    { href: '', icon: '/images/stack/highcharts.svg' },
-    { href: '', icon: '/images/stack/tailwindcss-icon.svg' },
-    { href: '', icon: '/images/stack/javascript.svg' },
-    { href: '', icon: '/images/stack/docker-icon.svg' },
-    { href: '', icon: '/images/stack/figma-icon.svg' },
-    { href: '', icon: '/images/stack/typescriptlang-icon.svg' },
-    { href: '', icon: '/images/stack/google_cloud-icon.svg' },
-    { href: '', icon: '/images/stack/python-icon.svg' },
+    '/images/stack/next.svg',
+    '/images/stack/kubernetes-icon.svg',
+    '/images/stack/golang-official.svg',
+    '/images/stack/styled-components.svg',
+    '/images/stack/reactjs-icon.svg',
+    '/images/stack/strapi.svg',
+    '/images/stack/highcharts.svg',
+    '/images/stack/tailwindcss-icon.svg',
+    '/images/stack/javascript.svg',
+    '/images/stack/docker-icon.svg',
+    '/images/stack/figma-icon.svg',
+    '/images/stack/typescriptlang-icon.svg',
+    '/images/stack/google_cloud-icon.svg',
+    '/images/stack/python-icon.svg',
   ];
 
   return (
@@ -58,8 +58,8 @@ export const TechStack = () => {
 
       <Box className={s.stackContainer}>
         <Marquee className='py-4'>
-          {techStack.map(({ href, icon }) => (
-            <Stack key={href} src={icon} href={href} />
+          {techStack.map((icon) => (
+            <Stack key={icon} src={icon} />
           ))}
         </Marquee>
       </Box>

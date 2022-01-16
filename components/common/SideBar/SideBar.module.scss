@@ -3,5 +3,5 @@
 }
 
 .icon {
-  @apply w-6 h-6 text-slate-800 dark:text-slate-200 transform transition duration-300 ease-in-out hover:text-rose-500 hover:scale-125;
+  @apply w-6 h-6 text-slate-800 dark:text-slate-200 transform transition duration-300 ease-in-out hover:text-rose-500 dark:hover:text-rose-500 hover:scale-125;
 }
