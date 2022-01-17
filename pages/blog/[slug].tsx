@@ -35,6 +35,30 @@ const Header = ({ date, title }) => {
 export default function Home({ article }) {
   return (
     <>
+      <Head>
+        <title>Blog | {article?.title}</title>
+        <link rel='icon' href='/favicon.ico' />
+        <meta name='description' content={article?.description} />
+        <meta
+          name='keywords'
+          content='Joseph, Mukorivo, Joseph Mukorivo Blog, kubernetes, cloud computing,  react, server side rendering, ssr, ssg, performance, css, user experience'
+        />
+        <meta name='author' content='Joseph Mukorivo' />
+        <meta name='image' content={article?.cover_image} />
+        <meta name='og:title' content={article?.title} />
+        <meta name='og:description' content={article?.description} />
+        <meta name='og:image' content={article?.cover_image} />
+        <meta name='og:url' content='https://josemukorivo.dev' />
+        <meta name='og:site_name' content='Joseph Mukorivo' />
+        <meta name='og:type' content='website' />
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:title' content={article?.title} />
+        <meta name='twitter:alt' content={article?.title} />
+        <meta name='twitter:description' content={article?.description} />
+        <meta name='twitter:image' content={article?.cover_image} />
+        <meta name='twitter:site' content='@josemukorivo' />
+        <meta name='twitter:creator' content='@josemukorivo' />
+      </Head>
       <BlogMenu />
       <Container className='mt-10 md:mt-20'>
         <Header date={article?.published_at} title={article?.title} />
