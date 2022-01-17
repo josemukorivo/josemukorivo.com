@@ -56,7 +56,7 @@ const Form = ({ status, message, onValidated }) => {
       />
       {status === 'error' && (
         <Box
-          className='bg-rose-200 prose prose-lg prose-rose p-3 text-rose-900 mb-8'
+          className='bg-rose-200 prose prose-lg prose-rose px-3 py-2 text-rose-900 mb-8'
           html={message}
         />
       )}

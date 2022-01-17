@@ -1,6 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-// import { GA_TRACKING_ID } from '../lib/gtag';
-const GA_TRACKING_ID = 'UA-160584902-1';
+
+import { GA_TRACKING_ID } from '../lib/gtag';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
