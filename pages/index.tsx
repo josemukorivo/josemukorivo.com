@@ -10,7 +10,7 @@ export default function Home({ articles }) {
         <link rel='icon' href='/favicon.ico' />
         <meta
           name='description'
-          content='Joseph Mukorivo is a software engineer based in Harare, Zimbabwe.'
+          content='Joseph Mukorivo is a Software Engineer, Blogger and DevOps Enthusiat based in Harare, Zimbabwe.'
         />
         <meta
           name='keywords'
@@ -21,7 +21,7 @@ export default function Home({ articles }) {
         <meta name='og:title' content='Joseph Mukorivo | Software Engineer' />
         <meta
           name='og:description'
-          content='Joseph Mukorivo is a software engineer based in Harare, Zimbabwe.'
+          content='Joseph Mukorivo is a Software Engineer, Blogger and DevOps Enthusiat based in Harare, Zimbabwe.'
         />
         <meta
           name='og:image'
@@ -37,7 +37,7 @@ export default function Home({ articles }) {
         />
         <meta
           name='twitter:description'
-          content='Joseph Mukorivo is a software engineer based in Harare, Zimbabwe.'
+          content='Joseph Mukorivo is a Software Engineer, Blogger and DevOps Enthusiat based in Harare, Zimbabwe.'
         />
         <meta
           name='twitter:image'
