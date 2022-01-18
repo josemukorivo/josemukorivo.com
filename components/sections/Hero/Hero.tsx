@@ -1,6 +1,7 @@
 import { AiOutlineArrowDown } from 'react-icons/ai';
 
 import { Text, Box, Container, Link, Button, ToggleDark } from '@components/ui';
+import Image from 'next/image';
 
 export const Hero = () => {
   return (
@@ -19,7 +20,7 @@ export const Hero = () => {
             </Link>
           </Box>
         </Box>
-        <Box className='max-w-xl order-1 md:order-2'>
+        <Box className='max-w-xl order-1 md:order-2 mt-10'>
           <Text as='h1'>
             Hi 👋🏼, I’m Joseph. <br /> Writer, Software Engineer, DevOps
             Enthusiat.
@@ -61,9 +62,17 @@ export const Hero = () => {
         </Box>
       </Container>
       <Box
-        className={`bg-[url('/images/jose.png')] bg-slate-800 dark:bg-[#0d1424] md:bg-transparent md:dark:bg-transparent bg-cover bg-top order-0 md:order-1 h-[70vh] md:h-full relative md:right-10 pt-6 flex justify-end`}
+        className={`relative md:left-8 bg-slate-800 dark:bg-[#0d1424] md:bg-transparent md:dark:bg-transparent max-w-xl order-0 md:order-1 h-[75vh] md:h-full pt-6 flex justify-end`}
       >
-        <Box className='hidden md:block'>
+        <Image
+          src='/images/jose.png'
+          layout='fill'
+          objectFit='cover'
+          priority
+          quality={100}
+          alt='Joseph Mukorivo'
+        />
+        <Box className='hidden md:block z-10'>
           <ToggleDark />
         </Box>
       </Box>
