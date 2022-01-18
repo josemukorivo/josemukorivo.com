@@ -62,7 +62,7 @@ export const Hero = () => {
         </Box>
       </Container>
       <Box
-        className={`relative md:left-8 bg-slate-800 dark:bg-[#0d1424]s dark:bg-slate-300 md:bg-transparent md:dark:bg-transparent max-w-xl order-0 md:order-1 h-[75vh] md:h-full pt-6 flex justify-end`}
+        className={`relative md:left-8 bg-slate-800 dark:bg-black md:bg-transparent md:dark:bg-transparent max-w-xl order-0 md:order-1 h-[75vh] md:h-full pt-6 flex justify-end`}
       >
         <Image
           src='/images/jose.png'
