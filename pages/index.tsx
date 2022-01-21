@@ -48,8 +48,8 @@ export default function Home({ articles }) {
       </Head>
       <Hero />
       <About />
-      <TechStack />
       <LatestBlogs articles={articles} />
+      <TechStack />
       <Footer />
     </div>
   );
