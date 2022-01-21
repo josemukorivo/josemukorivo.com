@@ -58,6 +58,7 @@ export default function Home({ article }) {
         <meta name='twitter:image' content={article?.cover_image} />
         <meta name='twitter:site' content='@josemukorivo' />
         <meta name='twitter:creator' content='@josemukorivo' />
+        <link rel="canonical" href={article?.canonical_url} />
       </Head>
       <BlogMenu />
       <Container className='mt-10 md:mt-20'>
