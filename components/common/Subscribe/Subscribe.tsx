@@ -29,10 +29,10 @@ const Form = ({ status, message, onValidated }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Text as='h6' className='mt-10 font-heading uppercase font-medium'>
+      <Text as='h6' className='mt-8 mb-4 font-heading uppercase font-medium'>
         Stay up to date
       </Text>
-      <Text className='2xl:mb-8'>
+      <Text className='mb-4 2xl:mb-8'>
         {status === 'success' ? (
           <span className='text-green-500 text-base font-bold'>{message}</span>
         ) : (

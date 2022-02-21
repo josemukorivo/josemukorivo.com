@@ -1,130 +1,113 @@
+import 'prismjs/themes/prism-okaidia.css';
 import { useEffect } from 'react';
-import Head from 'next/head';
 import Image from 'next/image';
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
 import Prism from 'prismjs';
-import { BlogMenu } from '@components/blog';
 
-import 'prismjs/themes/prism-okaidia.css';
 import { Box, Container, Link, Text } from '@components/ui';
+import { SEO } from '@components/common';
+import { formatDate } from '@utils/format-date';
 
-const Header = ({ date, title }) => {
-  useEffect(() => {
-    Prism.highlightAll();
-  }, []);
-
+const Blog = ({ title, body, coverImage, tags, publishedAt, readTime }) => {
   return (
-    <Box className='md:mb-16 max-w-3xl mx-auto'>
-      <Text className='md:text-center text-slate-400 dark:text-slate-500 2xl:text-lg'>
-        {new Date(date).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        })}
-      </Text>
-      <Text
-        as='h2'
-        className='md:text-center normal-case font-body font-extrabold'
-      >
-        {title}
-      </Text>
+    <Box className='h-screen overflow-y-auto'>
+      <Box className='sticky top-0 z-10 border-b bg-white backdrop-blur backdrop-filter dark:border-slate-700 dark:bg-slate-900 md:bg-opacity-80'>
+        <Container className='py-5'>
+          <Link
+            href='/blog'
+            className='font-heading relative -left-1 flex items-center text-xs uppercase hover:text-rose-500'
+          >
+            <MdOutlineKeyboardArrowLeft className='mr-1 h-4 w-auto' /> back to
+            blog
+          </Link>
+        </Container>
+      </Box>
+      <Container className='mt-5'>
+        <Text as='span' className='mb-2 block text-sm opacity-75'>
+          {formatDate(publishedAt)} — {readTime} min{readTime > 1 && 's'} read
+        </Text>
+        <Text
+          as='h2'
+          className='mb-8 max-w-lg text-3xl font-medium md:text-4xl'
+        >
+          {title}
+        </Text>
+
+        <Box className='prose prose-lg prose-headings:font-heading prose-headings:uppercase prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-a:text-rose-600 Code language-js dark:prose-invert'>
+          <Image src={coverImage} alt='' width={1000} height={420} />
+          <Box className='mt-5 flex flex-wrap 2xl:mt-2'>
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className='mr-2 rounded bg-slate-200 py-1 px-2 text-xs font-medium uppercase dark:bg-slate-800 dark:text-slate-200'
+              >
+                #{tag}
+              </span>
+            ))}
+          </Box>
+
+          <Box html={body} />
+        </Box>
+      </Container>
+      <Container>
+        <Box className='border-t py-5'>
+          <Text as='h4' className='font-heading font-medium uppercase'>
+            You may like
+          </Text>
+        </Box>
+      </Container>
     </Box>
   );
 };
 
 export default function Home({ article }) {
+  const {
+    title,
+    tags,
+    description,
+    body_html: body,
+    cover_image: coverImage,
+    social_image: socialImage,
+    published_at: publishedAt,
+    canonical_url: canonicalURL,
+    reading_time_minutes: readTime,
+  } = article;
+
+  useEffect(() => {
+    Prism.highlightAll();
+  }, []);
+
   return (
     <>
-      <Head>
-        <title>Blog | {article?.title}</title>
-        <link rel='icon' href='/favicon.ico' />
-        <meta name='description' content={article?.description} />
-        <meta
-          name='keywords'
-          content='Joseph, Mukorivo, Joseph Mukorivo Blog, kubernetes, cloud computing,  react, server side rendering, ssr, ssg, performance, css, user experience'
-        />
-        <meta name='author' content='Joseph Mukorivo' />
-        <meta name='image' content={article?.cover_image} />
-        <meta name='og:title' content={article?.title} />
-        <meta name='og:description' content={article?.description} />
-        <meta name='og:image' content={article?.cover_image} />
-        <meta name='og:url' content='https://josemukorivo.dev' />
-        <meta name='og:site_name' content='Joseph Mukorivo' />
-        <meta name='og:type' content='website' />
-        <meta name='twitter:card' content='summary_large_image' />
-        <meta name='twitter:title' content={article?.title} />
-        <meta name='twitter:alt' content={article?.title} />
-        <meta name='twitter:description' content={article?.description} />
-        <meta name='twitter:image' content={article?.cover_image} />
-        <meta name='twitter:site' content='@josemukorivo' />
-        <meta name='twitter:creator' content='@josemukorivo' />
-        <link rel="canonical" href={article?.canonical_url} />
-      </Head>
-      <BlogMenu />
-      <Container className='mt-10 md:mt-20'>
-        <Header date={article?.published_at} title={article?.title} />
-        <Box className='mx-auto md:w-max'>
-          <Box className='grid md:gap-10 md:grid-cols-[200px_auto] 2xl:grid-cols-[260px_auto]'>
-            <Box className='text-base'>
-              <Link
-                href='/blog'
-                className='hidden md:flex items-center pb-2 border-b dark:border-slate-700 hover:text-rose-500'
-              >
-                <MdOutlineKeyboardArrowLeft className='relative top-[-2px] mr-3' />{' '}
-                Go back to blog
-              </Link>
-
-              <Box className='flex gap-4 items-center md:mt-5'>
-                <Image
-                  src={article?.user.profile_image}
-                  height={45}
-                  width={45}
-                  className='rounded-full'
-                  alt='Joseph Mukorivo'
-                />
-                <Box>
-                  <Text className='mb-0 font-medium dark:text-slate-100'>
-                    Joseph Mukorivo
-                  </Text>
-                  <Link
-                    href='https://twitter.com/josemukorivo'
-                    target='_blank'
-                    className='text-rose-500 dark:text-rose-500'
-                  >
-                    @josemukorivo
-                  </Link>
-                </Box>
-              </Box>
-
-              <Text className='mt-8 dark:text-slate-200'>Tags:</Text>
-              <Box className='flex flex-wrap mb-4 md:mb-0'>
-                {article?.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className='uppercase text-xs font-medium bg-slate-200 dark:bg-slate-800 py-1 px-2 rounded dark:text-slate-200 mr-2 mb-3'
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </Box>
-            </Box>
-            {article && (
-              <Box className='prose max-w-[89vw] md:max-w-[800px] md:min-w-[800px] 2xl:min-w-[960px] Code language-js dark:prose-invert prose-lg md:prose-xl 2xl:prose-lg'>
-                <Box className='w-full h-56 md:h-96 relative'>
-                  <Image
-                    src={article?.cover_image}
-                    alt=''
-                    objectFit='cover'
-                    layout='fill'
-                  />
-                </Box>
-
-                <Box html={article?.body_html} className='mt-6' />
-              </Box>
-            )}
+      <SEO
+        title={title}
+        description={description}
+        image={socialImage}
+        canonicalURL={canonicalURL}
+      />
+      <Box className='grid h-screen overflow-hidden md:grid-cols-2'>
+        <Box className='hidden h-screen dark:bg-slate-900 dark:bg-opacity-10 md:block'>
+          <Box className='relative -z-[2] h-full'>
+            <Image
+              src='/images/blog.jpg'
+              alt=''
+              quality={100}
+              objectFit='cover'
+              layout='fill'
+              blurDataURL='/images/blog-placeholder.png'
+              placeholder='blur'
+            />
           </Box>
         </Box>
-      </Container>
+        <Blog
+          title={title}
+          body={body}
+          coverImage={coverImage}
+          tags={tags}
+          publishedAt={publishedAt}
+          readTime={readTime}
+        />
+      </Box>
     </>
   );
 }

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FiSun } from 'react-icons/fi';
-import { BsMoonStars } from 'react-icons/bs';
+import { IoIosMenu } from 'react-icons/io';
 
 export const ToggleDark = () => {
   const getTheme = (): 'light' | 'dark' => {
@@ -40,8 +39,8 @@ export const ToggleDark = () => {
       className='rounded-lg p-2 bg-slate-500 bg-opacity-20 dark:bg-slate-800 bg-transparent dark:text-slate-100 ring-0 hover:ring-0'
       onClick={() => toggleTheme()}
     >
-      {theme === 'light' && <FiSun className='h-[18px] w-auto' />}
-      {theme === 'dark' && <BsMoonStars className='h-[18px] w-auto' />}
+      {theme === 'light' && <IoIosMenu className='h-[30px] w-auto' />}
+      {theme === 'dark' && <IoIosMenu className='h-[30px] w-auto' />}
     </button>
   );
 };

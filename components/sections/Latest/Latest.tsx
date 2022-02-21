@@ -27,7 +27,7 @@ export const LatestBlogs = ({ articles }) => {
   return (
     <Container full className={s.root} id='latest'>
       <Container className='mb-5'>
-        <Box className='flex justify-between items-center'>
+        <Box className='flex justify-between items-center mb-7'>
           <Text as='h2' className='font-medium'>
             Latest Blogs
           </Text>

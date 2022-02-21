@@ -9,7 +9,6 @@ export const Nav = () => {
       >
         {'<JM/>'}
       </Link>
-
       <ToggleDark />
     </nav>
   );

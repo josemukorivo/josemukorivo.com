@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import NProgress from 'nprogress';
+import { FaUniversalAccess } from 'react-icons/fa';
 
 import * as gtag from '../lib/gtag';
 import { Layout } from '@components/common/Layout/Layout';
@@ -29,6 +30,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <Layout>
       <Component {...pageProps} />
+      <div className='fixed bottom-8 right-8'>
+        <button className='bg-rose-500 z-30 p-2 text-white rounded-full'>
+          <FaUniversalAccess className='h-9 w-auto' />
+        </button>
+      </div>
     </Layout>
   );
 }

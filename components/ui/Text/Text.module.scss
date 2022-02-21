@@ -1,7 +1,6 @@
 .root {
-  @apply mb-4;
   &:is(h1, h2, h3, h4, h5, h6) {
-    @apply mb-7 2xl:mb-10 leading-tight dark:text-slate-200;
+    @apply leading-tight dark:text-slate-200;
   }
 }
 

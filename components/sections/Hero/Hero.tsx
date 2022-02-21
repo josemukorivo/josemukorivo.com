@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { AiOutlineArrowDown } from 'react-icons/ai';
 
 import { Text, Box, Container, Link, Button, ToggleDark } from '@components/ui';
@@ -21,18 +22,30 @@ export const Hero = () => {
           </Box>
         </Box>
         <Box className='max-w-xl order-1 md:order-2 mt-10'>
-          <Text as='h1'>
-            Hi 👋🏼, I’m Joseph. <br /> Writer, Software Engineer, DevOps
-            Enthusiat.
+          <Text as='h1' className='mb-5'>
+            <motion.span
+              initial={{ y: 20, opacity: 0 }}
+              transition={{ duration: 1 }}
+              animate={{ y: 0, opacity: 1 }}
+            >
+              Hi 👋🏼, I’m Joseph. <br /> Writer, Software Engineer, DevOps
+              Enthusiat.
+            </motion.span>
           </Text>
           <Text className='mb-6 2xl:mb-10'>
-            <code className='font-medium dark:text-slate-100 text-base 2xl:text-lg'>
-              &lt;Welcome😎/&gt;
-            </code>
-            , nice to meet you. I occasionaly write about Software Development
-            and Cloud Native Technologies here. I enjoy turning business
-            problems into digital solutions through{' '}
-            <code className='text-base 2xl:text-lg'>{'<code/>'}</code>.
+            <motion.span
+              initial={{ y: 20, opacity: 0 }}
+              transition={{ duration: 1, delay: 0.2 }}
+              animate={{ y: 0, opacity: 1 }}
+            >
+              <code className='font-medium dark:text-slate-100 text-base 2xl:text-lg'>
+                &lt;Welcome😎/&gt;
+              </code>
+              , nice to meet you. I occasionaly write about Software Development
+              and Cloud Native Technologies here. I enjoy turning business
+              problems into digital solutions through{' '}
+              <code className='text-base 2xl:text-lg'>{'<code/>'}</code>.
+            </motion.span>
           </Text>
           <Button
             variant='primary'
@@ -62,7 +75,7 @@ export const Hero = () => {
         </Box>
       </Container>
       <Box
-        className={`relative md:left-8 bg-slate-800 dark:bg-black md:bg-transparent md:dark:bg-transparent max-w-xl order-0 md:order-1 h-[73vh] md:h-full pt-6 flex justify-end`}
+        className={`relative md:left-4 bg-slate-800 dark:bg-black md:bg-transparent md:dark:bg-transparent max-w-xl order-0 md:order-1 h-[73vh] md:h-full pt-3 flex justify-end`}
       >
         <Image
           src='/images/jose.png'

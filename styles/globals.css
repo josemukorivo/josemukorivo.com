@@ -4,23 +4,20 @@
 
 @font-face {
   font-family: 'TT Commons';
+  font-weight: normal;
   src: url('/fonts/TT.Commons/TTCommons-Regular.ttf');
   font-display: swap;
 }
 @font-face {
-  font-family: 'TT Commons Demibold';
+  font-family: 'TT Commons';
+  font-weight: 700;
   src: url('/fonts/TT.Commons/TTCommons-DemiBold.ttf');
   font-display: swap;
 }
 @font-face {
-  font-family: 'TT Commons Medium';
+  font-family: 'TT Commons';
+  font-weight: 500;
   src: url('/fonts/TT.Commons/TTCommons-Medium.ttf');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'TT Commons Bold';
-  src: url('/fonts/TT.Commons/TTCommons-Bold.ttf');
   font-display: swap;
 }
 
@@ -29,16 +26,16 @@ body {
   @apply font-body scroll-smooth 2xl:text-xl;
 }
 body {
-  @apply dark:bg-slate-900 bg-slate-100 transition duration-100 ease-in-out text-slate-900 dark:text-slate-300;
+  @apply dark:bg-slate-900 transition duration-100 ease-in-out text-slate-900 dark:text-slate-300;
 }
 .prose pre {
-  @apply bg-slate-800 dark:bg-[#0d1424] !important;
+  @apply bg-slate-800 dark:bg-[#0c1222] !important;
 }
 code {
   @apply font-mono !important;
 }
 .prose code {
-  @apply font-mono text-sm whitespace-pre bg-slate-800 dark:bg-[#0d1424] !important;
+  @apply font-mono text-sm whitespace-pre bg-slate-800 dark:bg-[#0c1222] !important;
 }
 .prose svg {
   width: 0;

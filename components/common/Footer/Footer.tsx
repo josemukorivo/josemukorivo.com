@@ -1,10 +1,10 @@
-import { AiOutlineArrowUp } from 'react-icons/ai';
+import { BsArrowUpCircle } from 'react-icons/bs';
 
 import { Container, Box, Text, Link } from '@components/ui';
 import { Subscribe } from '@components/common';
 
 const Copyright = () => (
-  <Container className='border-t border-slate-300 dark:border-slate-700 pt-5 flex flex-col md:flex-row justify-between'>
+  <Container className='flex flex-col justify-between border-t border-slate-300 py-5 dark:border-slate-700 md:flex-row'>
     <Text className='text-sm md:text-base'>
       Copyright © {new Date().getFullYear()} | All rights reserved.
     </Text>
@@ -12,7 +12,7 @@ const Copyright = () => (
       Made with ❤️ in Zimbabwe by{' '}
       <Link
         href='https://josemukorivo.dev'
-        className='font-bold text-rose-500 dark:text-rose-500 hover:text-rose-600'
+        className='font-medium text-rose-500 hover:text-rose-600 dark:text-rose-500'
       >
         Joseph Mukorivo
       </Link>
@@ -24,45 +24,45 @@ const Copyright = () => (
 export const Footer = () => {
   return (
     <footer>
-      <Container className='relative md:grid grid-cols-5 gap-20 mb-10 2xl:px-16'>
+      <Container className='relative mb-10 grid-cols-5 gap-20 md:grid 2xl:px-16'>
         <Box className='col-span-3 max-w-lg'>
-          <Text as='h4' className='font-heading uppercase font-medium'>
+          <Text as='h4' className='font-heading mb-4 font-medium uppercase'>
             Joseph Mukorivo
           </Text>
           <Text>
             Software engineer from Harare, Zimbabwe who is trying to make the
             world a better place one{' '}
-            <code className='text-sm 2xl:text-lg font-bold dark:font-medium dark:text-slate-300'>
+            <code className='text-sm font-bold dark:font-medium dark:text-slate-300 2xl:text-lg'>
               {'<commit/>'}
             </code>{' '}
             at a time 😎.
           </Text>
           <Subscribe />
         </Box>
-        <Box className='hidden md:block col-span-2'>
-          <Text as='h6' className='font-heading font-medium uppercase'>
+        <Box className='col-span-2 hidden md:block'>
+          <Text as='h6' className='font-heading mb-4 font-medium uppercase'>
             Quick Links
           </Text>
           <Link
             href='mailto:hello@josemukorivo.dev'
-            className='block mb-3 font-medium text-base'
+            className='mb-3 block text-base font-medium'
           >
             <code>{'<Email me/>'}</code>
           </Link>
-          <Link href='/blog' className='block mb-3 font-medium text-base'>
+          <Link href='/blog' className='mb-3 block text-base font-medium'>
             <code>{'<Read the Blog/>'}</code>
           </Link>
-          <Link href='#about' className='block mb-3 font-medium text-base'>
+          <Link href='/#about' className='mb-3 block text-base font-medium'>
             <code>{'<About Joseph/>'}</code>
           </Link>
         </Box>
 
         <Link
           href='#top'
-          className='absolute text-base hidden transition duration-300 ease-in-out group bottom-0 right-10 md:flex font-bold gap-2 items-center dark:text-rose-500 text-rose-500 hover:text-rose-600'
+          className='group absolute bottom-0 right-10 hidden items-center gap-2 text-sm font-medium uppercase text-rose-500 transition duration-300 ease-in-out hover:text-rose-600 dark:text-rose-500 md:flex'
         >
           Back to top
-          <AiOutlineArrowUp className='w-5 h-5 relative -top-[2px] transition duration-300 ease-in-out transform group-hover:-translate-y-1' />
+          <BsArrowUpCircle className='relative -top-[2px] h-5 w-5 transform transition duration-300 ease-in-out group-hover:-translate-y-1' />
         </Link>
       </Container>
 

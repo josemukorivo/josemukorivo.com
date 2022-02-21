@@ -2,6 +2,7 @@ import Image from 'next/image';
 import cn from 'classnames';
 import { Box, Button, Text, Link } from '@components/ui';
 import s from './Card.module.scss';
+import { formatDate } from '@utils/format-date';
 
 export const Card = ({
   slug,
@@ -20,25 +21,16 @@ export const Card = ({
         objectFit='cover'
         alt=''
       />
-      <Button
-        variant='naked'
-        className='absolute hidden md:group-hover:inline-block ring-offset-rose-900 z-10 top-5 left-5 text-lg font-medium rounded'
-      >
-        Click to copy url
-      </Button>
-
       <Box className={cn(s.content, color, 'bg-opacity-95')}>
-        <Text className='text-3xl 2xl:text-4xl text-white font-bold'>
+        <Text className='mb-4 text-3xl font-medium uppercase text-white 2xl:text-4xl'>
           {title}
         </Text>
         <Box className='flex justify-between 2xl:mt-5'>
-          <Text className='text-white font-medium'>{readingTime} min read</Text>
-          <Text className='text-white font-medium'>
-            {new Date(date).toLocaleDateString('en-US', {
-              month: 'long',
-              day: 'numeric',
-              year: 'numeric',
-            })}
+          <Text className='text-base font-medium text-white'>
+            {readingTime} min read
+          </Text>
+          <Text className='text-base font-medium text-white'>
+            {formatDate(date)}
           </Text>
         </Box>
       </Box>

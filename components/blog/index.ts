@@ -1,3 +1,3 @@
 export { BlogHero } from './Hero';
-export { BlogSummary } from './Summary';
+export { Card } from './Card';
 export { BlogMenu } from './menu';

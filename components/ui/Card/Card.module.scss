@@ -7,5 +7,5 @@
 }
 
 .content {
-  @apply absolute text-white inset-0 flex flex-col justify-end p-5 md:bg-slate-900 md:bg-opacity-20  md:dark:bg-opacity-40 #{!important};
+  @apply absolute text-white inset-0 flex flex-col justify-end p-5 md:bg-slate-900 md:bg-opacity-40 #{!important};
 }

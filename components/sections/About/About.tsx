@@ -5,18 +5,18 @@ export const About = () => {
   return (
     <Container
       id='about'
-      className='grid md:grid-cols-5 gap-10 mb-20 md:mb-40 max-w-[1180px] 2xl:max-w-7xl'
+      className='mb-20 grid max-w-[1180px] gap-10 md:mb-40 md:grid-cols-5 2xl:max-w-7xl'
     >
       <Box className='md:col-span-3'>
-        <Text as='h2' className='font-medium'>
+        <Text as='h2' className='mb-5 font-medium'>
           Get to know me
         </Text>
-        <Text className='md:columns-2 gap-5 2xl:gap-10'>
+        <Text className='gap-5 md:columns-2 2xl:gap-10'>
           Hello there, my name is Joseph, a passionate Software Developer from
           Harare, Zimbabwe. I currently work as a{' '}
-          <b>QA Engineer/Bot Developer</b> at{' '}
+          <span className='font-medium'>QA Engineer/Bot Developer</span> at{' '}
           <Link
-            className='text-rose-500 dark:text-rose-500 font-bold'
+            className='font-medium text-rose-500 dark:text-rose-500'
             target='_blank'
             href='https://vocinity.com'
           >
@@ -27,7 +27,7 @@ export const About = () => {
           companies over the years, ranging from startups to large corporations,
           such as{' '}
           <Link
-            className='text-rose-500 dark:text-rose-500 font-bold'
+            className='font-medium text-rose-500 dark:text-rose-500'
             target='_blank'
             href='https://rbz.co.zw'
           >
@@ -35,7 +35,7 @@ export const About = () => {
           </Link>
           ,{' '}
           <Link
-            className='text-rose-500 dark:text-rose-500 font-bold'
+            className='font-medium text-rose-500 dark:text-rose-500'
             target='_blank'
             href='https://sivioinstitute.org'
           >
@@ -43,7 +43,7 @@ export const About = () => {
           </Link>
           , and{' '}
           <Link
-            className='text-rose-500 dark:text-rose-500 font-bold'
+            className='font-medium text-rose-500 dark:text-rose-500'
             target='_blank'
             href='https://vocinity.com'
           >
@@ -52,7 +52,7 @@ export const About = () => {
           .
         </Text>
       </Box>
-      <Box className='relative md:pt-10 md:col-span-2 h-64 md:h-[360px] 2xl:h-[420px]'>
+      <Box className='relative h-64 md:col-span-2 md:h-[360px] md:pt-10 2xl:h-[420px]'>
         <Image
           src='/images/me.jpeg'
           layout='fill'
