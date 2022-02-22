@@ -14,7 +14,7 @@ interface Props {
 
 export const Layout: FC<Props> = ({ children }) => {
   return (
-    <Box className='dark:border-t dark:border-slate-700'>
+    <Box>
       <Nav />
 
       <Box className={s.root}>

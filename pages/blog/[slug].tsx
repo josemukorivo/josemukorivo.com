@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
 import Prism from 'prismjs';
 
-import { Box, Button, Container, Link, Text } from '@components/ui';
+import { Box, Container, Link, Text } from '@components/ui';
 import { Copyright, SEO } from '@components/common';
 import { Card } from '@components/blog/Card';
 import { formatDate } from '@utils/format-date';
@@ -107,6 +107,12 @@ export default function Home({ article, otherArticles }) {
     reading_time_minutes: readTime,
   } = article;
 
+  const randomizeArticles = () => {
+    return otherArticles
+      .sort((a: any, b: any) => 0.5 - Math.random())
+      .slice(0, 2);
+  };
+
   useEffect(() => {
     Prism.highlightAll();
   }, []);
@@ -120,10 +126,22 @@ export default function Home({ article, otherArticles }) {
         canonicalURL={canonicalURL}
       />
       <Box className='grid h-screen overflow-hidden md:grid-cols-2'>
-        <Box className='hidden h-screen dark:bg-slate-900 dark:bg-opacity-10 md:block'>
-          <Box className='relative -z-[2] h-full'>
+        <Box className='hidden h-screen overflow-hidden md:block'>
+          <Box className='relative -z-[2] hidden h-full dark:block'>
             <Image
               src='/images/blog.jpg'
+              alt=''
+              quality={100}
+              objectFit='cover'
+              layout='fill'
+              blurDataURL='/images/blog-placeholder.png'
+              placeholder='blur'
+              className='dark:blocke hidden'
+            />
+          </Box>
+          <Box className='relative -z-[2] h-full dark:hidden'>
+            <Image
+              src='/images/blog-light.jpg'
               alt=''
               quality={100}
               objectFit='cover'
@@ -140,7 +158,7 @@ export default function Home({ article, otherArticles }) {
           tags={tags}
           publishedAt={publishedAt}
           readTime={readTime}
-          otherArticles={otherArticles}
+          otherArticles={randomizeArticles()}
         />
       </Box>
     </>
@@ -156,10 +174,7 @@ export async function getStaticProps({ params }) {
     'https://dev.to/api/articles?username=josemukorivo'
   );
   const articles = await articlesRes.json();
-  const otherArticles = articles
-    .filter((a: any) => a.slug !== slug)
-    .sort((a: any, b: any) => 0.5 - Math.random())
-    .slice(0, 2);
+  const otherArticles = articles.filter((a: any) => a.slug !== slug);
 
   return {
     props: {
