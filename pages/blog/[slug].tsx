@@ -4,11 +4,20 @@ import Image from 'next/image';
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
 import Prism from 'prismjs';
 
-import { Box, Container, Link, Text } from '@components/ui';
-import { SEO } from '@components/common';
+import { Box, Button, Container, Link, Text } from '@components/ui';
+import { Copyright, SEO } from '@components/common';
+import { Card } from '@components/blog/Card';
 import { formatDate } from '@utils/format-date';
 
-const Blog = ({ title, body, coverImage, tags, publishedAt, readTime }) => {
+const Blog = ({
+  title,
+  body,
+  coverImage,
+  tags,
+  publishedAt,
+  readTime,
+  otherArticles,
+}) => {
   return (
     <Box className='h-screen overflow-y-auto'>
       <Box className='sticky top-0 z-10 border-b bg-white backdrop-blur backdrop-filter dark:border-slate-700 dark:bg-slate-900 md:bg-opacity-80'>
@@ -49,18 +58,43 @@ const Blog = ({ title, body, coverImage, tags, publishedAt, readTime }) => {
           <Box html={body} />
         </Box>
       </Container>
-      <Container>
+      <Container className='my-6'>
         <Box className='border-t py-5'>
-          <Text as='h4' className='font-heading font-medium uppercase'>
-            You may like
+          <Text as='h4' className='font-heading my-2 font-medium uppercase'>
+            You may love these ones
           </Text>
         </Box>
+        <Box className='mb-16 grid grid-cols-2 gap-4'>
+          {otherArticles.map(
+            ({
+              id,
+              title,
+              description,
+              cover_image,
+              published_at,
+              slug,
+              reading_time_minutes,
+            }) => (
+              <Card
+                key={id}
+                slug={slug}
+                description={description}
+                title={title}
+                variant='sm'
+                coverImage={cover_image}
+                date={published_at}
+                readTime={reading_time_minutes}
+              />
+            )
+          )}
+        </Box>
       </Container>
+      <Copyright />
     </Box>
   );
 };
 
-export default function Home({ article }) {
+export default function Home({ article, otherArticles }) {
   const {
     title,
     tags,
@@ -106,6 +140,7 @@ export default function Home({ article }) {
           tags={tags}
           publishedAt={publishedAt}
           readTime={readTime}
+          otherArticles={otherArticles}
         />
       </Box>
     </>
@@ -117,11 +152,20 @@ export async function getStaticProps({ params }) {
   const res = await fetch(`https://dev.to/api/articles/josemukorivo/${slug}`);
   const article = await res.json();
 
+  const articlesRes = await fetch(
+    'https://dev.to/api/articles?username=josemukorivo'
+  );
+  const articles = await articlesRes.json();
+  const otherArticles = articles
+    .filter((a: any) => a.slug !== slug)
+    .sort((a: any, b: any) => 0.5 - Math.random())
+    .slice(0, 2);
+
   return {
     props: {
       article,
+      otherArticles,
     },
-    revalidate: 60,
   };
 }
 

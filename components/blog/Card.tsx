@@ -9,6 +9,7 @@ export const Card = ({
   date,
   slug,
   readTime,
+  variant = 'md',
 }) => {
   return (
     <Link href={`/blog/${slug}`} className='group block'>
@@ -34,7 +35,9 @@ export const Card = ({
 
       <Text
         as='h4'
-        className='mb-1 mt-2 text-base font-medium group-hover:underline md:text-3xl'
+        className={`mb-1 mt-2 text-base font-medium group-hover:underline ${
+          variant === 'sm' ? 'md:text-xl' : 'md:text-3xl'
+        }`}
       >
         {title}
       </Text>

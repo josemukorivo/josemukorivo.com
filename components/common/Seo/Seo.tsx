@@ -3,7 +3,7 @@ import Head from 'next/head';
 export const SEO = ({ title, description, image, canonicalURL = '' }) => (
   <Head>
     <title>{title}</title>
-    <link rel='icon' href='/favicon.ico' />
+    {/* <link rel='icon' href='/favicon.ico' /> */}
     <meta name='description' content={description} />
     <meta
       name='keywords'
