@@ -5,7 +5,7 @@ import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
 import Prism from 'prismjs';
 
 import { Box, Container, Link, Text } from '@components/ui';
-import { Copyright, SEO } from '@components/common';
+import { Copyright, Menu, SEO } from '@components/common';
 import { Card } from '@components/blog/Card';
 import { formatDate } from '@utils/format-date';
 
@@ -21,7 +21,7 @@ const Blog = ({
   return (
     <Box className='h-screen overflow-y-auto'>
       <Box className='sticky top-0 z-10 border-b bg-white backdrop-blur backdrop-filter dark:border-slate-700 dark:bg-slate-900 md:bg-opacity-80'>
-        <Container className='py-5'>
+        <Container className='flex items-center justify-between py-3'>
           <Link
             href='/blog'
             className='font-heading relative -left-1 flex items-center text-xs uppercase hover:text-rose-500'
@@ -29,6 +29,7 @@ const Blog = ({
             <MdOutlineKeyboardArrowLeft className='mr-1 h-4 w-auto' /> back to
             blog
           </Link>
+          <Menu />
         </Container>
       </Box>
       <Container className='mt-5'>
@@ -96,6 +97,7 @@ const Blog = ({
 
 export default function Home({ article, otherArticles }) {
   const {
+    slug,
     title,
     tags,
     description,
@@ -115,7 +117,7 @@ export default function Home({ article, otherArticles }) {
 
   useEffect(() => {
     Prism.highlightAll();
-  }, []);
+  }, [slug]);
 
   return (
     <>
@@ -127,27 +129,16 @@ export default function Home({ article, otherArticles }) {
       />
       <Box className='grid h-screen overflow-hidden md:grid-cols-2'>
         <Box className='hidden h-screen overflow-hidden md:block'>
-          <Box className='relative -z-[2] hidden h-full dark:block'>
+          <Box className='relative -z-[2] h-full blur-[2px]'>
             <Image
-              src='/images/blog.jpg'
+              src={coverImage}
               alt=''
               quality={100}
               objectFit='cover'
               layout='fill'
               blurDataURL='/images/blog-placeholder.png'
               placeholder='blur'
-              className='dark:blocke hidden'
-            />
-          </Box>
-          <Box className='relative -z-[2] h-full dark:hidden'>
-            <Image
-              src='/images/blog-light.jpg'
-              alt=''
-              quality={100}
-              objectFit='cover'
-              layout='fill'
-              blurDataURL='/images/blog-placeholder.png'
-              placeholder='blur'
+              className=''
             />
           </Box>
         </Box>

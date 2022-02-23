@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IoIosMenu } from 'react-icons/io';
+import { BiSun, BiMoon } from 'react-icons/bi';
 
 export const ToggleDark = () => {
   const getTheme = (): 'light' | 'dark' => {
@@ -36,11 +36,12 @@ export const ToggleDark = () => {
   }, [theme]);
   return (
     <button
-      className='rounded-lg p-2 bg-slate-500 bg-opacity-20 dark:bg-slate-800 bg-transparent dark:text-slate-100 ring-0 hover:ring-0'
+      title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+      className='transform rounded-full bg-slate-50 p-2 transition duration-500 ease-in-out hover:rotate-[360deg] hover:scale-110 dark:bg-slate-800'
       onClick={() => toggleTheme()}
     >
-      {theme === 'light' && <IoIosMenu className='h-[30px] w-auto' />}
-      {theme === 'dark' && <IoIosMenu className='h-[30px] w-auto' />}
+      {theme === 'light' && <BiMoon className='h-4 w-auto' />}
+      {theme === 'dark' && <BiSun className='h-4 w-auto' />}
     </button>
   );
 };

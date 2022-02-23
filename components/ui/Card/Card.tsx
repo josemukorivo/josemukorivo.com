@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import cn from 'classnames';
-import { Box, Button, Text, Link } from '@components/ui';
+import { Box, Text, Link } from '@components/ui';
 import s from './Card.module.scss';
 import { formatDate } from '@utils/format-date';
 
@@ -22,7 +22,7 @@ export const Card = ({
         alt=''
       />
       <Box className={cn(s.content, color, 'bg-opacity-95')}>
-        <Text className='mb-4 text-3xl font-medium uppercase text-white 2xl:text-4xl'>
+        <Text className='font-heading mb-4 text-4xl font-medium uppercase leading-[1.15] text-white'>
           {title}
         </Text>
         <Box className='flex justify-between 2xl:mt-5'>

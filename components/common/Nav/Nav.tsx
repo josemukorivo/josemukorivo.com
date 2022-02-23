@@ -1,15 +1,19 @@
-import { Link, ToggleDark } from '@components/ui';
+import { Container } from '@components/ui';
+import { MailMe, Menu } from '..';
 
-export const Nav = () => {
+export const Nav = ({ className = '' }) => {
   return (
-    <nav className='flex items-center justify-between border-b px-4 py-3 dark:border-slate-800 md:hidden'>
-      <Link
-        href='/'
-        className='font-heading transform text-3xl font-medium text-rose-500 hover:text-rose-600 dark:text-rose-500'
-      >
-        {'<JM/>'}
-      </Link>
-      <ToggleDark />
+    <nav
+      className={`right-0 top-0 left-[81px] z-10 dark:border-slate-800 2xl:left-20 ${className}`}
+    >
+      <Container className='flex items-center justify-between'>
+        <MailMe />
+
+        <span className='rounded-2xl bg-rose-500 px-5 py-1 text-sm font-medium uppercase text-white'>
+          NB: This website is under development
+        </span>
+        <Menu />
+      </Container>
     </nav>
   );
 };

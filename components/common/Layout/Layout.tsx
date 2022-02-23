@@ -3,7 +3,6 @@ import { Box } from '@components/ui';
 import { SideBar } from '@components/common';
 
 import s from './Layout.module.scss';
-import { Nav } from '../Nav/Nav';
 interface Props {
   className?: string;
   style?: CSSProperties;
@@ -15,8 +14,6 @@ interface Props {
 export const Layout: FC<Props> = ({ children }) => {
   return (
     <Box>
-      <Nav />
-
       <Box className={s.root}>
         <Box className='md:h-screen'>
           <SideBar />

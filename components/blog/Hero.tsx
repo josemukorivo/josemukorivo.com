@@ -3,8 +3,8 @@ import { Box, Container, Text } from '@components/ui';
 export const BlogHero = () => {
   return (
     <Container>
-      <Box className='pb-4 mt-4 md:mt-20'>
-        <Text as='h2' className='font-medium mb-4 md:mb-10'>
+      <Box className='mt-4 pb-4 md:mt-24'>
+        <Text as='h2' className='mb-4 font-medium md:mb-6'>
           Blog
         </Text>
       </Box>

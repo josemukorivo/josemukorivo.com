@@ -1,27 +1,15 @@
 import { motion } from 'framer-motion';
 import { AiOutlineArrowDown } from 'react-icons/ai';
 
-import { Text, Box, Container, Link, Button, ToggleDark } from '@components/ui';
+import { Text, Box, Container, Link, Button } from '@components/ui';
 import Image from 'next/image';
 
 export const Hero = () => {
   return (
-    <Box className='grid md:grid-cols-2 md:h-screen mb-10 md:mb-40' id='top'>
-      <Container className='w-full md:pl-16 pb-12 pt-5 flex flex-col justify-between order-1 md:order-0'>
-        <Box className='order-3 md:order-1 mt-10 md:mt-0 flex justify-between'>
-          <Box>
-            <span className='mr-2 uppercase font-heading text-sm 2xl:text-xs'>
-              Mail me:
-            </span>
-            <Link
-              className='uppercase font-heading text-sm 2xl:text-xs border-b pb-[1px] border-slate-500 dark:border-slate-200 hover:border-rose-500'
-              href='maito:hello@josemukorivo.dev'
-            >
-              hello@josemukorivo.dev
-            </Link>
-          </Box>
-        </Box>
-        <Box className='max-w-xl order-1 md:order-2 mt-10'>
+    <Box className='mb-10 grid md:mb-40 md:h-screen md:grid-cols-2' id='top'>
+      <Container className='md:order-0 order-1 flex w-full flex-col justify-between pb-12 pt-5'>
+        <Box className='mb-10' />
+        <Box className='order-1 mt-10 max-w-xl md:order-2'>
           <Text as='h1' className='mb-5'>
             <motion.span
               initial={{ y: 20, opacity: 0 }}
@@ -38,7 +26,7 @@ export const Hero = () => {
               transition={{ duration: 1, delay: 0.2 }}
               animate={{ y: 0, opacity: 1 }}
             >
-              <code className='font-medium dark:text-slate-100 text-base 2xl:text-lg'>
+              <code className='text-base font-medium dark:text-slate-100 2xl:text-lg'>
                 &lt;Welcome😎/&gt;
               </code>
               , nice to meet you. I occasionaly write about Software Development
@@ -51,7 +39,7 @@ export const Hero = () => {
             variant='primary'
             size='lg'
             href='/blog'
-            className='text-sm font-heading uppercase mr-3'
+            className='font-heading mr-3 text-sm uppercase'
           >
             Read my blog
           </Button>
@@ -60,23 +48,21 @@ export const Hero = () => {
             size='lg'
             target='_blank'
             href='https://docs.google.com/document/d/16-sqqDzL3SR1vomlTW6gKOKIqJ7xd_MgfJXrDLkqbnU/edit'
-            className='text-sm font-heading uppercase mr-3'
+            className='font-heading mr-3 text-sm uppercase'
           >
             View my resume
           </Button>
         </Box>
-        <Box className='hidden md:block order-2 md:order-3'>
+        <Box className='order-2 hidden md:order-3 md:block'>
           <Link
-            className='uppercase font-heading text-slate-900 dark:text-slate-200 text-sm flex gap-1'
+            className='font-heading flex gap-1 text-sm uppercase text-slate-900 dark:text-slate-200'
             href='#latest'
           >
             <AiOutlineArrowDown className='h-[21px] w-auto' /> scroll down
           </Link>
         </Box>
       </Container>
-      <Box
-        className={`relative md:left-4 bg-slate-800 dark:bg-black md:bg-transparent md:dark:bg-transparent max-w-xl order-0 md:order-1 h-[73vh] md:h-full pt-3 flex justify-end`}
-      >
+      <Box className='order-0 relative flex h-[73vh] max-w-xl justify-end bg-slate-800 pt-3 dark:bg-black md:left-4 md:order-1 md:h-full md:bg-transparent md:dark:bg-transparent'>
         <Image
           src='/images/jose.png'
           layout='fill'
@@ -85,9 +71,6 @@ export const Hero = () => {
           quality={100}
           alt='Joseph Mukorivo'
         />
-        <Box className='hidden md:block z-10'>
-          <ToggleDark />
-        </Box>
       </Box>
     </Box>
   );
