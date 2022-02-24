@@ -1,6 +1,6 @@
+import Image from 'next/image';
 import { Box, Link, Text } from '@components/ui';
 import { formatDate } from '@utils/format-date';
-import Image from 'next/image';
 
 export const Card = ({
   title,

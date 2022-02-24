@@ -1,7 +1,7 @@
 .root {
-  @apply fixed hidden md:block top-0 left-0 w-[81px] 2xl:w-20 h-full border-r border-slate-300 dark:border-slate-700 pb-8 pt-3;
+  @apply fixed top-0 left-0 z-30 hidden h-full w-[81px] border-r border-slate-300 pb-5 pt-3 dark:border-slate-700 md:block 2xl:w-20;
 }
 
 .icon {
-  @apply w-6 h-6 text-slate-800 dark:text-slate-200 transform transition duration-300 ease-in-out hover:text-rose-500 dark:hover:text-rose-500 hover:scale-125;
+  @apply h-6 w-6 transform text-slate-800 transition duration-300 ease-in-out hover:scale-125 hover:text-rose-500 dark:text-slate-200 dark:hover:text-rose-500;
 }

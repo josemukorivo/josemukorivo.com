@@ -37,7 +37,7 @@ export const ToggleDark = () => {
   return (
     <button
       title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-      className='transform rounded-full bg-slate-50 p-2 transition duration-500 ease-in-out hover:rotate-[360deg] hover:scale-110 dark:bg-slate-800'
+      className='bg-slate-0 transform rounded-full border-2 p-2 transition duration-500 ease-in-out hover:rotate-[360deg] hover:scale-110 dark:border-slate-700 dark:bg-slate-800'
       onClick={() => toggleTheme()}
     >
       {theme === 'light' && <BiMoon className='h-4 w-auto' />}

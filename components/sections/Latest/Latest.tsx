@@ -27,20 +27,20 @@ export const LatestBlogs = ({ articles }) => {
   return (
     <Container full className={s.root} id='latest'>
       <Container className='mb-5'>
-        <Box className='flex justify-between items-center mb-7'>
+        <Box className='mb-7 flex items-center justify-between'>
           <Text as='h2' className='font-medium'>
             Latest Blogs
           </Text>
           <Link
             href='/blog'
-            className='font-heading uppercase hidden md:block text-sm font-medium'
+            className='font-heading hidden text-sm font-medium uppercase md:block'
           >
             See the full blog
           </Link>
         </Box>
         <Text className='md:hidden'>
           Swipe left or right to see the latest articles or click{' '}
-          <Link href='/blog' className='text-rose-500 font-bold'>
+          <Link href='/blog' className='font-bold text-rose-500'>
             here
           </Link>{' '}
           to go to the blog.
@@ -64,7 +64,6 @@ export const LatestBlogs = ({ articles }) => {
               ) => (
                 <SwiperSlide key={id}>
                   <Card
-                    color={colors[idx]}
                     slug={slug}
                     title={title}
                     date={published_at}
@@ -78,7 +77,7 @@ export const LatestBlogs = ({ articles }) => {
       </Container>
 
       <Box
-        className='hidden md:flex gap-x-10 pl-10 w-[3000px] transition duration-500 ease-in-out'
+        className='hidden w-[3000px] gap-x-10 pl-10 transition duration-500 ease-in-out md:flex'
         style={{ transform: `translate3d(${x}px, 0px, 0px)` }}
       >
         {articles?.length &&

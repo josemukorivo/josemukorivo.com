@@ -7,6 +7,7 @@ import {
 
 import { Box, Link, Text } from '@components/ui';
 import s from './SideBar.module.scss';
+import { Logo } from '../Logo/Logo';
 
 export const SideBar = () => {
   const links = [
@@ -30,19 +31,13 @@ export const SideBar = () => {
 
   return (
     <Box className={s.root}>
-      <Box className='flex flex-col items-center justify-between h-full'>
-        <Link
-          href='/'
-          className='text-rose-500 text-3xl font-heading font-medium transform hover:text-rose-600 dark:text-rose-500'
-        >
-          {'<JM/>'}
-        </Link>
-
-        <Box className='transform -rotate-90 w-64 text-center'>
-          <p className='uppercase font-medium font-heading dark:text-slate-200'>
+      <Box className='flex h-full flex-col items-center justify-between'>
+        <Logo />
+        <Box className='w-64 -rotate-90 transform text-center'>
+          <p className='font-heading font-medium uppercase dark:text-slate-200'>
             Software Engineer
           </p>
-          <p className='uppercase text-sm text-slate-500 dark:text-slate-400 font-medium'>
+          <p className='text-sm font-medium uppercase text-slate-500 dark:text-slate-400'>
             Writer & DevOps Enthusiat
           </p>
         </Box>
@@ -53,7 +48,7 @@ export const SideBar = () => {
               key={href}
               href={href}
               target='_blank'
-              className='block mb-5 dark:hover:text-rose-500'
+              className='mb-5 block dark:hover:text-rose-500'
             >
               <Icon className={s.icon} />
             </Link>

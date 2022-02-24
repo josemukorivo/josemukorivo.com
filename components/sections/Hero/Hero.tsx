@@ -12,8 +12,9 @@ export const Hero = () => {
         <Box className='order-1 mt-10 max-w-xl md:order-2'>
           <Text as='h1' className='mb-5'>
             <motion.span
-              initial={{ y: 20, opacity: 0 }}
-              transition={{ duration: 1 }}
+              className='block'
+              initial={{ y: -20, opacity: 0 }}
+              transition={{ duration: 0.8 }}
               animate={{ y: 0, opacity: 1 }}
             >
               Hi 👋🏼, I’m Joseph. <br /> Writer, Software Engineer, DevOps
@@ -22,6 +23,7 @@ export const Hero = () => {
           </Text>
           <Text className='mb-6 2xl:mb-10'>
             <motion.span
+              className='block'
               initial={{ y: 20, opacity: 0 }}
               transition={{ duration: 1, delay: 0.2 }}
               animate={{ y: 0, opacity: 1 }}
@@ -35,34 +37,58 @@ export const Hero = () => {
               <code className='text-base 2xl:text-lg'>{'<code/>'}</code>.
             </motion.span>
           </Text>
-          <Button
-            variant='primary'
-            size='lg'
-            href='/blog'
-            className='font-heading mr-3 text-sm uppercase'
-          >
-            Read my blog
-          </Button>
-          <Button
-            variant='secondary'
-            size='lg'
-            target='_blank'
-            href='https://docs.google.com/document/d/16-sqqDzL3SR1vomlTW6gKOKIqJ7xd_MgfJXrDLkqbnU/edit'
-            className='font-heading mr-3 text-sm uppercase'
-          >
-            View my resume
-          </Button>
+          <Box className='flex'>
+            <motion.div
+              initial={{ x: -10 }}
+              transition={{ duration: 1, delay: 0.4 }}
+              animate={{ x: 0 }}
+            >
+              <Button
+                variant='primary'
+                size='lg'
+                href='/blog'
+                className='font-heading mr-3 text-sm uppercase'
+              >
+                Read my blog
+              </Button>
+            </motion.div>
+            <motion.div
+              initial={{ x: 10 }}
+              transition={{ duration: 1, delay: 0.4 }}
+              animate={{ x: 0 }}
+            >
+              <Button
+                variant='secondary'
+                size='lg'
+                target='_blank'
+                href='https://docs.google.com/document/d/16-sqqDzL3SR1vomlTW6gKOKIqJ7xd_MgfJXrDLkqbnU/edit'
+                className='font-heading mr-3 text-sm uppercase'
+              >
+                View my resume
+              </Button>
+            </motion.div>
+          </Box>
         </Box>
-        <Box className='order-2 hidden md:order-3 md:block'>
+        <motion.div
+          initial={{ y: -20, opacity: 0 }}
+          transition={{ duration: 1, delay: 0.6 }}
+          animate={{ y: 0, opacity: 1 }}
+          className='order-2 hidden md:order-3 md:block'
+        >
           <Link
             className='font-heading flex gap-1 text-sm uppercase text-slate-900 dark:text-slate-200'
             href='#latest'
           >
             <AiOutlineArrowDown className='h-[21px] w-auto' /> scroll down
           </Link>
-        </Box>
+        </motion.div>
       </Container>
-      <Box className='order-0 relative flex h-[73vh] max-w-xl justify-end bg-slate-800 pt-3 dark:bg-black md:left-4 md:order-1 md:h-full md:bg-transparent md:dark:bg-transparent'>
+      <motion.div
+        initial={{ y: -20, scale: 1.2, opacity: 0.8 }}
+        transition={{ duration: 1.3 }}
+        animate={{ y: 0, scale: 1, opacity: 1 }}
+        className='order-0 relative mt-24 flex h-[73vh] max-w-xl justify-end pt-3 md:left-4 md:order-1 md:mt-0 md:h-full'
+      >
         <Image
           src='/images/jose.png'
           layout='fill'
@@ -71,7 +97,7 @@ export const Hero = () => {
           quality={100}
           alt='Joseph Mukorivo'
         />
-      </Box>
+      </motion.div>
     </Box>
   );
 };

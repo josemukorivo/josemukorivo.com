@@ -1,3 +1,4 @@
-export { BlogHero } from './Hero';
+export { DetailImage } from './DetailImage';
+export { BlogDetail } from './Detail';
 export { Card } from './Card';
-export { BlogMenu } from './menu';
+export { OtherArticles } from './Other';

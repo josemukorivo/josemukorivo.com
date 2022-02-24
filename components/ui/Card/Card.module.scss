@@ -1,5 +1,5 @@
 .root {
-  @apply block bg-slate-800 relative rounded md:rounded-none h-[350px] min-w-full md:min-w-[470px] 2xl:min-w-[630px] 2xl:h-[500px] mb-4 overflow-hidden transition duration-500 ease-in-out dark:ring-offset-slate-900 hover:ring ring-rose-500 ring-offset-4 md:hover:scale-105;
+  @apply relative mb-4 block h-[350px] min-w-full overflow-hidden rounded bg-slate-800 ring-rose-500 ring-offset-4 transition duration-500 ease-in-out hover:ring dark:ring-offset-slate-900 md:min-w-[470px] md:rounded-none md:hover:scale-105 2xl:h-[500px] 2xl:min-w-[630px];
 }
 
 .image {
@@ -7,5 +7,5 @@
 }
 
 .content {
-  @apply absolute text-white inset-0 flex flex-col justify-end p-5 md:bg-slate-900 md:bg-opacity-40 #{!important};
+  @apply absolute inset-0 flex flex-col justify-end bg-slate-900 bg-opacity-40 p-5 text-white #{!important};
 }

@@ -30,8 +30,8 @@ function MyApp({ Component, pageProps }) {
   return (
     <Layout>
       <Component {...pageProps} />
-      <div className='fixed bottom-8 right-8'>
-        <button className='bg-rose-500 z-30 p-2 text-white rounded-full'>
+      <div className='fixed bottom-8 right-8 z-30'>
+        <button className='rounded-full bg-rose-500 p-2 text-white'>
           <FaUniversalAccess className='h-9 w-auto' />
         </button>
       </div>

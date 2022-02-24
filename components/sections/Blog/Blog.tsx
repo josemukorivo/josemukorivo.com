@@ -1,12 +1,17 @@
-import { BlogHero, Card } from '@components/blog';
+import { Box, Container, Text } from '@components/ui';
+import { Card } from '@components/blog';
 import { Footer } from '@components/common';
-import { Box, Button, Container, Text } from '@components/ui';
+import { GetInTouch } from '..';
 
 export const Blog = ({ articles }) => {
   return (
     <Box>
-      <BlogHero />
-      <Container className='grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-4 md:gap-x-6 md:gap-y-12 pb-12'>
+      <Container className='mt-20 mb-6 md:mt-24'>
+        <Text as='h2' className='font-medium '>
+          Blog
+        </Text>
+      </Container>
+      <Container className='grid grid-cols-2 gap-4 pb-12 md:grid-cols-3 md:gap-x-6 md:gap-y-12 2xl:grid-cols-4'>
         {articles.map(
           ({
             id,
@@ -29,34 +34,7 @@ export const Blog = ({ articles }) => {
           )
         )}
       </Container>
-
-      <Box className='bg-slate-50 mb-10 py-12 text-center'>
-        <Container>
-          <Text as='h2' className='font-medium mb-4'>
-            Get in touch
-          </Text>
-          <Text className='mx-auto max-w-md opacity-75'>
-            You have a project that you want to discuss? I&lsquo;d love to hear
-            from you.
-          </Text>
-          <Box>
-            <Button
-              className='mt-4 font-heading uppercase mr-3'
-              size='lg'
-              variant='primary'
-            >
-              Get in touch
-            </Button>
-            <Button
-              className='mt-4 font-heading uppercase'
-              size='lg'
-              variant='secondary'
-            >
-              Schedule a call
-            </Button>
-          </Box>
-        </Container>
-      </Box>
+      <GetInTouch />
       <Footer />
     </Box>
   );
