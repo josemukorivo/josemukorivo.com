@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const Nav: FC<Props> = ({ className = '', variant = 'main' }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const onOpen = () => setIsMenuOpen(true);
   const onClose = () => setIsMenuOpen(false);
   return (
