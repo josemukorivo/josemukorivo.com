@@ -3,11 +3,7 @@ import { BiSun, BiMoon } from 'react-icons/bi';
 
 export const ToggleDark = () => {
   const getTheme = (): 'light' | 'dark' => {
-    if (
-      window.localStorage.theme === 'dark' ||
-      (!('theme' in window.localStorage) &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches)
-    ) {
+    if (window.localStorage.theme === 'dark') {
       return 'dark';
     } else {
       return 'light';
