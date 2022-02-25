@@ -4,6 +4,7 @@ import { Menu } from '@components/common';
 import { MailMe, MenuButton } from '..';
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
 import { Logo } from '../Logo/Logo';
+import { AnimatePresence } from 'framer-motion';
 
 interface Props {
   variant?: 'main' | 'blog';
@@ -42,7 +43,9 @@ export const Nav: FC<Props> = ({ className = '', variant = 'main' }) => {
           </Container>
         </Box>
       )}
-      {isMenuOpen && <Menu onClose={onClose} />}
+      <AnimatePresence>
+        {isMenuOpen && <Menu onClose={onClose} />}
+      </AnimatePresence>
     </>
   );
 };

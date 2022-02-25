@@ -15,7 +15,7 @@ export const Hero = () => {
               className='block'
               initial={{ y: -20, opacity: 0 }}
               transition={{ duration: 0.8 }}
-              animate={{ y: 0, opacity: 1 }}
+              whileInView={{ y: 0, opacity: 1 }}
             >
               Hi 👋🏼, I’m Joseph. <br /> Writer, Software Engineer, DevOps
               Enthusiat.
@@ -26,7 +26,7 @@ export const Hero = () => {
               className='block'
               initial={{ y: 20, opacity: 0 }}
               transition={{ duration: 1, delay: 0.2 }}
-              animate={{ y: 0, opacity: 1 }}
+              whileInView={{ y: 0, opacity: 1 }}
             >
               <code className='text-base font-medium dark:text-slate-100 2xl:text-lg'>
                 &lt;Welcome😎/&gt;
@@ -41,7 +41,7 @@ export const Hero = () => {
             <motion.div
               initial={{ x: -10 }}
               transition={{ duration: 1, delay: 0.4 }}
-              animate={{ x: 0 }}
+              whileInView={{ x: 0 }}
             >
               <Button
                 variant='primary'
@@ -55,7 +55,7 @@ export const Hero = () => {
             <motion.div
               initial={{ x: 10 }}
               transition={{ duration: 1, delay: 0.4 }}
-              animate={{ x: 0 }}
+              whileInView={{ x: 0 }}
             >
               <Button
                 variant='secondary'
@@ -72,7 +72,7 @@ export const Hero = () => {
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           transition={{ duration: 1, delay: 0.6 }}
-          animate={{ y: 0, opacity: 1 }}
+          whileInView={{ y: 0, opacity: 1 }}
           className='order-2 hidden md:order-3 md:block'
         >
           <Link
@@ -86,7 +86,7 @@ export const Hero = () => {
       <motion.div
         initial={{ y: -20, scale: 1.2, opacity: 0.8 }}
         transition={{ duration: 1.3 }}
-        animate={{ y: 0, scale: 1, opacity: 1 }}
+        whileInView={{ y: 0, scale: 1, opacity: 1 }}
         className='order-0 relative mt-24 flex h-[73vh] max-w-xl justify-end pt-3 md:left-4 md:order-1 md:mt-0 md:h-full'
       >
         <Image
