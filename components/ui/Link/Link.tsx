@@ -6,12 +6,14 @@ import s from './Link.module.scss';
 
 interface Props extends LinkProps {
   className?: string;
+  onClick?: () => void;
   target?: '_blank' | '_self' | '_parent' | '_top';
 }
 
 export const Link: FC<Props> = ({
   className = '',
   href,
+  onClick,
   children,
   ...rest
 }) => {
@@ -19,7 +21,7 @@ export const Link: FC<Props> = ({
 
   return (
     <NextLink href={href}>
-      <a className={classes} {...rest}>
+      <a className={classes} {...rest} onClick={onClick}>
         {children}
       </a>
     </NextLink>

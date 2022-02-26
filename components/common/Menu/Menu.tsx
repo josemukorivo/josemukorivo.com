@@ -106,7 +106,7 @@ export const Menu = ({ onClose }) => {
                 },
               }}
             >
-              <Link href={href} className={getClasses(href)}>
+              <Link href={href} className={getClasses(href)} onClick={onClose}>
                 {label}
               </Link>
             </motion.li>
