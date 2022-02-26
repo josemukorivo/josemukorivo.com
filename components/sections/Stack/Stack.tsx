@@ -52,7 +52,7 @@ export const TechStack = () => {
           <Link
             href='https://docs.google.com/document/d/16-sqqDzL3SR1vomlTW6gKOKIqJ7xd_MgfJXrDLkqbnU/'
             target='_blank'
-            className='font-heading mb-6 text-sm font-medium uppercase md:mb-0'
+            className='font-heading mb-6 text-sm font-medium uppercase hover:text-rose-500 dark:hover:text-rose-500 md:mb-0'
           >
             <motion.span
               className='block'

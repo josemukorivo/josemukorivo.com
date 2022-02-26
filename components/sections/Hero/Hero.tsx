@@ -31,10 +31,9 @@ export const Hero = () => {
               <code className='text-base font-medium dark:text-slate-100 2xl:text-lg'>
                 &lt;Welcome😎/&gt;
               </code>
-              , nice to meet you. I occasionaly write about Software Development
-              and Cloud Native Technologies here. I enjoy turning business
-              problems into digital solutions through{' '}
-              <code className='text-base 2xl:text-lg'>{'<code/>'}</code>.
+              , nice to meet you. This is my personal space on the internet
+              where I occasionaly write about Software Development, Cloud Native
+              Technologies and Technology in general.
             </motion.span>
           </Text>
           <Box className='flex'>
@@ -76,7 +75,7 @@ export const Hero = () => {
           className='order-2 hidden md:order-3 md:block'
         >
           <Link
-            className='font-heading flex gap-1 text-sm uppercase text-slate-900 dark:text-slate-200'
+            className='font-heading flex gap-1 text-sm uppercase text-slate-900 hover:text-rose-500 dark:text-slate-200 dark:hover:text-rose-500'
             href='#latest'
           >
             <AiOutlineArrowDown className='h-[21px] w-auto' /> scroll down

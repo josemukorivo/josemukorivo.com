@@ -34,7 +34,7 @@ export const LatestBlogs = ({ articles }) => {
           </Text>
           <Link
             href='/blog'
-            className='font-heading hidden text-sm font-medium uppercase md:block'
+            className='font-heading hidden text-sm font-medium uppercase hover:text-rose-500 dark:hover:text-rose-500 md:block'
           >
             <motion.span
               className='block'
@@ -120,7 +120,7 @@ export const LatestBlogs = ({ articles }) => {
                   }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{
-                    delay: idx * 0.15,
+                    delay: (idx + 0) * 0.15,
                     duration: 1,
                     ease: [0.6, 0.05, -0.01, 0.9],
                   }}
