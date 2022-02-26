@@ -1,5 +1,5 @@
 .root {
-  @apply relative mb-4 block h-[350px] min-w-full overflow-hidden rounded bg-slate-800 ring-rose-500 ring-offset-4 transition duration-500 ease-in-out hover:ring dark:ring-offset-slate-900 md:min-w-[470px] md:rounded-none md:hover:scale-105 2xl:h-[500px] 2xl:min-w-[630px];
+  @apply relative mb-4 block h-[350px] min-w-full overflow-hidden bg-slate-800 ring-rose-500 ring-offset-4 transition duration-500 ease-in-out hover:ring dark:ring-offset-slate-900 md:min-w-[470px] md:hover:scale-105 2xl:h-[500px] 2xl:min-w-[630px];
 }
 
 .image {

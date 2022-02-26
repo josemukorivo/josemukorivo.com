@@ -1,7 +1,7 @@
-import { Container, Link } from '@components/ui';
-import cn from 'classnames';
-import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
+import cn from 'classnames';
+import { Container, Link } from '@components/ui';
 import { CloseButton } from './Close';
 
 export const Menu = ({ onClose }) => {
@@ -35,7 +35,7 @@ export const Menu = ({ onClose }) => {
       {
         'text-rose-500': pathname === path,
       },
-      'font-heading md:ml-60 max-w-xs px-4 text-4xl uppercase transition duration-100 ease-linear hover:translate-x-1 hover:text-rose-500'
+      'font-heading md:ml-60 max-w-xs px-4 text-4xl uppercase transition duration-100 ease-linear hover:translate-x-1'
     );
   };
 
@@ -57,7 +57,6 @@ export const Menu = ({ onClose }) => {
     exit: {
       opacity: 0,
       y: -20,
-      scale: 1.2,
       transition: {
         duration: 1,
         ease: [0.6, 0.05, -0.01, 0.9],
@@ -79,6 +78,7 @@ export const Menu = ({ onClose }) => {
           {links.map(({ label, href }, idx) => (
             <motion.li
               key={href}
+              className='hover:text-rose-500'
               initial={{
                 opacity: 0,
                 x: -20,

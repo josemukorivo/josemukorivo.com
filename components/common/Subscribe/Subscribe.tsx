@@ -2,6 +2,7 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import MailchimpSubscribe from 'react-mailchimp-subscribe';
 
 import { Text, Input, Button, Box } from '@components/ui';
+import { motion } from 'framer-motion';
 
 const Form = ({ status, message, onValidated }) => {
   const [form, setForm] = useState({
@@ -28,13 +29,18 @@ const Form = ({ status, message, onValidated }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Text as='h6' className='mt-8 mb-4 font-heading uppercase font-medium'>
+    <motion.form
+      initial={{ x: -40 }}
+      transition={{ duration: 0.6 }}
+      whileInView={{ x: 0 }}
+      onSubmit={handleSubmit}
+    >
+      <Text as='h6' className='font-heading mt-8 mb-4 font-medium uppercase'>
         Stay up to date
       </Text>
       <Text className='mb-4 2xl:mb-8'>
         {status === 'success' ? (
-          <span className='text-green-500 text-base font-bold'>{message}</span>
+          <span className='text-base font-bold text-green-500'>{message}</span>
         ) : (
           'Subscribe to my newsletter to stay up to date with articles, tips and much more!'
         )}
@@ -56,7 +62,7 @@ const Form = ({ status, message, onValidated }) => {
       />
       {status === 'error' && (
         <Box
-          className='bg-rose-200 prose prose-lg prose-rose px-3 py-2 text-rose-900 mb-8'
+          className='prose prose-lg prose-rose mb-8 bg-rose-200 px-3 py-2 text-rose-900'
           html={message}
         />
       )}
@@ -65,15 +71,15 @@ const Form = ({ status, message, onValidated }) => {
         type='submit'
         size='lg'
         disabled={status === 'sending' || status === 'success'}
-        className='uppercase font-heading ring-offset-2'
+        className='font-heading uppercase ring-offset-2'
       >
         {status === 'sending' ? 'Sending...' : 'Sign me up'}
       </Button>
-      <Text className='text-sm mt-3'>
+      <Text className='mt-3 text-sm'>
         *NB* I will not spam your inbox, and you can also unsubscribe at any
         time.
       </Text>
-    </form>
+    </motion.form>
   );
 };
 

@@ -86,7 +86,7 @@ export const Hero = () => {
       <motion.div
         initial={{ y: -20, scale: 1.2, opacity: 0.8 }}
         transition={{ duration: 1.3 }}
-        whileInView={{ y: 0, scale: 1, opacity: 1 }}
+        animate={{ y: 0, scale: 1, opacity: 1 }}
         className='order-0 relative mt-24 flex h-[73vh] max-w-xl justify-end pt-3 md:left-4 md:order-1 md:mt-0 md:h-full'
       >
         <Image

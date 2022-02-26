@@ -2,6 +2,7 @@ import { BsArrowUpCircle } from 'react-icons/bs';
 
 import { Container, Box, Text, Link } from '@components/ui';
 import { Subscribe, Copyright } from '@components/common';
+import { motion } from 'framer-motion';
 
 export const Footer = () => {
   return (
@@ -12,34 +13,68 @@ export const Footer = () => {
             as='h4'
             className='font-heading mb-4 text-xl font-medium uppercase'
           >
-            Joseph Mukorivo
+            <motion.span
+              className='block'
+              initial={{ x: -40 }}
+              transition={{ duration: 0.6 }}
+              whileInView={{ x: 0 }}
+            >
+              Joseph Mukorivo
+            </motion.span>
           </Text>
           <Text>
-            Software engineer from Harare, Zimbabwe who is trying to make the
-            world a better place one{' '}
-            <code className='text-sm font-bold dark:font-medium dark:text-slate-300 2xl:text-lg'>
-              {'<commit/>'}
-            </code>{' '}
-            at a time 😎.
+            <motion.span
+              className='block'
+              initial={{ x: -40 }}
+              transition={{ duration: 0.8 }}
+              whileInView={{ x: 0 }}
+            >
+              Software engineer from Harare, Zimbabwe who is trying to make the
+              world a better place one{' '}
+              <code className='text-sm font-bold dark:font-medium dark:text-slate-300 2xl:text-lg'>
+                {'<commit/>'}
+              </code>{' '}
+              at a time 😎.
+            </motion.span>
           </Text>
           <Subscribe />
         </Box>
         <Box className='col-span-2 hidden md:block'>
           <Text as='h6' className='font-heading mb-4 font-medium uppercase'>
-            Quick Links
+            <motion.span
+              className='block'
+              initial={{ x: 40 }}
+              transition={{ duration: 0.8 }}
+              whileInView={{ x: 0 }}
+            >
+              Quick Links
+            </motion.span>
           </Text>
-          <Link
-            href='mailto:hello@josemukorivo.dev'
-            className='mb-3 block text-base font-medium'
+          <motion.span
+            className='block'
+            initial={{ x: 40 }}
+            transition={{ duration: 0.6 }}
+            whileInView={{ x: 0 }}
           >
-            <code>{'<Email me/>'}</code>
-          </Link>
-          <Link href='/blog' className='mb-3 block text-base font-medium'>
-            <code>{'<Read the Blog/>'}</code>
-          </Link>
-          <Link href='/#about' className='mb-3 block text-base font-medium'>
-            <code>{'<About Joseph/>'}</code>
-          </Link>
+            <Link
+              href='mailto:hello@josemukorivo.dev'
+              className='mb-3 block text-base font-medium hover:text-rose-500 dark:hover:text-rose-500'
+            >
+              <code>{'<Email me/>'}</code>
+            </Link>
+            <Link
+              href='/blog'
+              className='mb-3 block text-base font-medium hover:text-rose-500 dark:hover:text-rose-500'
+            >
+              <code>{'<Read the Blog/>'}</code>
+            </Link>
+            <Link
+              href='/#about'
+              className='mb-3 block text-base font-medium hover:text-rose-500 dark:hover:text-rose-500'
+            >
+              <code>{'<About Joseph/>'}</code>
+            </Link>
+          </motion.span>
         </Box>
 
         <Link
