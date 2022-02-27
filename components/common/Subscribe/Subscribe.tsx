@@ -75,7 +75,7 @@ const Form = ({ status, message, onValidated }) => {
       >
         {status === 'sending' ? 'Sending...' : 'Sign me up'}
       </Button>
-      <Text className='mt-3 text-sm'>
+      <Text className='mt-3' fontSize='xs'>
         *NB* I will not spam your inbox, and you can also unsubscribe at any
         time.
       </Text>

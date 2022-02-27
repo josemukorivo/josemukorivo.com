@@ -15,7 +15,7 @@ export const Card = ({ slug, title, date, readingTime, coverImage }) => {
         alt=''
       />
       <Box className={s.content}>
-        <Text className='font-heading mb-4 text-3xl font-medium uppercase leading-[1.15] text-white md:text-4xl'>
+        <Text as='h2' fontSize='4xl' className='mb-4 leading-[1.15] text-white'>
           {title}
         </Text>
         <Box className='flex justify-between 2xl:mt-5'>

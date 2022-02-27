@@ -7,7 +7,7 @@ import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
 import { motion } from 'framer-motion';
 
 const Badge = ({ children }) => (
-  <span className='mr-2 rounded bg-slate-200 py-1 px-2 text-xs font-medium uppercase dark:bg-slate-800 dark:text-slate-200'>
+  <span className='mr-2 mb-2 rounded bg-slate-200 py-1 px-2 text-xs font-medium uppercase dark:bg-slate-800 dark:text-slate-200'>
     {children}
   </span>
 );
@@ -26,7 +26,7 @@ const Header = ({ title, readTime, publishedAt }) => (
     >
       <MdOutlineKeyboardArrowLeft className='mr-1 h-4 w-auto' /> back to blog
     </Link>
-    <Text as='span' className='mb-2 block text-sm opacity-75'>
+    <Text as='span' fontSize='sm' className='mb-2 block opacity-75'>
       <motion.span
         className='block'
         initial={{ y: -10, opacity: 0 }}
@@ -36,7 +36,7 @@ const Header = ({ title, readTime, publishedAt }) => (
         {formatDate(publishedAt)} — {readTime} min{readTime > 1 && 's'} read
       </motion.span>
     </Text>
-    <Text as='h2' className='mb-8 max-w-lg text-3xl font-medium md:text-4xl'>
+    <Text as='h2' fontSize='4xl' className='mb-8 max-w-lg'>
       <motion.span
         className='block'
         initial={{ y: -20, opacity: 0 }}

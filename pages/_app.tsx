@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import NProgress from 'nprogress';
-import { FaUniversalAccess } from 'react-icons/fa';
+import '@styles/globals.css';
 
 import * as gtag from '../lib/gtag';
-import { Layout } from '@components/common/Layout/Layout';
-import '@styles/globals.css';
+import { Accessibility, Layout } from '@components/common';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -30,11 +29,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <Layout>
       <Component {...pageProps} />
-      <div className='fixed bottom-8 right-8 z-30'>
-        <button className='rounded-full bg-rose-500 p-2 text-white'>
-          <FaUniversalAccess className='h-9 w-auto' />
-        </button>
-      </div>
+      <Accessibility />
     </Layout>
   );
 }

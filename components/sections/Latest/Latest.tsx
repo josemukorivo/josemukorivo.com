@@ -22,7 +22,7 @@ export const LatestBlogs = ({ articles }) => {
     <Container full className={s.root} id='latest'>
       <Container className='mb-5'>
         <Box className='mb-7 flex items-center justify-between'>
-          <Text as='h2' className='font-medium'>
+          <Text as='h2' fontSize='4xl'>
             <motion.span
               className='block'
               initial={{ x: -40 }}

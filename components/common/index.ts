@@ -7,3 +7,5 @@ export { MailMe } from './MailMe/MailMe';
 export { Menu } from './Menu/Menu';
 export { MenuButton } from './Menu/Button';
 export { Page } from './Page/Page';
+export { Accessibility } from './Accessibility/Accessibility';
+export { Layout } from './Layout/Layout';

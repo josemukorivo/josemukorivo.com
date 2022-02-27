@@ -8,7 +8,7 @@ export const Blog = ({ articles }) => {
   return (
     <Box>
       <Container className='mt-20 mb-6 md:mt-24'>
-        <Text as='h2' className='font-medium '>
+        <Text as='h2' fontSize='4xl'>
           <motion.span
             className='block'
             initial={{ y: -20, opacity: 0 }}

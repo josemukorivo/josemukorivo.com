@@ -9,7 +9,7 @@ export const About = () => {
       className='mb-20 grid max-w-[1180px] gap-10 md:mb-40 md:grid-cols-5 2xl:max-w-7xl'
     >
       <Box className='md:col-span-3'>
-        <Text as='h2' className='mb-5 font-medium'>
+        <Text as='h2' className='mb-5' fontSize='4xl'>
           <motion.span
             className='block'
             initial={{ x: -40 }}

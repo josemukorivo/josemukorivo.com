@@ -2,35 +2,92 @@
   &:is(h1, h2, h3, h4, h5, h6) {
     @apply leading-tight dark:text-slate-200;
   }
+
+  &:is(h1, h2) {
+    @apply font-heading font-medium uppercase;
+  }
 }
 
-.p {
+.xs {
+  @apply text-xs md:text-sm;
+}
+
+.sm {
+  @apply text-sm md:text-base;
+}
+
+.md {
+  @apply text-base;
+}
+
+.lg {
   @apply text-lg 2xl:text-xl;
 }
-.span {
-  @apply text-lg;
-}
 
-.h1 {
-  @apply text-4xl md:text-5xl font-heading font-medium uppercase;
-}
-
-.h2 {
-  @apply text-2xl md:text-4xl font-heading uppercase;
-}
-
-.h3 {
-  @apply text-3xl;
-}
-
-.h4 {
-  @apply text-2xl;
-}
-
-.h5 {
+.xl {
   @apply text-xl;
 }
 
-.h6 {
-  @apply text-lg;
+.xxl {
+  @apply text-2xl;
+}
+
+.xxxl {
+  @apply text-3xl;
+}
+
+.xxxxl {
+  @apply text-3xl md:text-4xl;
+}
+
+.xxxxxl {
+  @apply text-4xl md:text-5xl;
+}
+
+.xxxxxxl {
+  @apply text-6xl;
+}
+
+.textUppercase {
+  @apply uppercase;
+}
+
+.textLowercase {
+  @apply lowercase;
+}
+
+.textCapitalize {
+  @apply capitalize;
+}
+
+.transformNone {
+  @apply transform-none;
+}
+
+.left {
+  @apply text-left;
+}
+
+.right {
+  @apply text-right;
+}
+
+.center {
+  @apply text-center;
+}
+
+.weightLight {
+  @apply font-light;
+}
+
+.weightNormal {
+  @apply font-normal;
+}
+
+.weightMedium {
+  @apply font-medium;
+}
+
+.weightBold {
+  @apply font-semibold;
 }

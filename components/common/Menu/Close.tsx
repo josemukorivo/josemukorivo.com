@@ -11,7 +11,7 @@ export const CloseButton = ({ onClose }) => {
       animate={{ y: 0, opacity: 1 }}
     >
       <VscChromeClose className='h-6 w-auto transform transition duration-300 ease-in-out group-hover:rotate-90 group-hover:text-rose-500' />
-      <span className='font-heading text-base uppercase tracking-widest group-hover:scale-95'>
+      <span className='font-heading text-sm uppercase tracking-widest group-hover:scale-95'>
         Close
       </span>
     </motion.button>

@@ -1,8 +1,8 @@
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { AiOutlineArrowDown } from 'react-icons/ai';
 
 import { Text, Box, Container, Link, Button } from '@components/ui';
-import Image from 'next/image';
 
 export const Hero = () => {
   return (
@@ -10,7 +10,7 @@ export const Hero = () => {
       <Container className='md:order-0 order-1 flex w-full flex-col justify-between pb-12 pt-5'>
         <Box className='mb-10' />
         <Box className='order-1 mt-10 max-w-xl md:order-2'>
-          <Text as='h1' className='mb-5'>
+          <Text as='h1' className='mb-5' fontSize='5xl'>
             <motion.span
               className='block'
               initial={{ y: -20, opacity: 0 }}

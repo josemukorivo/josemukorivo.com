@@ -3,10 +3,10 @@ import { Box, Button, Container, Text } from '@components/ui';
 export const GetInTouch = () => (
   <Box className='mb-10 bg-slate-50  py-12 text-center dark:bg-[#0d1424]'>
     <Container>
-      <Text as='h2' className='mb-4 font-medium'>
+      <Text as='h2' className='mb-4' fontSize='4xl' align='center'>
         Get in touch
       </Text>
-      <Text className='mx-auto max-w-md opacity-75'>
+      <Text className='mx-auto max-w-md opacity-75' align='center'>
         You have a cool project that you want to discuss? I&lsquo;d love to hear
         from you.
       </Text>

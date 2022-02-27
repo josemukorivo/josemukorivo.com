@@ -24,24 +24,31 @@ export const Card = ({
       />
 
       <Box className='flex items-center justify-between'>
-        <Text as='span' className='text-xs opacity-75 md:text-sm'>
+        <Text as='span' fontSize='sm' className='opacity-75'>
           {formatDate(date)}
         </Text>
 
-        <Text as='span' className='text-xs opacity-75 md:text-sm'>
+        <Text as='span' fontSize='sm' className='opacity-75'>
           {readTime} min{readTime > 1 && 's'} read
         </Text>
       </Box>
 
       <Text
-        as='h4'
-        className={`mb-1 mt-2 text-base font-medium group-hover:underline ${
-          variant === 'sm' ? 'md:text-xl' : 'md:text-3xl'
-        }`}
+        as='h3'
+        fontSize='lg'
+        className='mb-1 mt-2 font-medium group-hover:underline md:hidden'
       >
         {title}
       </Text>
-      <Text as='p' className='hidden text-base opacity-75 md:block'>
+      <Text
+        as='h3'
+        fontSize={variant === 'md' ? '3xl' : 'xl'}
+        className='mb-1 mt-2 hidden font-medium group-hover:underline md:block'
+      >
+        {title}
+      </Text>
+
+      <Text as='p' className='hidden opacity-75 md:block'>
         {description}
       </Text>
     </Link>
