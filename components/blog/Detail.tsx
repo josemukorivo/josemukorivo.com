@@ -36,7 +36,7 @@ const Header = ({ title, readTime, publishedAt }) => (
         {formatDate(publishedAt)} — {readTime} min{readTime > 1 && 's'} read
       </motion.span>
     </Text>
-    <Text as='h2' fontSize='4xl' className='mb-8 max-w-lg'>
+    <Text as='h1' fontSize='4xl' className='mb-8 max-w-lg'>
       <motion.span
         className='block'
         initial={{ y: -20, opacity: 0 }}

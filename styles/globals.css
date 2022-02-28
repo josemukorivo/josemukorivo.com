@@ -21,12 +21,19 @@
   font-display: swap;
 }
 
+html {
+  @apply filter;
+}
 html,
 body {
   @apply font-body scroll-smooth 2xl:text-xl;
 }
 body {
   @apply text-slate-900 transition duration-100 ease-in-out dark:bg-slate-900 dark:text-slate-300;
+}
+
+.times {
+  font-family: Times, serif !important;
 }
 .prose pre {
   @apply bg-slate-800 dark:bg-[#0c1222] !important;

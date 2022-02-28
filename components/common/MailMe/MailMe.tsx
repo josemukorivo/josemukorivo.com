@@ -6,7 +6,7 @@ export const MailMe = ({ className = '' }) => (
       Mail me:
     </span>
     <Link
-      className='font-heading border-b border-slate-500 text-sm uppercase hover:border-rose-500 dark:border-slate-200 2xl:text-xs'
+      className='font-heading border-b border-slate-500 text-sm uppercase hover:border-rose-500 dark:border-slate-200 dark:hover:border-rose-500 2xl:text-xs'
       href='maito:hello@josemukorivo.dev'
     >
       hello@josemukorivo.dev

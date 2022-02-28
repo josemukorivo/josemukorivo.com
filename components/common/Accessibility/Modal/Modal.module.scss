@@ -17,7 +17,7 @@
 }
 
 .tile {
-  @apply flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-slate-200 bg-white p-3 text-base ring-rose-500 ring-offset-2 transition duration-200 ease-in-out hover:ring focus:ring dark:border-slate-700 dark:bg-slate-800 dark:ring-offset-slate-800;
+  @apply flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-slate-200 bg-white p-3 text-base ring-rose-500 ring-offset-2 transition duration-200 ease-in-out hover:ring focus:ring disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:ring-0 dark:border-slate-700 dark:bg-slate-800 dark:ring-offset-slate-800;
 }
 
 .tiles {

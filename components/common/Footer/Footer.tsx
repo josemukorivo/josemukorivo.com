@@ -11,7 +11,10 @@ export const Footer = () => {
         <Box className='col-span-3 max-w-lg'>
           <Text
             as='h4'
-            className='font-heading mb-4 text-xl font-medium uppercase'
+            casing='uppercase'
+            fontWeight='medium'
+            fontSize='xl'
+            className='font-heading mb-4'
           >
             <motion.span
               className='block'
@@ -22,7 +25,7 @@ export const Footer = () => {
               Joseph Mukorivo
             </motion.span>
           </Text>
-          <Text>
+          <Text className='mb-6'>
             <motion.span
               className='block'
               initial={{ x: -40 }}
@@ -40,7 +43,12 @@ export const Footer = () => {
           <Subscribe />
         </Box>
         <Box className='col-span-2 hidden md:block'>
-          <Text as='h6' className='font-heading mb-4 font-medium uppercase'>
+          <Text
+            as='h6'
+            casing='uppercase'
+            fontWeight='medium'
+            className='font-heading mb-4'
+          >
             <motion.span
               className='block'
               initial={{ x: 40 }}

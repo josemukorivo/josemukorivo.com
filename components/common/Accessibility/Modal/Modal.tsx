@@ -18,8 +18,13 @@ import {
 
 import s from './Modal.module.scss';
 
-const Tile = ({ onClick, children, className = '' }) => (
-  <button className={cn(s.tile, className)} onClick={onClick}>
+const Tile = ({ onClick, children, disabled = false, className = '' }) => (
+  <button
+    className={cn(s.tile, className)}
+    onClick={onClick}
+    disabled={disabled}
+    title={disabled ? 'Cooming soon' : ''}
+  >
     {children}
   </button>
 );
@@ -65,6 +70,9 @@ export const Modal = ({ onClose, theme, toggleTheme }) => {
     },
   };
 
+  const toggle = (classes: string) =>
+    document.documentElement.classList.toggle(classes);
+
   return (
     <motion.div
       variants={menuVariants}
@@ -108,49 +116,41 @@ export const Modal = ({ onClose, theme, toggleTheme }) => {
             )}
             {theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
           </Tile>
-          <Tile onClick={() => {}}>
+          <Tile onClick={() => toggle('grayscale')}>
             <MdOutlineInvertColors />
             Monochrome
           </Tile>
-          <Tile onClick={() => {}}>
+          <Tile onClick={() => toggle('hue-rotate-90')}>
             <MdOutlineInvertColorsOff />
             Hue
           </Tile>
         </Group>
 
         <Group title='Content adjustments'>
-          <Tile onClick={() => {}}>
+          <Tile onClick={() => toggle('text-center')}>
             <FiAlignCenter />
             Align center
           </Tile>
-          <Tile onClick={() => {}}>
-            <AiOutlineAlignLeft />
-            Align left
-          </Tile>
-          <Tile onClick={() => {}}>
+          <Tile onClick={() => toggle('text-right')}>
             <AiOutlineAlignRight />
             Align right
           </Tile>
-          <Tile onClick={() => {}}>
+          <Tile onClick={() => toggle('times')} disabled className='col-span-2'>
             <ImFont />
             Reading font
-          </Tile>
-          <Tile onClick={() => {}} className='col-span-2'>
-            <ImFont />
-            Font size
           </Tile>
         </Group>
 
         <Group title='Interactions adjustments'>
-          <Tile onClick={() => {}} className='col-span-2'>
+          <Tile onClick={() => {}} disabled className='col-span-2'>
             <MdAnimation />
             Stop animations
           </Tile>
-          <Tile onClick={() => {}}>
+          <Tile onClick={() => {}} disabled>
             <MdHideImage />
             Hide images
           </Tile>
-          <Tile onClick={() => {}}>
+          <Tile onClick={() => {}} disabled>
             <RiCursorFill />
             Big cursor
           </Tile>
@@ -159,49 +159,3 @@ export const Modal = ({ onClose, theme, toggleTheme }) => {
     </motion.div>
   );
 };
-
-//  <button className='flex min-h-[80px] flex-col items-center justify-center gap-2 rounded bg-rose-500 p-3 text-white'>
-//           <ToggleDark />
-//           Dark mode
-//         </button>
-//         <button className='flex min-h-[80px] flex-col items-center justify-center gap-2 rounded bg-white p-3 dark:bg-slate-700'>
-//           <FiAlignCenter />
-//           Align center
-//         </button>
-//         <button className='flex min-h-[80px] flex-col items-center justify-center gap-2 rounded bg-white p-3 dark:bg-slate-700'>
-//           <AiOutlineAlignLeft />
-//           Align left
-//         </button>
-//         <button className='flex min-h-[80px] flex-col items-center justify-center gap-2 rounded bg-white p-3 dark:bg-slate-700'>
-//           <AiOutlineAlignRight />
-//           Align right
-//         </button>
-//         <button className='col-span-2 flex min-h-[80px] flex-col items-center justify-center gap-2 rounded bg-white p-3 dark:bg-slate-700'>
-//           <VscChromeClose />
-//           Change text colors
-//         </button>
-//         <button className='flex min-h-[80px] flex-col items-center justify-center gap-2 rounded bg-white p-3 dark:bg-slate-700'>
-//           <ImContrast />
-//           High contrast
-//         </button>
-
-//         <button className='flex min-h-[80px] flex-col items-center justify-center gap-2 rounded bg-white p-3 dark:bg-slate-700'>
-//           <RiCursorFill />
-//           Big black cursor
-//         </button>
-//         <button className='col-span-2 flex min-h-[80px] flex-col items-center justify-center gap-2 rounded bg-white p-3 dark:bg-slate-700'>
-//           <VscChromeClose />
-//           Change title colors
-//         </button>
-//         <button className='flex min-h-[80px] flex-col items-center justify-center gap-2 rounded bg-white p-3 dark:bg-slate-700'>
-//           <GrCursor />
-//           Big white cursor
-//         </button>
-//         <button className='flex min-h-[80px] flex-col items-center justify-center gap-2 rounded bg-white p-3 dark:bg-slate-700'>
-//           <MdHideImage />
-//           Hide images
-//         </button>
-//         <button className='flex min-h-[80px] flex-col items-center justify-center gap-2 rounded bg-white p-3 dark:bg-slate-700'>
-//           <MdAnimation />
-//           Pause animations
-//         </button>

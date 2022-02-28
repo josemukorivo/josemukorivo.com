@@ -37,7 +37,7 @@ export const Text: FC<Props> = ({
   fontWeight = 'normal',
   className = '',
   casing = 'none',
-  align = 'left',
+  align,
   style = {},
   children,
   html,

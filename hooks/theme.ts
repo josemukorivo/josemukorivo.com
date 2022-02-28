@@ -2,9 +2,12 @@ import { useEffect, useState } from 'react';
 
 export const useTheme = () => {
   const getTheme = (): 'light' | 'dark' => {
-    // You can respect the sytem preferences by adding `matchMedia` as OR condition
-    // (!('theme' in window.localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches))
-    if (window.localStorage.theme === 'dark') {
+    // Check user preference for theme first
+    if (
+      window.localStorage.theme === 'dark' ||
+      (!('theme' in window.localStorage) &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
       return 'dark';
     } else {
       return 'light';

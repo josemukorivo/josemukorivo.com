@@ -35,7 +35,12 @@ const Form = ({ status, message, onValidated }) => {
       whileInView={{ x: 0 }}
       onSubmit={handleSubmit}
     >
-      <Text as='h6' className='font-heading mt-8 mb-4 font-medium uppercase'>
+      <Text
+        as='h6'
+        casing='uppercase'
+        fontWeight='medium'
+        className='font-heading mb-4'
+      >
         Stay up to date
       </Text>
       <Text className='mb-4 2xl:mb-8'>
@@ -75,7 +80,7 @@ const Form = ({ status, message, onValidated }) => {
       >
         {status === 'sending' ? 'Sending...' : 'Sign me up'}
       </Button>
-      <Text className='mt-3' fontSize='xs'>
+      <Text className='mt-3' fontSize='sm'>
         *NB* I will not spam your inbox, and you can also unsubscribe at any
         time.
       </Text>

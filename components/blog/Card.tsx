@@ -36,14 +36,16 @@ export const Card = ({
       <Text
         as='h3'
         fontSize='lg'
-        className='mb-1 mt-2 font-medium group-hover:underline md:hidden'
+        fontWeight='medium'
+        className='mb-1 mt-2 group-hover:underline md:hidden'
       >
         {title}
       </Text>
       <Text
         as='h3'
+        fontWeight='medium'
         fontSize={variant === 'md' ? '3xl' : 'xl'}
-        className='mb-1 mt-2 hidden font-medium group-hover:underline md:block'
+        className='mb-1 mt-2 hidden group-hover:underline md:block'
       >
         {title}
       </Text>
