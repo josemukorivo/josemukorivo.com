@@ -8,7 +8,7 @@ export const Hero = () => {
   return (
     <Box className='mb-10 grid md:mb-40 md:h-screen md:grid-cols-2' id='top'>
       <Container className='md:order-0 order-1 flex w-full flex-col justify-between pb-12 pt-5'>
-        <Box className='mb-10' />
+        <Box className='md:mb-10' />
         <Box className='order-1 mt-10 max-w-xl md:order-2'>
           <Text as='h1' className='mb-5' fontSize='5xl'>
             <motion.span
@@ -82,11 +82,29 @@ export const Hero = () => {
           </Link>
         </motion.div>
       </Container>
+
       <motion.div
         initial={{ y: -20, scale: 1.2, opacity: 0.8 }}
         transition={{ duration: 1.3 }}
         animate={{ y: 0, scale: 1, opacity: 1 }}
-        className='order-0 relative mt-24 flex h-[73vh] max-w-xl justify-end pt-3 md:left-4 md:order-1 md:mt-0 md:h-full'
+        className='relative mt-[75px] h-[65vh] md:hidden'
+      >
+        <Image
+          src='/images/jose.jpg'
+          layout='fill'
+          objectFit='cover'
+          objectPosition='top right'
+          priority
+          quality={100}
+          alt='Joseph Mukorivo'
+        />
+      </motion.div>
+
+      <motion.div
+        initial={{ y: -20, scale: 1.2, opacity: 0.8 }}
+        transition={{ duration: 1.3 }}
+        animate={{ y: 0, scale: 1, opacity: 1 }}
+        className='relative left-4 order-1 mt-0 hidden h-full max-w-xl justify-end pt-3 md:flex'
       >
         <Image
           src='/images/jose.png'
