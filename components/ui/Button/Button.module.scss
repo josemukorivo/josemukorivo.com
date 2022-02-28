@@ -1,5 +1,5 @@
 .root {
-  @apply inline-block transition duration-200 ease-linear;
+  @apply mb-1 inline-block transition duration-200 ease-linear;
 }
 
 .primary {
@@ -19,7 +19,7 @@
 }
 
 .lg {
-  @apply px-4 py-4 text-sm md:px-8;
+  @apply px-7 py-4 text-sm md:px-8;
 }
 
 .disabled {
