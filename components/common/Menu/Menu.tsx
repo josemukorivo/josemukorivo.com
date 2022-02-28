@@ -70,7 +70,7 @@ export const Menu = ({ onClose }) => {
       initial='initial'
       animate='enter'
       exit='exit'
-      className='fixed top-0 left-0 z-20 h-screen w-full bg-white dark:bg-slate-900'
+      className='fixed top-0 left-0 z-20 h-screen w-full bg-white bg-opacity-90 backdrop-blur backdrop-filter dark:bg-slate-900 dark:bg-opacity-95 dark:backdrop-blur'
     >
       <CloseButton onClose={onClose} />
       <Container className='h-full'>
