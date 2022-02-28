@@ -87,7 +87,7 @@ export const Hero = () => {
         initial={{ y: -20, scale: 1.2, opacity: 0.8 }}
         transition={{ duration: 1.3 }}
         animate={{ y: 0, scale: 1, opacity: 1 }}
-        className='relative mt-[75px] h-[65vh] md:hidden'
+        className='relative mt-[75px] h-[75vh] md:hidden'
       >
         <Image
           src='/images/jose.jpg'
