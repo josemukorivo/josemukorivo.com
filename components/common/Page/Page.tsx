@@ -37,6 +37,7 @@ export const Page: FC<Props> = ({
         <meta name='twitter:alt' content={title} />
         <meta name='twitter:description' content={description} />
         <meta name='twitter:image' content={image} />
+        <meta name='theme-color' content='#f43f5e' />
         <meta name='twitter:site' content='@josemukorivo' />
         <meta name='twitter:creator' content='@josemukorivo' />
         {canonicalURL && <link rel='canonical' href={canonicalURL} />}
