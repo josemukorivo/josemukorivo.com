@@ -1,6 +1,6 @@
 .root {
   &:is(h1, h2, h3, h4, h5, h6) {
-    @apply leading-tight dark:text-slate-200;
+    @apply leading-tight dark:text-white;
   }
 
   &:is(h1, h2) {
@@ -41,7 +41,7 @@
 }
 
 .xxxxxl {
-  @apply text-4xl md:text-5xl;
+  @apply text-[2.6rem] leading-6 md:text-5xl;
 }
 
 .xxxxxxl {

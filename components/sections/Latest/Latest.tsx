@@ -70,17 +70,14 @@ export const LatestBlogs = ({ articles }) => {
         <Swiper effect={'cards'} grabCursor={true}>
           {articles?.length &&
             articles.map(
-              (
-                {
-                  id,
-                  slug,
-                  title,
-                  published_at,
-                  reading_time_minutes,
-                  cover_image,
-                },
-                idx
-              ) => (
+              ({
+                id,
+                slug,
+                title,
+                published_at,
+                reading_time_minutes,
+                cover_image,
+              }) => (
                 <SwiperSlide key={id}>
                   <Card
                     slug={slug}

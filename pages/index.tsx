@@ -8,7 +8,7 @@ export default function Home({ articles }) {
       description='Joseph Mukorivo is a Software Engineer, Blogger and DevOps Enthusiat based in Harare, Zimbabwe.'
       image='https://josemukorivo.dev/images/me.jpeg'
     >
-      <Nav className='absolute py-5' />
+      <Nav className='absolute py-3 md:py-5' />
       <Hero />
       <About />
       <LatestBlogs articles={articles} />

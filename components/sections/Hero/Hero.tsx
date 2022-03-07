@@ -9,7 +9,7 @@ export const Hero = () => {
     <Box className='mb-10 grid md:mb-40 md:h-screen md:grid-cols-2' id='top'>
       <Container className='md:order-0 order-1 flex w-full flex-col justify-between pb-12 pt-5'>
         <Box className='md:mb-10' />
-        <Box className='order-1 mt-10 max-w-xl md:order-2'>
+        <Box className='order-1 mt-5 max-w-xl md:order-2 md:mt-10'>
           <Text as='h1' className='mb-5' fontSize='5xl'>
             <motion.span
               className='block'
@@ -32,8 +32,9 @@ export const Hero = () => {
                 &lt;Welcome😎/&gt;
               </code>
               , nice to meet you. This is my personal space on the internet
-              where I occasionaly write about Software Development, Cloud Native
-              Technologies and Technology in general.
+              where I get to try out new technologies and occasionaly write
+              about Software Development, Cloud Native Technologies and tech in
+              general.
             </motion.span>
           </Text>
           <Box className='flex'>
@@ -87,7 +88,7 @@ export const Hero = () => {
         initial={{ y: -20, scale: 1.2, opacity: 0.8 }}
         transition={{ duration: 1.3 }}
         animate={{ y: 0, scale: 1, opacity: 1 }}
-        className='relative mt-[75px] h-[75vh] md:hidden'
+        className='relative mt-[64px] h-[65vh] md:hidden'
       >
         <Image
           src='/images/jose.jpg'
