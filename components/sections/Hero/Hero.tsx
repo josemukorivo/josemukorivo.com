@@ -104,9 +104,9 @@ export const Hero = () => {
       </motion.div>
 
       <motion.div
-        initial={{ x: 40, opacity: 0.8 }}
-        transition={{ duration: 1, delay: 0.3 }}
-        animate={{ x: 0, opacity: 1 }}
+        initial={{ opacity: 0.8 }}
+        transition={{ duration: 0.6 }}
+        animate={{ opacity: 1 }}
         className='relative left-4 order-1 mt-0 hidden h-full max-w-xl justify-end pt-3 md:flex'
       >
         <Image
