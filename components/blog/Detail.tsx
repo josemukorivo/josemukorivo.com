@@ -26,6 +26,7 @@ const Header = ({ title, readTime, publishedAt }) => {
     if (ref.current) {
       ref.current.scrollIntoView({
         behavior: 'smooth',
+        block: 'nearest',
       });
     }
   }, [title]);
@@ -33,11 +34,11 @@ const Header = ({ title, readTime, publishedAt }) => {
     <div ref={ref}>
       <Link
         href='/blog'
-        className='font-heading relative -left-[7px] mb-5 flex items-center text-xs uppercase hover:text-rose-500 md:hidden'
+        className='font-heading relative -left-[7px] mt-4 mb-5 flex items-center text-xs uppercase hover:text-rose-500 md:hidden'
       >
         <MdOutlineKeyboardArrowLeft className='mr-1 h-4 w-auto' /> back to blog
       </Link>
-      <Text as='span' fontSize='sm' className='mb-2 block opacity-75'>
+      <Text as='span' fontSize='sm' className='mb-2 block opacity-75 md:pt-5'>
         <motion.span
           className='block'
           initial={{ y: -10, opacity: 0 }}
@@ -73,7 +74,7 @@ export const BlogDetail = ({
   return (
     <Box className='h-screen overflow-y-auto'>
       <Nav variant='blog' />
-      <Container className='mt-5'>
+      <Container className=''>
         <Header title={title} readTime={readTime} publishedAt={publishedAt} />
         <motion.div
           initial={{ y: 20, opacity: 0 }}
