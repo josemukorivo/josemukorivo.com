@@ -12,7 +12,7 @@ import { Logo } from '../Logo/Logo';
 export const SideBar = () => {
   const links = [
     {
-      href: 'https://github.com/josemkorivo',
+      href: 'https://github.com/josemukorivo',
       Icon: AiFillGithub,
     },
     {
@@ -31,15 +31,19 @@ export const SideBar = () => {
 
   return (
     <Box className={s.root}>
-      <Box className='flex h-full flex-col items-center justify-between'>
+      <Box className={s.main}>
         <Logo />
-        <Box className='w-64 -rotate-90 transform text-center'>
-          <p className='font-heading font-medium uppercase dark:text-slate-200'>
+        <Box className={s.bar}>
+          <Text as='h5' casing='uppercase' className='font-heading mb-1'>
             Software Engineer
-          </p>
-          <p className='text-sm font-medium uppercase text-slate-500 dark:text-slate-400'>
+          </Text>
+          <Text
+            casing='uppercase'
+            fontSize='xs'
+            className='text-slate-500 dark:text-slate-400'
+          >
             Writer & DevOps Enthusiat
-          </p>
+          </Text>
         </Box>
 
         <Box>

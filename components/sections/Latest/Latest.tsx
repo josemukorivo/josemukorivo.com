@@ -25,7 +25,7 @@ export const LatestBlogs = ({ articles }) => {
           <Text as='h2' fontSize='4xl'>
             <motion.span
               className='block'
-              initial={{ x: -40 }}
+              initial={{ x: -10 }}
               transition={{ duration: 1 }}
               whileInView={{ x: 0 }}
             >
@@ -38,7 +38,7 @@ export const LatestBlogs = ({ articles }) => {
           >
             <motion.span
               className='block'
-              initial={{ x: 40 }}
+              initial={{ x: 10 }}
               transition={{ duration: 1 }}
               whileInView={{ x: 0 }}
             >
@@ -49,7 +49,7 @@ export const LatestBlogs = ({ articles }) => {
         <Text className='md:hidden'>
           <motion.span
             className='mb-3 block'
-            initial={{ x: -40 }}
+            initial={{ x: -10 }}
             transition={{ duration: 0.6 }}
             whileInView={{ x: 0 }}
           >

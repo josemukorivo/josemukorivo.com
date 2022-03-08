@@ -5,3 +5,11 @@
 .icon {
   @apply h-6 w-6 transform text-slate-800 transition duration-300 ease-in-out hover:scale-125 hover:text-rose-500 dark:text-slate-200 dark:hover:text-rose-500;
 }
+
+.main {
+  @apply flex h-full flex-col items-center justify-between;
+}
+
+.bar {
+  @apply w-64 -rotate-90 transform text-center;
+}

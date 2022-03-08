@@ -42,7 +42,7 @@ export const TechStack = () => {
           <Text as='h2' className='mb-4' fontSize='4xl'>
             <motion.span
               className='block'
-              initial={{ x: -40 }}
+              initial={{ x: -10 }}
               transition={{ duration: 1 }}
               whileInView={{ x: 0 }}
             >
@@ -56,7 +56,7 @@ export const TechStack = () => {
           >
             <motion.span
               className='block'
-              initial={{ x: 40 }}
+              initial={{ x: 10 }}
               transition={{ duration: 1 }}
               whileInView={{ x: 0 }}
             >
@@ -67,7 +67,7 @@ export const TechStack = () => {
         <Text className='max-w-lg'>
           <motion.span
             className='block'
-            initial={{ x: -40 }}
+            initial={{ x: -10 }}
             transition={{ duration: 0.6 }}
             whileInView={{ x: 0 }}
           >

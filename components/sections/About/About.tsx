@@ -12,7 +12,7 @@ export const About = () => {
         <Text as='h2' className='mb-5' fontSize='4xl'>
           <motion.span
             className='block'
-            initial={{ x: -40 }}
+            initial={{ x: -10 }}
             transition={{ duration: 0.8 }}
             whileInView={{ x: 0 }}
           >
@@ -22,7 +22,7 @@ export const About = () => {
         <Text className='gap-5 md:columns-2 2xl:gap-10'>
           <motion.span
             className='block'
-            initial={{ translateX: -40 }}
+            initial={{ translateX: -10 }}
             transition={{ duration: 1 }}
             whileInView={{ translateX: 0 }}
           >
@@ -68,7 +68,7 @@ export const About = () => {
         </Text>
       </Box>
       <motion.div
-        initial={{ translateX: 40 }}
+        initial={{ translateX: 30 }}
         transition={{ duration: 1 }}
         whileInView={{ translateX: 0 }}
         className='relative h-64 md:col-span-2 md:h-[360px] md:pt-10 2xl:h-[420px]'

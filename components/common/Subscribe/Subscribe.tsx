@@ -30,9 +30,9 @@ const Form = ({ status, message, onValidated }) => {
 
   return (
     <motion.form
-      initial={{ x: -40 }}
-      transition={{ duration: 0.6 }}
-      whileInView={{ x: 0 }}
+      initial={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+      whileInView={{ opacity: 1 }}
       onSubmit={handleSubmit}
     >
       <Text

@@ -13,7 +13,7 @@ export const Accessibility = () => {
   const toggleModal = () => setIsOpen(!isOpen);
 
   return (
-    <Box className='fixed bottom-24 right-4 z-30 md:right-8'>
+    <Box className='fixed bottom-20 right-4 z-30 md:right-8'>
       <AnimatePresence>
         {isOpen && (
           <Modal

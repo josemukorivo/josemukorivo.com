@@ -85,9 +85,9 @@ export const Hero = () => {
       </Container>
 
       <motion.div
-        initial={{ y: -20, scale: 1.2, opacity: 0.8 }}
-        transition={{ duration: 1.3 }}
-        animate={{ y: 0, scale: 1, opacity: 1 }}
+        initial={{ opacity: 0.8 }}
+        transition={{ duration: 0.6 }}
+        animate={{ opacity: 1 }}
         className='relative mt-[64px] h-[65vh] md:hidden'
       >
         <Image
@@ -97,14 +97,16 @@ export const Hero = () => {
           objectPosition='top right'
           priority
           quality={100}
+          blurDataURL='/images/jose-placeholder.png'
+          placeholder='blur'
           alt='Joseph Mukorivo'
         />
       </motion.div>
 
       <motion.div
-        initial={{ y: -20, scale: 1.2, opacity: 0.8 }}
-        transition={{ duration: 1.3 }}
-        animate={{ y: 0, scale: 1, opacity: 1 }}
+        initial={{ x: 40, opacity: 0.8 }}
+        transition={{ duration: 1, delay: 0.3 }}
+        animate={{ x: 0, opacity: 1 }}
         className='relative left-4 order-1 mt-0 hidden h-full max-w-xl justify-end pt-3 md:flex'
       >
         <Image
@@ -113,6 +115,8 @@ export const Hero = () => {
           objectFit='cover'
           priority
           quality={100}
+          blurDataURL='/images/jose-placeholder.png'
+          placeholder='blur'
           alt='Joseph Mukorivo'
         />
       </motion.div>

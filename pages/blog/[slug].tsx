@@ -55,11 +55,14 @@ export default function Home({ article, otherArticles }) {
 
 export async function getStaticProps({ params }) {
   const { slug } = params;
-  const res = await fetch(`https://dev.to/api/articles/josemukorivo/${slug}`);
+  const { NEXT_PUBLIC_DEV_TO_USERNAME } = process.env;
+  const res = await fetch(
+    `https://dev.to/api/articles/${NEXT_PUBLIC_DEV_TO_USERNAME}/${slug}`
+  );
   const article = await res.json();
 
   const articlesRes = await fetch(
-    'https://dev.to/api/articles?username=josemukorivo'
+    `https://dev.to/api/articles?username=${NEXT_PUBLIC_DEV_TO_USERNAME}`
   );
   const articles = await articlesRes.json();
   const otherArticles = articles.filter((a: any) => a.slug !== slug);
@@ -73,7 +76,10 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch('https://dev.to/api/articles?username=josemukorivo');
+  const { NEXT_PUBLIC_DEV_TO_USERNAME } = process.env;
+  const res = await fetch(
+    `https://dev.to/api/articles?username=${NEXT_PUBLIC_DEV_TO_USERNAME}`
+  );
   const articles = await res.json();
 
   const paths = articles.map((article) => ({

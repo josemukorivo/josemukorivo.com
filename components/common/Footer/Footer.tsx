@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 export const Footer = () => {
   return (
-    <footer>
+    <footer id='subscribe'>
       <Container className='relative mb-10 grid-cols-5 gap-20 md:grid 2xl:px-16'>
         <Box className='col-span-3 max-w-lg'>
           <Text
@@ -18,9 +18,9 @@ export const Footer = () => {
           >
             <motion.span
               className='block'
-              initial={{ x: -40 }}
+              initial={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
-              whileInView={{ x: 0 }}
+              whileInView={{ opacity: 1 }}
             >
               Joseph Mukorivo
             </motion.span>
@@ -28,9 +28,9 @@ export const Footer = () => {
           <Text className='mb-6'>
             <motion.span
               className='block'
-              initial={{ x: -40 }}
+              initial={{ opacity: 0 }}
               transition={{ duration: 0.8 }}
-              whileInView={{ x: 0 }}
+              whileInView={{ opacity: 1 }}
             >
               Software engineer from Harare, Zimbabwe who is trying to make the
               world a better place one{' '}
@@ -51,18 +51,18 @@ export const Footer = () => {
           >
             <motion.span
               className='block'
-              initial={{ x: 40 }}
+              initial={{ opacity: 0 }}
               transition={{ duration: 0.8 }}
-              whileInView={{ x: 0 }}
+              whileInView={{ opacity: 1 }}
             >
               Quick Links
             </motion.span>
           </Text>
           <motion.span
             className='block'
-            initial={{ x: 40 }}
+            initial={{ opacity: 0 }}
             transition={{ duration: 0.6 }}
-            whileInView={{ x: 0 }}
+            whileInView={{ opacity: 1 }}
           >
             <Link
               href='mailto:hello@josemukorivo.dev'
