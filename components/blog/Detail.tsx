@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { Box, Container, Text, Link } from '@components/ui';
 import { Copyright, Nav } from '@components/common';
@@ -18,36 +19,47 @@ const Prose = ({ children }) => (
   </Box>
 );
 
-const Header = ({ title, readTime, publishedAt }) => (
-  <>
-    <Link
-      href='/blog'
-      className='font-heading relative -left-[7px] mb-5 flex items-center text-xs uppercase hover:text-rose-500 md:hidden'
-    >
-      <MdOutlineKeyboardArrowLeft className='mr-1 h-4 w-auto' /> back to blog
-    </Link>
-    <Text as='span' fontSize='sm' className='mb-2 block opacity-75'>
-      <motion.span
-        className='block'
-        initial={{ y: -10, opacity: 0 }}
-        transition={{ duration: 0.6 }}
-        animate={{ y: 0, opacity: 1 }}
+const Header = ({ title, readTime, publishedAt }) => {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.scrollIntoView({
+        behavior: 'smooth',
+      });
+    }
+  }, [title]);
+  return (
+    <div ref={ref}>
+      <Link
+        href='/blog'
+        className='font-heading relative -left-[7px] mb-5 flex items-center text-xs uppercase hover:text-rose-500 md:hidden'
       >
-        {formatDate(publishedAt)} — {readTime} min{readTime > 1 && 's'} read
-      </motion.span>
-    </Text>
-    <Text as='h1' fontSize='4xl' className='mb-8 max-w-lg'>
-      <motion.span
-        className='block'
-        initial={{ y: -20, opacity: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        animate={{ y: 0, opacity: 1 }}
-      >
-        {title}
-      </motion.span>
-    </Text>
-  </>
-);
+        <MdOutlineKeyboardArrowLeft className='mr-1 h-4 w-auto' /> back to blog
+      </Link>
+      <Text as='span' fontSize='sm' className='mb-2 block opacity-75'>
+        <motion.span
+          className='block'
+          initial={{ y: -10, opacity: 0 }}
+          transition={{ duration: 0.6 }}
+          animate={{ y: 0, opacity: 1 }}
+        >
+          {formatDate(publishedAt)} — {readTime} min{readTime > 1 && 's'} read
+        </motion.span>
+      </Text>
+      <Text as='h1' fontSize='4xl' className='mb-8 max-w-lg'>
+        <motion.span
+          className='block'
+          initial={{ y: -20, opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          animate={{ y: 0, opacity: 1 }}
+        >
+          {title}
+        </motion.span>
+      </Text>
+    </div>
+  );
+};
 
 export const BlogDetail = ({
   title,
