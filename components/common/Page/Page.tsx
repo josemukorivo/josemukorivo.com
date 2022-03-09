@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import Head from 'next/head';
+import { useTheme } from 'hooks';
 
 interface Props {
   title: string;
@@ -15,6 +16,7 @@ export const Page: FC<Props> = ({
   image,
   canonicalURL,
 }) => {
+  const { theme } = useTheme();
   return (
     <>
       <Head>
@@ -37,7 +39,10 @@ export const Page: FC<Props> = ({
         <meta name='twitter:alt' content={title} />
         <meta name='twitter:description' content={description} />
         <meta name='twitter:image' content={image} />
-        <meta name='theme-color' content='#0f172a' />
+        <meta
+          name='theme-color'
+          content={theme === 'dark' ? '#0f172a' : '#ffffff'}
+        />
         <meta name='twitter:site' content='@josemukorivo' />
         <meta name='twitter:creator' content='@josemukorivo' />
         {canonicalURL && <link rel='canonical' href={canonicalURL} />}
