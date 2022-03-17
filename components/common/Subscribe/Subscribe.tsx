@@ -78,7 +78,7 @@ const Form = ({ status, message, onValidated }) => {
         disabled={status === 'sending' || status === 'success'}
         className='font-heading uppercase ring-offset-2'
       >
-        {status === 'sending' ? 'Sending...' : 'Sign me up'}
+        {status === 'sending' ? 'Joining newsletter...' : 'Join the newsletter'}
       </Button>
       <Text className='mt-3' fontSize='sm'>
         *NB* I will not spam your inbox, and you can also unsubscribe at any
