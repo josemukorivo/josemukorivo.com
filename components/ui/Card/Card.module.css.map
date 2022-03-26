@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,KAAK,CAAC;EACJ,MAAM,CAAN,+OAAM;CACP;;AAED,AAAA,MAAM,CAAC;EACL,MAAM,CAAN,yDAAM;CACP;;AAED,AAAA,QAAQ,CAAC;EACP,MAAM,CAAN,+FAAM;CACP",
-    "sources": [
-        "Card.module.scss"
-    ],
-    "names": [],
-    "file": "Card.module.css"
-}
