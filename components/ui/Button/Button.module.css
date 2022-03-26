@@ -1,0 +1,28 @@
+.root {
+  @apply mb-1 inline-block transition duration-200 ease-linear;
+}
+
+.primary {
+  @apply bg-rose-500 text-white ring-rose-500 ring-offset-2 hover:bg-rose-600 hover:ring dark:ring-offset-slate-900 2xl:ring-offset-4;
+}
+
+.secondary {
+  @apply bg-slate-800 text-white ring-slate-800 ring-offset-2 hover:bg-slate-900 hover:ring dark:bg-slate-700 dark:ring-slate-700 dark:ring-offset-slate-900 2xl:ring-offset-4;
+}
+
+.naked {
+  @apply bg-white text-slate-900;
+}
+
+.md {
+  @apply px-6 py-2;
+}
+
+.lg {
+  @apply px-7 py-4 text-sm md:px-8;
+}
+
+.disabled {
+  @apply cursor-not-allowed opacity-30;
+}
+/*# sourceMappingURL=Button.module.css.map */

@@ -1,4 +1,10 @@
-import { About, Hero, LatestBlogs, TechStack } from '@components/sections';
+import {
+  About,
+  GetInTouch,
+  Hero,
+  LatestBlogs,
+  TechStack,
+} from '@components/sections';
 import { Footer, Nav, Page } from '@components/common';
 
 export default function Home({ articles }) {
@@ -12,6 +18,7 @@ export default function Home({ articles }) {
       <Hero />
       <About />
       <LatestBlogs articles={articles} />
+      <GetInTouch />
       <TechStack />
       <Footer />
     </Page>

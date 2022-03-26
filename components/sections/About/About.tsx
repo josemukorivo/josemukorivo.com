@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Text, Box, Container, Link } from '@components/ui';
 import { motion } from 'framer-motion';
+import { Button } from '@components/ui';
 
 export const About = () => {
   return (
@@ -20,52 +21,54 @@ export const About = () => {
           </motion.span>
         </Text>
         <Text className='gap-5 md:columns-2 2xl:gap-10'>
-          <motion.span
-            className='block'
-            initial={{ translateX: -10 }}
-            transition={{ duration: 1 }}
-            whileInView={{ translateX: 0 }}
+          Hello there, my name is Joseph, a passionate Software Developer from
+          Harare, Zimbabwe. I currently work as a{' '}
+          <span className='font-medium'>QA Engineer/Bot Developer</span> at{' '}
+          <Link
+            className='font-medium text-rose-500 dark:text-rose-500'
+            target='_blank'
+            href='https://vocinity.com'
           >
-            Hello there, my name is Joseph, a passionate Software Developer from
-            Harare, Zimbabwe. I currently work as a{' '}
-            <span className='font-medium'>QA Engineer/Bot Developer</span> at{' '}
-            <Link
-              className='font-medium text-rose-500 dark:text-rose-500'
-              target='_blank'
-              href='https://vocinity.com'
-            >
-              Vocinty
-            </Link>
-            . I&lsquo;m obsessed with making software that is end-user centric
-            by applying Agile methodologies. I&lsquo;ve worked for a variety of
-            companies over the years, ranging from startups to large
-            corporations, such as{' '}
-            <Link
-              className='font-medium text-rose-500 dark:text-rose-500'
-              target='_blank'
-              href='https://rbz.co.zw'
-            >
-              The Reserve Bank of Zimbabwe
-            </Link>
-            ,{' '}
-            <Link
-              className='font-medium text-rose-500 dark:text-rose-500'
-              target='_blank'
-              href='https://sivioinstitute.org'
-            >
-              The Sivio Institute (Zimbabwe)
-            </Link>
-            , and{' '}
-            <Link
-              className='font-medium text-rose-500 dark:text-rose-500'
-              target='_blank'
-              href='https://vocinity.com'
-            >
-              Vocinity (USA)
-            </Link>
-            .
-          </motion.span>
+            Vocinty
+          </Link>
+          . I&lsquo;m obsessed with making software that is end-user centric by
+          applying Agile methodologies. I&lsquo;ve worked for a variety of
+          companies over the years, ranging from startups to large corporations,
+          such as{' '}
+          <Link
+            className='font-medium text-rose-500 dark:text-rose-500'
+            target='_blank'
+            href='https://rbz.co.zw'
+          >
+            The Reserve Bank of Zimbabwe
+          </Link>
+          ,{' '}
+          <Link
+            className='font-medium text-rose-500 dark:text-rose-500'
+            target='_blank'
+            href='https://sivioinstitute.org'
+          >
+            The Sivio Institute (Zimbabwe)
+          </Link>
+          , and{' '}
+          <Link
+            className='font-medium text-rose-500 dark:text-rose-500'
+            target='_blank'
+            href='https://vocinity.com'
+          >
+            Vocinity (USA)
+          </Link>
+          .
         </Text>
+        <Button
+          variant='primary'
+          size='lg'
+          target='_blank'
+          href='https://docs.google.com/document/d/16-sqqDzL3SR1vomlTW6gKOKIqJ7xd_MgfJXrDLkqbnU/edit'
+          className='font-heading mr-3 mt-8 text-sm uppercase'
+        >
+          See my resume
+        </Button>
       </Box>
       <motion.div
         initial={{ translateX: 30 }}

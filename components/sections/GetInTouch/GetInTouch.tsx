@@ -1,4 +1,5 @@
 import { Box, Button, Container, Text } from '@components/ui';
+import { Calendy } from '@components/common';
 
 export const GetInTouch = () => (
   <Box className='mb-10 bg-slate-50  py-12 text-center dark:bg-[#0d1424]'>
@@ -6,25 +7,20 @@ export const GetInTouch = () => (
       <Text as='h2' className='mb-4' fontSize='4xl' align='center'>
         Get in touch
       </Text>
-      <Text className='mx-auto max-w-md opacity-75' align='center'>
-        You have a cool project that you want to discuss? I&lsquo;d love to hear
-        from you.
+      <Text className='mx-auto mb-5 max-w-md opacity-75' align='center'>
+        You have a cool project that you want to discuss or a tech article you
+        want written? I&lsquo;d love to hear from you.
       </Text>
       <Box>
         <Button
-          className='font-heading mt-4 mr-3 uppercase'
-          size='lg'
           variant='primary'
-        >
-          Get in touch
-        </Button>
-        <Button
-          className='font-heading mt-4 uppercase'
           size='lg'
-          variant='secondary'
+          href='mailto:hello@josemukorivo.dev'
+          className='font-heading mr-3 text-sm uppercase'
         >
-          Schedule a call
+          send me an email
         </Button>
+        <Calendy>Schedule a meeting</Calendy>
       </Box>
     </Container>
   </Box>

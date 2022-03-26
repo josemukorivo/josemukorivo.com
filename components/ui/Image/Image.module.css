@@ -1,0 +1,16 @@
+.root {
+  width: 100%;
+}
+
+.root > span,
+.root div {
+  position: unset !important;
+}
+
+.image {
+  @apply w-full relative !important;
+  height: auto !important;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+/*# sourceMappingURL=Image.module.css.map */

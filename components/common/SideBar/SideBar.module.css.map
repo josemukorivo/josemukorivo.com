@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAC;EACJ,MAAM,CAAN,0HAAM;CACP;;AAED,AAAA,KAAK,CAAC;EACJ,MAAM,CAAN,qJAAM;CACP;;AAED,AAAA,KAAK,CAAC;EACJ,MAAM,CAAN,iDAAM;CACP;;AAED,AAAA,IAAI,CAAC;EACH,MAAM,CAAN,qCAAM;CACP",
+    "sources": [
+        "SideBar.module.scss"
+    ],
+    "names": [],
+    "file": "SideBar.module.css"
+}

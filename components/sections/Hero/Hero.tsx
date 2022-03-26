@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { AiOutlineArrowDown } from 'react-icons/ai';
 
 import { Text, Box, Container, Link, Button } from '@components/ui';
+import { Calendy } from '@components/common';
 
 export const Hero = () => {
   return (
@@ -57,15 +58,7 @@ export const Hero = () => {
               transition={{ duration: 1, delay: 0.4 }}
               whileInView={{ x: 0 }}
             >
-              <Button
-                variant='secondary'
-                size='lg'
-                target='_blank'
-                href='https://docs.google.com/document/d/16-sqqDzL3SR1vomlTW6gKOKIqJ7xd_MgfJXrDLkqbnU/edit'
-                className='font-heading mr-3 text-sm uppercase'
-              >
-                View my resume
-              </Button>
+              <Calendy>Schedule meeting</Calendy>
             </motion.div>
           </Box>
         </Box>

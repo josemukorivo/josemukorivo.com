@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAC;EACJ,MAAM,CAAN,cAAM;CACP;;AAED,AAAA,eAAe,CAAC;EACd,MAAM,CAAN,4EAAM;CACP;;AAED,AAAA,MAAM,CAAC;EACL,MAAM,CAAN,kEAAM;CACP",
+    "sources": [
+        "Stack.module.scss"
+    ],
+    "names": [],
+    "file": "Stack.module.css"
+}

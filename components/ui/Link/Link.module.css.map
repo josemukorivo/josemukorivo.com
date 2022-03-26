@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAC;EACJ,MAAM,CAAN,mCAAM;CACP",
+    "sources": [
+        "Link.module.scss"
+    ],
+    "names": [],
+    "file": "Link.module.css"
+}

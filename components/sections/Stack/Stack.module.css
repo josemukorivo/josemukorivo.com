@@ -1,0 +1,12 @@
+.root {
+  @apply mb-10 md:mb-28;
+}
+
+.stackContainer {
+  @apply bg-slate-900 dark:bg-[#0d1424] h-48 md:h-64 2xl:h-80 mt-10 flex items-center;
+}
+
+.stack {
+  @apply px-6 transition duration-200 ease-linear transform hover:scale-125;
+}
+/*# sourceMappingURL=Stack.module.css.map */
