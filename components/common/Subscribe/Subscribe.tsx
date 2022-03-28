@@ -36,7 +36,7 @@ const Form = ({ status, message, onValidated }) => {
       onSubmit={handleSubmit}
     >
       <Text
-        as='h6'
+        as='h5'
         casing='uppercase'
         fontWeight='medium'
         className='font-heading mb-4'

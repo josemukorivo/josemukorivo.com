@@ -142,6 +142,7 @@ export const LatestBlogs = ({ articles }) => {
           onClick={() => translate(510)}
         >
           <MdArrowBackIosNew className='h-6 w-auto' />
+          <span className='sr-only'>Click to move one slide to left</span>
         </Button>
         <Button
           className={s.arrows}
@@ -150,6 +151,7 @@ export const LatestBlogs = ({ articles }) => {
           onClick={() => translate(-510)}
         >
           <MdArrowForwardIos className='h-6 w-auto' />
+          <span className='sr-only'>Click to move one slide to right</span>
         </Button>
       </Container>
     </Container>

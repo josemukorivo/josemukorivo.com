@@ -14,18 +14,22 @@ export const SideBar = () => {
     {
       href: 'https://github.com/josemukorivo',
       Icon: AiFillGithub,
+      title: 'Github',
     },
     {
       href: 'https://twitter.com/josemukorivo',
       Icon: AiFillTwitterCircle,
+      title: 'Twitter',
     },
     {
       href: 'https://www.linkedin.com/in/josemukorivo/',
       Icon: AiFillLinkedin,
+      title: 'Linkedin',
     },
     {
       href: 'mailto:hello@josemukorivo.dev',
       Icon: AiFillMail,
+      title: 'Email',
     },
   ];
 
@@ -47,7 +51,7 @@ export const SideBar = () => {
         </Box>
 
         <Box>
-          {links.map(({ href, Icon }) => (
+          {links.map(({ href, Icon, title }) => (
             <Link
               key={href}
               href={href}
@@ -55,6 +59,7 @@ export const SideBar = () => {
               className='mb-5 block dark:hover:text-rose-500'
             >
               <Icon className={s.icon} />
+              <span className='sr-only'>Follow Joseph on {title}</span>
             </Link>
           ))}
         </Box>
