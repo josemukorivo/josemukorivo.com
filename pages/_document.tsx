@@ -61,9 +61,9 @@ class MyDocument extends Document {
           <link
             rel='mask-icon'
             href='/favicon/safari-pinned-tab.svg'
-            color='#5bbad5'
+            color='#f43f5e'
           />
-          <meta name='msapplication-TileColor' content='#da532c' />
+          <meta name='msapplication-TileColor' content='#f43f5e' />
           <meta name='theme-color' content='#ffffff' />
         </Head>
         <body style={{ fontSize: 20 }}>

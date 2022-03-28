@@ -5,6 +5,7 @@ import '@styles/globals.css';
 
 import * as gtag from '../lib/gtag';
 import { Accessibility, Layout } from '@components/common';
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -28,6 +29,12 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <Layout>
+      <Head>
+        <meta
+          name='viewport'
+          content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
+        />
+      </Head>
       <Component {...pageProps} />
       <Accessibility />
     </Layout>
