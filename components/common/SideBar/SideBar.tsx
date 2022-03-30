@@ -59,7 +59,7 @@ export const SideBar = () => {
               className='mb-5 block dark:hover:text-rose-500'
             >
               <Icon className={s.icon} />
-              <span className='sr-only'>Follow Joseph on {title}</span>
+              <span className='sr-only'>Connect with Joseph on {title}</span>
             </Link>
           ))}
         </Box>
