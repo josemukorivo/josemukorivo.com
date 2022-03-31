@@ -51,7 +51,7 @@ const Form = ({ status, message, onValidated }) => {
         )}
       </Text>
       <Input
-        placeholder='Joseph'
+        placeholder='Your name'
         name='first_name'
         onChange={handleChange}
         label='First name *'
