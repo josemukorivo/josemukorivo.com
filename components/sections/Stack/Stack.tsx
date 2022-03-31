@@ -8,11 +8,7 @@ import { motion } from 'framer-motion';
 const Stack: FC<{ src: string }> = ({ src }) => {
   return (
     <Box className={s.stack}>
-      <img
-        src={src}
-        alt=''
-        className='mr-2 block h-12 w-auto md:mr-10 md:h-12 2xl:mr-12 2xl:h-16'
-      />
+      <Image height={60} width={60} src={src} alt='' />
     </Box>
   );
 };
