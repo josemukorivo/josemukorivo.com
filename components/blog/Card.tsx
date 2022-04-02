@@ -21,7 +21,7 @@ export const Card = ({
         objectFit='cover'
         placeholder='blur'
         blurDataURL='/images/blog-placeholder.png'
-        className='transition duration-200 ease-in-out group-hover:scale-110'
+        className='bg-slate-50 transition duration-200 ease-in-out group-hover:scale-110 dark:bg-slate-800'
         alt=''
       />
 

@@ -17,9 +17,9 @@ export const DetailImage = ({ coverImage }) => {
           quality={100}
           objectFit='cover'
           layout='fill'
+          className='bg-slate-50 dark:bg-slate-800'
           blurDataURL='/images/blog-placeholder.png'
           placeholder='blur'
-          className=''
         />
       </motion.div>
     </Box>
