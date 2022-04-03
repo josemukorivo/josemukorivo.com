@@ -29,7 +29,7 @@ export const Nav: FC<Props> = ({ className = '', variant = 'main' }) => {
         </nav>
       )}
       {variant === 'blog' && (
-        <Box className='sticky top-0 z-10 border-b bg-white backdrop-blur backdrop-filter dark:border-slate-700 dark:bg-slate-900 md:bg-opacity-80'>
+        <Box className='sticky top-0 z-10 border-b bg-white backdrop-blur backdrop-filter dark:border-slate-700 dark:bg-slate-900 md:bg-opacity-80 md:dark:bg-opacity-90'>
           <Container className='flex items-center justify-between py-3'>
             <Logo className='md:hidden' />
             <Link
