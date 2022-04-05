@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import 'prismjs/themes/prism-okaidia.css';
 import Prism from 'prismjs';
+import 'prismjs/themes/prism-okaidia.css';
 
 import { Box } from '@components/ui';
 import { Page } from '@components/common';
