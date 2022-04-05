@@ -69,7 +69,7 @@ export const Hero = () => {
           className='order-2 hidden md:order-3 md:block'
         >
           <Link
-            className='font-heading flex gap-1 text-sm uppercase text-slate-900 hover:text-rose-500 dark:text-slate-200 dark:hover:text-rose-500'
+            className='font-heading flex animate-bounce gap-1 text-sm uppercase text-slate-900 hover:text-rose-500 dark:text-slate-200 dark:hover:text-rose-500'
             href='#latest'
           >
             <AiOutlineArrowDown className='h-[21px] w-auto' /> scroll down
