@@ -1,7 +1,7 @@
-## josemukorivo.dev
+## josemukorivo.com
 
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/josemukorivo/josemukorivo.dev)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/josemukorivo/josemukorivo.com)
 
 
 - **Framework**: [Next.js](https://nextjs.org/)
@@ -22,8 +22,8 @@ I have writen a [blog post]() explaing how I developed the portfolio.
 ## Running Locally:
 
 ```bash
-$ git clone git@github.com:josemukorivo/josemukorivo.dev.git
-$ cd josemukorivo.dev
+$ git clone git@github.com:josemukorivo/josemukorivo.com.git
+$ cd josemukorivo.com
 $ cp .env.example .env.local
 $ npm run dev
 # or
@@ -32,5 +32,5 @@ $ yarn dev
 
 ## Cloning / Forking
 
-Please review the [license](https://github.com/josemukorivo/josemukorivo.dev/blob/main/LICENCE) first.
+Please review the [license](https://github.com/josemukorivo/josemukorivo.com/blob/main/LICENCE) first.
 

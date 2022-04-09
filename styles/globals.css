@@ -32,10 +32,6 @@ body {
   @apply text-slate-900 transition duration-100 ease-in-out dark:bg-slate-900 dark:text-slate-300;
 }
 
-[data-id='branding'] body {
-  @apply hidden !important;
-}
-
 .times {
   font-family: Times, serif !important;
 }

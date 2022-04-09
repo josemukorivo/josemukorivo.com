@@ -7,9 +7,9 @@ export const MailMe = ({ className = '' }) => (
     </span>
     <Link
       className='font-heading border-b border-slate-500 text-sm uppercase hover:border-rose-500 dark:border-slate-200 dark:hover:border-rose-500 2xl:text-xs'
-      href='mailto:hello@josemukorivo.dev'
+      href='mailto:hello@josemukorivo.com'
     >
-      hello@josemukorivo.dev
+      hello@josemukorivo.com
     </Link>
   </Box>
 );
