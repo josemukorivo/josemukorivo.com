@@ -17,7 +17,7 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 ## Learn more
 
-I have writen a [blog post]() explaing how I developed the portfolio.
+I have writen a [blog post](https://josemukorivo.com/blog/how-i-developed-my-modern-open-source-portfolio-2o92) explaing how I developed the portfolio.
 
 ## Running Locally:
 
