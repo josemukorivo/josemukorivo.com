@@ -43,6 +43,7 @@ export default function Home({ article, otherArticles }) {
           title={title}
           body={body}
           coverImage={coverImage}
+          slug={slug}
           tags={tags}
           publishedAt={publishedAt}
           readTime={readTime}

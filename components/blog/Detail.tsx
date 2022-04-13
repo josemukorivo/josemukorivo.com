@@ -6,6 +6,12 @@ import { formatDate } from '@utils/format-date';
 import { OtherArticles } from '@components/blog';
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
 import { motion } from 'framer-motion';
+import {
+  TwitterShareButton,
+  LinkedinShareButton,
+  TwitterIcon,
+  LinkedinIcon,
+} from 'react-share';
 
 const Badge = ({ children }) => (
   <span className='mr-2 mb-2 rounded bg-slate-200 py-1 px-2 text-xs font-medium uppercase dark:bg-slate-800 dark:text-slate-200'>
@@ -19,7 +25,26 @@ const Prose = ({ children }) => (
   </Box>
 );
 
-const Header = ({ title, readTime, publishedAt }) => {
+const Share = ({ url, title }) => (
+  <Box className='flex items-center gap-2'>
+    <Text as='span' fontSize='sm' className='relative top-[2px] opacity-75'>
+      Share:
+    </Text>
+    <TwitterShareButton title={title} related={['josemukorivo']} url={url}>
+      <TwitterIcon size={23} round />
+    </TwitterShareButton>
+    <LinkedinShareButton
+      title={title}
+      url={url}
+      summary={title}
+      source='josemukorivo'
+    >
+      <LinkedinIcon size={23} round />
+    </LinkedinShareButton>
+  </Box>
+);
+
+const Header = ({ slug, title, readTime, publishedAt }) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -38,16 +63,19 @@ const Header = ({ title, readTime, publishedAt }) => {
       >
         <MdOutlineKeyboardArrowLeft className='mr-1 h-4 w-auto' /> back to blog
       </Link>
-      <Text as='span' fontSize='sm' className='mb-2 block opacity-75 md:pt-5'>
-        <motion.span
-          className='block'
-          initial={{ y: -10, opacity: 0 }}
-          transition={{ duration: 0.6 }}
-          animate={{ y: 0, opacity: 1 }}
-        >
-          {formatDate(publishedAt)} — {readTime} min{readTime > 1 && 's'} read
-        </motion.span>
-      </Text>
+      <Box className='flex items-center justify-between'>
+        <Text as='span' fontSize='sm' className='mb-2 block opacity-75 md:pt-5'>
+          <motion.span
+            className='block'
+            initial={{ y: -10, opacity: 0 }}
+            transition={{ duration: 0.6 }}
+            animate={{ y: 0, opacity: 1 }}
+          >
+            {formatDate(publishedAt)} — {readTime} min{readTime > 1 && 's'} read
+          </motion.span>
+        </Text>
+        <Share url={`https://josemukorivo.com/blog/${slug}`} title={title} />
+      </Box>
       <Text as='h1' fontSize='4xl' className='mb-8 max-w-lg'>
         <motion.span
           className='block'
@@ -63,6 +91,7 @@ const Header = ({ title, readTime, publishedAt }) => {
 };
 
 export const BlogDetail = ({
+  slug,
   title,
   body,
   coverImage,
@@ -75,7 +104,12 @@ export const BlogDetail = ({
     <Box className='h-screen overflow-y-auto'>
       <Nav variant='blog' />
       <Container className=''>
-        <Header title={title} readTime={readTime} publishedAt={publishedAt} />
+        <Header
+          title={title}
+          readTime={readTime}
+          slug={slug}
+          publishedAt={publishedAt}
+        />
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           transition={{ duration: 0.9 }}

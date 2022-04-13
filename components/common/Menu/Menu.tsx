@@ -15,15 +15,10 @@ export const Menu = ({ onClose }) => {
       label: 'Blog',
       href: '/blog',
     },
-    // {
-    //   label: 'Projects',
-    //   href: '/blog',
-    // },
     {
       label: 'About',
       href: '/#about',
     },
-
     {
       label: 'Subscribe',
       href: '/#subscribe',

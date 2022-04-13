@@ -1,6 +1,15 @@
 const withPWA = require('next-pwa');
 
 module.exports = withPWA({
+  async redirects() {
+    return [
+      {
+        source: '/schedule',
+        destination: '/?action=schedule',
+        permanent: false,
+      },
+    ];
+  },
   reactStrictMode: true,
   pwa: {
     dest: 'public',
