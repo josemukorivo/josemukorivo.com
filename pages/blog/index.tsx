@@ -5,8 +5,11 @@ export default function Home({ articles }) {
   return (
     <Page
       title='Joseph Mukorivo | Blog'
-      description='Join people from around the world who share the same passion for Software Development, DevOps, and Cloud Computing.'
+      description="Joseph's thoughts on Software Development, DevOps, Cloud Computing and Tech in general."
+      url='https://josemukorivo.com/blog'
+      keywords='Joseph, Mukorivo, Mukoriwo, software engineer,Blogger, Zimbabwe, Harare software developer, zimbabwe developer blog, software development blog, DevOps blog, Cloud Computing blog, React Developer, React Blog'
       image='https://josemukorivo.com/images/me.jpeg'
+      canonicalURL='https://josemukorivo.com/blog'
     >
       <Nav className='fixed border-b bg-white bg-opacity-75 py-3 backdrop-blur dark:bg-slate-900 dark:bg-opacity-90' />
       <Blog articles={articles} />

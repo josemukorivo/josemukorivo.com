@@ -27,7 +27,10 @@ export default function Home({ articles }) {
     <Page
       title='Joseph Mukorivo | Software Engineer'
       description='Joseph Mukorivo is a Software Engineer, Blogger and DevOps Enthusiat based in Harare, Zimbabwe.'
+      url='https://josemukorivo.com'
+      keywords='Joseph, Mukorivo, Mukoriwo, software engineer,Blogger, Zimbabwe, Harare software developer, zimbabwe developer blog, software development blog, DevOps blog, Cloud Computing blog, React Developer, React Blog'
       image='https://josemukorivo.com/images/me.jpeg'
+      canonicalURL='https://josemukorivo.com'
     >
       <Nav className='absolute py-3 md:py-5' />
 

@@ -4,6 +4,9 @@ import { useTheme } from 'hooks';
 
 interface Props {
   title: string;
+  url: string;
+  type?: string;
+  keywords: string;
   description: string;
   image: string;
   canonicalURL?: string;
@@ -12,6 +15,9 @@ interface Props {
 export const Page: FC<Props> = ({
   children,
   title,
+  type = 'website',
+  url,
+  keywords,
   description,
   image,
   canonicalURL,
@@ -22,18 +28,15 @@ export const Page: FC<Props> = ({
       <Head>
         <title>{title}</title>
         <meta name='description' content={description} />
-        <meta
-          name='keywords'
-          content='Joseph, Mukorivo, Joseph Mukorivo, software engineer, Harare, Zimbabwe, Harare software developer, zimbabwe developer blog, software development blog, DevOps blog, Cloud Computing blog, React Developer, React Blog'
-        />
+        <meta name='keywords' content={keywords} />
         <meta name='author' content='Joseph Mukorivo' />
         <meta name='image' content={image} />
         <meta name='og:title' content={title} />
         <meta name='og:description' content={description} />
         <meta name='og:image' content={image} />
-        <meta name='og:url' content='https://josemukorivo.com' />
+        <meta name='og:url' content={url} />
         <meta name='og:site_name' content='Joseph Mukorivo' />
-        <meta name='og:type' content='website' />
+        <meta name='og:type' content={type} />
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:title' content={title} />
         <meta name='twitter:alt' content={title} />

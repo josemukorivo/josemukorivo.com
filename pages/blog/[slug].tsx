@@ -20,6 +20,11 @@ export default function Home({ article, otherArticles }) {
     reading_time_minutes: readTime,
   } = article;
 
+  const blogKeywords =
+    'software, coding, development, engineering, inclusive, community'.split(
+      ', '
+    );
+
   const randomizeArticles = () => {
     return otherArticles
       .sort((a: any, b: any) => 0.5 - Math.random())
@@ -33,6 +38,9 @@ export default function Home({ article, otherArticles }) {
   return (
     <Page
       title={title}
+      url={canonicalURL}
+      type='article'
+      keywords={Array.from(new Set([...tags, ...blogKeywords])).join(', ')}
       description={description}
       image={socialImage}
       canonicalURL={canonicalURL}
