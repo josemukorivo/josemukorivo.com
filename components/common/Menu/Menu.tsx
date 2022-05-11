@@ -23,6 +23,10 @@ export const Menu = ({ onClose }) => {
       label: 'Subscribe',
       href: '/#subscribe',
     },
+    {
+      label: 'My Resume',
+      href: 'https://docs.google.com/document/d/16-sqqDzL3SR1vomlTW6gKOKIqJ7xd_MgfJXrDLkqbnU/edit',
+    },
   ];
 
   const getClasses = (path: string) => {
@@ -101,7 +105,12 @@ export const Menu = ({ onClose }) => {
                 },
               }}
             >
-              <Link href={href} className={getClasses(href)} onClick={onClose}>
+              <Link
+                href={href}
+                target={href.startsWith('http') ? '_blank' : '_self'}
+                className={getClasses(href)}
+                onClick={onClose}
+              >
                 {label}
               </Link>
             </motion.li>

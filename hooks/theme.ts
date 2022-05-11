@@ -4,9 +4,10 @@ export const useTheme = () => {
   const getTheme = (): 'light' | 'dark' => {
     // Check user preference for theme first
     if (
-      window.localStorage.theme === 'dark' ||
-      (!('theme' in window.localStorage) &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches)
+      window.localStorage.theme === 'dark'
+      // ||
+      // (!('theme' in window.localStorage) &&
+      //   window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
       return 'dark';
     } else {

@@ -26,10 +26,10 @@ export default function Home({ articles }) {
   return (
     <Page
       title='Joseph Mukorivo | Software Engineer'
-      description='Joseph Mukorivo is a Software Engineer, Blogger and DevOps Enthusiat based in Harare, Zimbabwe.'
+      description='I am a Software Engineer, Blogger and DevOps Enthusiat based in Harare, Zimbabwe.'
       url='https://josemukorivo.com'
-      keywords='Joseph, Mukorivo, Mukoriwo, software engineer,Blogger, Zimbabwe, Harare software developer, zimbabwe developer blog, software development blog, DevOps blog, Cloud Computing blog, React Developer, React Blog'
-      image='https://josemukorivo.com/images/banner.jpg'
+      keywords='Joseph, Mukorivo,Joseph Mukoriwo,Mukoriwo, software engineer,Blogger, Zimbabwe, Harare software developer, zimbabwe developer blog, software development blog, DevOps blog, Cloud Computing blog, React Developer, React Blog'
+      image='https://josemukorivo.com/images/banner.png'
       canonicalURL='https://josemukorivo.com'
     >
       <Nav className='absolute py-3 md:py-5' />
