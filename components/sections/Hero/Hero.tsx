@@ -19,7 +19,7 @@ export const Hero = () => {
               whileInView={{ y: 0, opacity: 1 }}
             >
               Hi 👋🏼, I’m Joseph. <br /> Writer, Software Engineer, DevOps
-              Enthusiat.
+              Enthusiast.
             </motion.span>
           </Text>
           <Text className='mb-6 2xl:mb-10'>
