@@ -48,6 +48,9 @@ code {
   width: 0;
   height: 0;
 }
+.prose iframe {
+  @apply aspect-video w-full;
+}
 
 /* NProgress */
 /* Make clicks pass-through */
