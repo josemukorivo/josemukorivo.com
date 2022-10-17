@@ -64,7 +64,7 @@ export default function Home({ articles }) {
 export async function getStaticProps() {
   const { NEXT_PUBLIC_DEV_TO_USERNAME } = process.env;
   const res = await fetch(
-    `https://dev.to/api/articles?username=${NEXT_PUBLIC_DEV_TO_USERNAME}&per_page=5&state=all`
+    `https://dev.to/api/articles?username=${NEXT_PUBLIC_DEV_TO_USERNAME}&per_page=5&state=fresh`
   );
   const articles = await res.json();
 
