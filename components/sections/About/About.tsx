@@ -21,8 +21,17 @@ export const About = () => {
           </motion.span>
         </Text>
         <Text className='gap-5 md:columns-2 2xl:gap-10'>
-          Hello there, my name is Joseph, a passionate Software Developer from
-          Harare, Zimbabwe. I currently work as a{' '}
+          Hello there, my name is Joseph,{' '}
+          <span className='font-medium'>Founder & CTO</span> at{' '}
+          <Link
+            className='font-medium text-rose-500 dark:text-rose-500'
+            target='_blank'
+            href='https://complexus.tech'
+          >
+            Complexus Technologies
+          </Link>{' '}
+          and a passionate Software Developer from Harare, Zimbabwe. I currently
+          work as a{' '}
           <span className='font-medium'>QA Engineer/Bot Developer</span> at{' '}
           <Link
             className='font-medium text-rose-500 dark:text-rose-500'
