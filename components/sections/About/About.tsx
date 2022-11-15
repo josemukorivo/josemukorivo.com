@@ -22,7 +22,7 @@ export const About = () => {
         </Text>
         <Text className='gap-5 md:columns-2 2xl:gap-10'>
           Hello there, my name is Joseph,{' '}
-          <span className='font-medium'>Founder & CTO</span> at{' '}
+          <span className='font-medium'>Founder & CTO</span> of{' '}
           <Link
             className='font-medium text-rose-500 dark:text-rose-500'
             target='_blank'
