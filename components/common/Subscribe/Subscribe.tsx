@@ -53,6 +53,7 @@ const Form = ({ status, message, onValidated }) => {
       <Input
         placeholder='Your name'
         name='first_name'
+        className='rounded-none'
         onChange={handleChange}
         label='First name *'
         required
@@ -62,6 +63,7 @@ const Form = ({ status, message, onValidated }) => {
         name='email'
         onChange={handleChange}
         type='email'
+        className='rounded-none'
         label='Email *'
         required
       />
