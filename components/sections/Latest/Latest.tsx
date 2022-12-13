@@ -93,7 +93,7 @@ export const LatestBlogs = ({ articles }) => {
       </Container>
       <AnimatePresence>
         <Box
-          className='hidden w-[3000px] gap-x-10 pl-10 transition duration-500 ease-in-out md:flex'
+          className='hidden w-[3000px] gap-x-10 pl-10 transition duration-500 ease-in-out md:flex 2xl:pl-12'
           style={{ transform: `translate3d(${x}px, 0px, 0px)` }}
         >
           {articles?.length &&
@@ -134,7 +134,7 @@ export const LatestBlogs = ({ articles }) => {
             )}
         </Box>
       </AnimatePresence>
-      <Container className='hidden md:block'>
+      <Container className='hidden md:block 2xl:mt-2'>
         <Button
           className={s.arrows}
           size='sm'

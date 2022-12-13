@@ -21,7 +21,7 @@ export const Container: FC<Props> = ({
 }) => {
   const classes = cn(
     {
-      'mx-auto max-w-8xl px-5 md:px-10': !full,
+      'mx-auto max-w-8xl px-5 md:px-10 2xl:px-12': !full,
     },
     className
   );

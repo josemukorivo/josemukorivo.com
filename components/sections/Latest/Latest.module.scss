@@ -1,7 +1,7 @@
 .root {
-  @apply mb-20 md:mb-40 2xl:pl-6;
+  @apply mb-20 md:mb-40;
 }
 
 .arrows {
-  @apply p-[13px] 2xl:p-5 bg-slate-800 text-white mr-2 ring-slate-800 hover:bg-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:ring-offset-slate-900 dark:ring-slate-100 hover:dark:bg-slate-100;
+  @apply mr-2 bg-slate-800 p-[13px] text-white ring-slate-800 hover:bg-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:ring-slate-100 dark:ring-offset-slate-900 hover:dark:bg-slate-100 2xl:p-5;
 }

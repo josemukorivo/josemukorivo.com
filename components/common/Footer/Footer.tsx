@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 export const Footer = () => {
   return (
     <footer id='subscribe'>
-      <Container className='relative mb-10 grid-cols-5 gap-20 md:grid 2xl:px-16'>
+      <Container className='relative mb-10 grid-cols-5 gap-20 md:grid'>
         <Box className='col-span-3 max-w-lg'>
           <Text
             as='h4'

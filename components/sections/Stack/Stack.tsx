@@ -33,7 +33,7 @@ export const TechStack = () => {
 
   return (
     <Container full className={s.root}>
-      <Container className='2xl:px-16'>
+      <Container>
         <Box className='flex items-center justify-between'>
           <Text as='h2' className='mb-4' fontSize='4xl'>
             <motion.span
