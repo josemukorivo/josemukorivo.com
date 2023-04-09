@@ -18,7 +18,7 @@ export const About = () => {
           </motion.span>
         </Text>
         <Text className='gap-5 md:columns-2 2xl:gap-10'>
-          Hello there, I&lsquo;m Joseph, a Software Developer from in Harare,
+          Hello there, I&lsquo;m Joseph, a Software Developer from Harare,
           Zimbabwe and <span className='font-medium'>Founder & CTO</span> of{' '}
           <Link
             className='font-medium text-rose-500 dark:text-rose-500'
