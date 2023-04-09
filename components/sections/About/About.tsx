@@ -18,8 +18,8 @@ export const About = () => {
           </motion.span>
         </Text>
         <Text className='gap-5 md:columns-2 2xl:gap-10'>
-          Hello there, my name is Joseph,{' '}
-          <span className='font-medium'>Founder & CTO</span> of{' '}
+          Hello there, I&lsquo;m Joseph, a Software Developer from in Harare,
+          Zimbabwe and <span className='font-medium'>Founder & CTO</span> of{' '}
           <Link
             className='font-medium text-rose-500 dark:text-rose-500'
             target='_blank'
@@ -27,19 +27,9 @@ export const About = () => {
           >
             Complexus Technologies
           </Link>{' '}
-          and a passionate Software Developer from Harare, Zimbabwe. I currently
-          work as a{' '}
-          <span className='font-medium'>QA Engineer/Bot Developer</span> at{' '}
-          <Link
-            className='font-medium text-rose-500 dark:text-rose-500'
-            target='_blank'
-            href='https://vocinity.com'
-          >
-            Vocinty
-          </Link>
-          . I&lsquo;m obsessed with making software that is end-user centric by
-          applying Agile methodologies. I&lsquo;ve worked for a variety of
-          companies over the years, ranging from startups to large corporations,
+          . My passion lies in creating end-user centric software using Agile
+          methodologies. Over the years, I&lsquo;ve had the privilege of working
+          with various companies ranging from startups to large corporations
           such as{' '}
           <Link
             className='font-medium text-rose-500 dark:text-rose-500'
@@ -62,16 +52,24 @@ export const About = () => {
             target='_blank'
             href='https://vocinity.com'
           >
-            Vocinity (USA)
+            Vocinty(USA)
           </Link>
-          .
+          . I&lsquo;ve recently moved to Nairobi, Kenya, where I&lsquo;m
+          currently working as a Software Engineer at{' '}
+          <Link
+            className='font-medium text-rose-500 dark:text-rose-500'
+            target='_blank'
+            href='https://fin.africa'
+          >
+            Fin.
+          </Link>
         </Text>
         <Button
           variant='primary'
           size='lg'
           target='_blank'
           href='https://docs.google.com/document/d/16-sqqDzL3SR1vomlTW6gKOKIqJ7xd_MgfJXrDLkqbnU/edit'
-          className='font-heading mr-3 mt-8 text-sm uppercase'
+          className='mr-3 mt-8 font-heading text-sm uppercase'
         >
           See my resume
         </Button>
