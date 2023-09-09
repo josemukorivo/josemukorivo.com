@@ -1,4 +1,4 @@
-import NextImage, { ImageProps } from 'next/image';
+import NextImage, { ImageProps } from "next/legacy/image";
 import { FC } from 'react';
 
 import s from './Image.module.scss';

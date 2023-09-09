@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { EffectCards } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Box, Button, Card, Container, Link, Text } from '@components/ui';
+import { AnimatePresence, motion } from 'framer-motion';
 import s from './Latest.module.scss';
-import { motion, AnimatePresence } from 'framer-motion';
 
 SwiperCore.use([EffectCards]);
 

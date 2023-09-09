@@ -1,9 +1,10 @@
-import { CSSProperties, FC } from 'react';
-import FastMarquee from 'react-fast-marquee';
 import cn from 'classnames';
+import { CSSProperties, FC, ReactNode } from 'react';
+import FastMarquee from 'react-fast-marquee';
 
 interface Props {
   className?: string;
+  children: ReactNode;
   speed?: number;
   style?: CSSProperties;
   pauseOnHover?: boolean;

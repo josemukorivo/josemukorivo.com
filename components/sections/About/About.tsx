@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { Text, Box, Container, Link } from '@components/ui';
 import { motion } from 'framer-motion';
 import { Button } from '@components/ui';

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { Box, Link, Text } from '@components/ui';
 import { formatDate } from '@utils/format-date';
 

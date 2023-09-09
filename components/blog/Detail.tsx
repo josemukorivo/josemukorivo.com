@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { Box, Container, Text, Link } from '@components/ui';
 import { Copyright, Nav } from '@components/common';
 import { formatDate } from '@utils/format-date';

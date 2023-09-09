@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import cn from 'classnames';
 import { Box, Text, Link } from '@components/ui';
 import s from './Card.module.scss';

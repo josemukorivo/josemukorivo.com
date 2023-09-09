@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://josemukorivo.com
+
+# Sitemaps
+Sitemap: https://josemukorivo.com/sitemap.xml
