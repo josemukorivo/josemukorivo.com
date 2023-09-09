@@ -51,28 +51,26 @@ export const Button: FC<ButtonProps> = forwardRef((props, buttonRef) => {
     className
   );
 
-  return (
-    <>
-      {href ? (
-        <Tag ref={mergeRefs([ref, buttonRef])} {...rest}>
-          <Link href={href}>
-            <a className={classes} target={target}>
-              {children}
-            </a>
-          </Link>
-        </Tag>
-      ) : (
-        <Tag
-          ref={mergeRefs([ref, buttonRef])}
-          disabled={disabled}
-          className={classes}
-          {...rest}
-        >
+  return <>
+    {href ? (
+      <Tag ref={mergeRefs([ref, buttonRef])} {...rest}>
+        <Link href={href} className={classes} target={target}>
+
           {children}
-        </Tag>
-      )}
-    </>
-  );
+
+        </Link>
+      </Tag>
+    ) : (
+      <Tag
+        ref={mergeRefs([ref, buttonRef])}
+        disabled={disabled}
+        className={classes}
+        {...rest}
+      >
+        {children}
+      </Tag>
+    )}
+  </>;
 });
 
 Button.displayName = 'Button';

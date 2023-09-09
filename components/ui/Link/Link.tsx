@@ -21,10 +21,10 @@ export const Link: FC<Props> = ({
   const classes = cn(s.root, className);
 
   return (
-    <NextLink href={href}>
-      <a className={classes} {...rest} onClick={onClick}>
-        {children}
-      </a>
-    </NextLink>
+    (<NextLink href={href} className={classes} {...rest} onClick={onClick}>
+
+      {children}
+
+    </NextLink>)
   );
 };

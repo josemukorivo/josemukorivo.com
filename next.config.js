@@ -1,6 +1,4 @@
-const withPWA = require('next-pwa');
-
-module.exports = withPWA({
+module.exports = {
   async redirects() {
     return [
       {
@@ -11,11 +9,6 @@ module.exports = withPWA({
     ];
   },
   reactStrictMode: true,
-  pwa: {
-    dest: 'public',
-    register: true,
-    skipWaiting: true,
-  },
   images: {
     domains: ['res.cloudinary.com'],
   },
@@ -23,7 +16,7 @@ module.exports = withPWA({
     // Find the base rule that contains nested rules (which contains css-loader)
     const rules = config.module.rules.find((r) => !!r.oneOf);
 
-    // Interate over the found rules
+    // Iterate over the found rules
     rules.oneOf.forEach((loaders) => {
       // Focus on the the loaders that have an array of `use` statements
       if (Array.isArray(loaders.use)) {
@@ -59,4 +52,4 @@ module.exports = withPWA({
 
     return config;
   },
-});
+};
