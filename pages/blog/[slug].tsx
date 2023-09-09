@@ -21,7 +21,7 @@ export default function Home({ article, otherArticles }) {
   } = article;
 
   const blogKeywords =
-    'software, coding, development, engineering, inclusive, community'.split(
+    'software, coding, development, engineering, inclusive, community, joseph mukorivo, software engineer, react developer'.split(
       ', '
     );
 

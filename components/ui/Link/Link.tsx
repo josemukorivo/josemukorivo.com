@@ -1,11 +1,12 @@
-import { FC } from 'react';
-import NextLink, { LinkProps } from 'next/link';
 import cn from 'classnames';
+import NextLink, { LinkProps } from 'next/link';
+import { FC } from 'react';
 
 import s from './Link.module.scss';
 
 interface Props extends LinkProps {
   className?: string;
+  children: React.ReactNode;
   onClick?: () => void;
   target?: '_blank' | '_self' | '_parent' | '_top';
 }

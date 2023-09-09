@@ -1,10 +1,10 @@
-import { FC, useState } from 'react';
-import { Container, Box, Link } from '@components/ui';
 import { Menu } from '@components/common';
-import { MailMe, MenuButton } from '..';
-import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
-import { Logo } from '../Logo/Logo';
+import { Box, Container, Link } from '@components/ui';
 import { AnimatePresence } from 'framer-motion';
+import { FC, useState } from 'react';
+import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
+import { MailMe, MenuButton } from '..';
+import { Logo } from '../Logo/Logo';
 
 interface Props {
   variant?: 'main' | 'blog';
@@ -30,11 +30,11 @@ export const Nav: FC<Props> = ({ className = '', variant = 'main' }) => {
       )}
       {variant === 'blog' && (
         <Box className='sticky top-0 z-10 border-b bg-white backdrop-blur backdrop-filter dark:border-slate-700 dark:bg-slate-900 md:bg-opacity-80 md:dark:bg-opacity-90'>
-          <Container className='flex items-center justify-between py-3'>
+          <Container className='flex items-center justify-between py-4'>
             <Logo className='md:hidden' />
             <Link
               href='/blog'
-              className='font-heading relative -left-1 hidden items-center text-xs uppercase hover:text-rose-500 md:flex'
+              className='relative -left-1 hidden items-center font-heading text-xs uppercase hover:text-rose-500 md:flex'
             >
               <MdOutlineKeyboardArrowLeft className='mr-1 h-4 w-auto' /> back to
               blog

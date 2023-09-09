@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { InlineWidget } from 'react-calendly';
+import { Footer, Nav, Page } from '@components/common';
 import {
   About,
   GetInTouch,
@@ -8,8 +6,10 @@ import {
   LatestBlogs,
   TechStack,
 } from '@components/sections';
-import { Footer, Nav, Page } from '@components/common';
 import { Box } from '@components/ui';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { InlineWidget } from 'react-calendly';
 import { VscChromeClose } from 'react-icons/vsc';
 
 export default function Home({ articles }) {
@@ -64,13 +64,13 @@ export default function Home({ articles }) {
 export async function getStaticProps() {
   const { NEXT_PUBLIC_DEV_TO_USERNAME } = process.env;
   const res = await fetch(
-    `https://dev.to/api/articles?username=${NEXT_PUBLIC_DEV_TO_USERNAME}&per_page=5&state=all`
+    `https://dev.to/api/articles?username=${NEXT_PUBLIC_DEV_TO_USERNAME}&state=all`
   );
   const articles = await res.json();
 
   return {
     props: {
-      articles,
+      articles: articles.slice(0, 5),
     },
     revalidate: 60,
   };
