@@ -1,8 +1,9 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import { PopupButton } from 'react-calendly';
 
 interface Props {
   className?: string;
+  children: ReactNode;
 }
 export const Calendy: FC<Props> = ({ children }) => {
   const [documentReady, setDocumentReady] = useState(false);

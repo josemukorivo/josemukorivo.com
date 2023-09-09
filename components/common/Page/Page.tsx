@@ -4,6 +4,7 @@ import { useTheme } from 'hooks';
 
 interface Props {
   title: string;
+  children: React.ReactNode;
   url: string;
   type?: string;
   keywords: string;
