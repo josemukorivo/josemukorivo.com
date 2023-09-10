@@ -1,7 +1,7 @@
 import { BsArrowUpCircle } from 'react-icons/bs';
 
-import { Container, Box, Text, Link } from '@components/ui';
-import { Subscribe, Copyright } from '@components/common';
+import { Copyright, Subscribe } from '@components/common';
+import { Box, Container, Link, Text } from '@components/ui';
 import { motion } from 'framer-motion';
 
 export const Footer = () => {
@@ -34,7 +34,7 @@ export const Footer = () => {
             >
               Software engineer from Harare, Zimbabwe who is trying to make the
               world a better place one{' '}
-              <code className='text-sm font-bold dark:font-medium dark:text-slate-300 2xl:text-lg'>
+              <code className='font-bold dark:font-medium dark:text-slate-300 2xl:text-xl'>
                 {'<commit/>'}
               </code>{' '}
               at a time 😎.
@@ -47,7 +47,7 @@ export const Footer = () => {
             as='h6'
             casing='uppercase'
             fontWeight='medium'
-            className='font-heading mb-4'
+            className='font-heading mb-5'
           >
             <motion.span
               className='block'
@@ -66,31 +66,34 @@ export const Footer = () => {
           >
             <Link
               href='mailto:hello@josemukorivo.com'
-              className='mb-3 block text-base font-medium hover:text-rose-500 dark:hover:text-rose-500'
+              className='mb-4 block text-sm font-heading uppercase tracking-widest hover:text-rose-500 dark:hover:text-rose-500'
             >
-              <code>{'<Email me/>'}</code>
+              {'<Email me/>'}
             </Link>
             <Link
               href='/blog'
-              className='mb-3 block text-base font-medium hover:text-rose-500 dark:hover:text-rose-500'
+              className='mb-4 block text-sm font-heading uppercase tracking-widest hover:text-rose-500 dark:hover:text-rose-500'
             >
-              <code>{'<Read the Blog/>'}</code>
+              {'<Read the Blog/>'}
             </Link>
             <Link
               href='/#about'
-              className='mb-3 block text-base font-medium hover:text-rose-500 dark:hover:text-rose-500'
+              className='mb-4 block text-sm font-heading uppercase tracking-widest hover:text-rose-500 dark:hover:text-rose-500'
             >
-              <code>{'<About Joseph/>'}</code>
+              {'<About Joseph/>'}
             </Link>
           </motion.span>
         </Box>
 
         <Link
           href='#top'
-          className='group absolute bottom-0 right-10 hidden items-center gap-2 text-sm font-medium uppercase text-rose-500 transition duration-300 ease-in-out hover:text-rose-600 dark:text-rose-500 md:flex'
+          className='group absolute bottom-0 right-10 hidden items-center gap-2 text-sm font-medium uppercase text-rose-500 font-heading transition duration-300 ease-in-out hover:text-rose-600 dark:text-rose-500 md:flex'
         >
           Back to top
-          <BsArrowUpCircle className='relative -top-[2px] h-5 w-5 transform transition duration-300 ease-in-out group-hover:-translate-y-1' />
+          <BsArrowUpCircle
+            strokeWidth={0.3}
+            className='h-5 w-auto transform transition duration-300 ease-in-out group-hover:-translate-y-[2px]'
+          />
         </Link>
       </Container>
 

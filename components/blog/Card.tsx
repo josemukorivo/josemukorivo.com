@@ -1,6 +1,6 @@
-import Image from "next/legacy/image";
 import { Box, Link, Text } from '@components/ui';
 import { formatDate } from '@utils/format-date';
+import Image from 'next/legacy/image';
 
 export const Card = ({
   title,
@@ -45,8 +45,8 @@ export const Card = ({
       </Text>
       <Text
         as='h3'
-        fontWeight='medium'
-        fontSize={variant === 'md' ? '3xl' : 'xl'}
+        fontWeight='bold'
+        fontSize={variant === 'md' ? '2xl' : 'xl'}
         className='mb-1 mt-2 hidden group-hover:underline md:block'
       >
         {title}

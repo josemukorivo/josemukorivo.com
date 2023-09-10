@@ -1,7 +1,7 @@
-import { useRouter } from 'next/router';
-import { motion } from 'framer-motion';
-import cn from 'classnames';
 import { Container, Link } from '@components/ui';
+import cn from 'classnames';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 import { CloseButton } from './Close';
 
 export const Menu = ({ onClose }) => {
@@ -84,7 +84,7 @@ export const Menu = ({ onClose }) => {
               }}
               animate={{ opacity: 1, x: 0 }}
               transition={{
-                delay: idx * 0.3,
+                delay: idx * 0.2,
                 duration: 1,
                 ease: [0.6, 0.05, -0.01, 0.9],
               }}

@@ -1,9 +1,8 @@
-import Image from "next/legacy/image";
 import { motion } from 'framer-motion';
 import { AiOutlineArrowDown } from 'react-icons/ai';
 
-import { Text, Box, Container, Link, Button } from '@components/ui';
 import { Calendy } from '@components/common';
+import { Box, Button, Container, Link, Text } from '@components/ui';
 
 export const Hero = () => {
   return (
@@ -29,9 +28,9 @@ export const Hero = () => {
               transition={{ duration: 1, delay: 0.2 }}
               whileInView={{ y: 0, opacity: 1 }}
             >
-              <code className='text-base font-medium dark:text-slate-100 2xl:text-lg'>
+              <span className='text-base font-semibold dark:text-slate-100 2xl:text-lg'>
                 &lt;Welcome😎/&gt;
-              </code>
+              </span>
               , nice to meet you. This is my personal space on the internet
               where I get to try out new technologies and occasionaly write
               about Software Development, Cloud Native Technologies and tech in
@@ -72,7 +71,7 @@ export const Hero = () => {
             className='font-heading flex animate-bounce gap-1 text-sm uppercase text-slate-900 hover:text-rose-500 dark:text-slate-200 dark:hover:text-rose-500'
             href='#latest'
           >
-            <AiOutlineArrowDown className='h-[21px] w-auto' /> scroll down
+            <AiOutlineArrowDown className='h-5 w-auto' /> scroll down
           </Link>
         </motion.div>
       </Container>
@@ -81,38 +80,15 @@ export const Hero = () => {
         initial={{ opacity: 0.8 }}
         transition={{ duration: 0.6 }}
         animate={{ opacity: 1 }}
-        className='relative mt-[64px] h-[70vh] md:hidden'
-      >
-        <Image
-          src='/images/jose.jpg'
-          layout='fill'
-          objectFit='cover'
-          objectPosition='top right'
-          priority
-          quality={100}
-          blurDataURL='/images/jose-placeholder.png'
-          placeholder='blur'
-          alt='Joseph Mukorivo'
-        />
-      </motion.div>
+        className='relative mt-[61px] h-[60vh] md:hidden bg-[url(/images/jose.jpg)] bg-cover bg-left-top'
+      />
 
       <motion.div
         initial={{ opacity: 0.8 }}
         transition={{ duration: 0.6 }}
         animate={{ opacity: 1 }}
-        className='relative left-4 order-1 mt-0 hidden h-full max-w-2xl justify-end pt-3 md:flex'
-      >
-        <Image
-          src='/images/jose.png'
-          layout='fill'
-          objectFit='contain'
-          priority
-          quality={100}
-          blurDataURL='/images/jose-placeholder.png'
-          placeholder='blur'
-          alt='Joseph Mukorivo'
-        />
-      </motion.div>
+        className='order-1 mt-0 hidden bg-slate-300 dark:bg-slate-800 h-full bg-[url(/images/jose.jpg)] bg-cover bg-center md:block'
+      />
     </Box>
   );
 };

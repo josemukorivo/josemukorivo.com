@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image';
 import { FC } from 'react';
 
 import { Box, Container, Link, Marquee, Text } from '@components/ui';
@@ -51,7 +51,7 @@ export const TechStack = () => {
             className='font-heading mb-6 text-sm font-medium uppercase hover:text-rose-500 dark:hover:text-rose-500 md:mb-0'
           >
             <motion.span
-              className='block'
+              className='block tracking-wider'
               initial={{ x: 10 }}
               transition={{ duration: 1 }}
               whileInView={{ x: 0 }}
