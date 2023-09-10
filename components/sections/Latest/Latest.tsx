@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
-import SwiperCore, { EffectCards } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
+import { EffectCards } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Box, Button, Card, Container, Link, Text } from '@components/ui';
 import { AnimatePresence, motion } from 'framer-motion';
 import s from './Latest.module.scss';
-
-SwiperCore.use([EffectCards]);
 
 export const LatestBlogs = ({ articles }) => {
   const [x, setX] = useState(0);
@@ -67,7 +65,7 @@ export const LatestBlogs = ({ articles }) => {
       </Container>
 
       <Container className='md:hidden'>
-        <Swiper effect={'cards'} grabCursor={true}>
+        <Swiper effect={'cards'} modules={[EffectCards]} grabCursor={true}>
           {articles?.length &&
             articles.map(
               ({

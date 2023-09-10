@@ -32,7 +32,7 @@ export const Hero = () => {
                 &lt;Welcome😎/&gt;
               </span>
               , nice to meet you. This is my personal space on the internet
-              where I get to try out new technologies and occasionaly write
+              where I get to try out new technologies and occasionally write
               about Software Development, Cloud Native Technologies and tech in
               general.
             </motion.span>
@@ -80,7 +80,7 @@ export const Hero = () => {
         initial={{ opacity: 0.8 }}
         transition={{ duration: 0.6 }}
         animate={{ opacity: 1 }}
-        className='relative mt-[61px] h-[60vh] md:hidden bg-[url(/images/jose.jpg)] bg-cover bg-left-top'
+        className='relative mt-[53px] h-[60vh] md:hidden bg-[url(/images/jose.jpg)] bg-cover bg-left-top'
       />
 
       <motion.div

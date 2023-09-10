@@ -1,5 +1,11 @@
 import { Footer, Nav, Page } from '@components/common';
-import { About, GetInTouch, Hero, TechStack } from '@components/sections';
+import {
+  About,
+  GetInTouch,
+  Hero,
+  LatestBlogs,
+  TechStack,
+} from '@components/sections';
 import { Box } from '@components/ui';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -26,11 +32,11 @@ export default function Home({ articles }) {
       image='https://josemukorivo.com/images/banner.jpg'
       canonicalURL='https://josemukorivo.com'
     >
-      <Nav className='absolute py-4 md:py-5' />
+      <Nav className='absolute py-3 md:py-5' />
 
       <Hero />
       <About />
-      {/* <LatestBlogs articles={articles} /> */}
+      <LatestBlogs articles={articles} />
       <GetInTouch />
       <TechStack />
       <Footer />
