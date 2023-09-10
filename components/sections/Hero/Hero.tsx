@@ -28,13 +28,12 @@ export const Hero = () => {
               transition={{ duration: 1, delay: 0.2 }}
               whileInView={{ y: 0, opacity: 1 }}
             >
-              <span className='text-base font-semibold dark:text-slate-100 2xl:text-lg'>
-                &lt;Welcome😎/&gt;
-              </span>
-              , nice to meet you. This is my personal space on the internet
-              where I get to try out new technologies and occasionally write
-              about Software Development, Cloud Native Technologies and tech in
-              general.
+              Hello there! It&lsquo;s a pleasure to meet you. This space is
+              where I immerse myself in the latest advancements in technology.
+              You&lsquo;ll find a mix of enlightening pieces on Software
+              Development and thorough examinations of Cloud Native
+              Technologies. I&lsquo;m genuinely excited to have you join me on
+              this adventure. 🚀
             </motion.span>
           </Text>
           <Box className='flex'>

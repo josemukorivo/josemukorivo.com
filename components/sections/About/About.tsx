@@ -1,7 +1,6 @@
-import Image from "next/legacy/image";
-import { Text, Box, Container, Link } from '@components/ui';
+import { Box, Button, Container, Link, Text } from '@components/ui';
 import { motion } from 'framer-motion';
-import { Button } from '@components/ui';
+import Image from 'next/legacy/image';
 
 export const About = () => {
   return (
@@ -18,8 +17,8 @@ export const About = () => {
           </motion.span>
         </Text>
         <Text className='gap-5 md:columns-2 2xl:gap-10'>
-          Hello there, I&lsquo;m Joseph, a Software Developer from Harare,
-          Zimbabwe and <span className='font-medium'>Founder & CTO</span> of{' '}
+          Hello, I&lsquo;m Joseph, a Software Engineer from Harare, Zimbabwe 🇿🇼
+          and <span className='font-medium'>Founder & CTO</span> of{' '}
           <Link
             className='font-medium text-rose-500 dark:text-rose-500'
             target='_blank'
@@ -27,10 +26,10 @@ export const About = () => {
           >
             Complexus Technologies
           </Link>{' '}
-          . My passion lies in creating end-user centric software using Agile
+          a company dedicated to crafting user-centric software using Agile
           methodologies. Over the years, I&lsquo;ve had the privilege of working
-          with various companies ranging from startups to large corporations
-          such as{' '}
+          with a diverse range of companies, from dynamic startups to esteemed
+          institutions like the{' '}
           <Link
             className='font-medium text-rose-500 dark:text-rose-500'
             target='_blank'
@@ -44,7 +43,7 @@ export const About = () => {
             target='_blank'
             href='https://sivioinstitute.org'
           >
-            The Sivio Institute (Zimbabwe)
+            The SIVIO Institute (Zimbabwe)
           </Link>
           , and{' '}
           <Link
@@ -54,15 +53,17 @@ export const About = () => {
           >
             Vocinty(USA)
           </Link>
-          . I&lsquo;ve recently moved to Nairobi, Kenya, where I&lsquo;m
-          currently working as a Software Engineer at{' '}
+          . I&lsquo;m currently based in Nairobi, Kenya 🇰🇪, where I&lsquo;m
+          working as a Software Engineer at{' '}
           <Link
             className='font-medium text-rose-500 dark:text-rose-500'
             target='_blank'
             href='https://fin.africa'
           >
             Fin.
-          </Link>
+          </Link>{' '}
+          I&lsquo;m excited to continue this journey, creating impactful
+          software solutions. Looking forward to what lies ahead!
         </Text>
         <Button
           variant='primary'
