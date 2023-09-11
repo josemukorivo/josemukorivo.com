@@ -1,20 +1,19 @@
-import { motion } from 'framer-motion';
+import { Box, Text } from '@components/ui';
 import cn from 'classnames';
-import { Text, Box, Link } from '@components/ui';
+import { motion } from 'framer-motion';
 
-import { VscChromeClose } from 'react-icons/vsc';
-import { BiSun, BiMoon } from 'react-icons/bi';
-import { BsQuestionCircle } from 'react-icons/bs';
+import { AiOutlineAlignRight } from 'react-icons/ai';
+import { BiMoon, BiSun } from 'react-icons/bi';
 import { FiAlignCenter } from 'react-icons/fi';
-import { AiOutlineAlignLeft, AiOutlineAlignRight } from 'react-icons/ai';
-import { RiCursorFill } from 'react-icons/ri';
 import { ImFont } from 'react-icons/im';
 import {
+  MdAnimation,
   MdHideImage,
   MdOutlineInvertColors,
   MdOutlineInvertColorsOff,
-  MdAnimation,
 } from 'react-icons/md';
+import { RiCursorFill } from 'react-icons/ri';
+import { VscChromeClose } from 'react-icons/vsc';
 
 import s from './Modal.module.scss';
 
@@ -82,12 +81,12 @@ export const Modal = ({ onClose, theme, toggleTheme }) => {
       className={s.root}
     >
       <Box className={s.header}>
-        <Link
+        {/* <Link
           href='/accessibility'
           className='hover:scale-110 hover:text-rose-500'
         >
           <BsQuestionCircle className={s.headerIcon} />
-        </Link>
+        </Link> */}
         <button
           onClick={onClose}
           className='transition duration-300 ease-in-out hover:rotate-90 hover:text-rose-500'
