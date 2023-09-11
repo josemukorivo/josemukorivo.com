@@ -1,6 +1,7 @@
 import { Menu } from '@components/common';
 import { Box, Container, Link } from '@components/ui';
 import { AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
 import { MailMe, MenuButton } from '..';
@@ -13,6 +14,7 @@ interface Props {
 
 export const Nav: FC<Props> = ({ className = '', variant = 'main' }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { pathname } = useRouter();
   const onOpen = () => setIsMenuOpen(true);
   const onClose = () => setIsMenuOpen(false);
   return (
@@ -24,7 +26,10 @@ export const Nav: FC<Props> = ({ className = '', variant = 'main' }) => {
           <Container className='flex items-center justify-between'>
             <MailMe className='hidden md:block' />
             <Logo className='md:hidden' />
-            <MenuButton onOpen={onOpen} />
+            <MenuButton
+              onOpen={onOpen}
+              className={pathname === '/' && 'md:text-white'}
+            />
           </Container>
         </nav>
       )}
