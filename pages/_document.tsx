@@ -45,6 +45,10 @@ class MyDocument extends Document {
             rel='stylesheet'
           />
           <link
+            href='https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap'
+            rel='stylesheet'
+          />
+          <link
             rel='apple-touch-icon'
             sizes='180x180'
             href='/favicon/apple-touch-icon.png'
