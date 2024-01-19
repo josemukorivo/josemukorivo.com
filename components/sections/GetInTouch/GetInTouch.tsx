@@ -2,7 +2,7 @@ import { Box, Button, Container, Text } from '@components/ui';
 import { Calendy } from '@components/common';
 
 export const GetInTouch = () => (
-  <Box className='mb-10 bg-slate-50  py-12 text-center dark:bg-[#0d1424]'>
+  <Box className='mb-10 bg-slate-100  py-12 text-center dark:bg-[#0d1424]'>
     <Container>
       <Text as='h2' className='mb-4' fontSize='4xl' align='center'>
         Get in touch
