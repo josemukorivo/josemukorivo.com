@@ -79,14 +79,14 @@ export const Hero = () => {
         initial={{ opacity: 0.8 }}
         transition={{ duration: 0.6 }}
         animate={{ opacity: 1 }}
-        className='relative mt-[53px] h-[60vh] md:hidden bg-[url(/images/joseph.jpg)] bg-top bg-left-top'
+        className='relative mt-[53px] h-[60vh] md:hidden bg-[url(/images/joseph.jpg)] bg-center bg-left-top'
       />
 
       <motion.div
         initial={{ opacity: 0.8 }}
         transition={{ duration: 0.6 }}
         animate={{ opacity: 1 }}
-        className='order-1 mt-0 hidden bg-slate-300 dark:bg-slate-800 h-full bg-[url(/images/joseph.jpg)] bg-cover bg-center md:block '
+        className='order-1 mt-0 hidden bg-slate-300 dark:bg-slate-800 h-full bg-[url(/images/joseph.jpg)] bg-cover bg-top md:block '
       />
     </Box>
   );
