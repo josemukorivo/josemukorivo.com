@@ -10,7 +10,7 @@ module.exports = {
   },
   reactStrictMode: true,
   images: {
-    domains: ['res.cloudinary.com'],
+    domains: ['res.cloudinary.com', 'media.dev.to'],
   },
   webpack: (config) => {
     // Find the base rule that contains nested rules (which contains css-loader)
