@@ -90,7 +90,6 @@ export async function getStaticPaths() {
     `https://dev.to/api/articles?username=${NEXT_PUBLIC_DEV_TO_USERNAME}&state=fresh`
   );
   const articles = await res.json();
-  console.log(articles);
 
   const paths = articles.map((article) => ({
     params: {
