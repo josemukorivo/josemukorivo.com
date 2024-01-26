@@ -79,7 +79,7 @@ export const Hero = () => {
         initial={{ opacity: 0.8 }}
         transition={{ duration: 0.6 }}
         animate={{ opacity: 1 }}
-        className='relative mt-[53px] h-[60vh] md:hidden bg-[url(/images/joseph.jpg)] bg-center bg-left-top'
+        className='relative mt-[53px] h-[60vh] md:hidden bg-[url(/images/joseph.jpg)] bg-top bg-cover'
       />
 
       <motion.div
