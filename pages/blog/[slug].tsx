@@ -71,7 +71,7 @@ export async function getStaticProps({ params }) {
   const article = await res.json();
 
   const articlesRes = await fetch(
-    `https://dev.to/api/articles?username=${NEXT_PUBLIC_DEV_TO_USERNAME}&state=all`
+    `https://dev.to/api/articles?username=${NEXT_PUBLIC_DEV_TO_USERNAME}&state=fresh`
   );
   const articles = await articlesRes.json();
   const otherArticles = articles.filter((a: any) => a.slug !== slug);
@@ -87,9 +87,10 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   const { NEXT_PUBLIC_DEV_TO_USERNAME } = process.env;
   const res = await fetch(
-    `https://dev.to/api/articles?username=${NEXT_PUBLIC_DEV_TO_USERNAME}&state=all`
+    `https://dev.to/api/articles?username=${NEXT_PUBLIC_DEV_TO_USERNAME}&state=fresh`
   );
   const articles = await res.json();
+  console.log(articles);
 
   const paths = articles.map((article) => ({
     params: {
