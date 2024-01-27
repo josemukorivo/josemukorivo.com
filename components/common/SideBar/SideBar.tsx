@@ -4,6 +4,7 @@ import {
   AiFillTwitterCircle,
   AiFillMail,
 } from 'react-icons/ai';
+import { BsTwitterX } from 'react-icons/bs';
 
 import { Box, Link, Text } from '@components/ui';
 import s from './SideBar.module.scss';
@@ -18,7 +19,7 @@ export const SideBar = () => {
     },
     {
       href: 'https://twitter.com/josemukorivo',
-      Icon: AiFillTwitterCircle,
+      Icon: BsTwitterX,
       title: 'Twitter',
     },
     {
@@ -46,7 +47,7 @@ export const SideBar = () => {
             fontSize='xs'
             className='text-slate-500 dark:text-slate-400'
           >
-            Writer & DevOps Enthusiat
+            Writer & DevOps Enthusiast
           </Text>
         </Box>
 
