@@ -10,3 +10,4 @@ export { Page } from './Page/Page';
 export { Accessibility } from './Accessibility/Accessibility';
 export { Layout } from './Layout/Layout';
 export { Calendy } from './Calendy/Calendy';
+export { JsonLd } from './json-ld';

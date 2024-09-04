@@ -3,8 +3,9 @@ import Prism from 'prismjs';
 import 'prismjs/themes/prism-okaidia.css';
 
 import { Box } from '@components/ui';
-import { Page } from '@components/common';
+import { JsonLd, Page } from '@components/common';
 import { BlogDetail, DetailImage } from '@components/blog';
+import { Article, WithContext } from 'schema-dts';
 
 export default function Home({ article, otherArticles }) {
   const {
@@ -35,6 +36,33 @@ export default function Home({ article, otherArticles }) {
     Prism.highlightAll();
   }, [slug]);
 
+  const articleSchema: WithContext<Article> = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    name: title,
+    description: description,
+    image: socialImage,
+    url: canonicalURL,
+    datePublished: publishedAt,
+    author: {
+      "@type": "Person",
+      name: "Joseph Mukorivo",
+      url: "https://josemukorivo.com",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Joseph Mukorivo",
+      url: "https://josemukorivo.com",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonicalURL,
+    },
+    articleBody: body,
+    keywords: Array.from(new Set([...tags, ...blogKeywords])).join(', '),
+   
+  }
+
   return (
     <Page
       title={title}
@@ -45,6 +73,7 @@ export default function Home({ article, otherArticles }) {
       image={socialImage}
       canonicalURL={canonicalURL}
     >
+      <JsonLd>{articleSchema}</JsonLd>
       <Box className='grid h-screen overflow-hidden md:grid-cols-2'>
         <DetailImage coverImage={coverImage} />
         <BlogDetail
