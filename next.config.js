@@ -2,15 +2,21 @@ module.exports = {
   async redirects() {
     return [
       {
-        source: '/schedule',
-        destination: '/?action=schedule',
+        source: "/schedule",
+        destination: "/?action=schedule",
         permanent: false,
       },
     ];
   },
   reactStrictMode: true,
   images: {
-    domains: ['res.cloudinary.com', '*.dev.to'],
+    domains: [
+      "res.cloudinary.com",
+      "media.dev.to",
+      "media2.dev.to",
+      "media3.dev.to",
+      "media4.dev.to",
+    ],
   },
   webpack: (config) => {
     // Find the base rule that contains nested rules (which contains css-loader)
@@ -24,8 +30,8 @@ module.exports = {
         loaders.use.forEach((l) => {
           // Only focus on loaders that are an object and have a `loader` property set to `css-loader`
           if (
-            typeof l !== 'string' &&
-            typeof l.loader === 'string' &&
+            typeof l !== "string" &&
+            typeof l.loader === "string" &&
             /(?<!post)css-loader/.test(l.loader)
           ) {
             // If there are no module options originally set, skip this loader
@@ -39,7 +45,7 @@ module.exports = {
                 ...others,
                 getLocalIdent: (ctx, localIdentName, localName) => {
                   // If the class name is `dark`, return it instead of hashing it
-                  if (localName === 'dark') return localName;
+                  if (localName === "dark") return localName;
                   // Otherwise, call the original function and return the value
                   return getLocalIdent(ctx, localIdentName, localName);
                 },
