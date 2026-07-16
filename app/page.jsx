@@ -165,7 +165,7 @@ export default function Home() {
             <p>
               I’m the founder and product engineer behind{" "}
               <InlineLink href="https://www.fortyone.app">FortyOne</InlineLink>,
-              an AI project management platform, and the founder of{" "}
+              an agentic project management platform, and the founder of{" "}
               <InlineLink href="https://complexus.tech">Complexus</InlineLink>.
               I currently lead engineering at Art Circles, where I set
               technical direction, shape AI strategy, and lead product
