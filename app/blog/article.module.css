@@ -1,98 +1,3 @@
-.shell {
-  width: min(100% - 48px, 884px);
-  margin: 0 auto;
-  padding: 96px 0 48px;
-}
-
-.indexHeader {
-  display: grid;
-  grid-template-columns: 160px minmax(0, 640px);
-  column-gap: 40px;
-  align-items: center;
-}
-
-a.indexLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  width: fit-content;
-  color: var(--text);
-  font-family: var(--font-newsreader), Georgia, "Times New Roman", serif;
-  font-size: 18px;
-  font-style: italic;
-  font-weight: 500;
-  line-height: 1.2;
-  background-image: none;
-  text-decoration: none;
-}
-
-.indexLink svg {
-  width: 16px;
-  height: 16px;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.35;
-  transition: transform 180ms var(--ease-out);
-}
-
-.pageTitle {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.5;
-}
-
-.writing {
-  max-width: 640px;
-  margin: 72px 0 0 200px;
-}
-
-.empty {
-  padding: 48px 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  color: var(--subtle);
-}
-
-.articleShell {
-  width: min(100% - 48px, 640px);
-  margin: 0 auto;
-  padding: 56px 0 64px;
-}
-
-.articleShell > article {
-  margin-top: 0;
-}
-
-.articleHeader {
-  display: block;
-  margin: 0 0 44px;
-  color: var(--text);
-  font-size: inherit;
-}
-
-.articleMeta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 16px;
-  margin-bottom: 18px;
-  margin-top: 44px;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.articleTitle {
-  max-width: 600px;
-  margin: 0;
-  font-family: inherit;
-  font-size: clamp(26px, 3.5vw, 32px);
-  font-weight: 500;
-  letter-spacing: -0.025em;
-  line-height: 1.15;
-}
-
 .articleBody {
   --article-radius-scale: 1;
   --article-code-radius: calc(8px * var(--article-radius-scale));
@@ -139,6 +44,18 @@ a.indexLink {
 .articleBody ul,
 .articleBody ol {
   padding-left: 1.4em;
+}
+
+.articleBody ul {
+  list-style: disc;
+}
+
+.articleBody ol {
+  list-style: decimal;
+}
+
+.articleBody :global(.contains-task-list) {
+  list-style: none;
 }
 
 .articleBody li + li {
@@ -297,51 +214,12 @@ a.indexLink {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .indexLink:hover svg {
-    transform: translateX(-2px);
-  }
-
   .articleBody :global(.codeBlockCopy):hover {
     color: var(--text);
   }
 }
 
 @media (max-width: 680px) {
-  .shell,
-  .articleShell {
-    width: min(100% - 36px, 960px);
-  }
-
-  .shell {
-    padding-top: 40px;
-  }
-
-  .articleShell {
-    padding-top: 28px;
-  }
-
-  .indexHeader {
-    grid-template-columns: 1fr auto;
-    column-gap: 24px;
-  }
-
-  .writing {
-    max-width: none;
-    margin: 48px 0 0;
-  }
-
-  .indexLink {
-    font-size: 17px;
-  }
-
-  .articleMeta {
-    margin-top: 36px;
-  }
-
-  .articleTitle {
-    font-size: 26px;
-  }
-
   .articleBody :global(.codeBlock) {
     margin-right: -6px;
     margin-left: -6px;

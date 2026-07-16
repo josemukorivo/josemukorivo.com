@@ -1,162 +1,251 @@
-import Link from "next/link";
+import { ExternalLink } from "./_components/external-link";
+import { InlineLink } from "./_components/inline-link";
+import { JsonLd } from "./_components/json-ld";
+import { PageSection } from "./_components/page-section";
+import { PageShell } from "./_components/page-shell";
+import { SiteFooter } from "./_components/site-footer";
+import { SiteHeader } from "./_components/site-header";
+import { WritingList } from "./_components/writing-list";
 import { RevealObserver } from "./reveal-observer";
+import {
+  PERSON_ID,
+  SITE_DESCRIPTION,
+  SITE_EMAIL,
+  SITE_NAME,
+  SITE_URL,
+  SOCIAL_PROFILES,
+  WEBSITE_ID,
+  absoluteUrl
+} from "../lib/site";
 
 const RESUME_URL =
   "https://docs.google.com/document/d/16-sqqDzL3SR1vomlTW6gKOKIqJ7xd_MgfJXrDLkqbnU/edit";
 
 const writing = [
   {
+    id: "fortyone-jira",
     title: "I Got Tired of Jira. So I Built an Agentic Project Management Tool",
     date: "Jan 2026",
+    dateTime: "2026-01-10T09:17:19Z",
     href: "/blog/i-got-tired-of-jira-so-i-built-an-agentic-project-management-tool-and-open-sourced-it-3ghp"
   },
   {
+    id: "complex-system",
     title: "Can One Person Really Build a Complex System from Scratch?",
     date: "Aug 2025",
+    dateTime: "2025-08-01T11:28:03Z",
     href: "/blog/can-one-person-really-build-a-complex-system-from-scratch-7dn"
   },
   {
+    id: "go-reflection",
     title: "Deep Dive into Go Reflection",
     date: "Jan 2024",
+    dateTime: "2024-01-26T09:40:20Z",
     href: "/blog/deep-dive-into-go-reflection-crafting-a-dynamic-open-source-config-package-13kn"
   },
   {
+    id: "enterprise-frontends",
     title: "How I Structure Enterprise Frontend Applications",
     date: "Sep 2023",
+    dateTime: "2023-09-09T13:09:00Z",
     href: "/blog/how-i-approach-and-structure-enterprise-frontend-applications-after-4-years-of-using-nextjs-2f5"
   }
 ];
 
-function ExternalMark() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 16 16">
-      <path d="M4 12 12 4M6 4h6v6" />
-    </svg>
-  );
-}
+const projects = [
+  {
+    name: "FortyOne",
+    href: "https://www.fortyone.app",
+    description: "AI project management that connects goals to daily work."
+  },
+  {
+    name: "Config",
+    href: "https://github.com/josemukorivo/config",
+    description: "An open-source configuration package for Go applications."
+  },
+  {
+    name: "Complexus",
+    href: "https://complexus.tech",
+    description:
+      "The product company through which I build thoughtful software and explore new ideas."
+  }
+];
 
-function ExternalLink({ href, children }) {
-  return (
-    <a
-      className="external"
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <span>{children}</span>
-      <ExternalMark />
-    </a>
-  );
-}
-
-function Section({ title, children, id }) {
-  return (
-    <section id={id} data-reveal>
-      <h2>{title}</h2>
-      {children}
-    </section>
-  );
-}
+const homepageSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": PERSON_ID,
+      name: SITE_NAME,
+      url: SITE_URL,
+      image: absoluteUrl("/assets/joseph.webp"),
+      email: `mailto:${SITE_EMAIL}`,
+      jobTitle: "Head of Engineering and founder",
+      description: SITE_DESCRIPTION,
+      homeLocation: {
+        "@type": "Place",
+        name: "Harare, Zimbabwe"
+      },
+      sameAs: SOCIAL_PROFILES,
+      worksFor: {
+        "@type": "Organization",
+        name: "Art Circles"
+      },
+      affiliation: [
+        {
+          "@type": "Organization",
+          name: "FortyOne",
+          url: "https://www.fortyone.app"
+        },
+        {
+          "@type": "Organization",
+          name: "Complexus",
+          url: "https://complexus.tech"
+        }
+      ],
+      alumniOf: {
+        "@type": "CollegeOrUniversity",
+        name: "Chinhoyi University of Technology"
+      },
+      knowsAbout: [
+        "Software engineering leadership",
+        "Artificial intelligence products",
+        "Financial technology",
+        "Software architecture",
+        "Next.js",
+        "Go"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": WEBSITE_ID,
+      url: SITE_URL,
+      name: SITE_NAME,
+      description: SITE_DESCRIPTION,
+      inLanguage: "en",
+      author: {
+        "@id": PERSON_ID
+      },
+      publisher: {
+        "@id": PERSON_ID
+      }
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": `${SITE_URL}/#profile`,
+      url: SITE_URL,
+      name: SITE_NAME,
+      description: SITE_DESCRIPTION,
+      isPartOf: {
+        "@id": WEBSITE_ID
+      },
+      mainEntity: {
+        "@id": PERSON_ID
+      }
+    }
+  ]
+};
 
 export default function Home() {
   return (
-    <main>
+    <PageShell>
+      <JsonLd data={homepageSchema} />
       <RevealObserver />
+      <SiteHeader />
 
-      <header className="site-header reveal-header" data-reveal>
-        <a className="name" href="#top">
-          Joseph Mukorivo
-        </a>
-        <span>Head of Engineering & founder</span>
-      </header>
-
-      <article id="top">
-        <div className="intro reveal-intro" data-reveal>
-          <p>
-            I’m an engineering leader and product builder. Harare, Zimbabwe is
-            home. I design, build, and lead secure software systems across
-            fintech, SaaS, AI products, and regulated environments.
-          </p>
-          <p>
-            I’m the founder and product engineer behind{" "}
-            <a href="https://www.fortyone.app">FortyOne</a>, an AI project
-            management platform, and the founder of{" "}
-            <a href="https://complexus.tech">Complexus</a>. I currently lead
-            engineering at Art Circles, where I set technical direction, shape
-            AI strategy, and lead product delivery. Across my career, I’ve built
-            and led systems spanning AI-powered creative tools, lending,
-            conversational AI, public-sector platforms, and financial
-            infrastructure.
-          </p>
-          <p>
-            I care about useful software, clear interfaces, strong systems, and
-            the small details that make products feel considered.
-          </p>
-          <p className="intro-links">
-            Find me on <a href="https://github.com/josemukorivo">GitHub</a>,{" "}
-            <a href="https://www.linkedin.com/in/josemukorivo/">LinkedIn</a>,
-            read my <Link href="/blog">writing</Link>, or{" "}
-            <a href="mailto:hello@josemukorivo.com">send me an email</a>.
-          </p>
-        </div>
-
-        <Section title="Building" id="building">
-          <div className="project">
-            <div className="project-heading">
-              <ExternalLink href="https://www.fortyone.app">
-                FortyOne
-              </ExternalLink>
-              <span>Live product</span>
-            </div>
+      <article className="mt-[88px] max-[640px]:mt-16" id="top">
+        <div className="reveal-intro max-w-[600px]" data-reveal>
+          <div className="[&>p+p]:mt-6">
             <p>
-              FortyOne is an AI project management platform that connects
-              company goals and key results to the plans, projects, and daily
-              work that move them forward.
+              I’m an engineering leader and product builder. Harare, Zimbabwe
+              is home. I design, build, and lead secure software systems across
+              fintech, SaaS, AI products, and regulated environments.
             </p>
             <p>
-              Its AI assistant, Maya, can help turn requests into planned work,
-              recommend owners and estimates, surface delivery risk, and answer
-              questions about what is happening across a team. Important
-              changes remain reviewable by a person before they are applied.
+              I’m the founder and product engineer behind{" "}
+              <InlineLink href="https://www.fortyone.app">FortyOne</InlineLink>,
+              an AI project management platform, and the founder of{" "}
+              <InlineLink href="https://complexus.tech">Complexus</InlineLink>.
+              I currently lead engineering at Art Circles, where I set
+              technical direction, shape AI strategy, and lead product
+              delivery. Across my career, I’ve built and led systems spanning
+              AI-powered creative tools, lending, conversational AI,
+              public-sector platforms, and financial infrastructure.
             </p>
             <p>
-              It gives leaders a clear view of which key results are
-              progressing, at risk, or disconnected from active work. Teams can
-              see how their projects and daily decisions contribute to
-              measurable outcomes, making key results part of delivery rather
-              than a quarterly reporting exercise.
+              I care about useful software, clear interfaces, strong systems,
+              and the small details that make products feel considered.
+            </p>
+            <p className="text-subtle">
+              Find me on{" "}
+              <InlineLink href="https://github.com/josemukorivo">
+                GitHub
+              </InlineLink>
+              ,{" "}
+              <InlineLink href="https://www.linkedin.com/in/josemukorivo/">
+                LinkedIn
+              </InlineLink>
+              , read my <InlineLink href="/blog">writing</InlineLink>, or{" "}
+              <InlineLink href={`mailto:${SITE_EMAIL}`}>
+                send me an email
+              </InlineLink>
+              .
             </p>
           </div>
-        </Section>
+        </div>
 
-        <Section title="Projects">
-          <div className="item-list">
-            <div className="item">
-              <ExternalLink href="https://www.fortyone.app">
-                FortyOne
-              </ExternalLink>
-              <p>AI project management that connects goals to daily work.</p>
+        <PageSection id="building" title="Building">
+          <div>
+            <div className="mb-5 flex items-baseline justify-between gap-6">
+              <span className="font-medium">
+                <ExternalLink href="https://www.fortyone.app">
+                  FortyOne
+                </ExternalLink>
+              </span>
+              <span className="text-[13px] text-muted">Live product</span>
             </div>
-            <div className="item">
-              <ExternalLink href="https://github.com/josemukorivo/config">
-                Config
-              </ExternalLink>
-              <p>An open-source configuration package for Go applications.</p>
-            </div>
-            <div className="item">
-              <ExternalLink href="https://complexus.tech">
-                Complexus
-              </ExternalLink>
+            <div className="[&>p+p]:mt-6">
               <p>
-                The product company through which I build thoughtful software
-                and explore new ideas.
+                FortyOne is an AI project management platform that connects
+                company goals and key results to the plans, projects, and daily
+                work that move them forward.
+              </p>
+              <p>
+                Its AI assistant, Maya, can help turn requests into planned
+                work, recommend owners and estimates, surface delivery risk,
+                and answer questions about what is happening across a team.
+                Important changes remain reviewable by a person before they are
+                applied.
+              </p>
+              <p>
+                It gives leaders a clear view of which key results are
+                progressing, at risk, or disconnected from active work. Teams
+                can see how their projects and daily decisions contribute to
+                measurable outcomes, making key results part of delivery
+                rather than a quarterly reporting exercise.
               </p>
             </div>
           </div>
-        </Section>
+        </PageSection>
 
-        <Section title="Education">
-          <div className="prose">
+        <PageSection title="Projects">
+          <div className="grid grid-cols-3 gap-9 max-[640px]:grid-cols-1 max-[640px]:gap-[26px]">
+            {projects.map((project) => (
+              <div key={project.name}>
+                <span className="font-medium">
+                  <ExternalLink href={project.href}>
+                    {project.name}
+                  </ExternalLink>
+                </span>
+                <p className="mt-1.5 text-subtle">{project.description}</p>
+              </div>
+            ))}
+          </div>
+        </PageSection>
+
+        <PageSection title="Education">
+          <div className="max-w-[600px] [&>p+p]:mt-6 [&_strong]:font-medium">
             <p>
               <strong>Master of Business Administration (MBA)</strong>,
               National University of Science and Technology (NUST) — in
@@ -170,26 +259,17 @@ export default function Home() {
               from Chinhoyi University of Technology in 2019.
             </p>
           </div>
-        </Section>
+        </PageSection>
 
-        <Section title="Writing" id="writing">
-          <div className="rows writing-list">
-            {writing.map((post) => (
-              <Link className="writing-row" href={post.href} key={post.title}>
-                <span className="writing-title">
-                  <span>{post.title}</span>
-                </span>
-                <time>{post.date}</time>
-              </Link>
-            ))}
-          </div>
-          <p className="after-list">
-            <Link href="/blog">All writing</Link>
+        <PageSection id="writing" title="Writing">
+          <WritingList articles={writing} />
+          <p className="mt-[18px]">
+            <InlineLink href="/blog">All writing</InlineLink>
           </p>
-        </Section>
+        </PageSection>
 
-        <Section title="Now">
-          <div className="prose">
+        <PageSection title="Now">
+          <div className="max-w-[600px] [&>p+p]:mt-6">
             <p>
               Leading engineering and AI strategy at Art Circles, growing
               FortyOne as a live product, and pursuing an MBA at NUST.
@@ -200,25 +280,22 @@ export default function Home() {
               make.
             </p>
           </div>
-        </Section>
+        </PageSection>
 
-        <Section title="Connect">
-          <p className="connect">
+        <PageSection title="Connect">
+          <p className="max-w-[560px]">
             Reach me at{" "}
-            <a href="mailto:hello@josemukorivo.com">
-              hello@josemukorivo.com
-            </a>
-            , find me on{" "}
-            <a href="https://www.linkedin.com/in/josemukorivo/">LinkedIn</a>,
-            or view my <a href={RESUME_URL}>résumé</a>.
+            <InlineLink href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</InlineLink>,
+            find me on{" "}
+            <InlineLink href="https://www.linkedin.com/in/josemukorivo/">
+              LinkedIn
+            </InlineLink>
+            , or view my <InlineLink href={RESUME_URL}>résumé</InlineLink>.
           </p>
-        </Section>
+        </PageSection>
       </article>
 
-      <footer className="site-footer" data-reveal>
-        <span>Joseph Mukorivo</span>
-        <span>{new Date().getFullYear()}</span>
-      </footer>
-    </main>
+      <SiteFooter />
+    </PageShell>
   );
 }

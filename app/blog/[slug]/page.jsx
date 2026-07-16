@@ -1,15 +1,24 @@
 import { notFound } from "next/navigation";
+import { IndexLink } from "../../_components/index-link";
+import { JsonLd } from "../../_components/json-ld";
+import { PageShell } from "../../_components/page-shell";
 import { CodeCopyEnhancer } from "../_components/code-copy-enhancer";
-import { IndexLink } from "../_components/index-link";
 import {
   formatArticleDate,
   getArticle,
   getArticles
 } from "../../../lib/blog";
 import { renderMarkdown } from "../../../lib/markdown";
-import styles from "../blog.module.css";
+import { createPageMetadata } from "../../../lib/seo";
+import {
+  BLOG_ID,
+  PERSON_ID,
+  SITE_NAME,
+  SITE_URL,
+  WEBSITE_ID
+} from "../../../lib/site";
+import styles from "../article.module.css";
 
-const SITE_URL = "https://www.josemukorivo.com";
 const ARTICLE_BODY_ID = "article-body";
 
 export async function generateStaticParams() {
@@ -25,35 +34,16 @@ export async function generateMetadata({ params }) {
     return {};
   }
 
-  const canonicalUrl = `/blog/${article.slug}`;
-
-  return {
+  return createPageMetadata({
     title: article.title,
     description: article.description,
+    path: `/blog/${article.slug}`,
     keywords: article.tags,
-    alternates: {
-      canonical: canonicalUrl
-    },
-    openGraph: {
-      title: article.title,
-      description: article.description,
-      type: "article",
-      url: canonicalUrl,
-      publishedTime: article.publishedAt,
-      authors: ["Joseph Mukorivo"],
-      tags: article.tags,
-      images: article.socialImage
-        ? [{ url: article.socialImage, alt: article.title }]
-        : []
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: article.title,
-      description: article.description,
-      creator: "@josemukorivo",
-      images: article.socialImage ? [article.socialImage] : []
-    }
-  };
+    type: "article",
+    publishedTime: article.publishedAt,
+    modifiedTime: article.updatedAt,
+    tags: article.tags
+  });
 }
 
 export default async function ArticlePage({ params }) {
@@ -68,38 +58,51 @@ export default async function ArticlePage({ params }) {
   const articleUrl = `${SITE_URL}/blog/${article.slug}`;
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
+    "@id": `${articleUrl}#article`,
+    url: articleUrl,
     headline: article.title,
     description: article.description,
     image: article.socialImage,
-    url: articleUrl,
     datePublished: article.publishedAt,
     dateModified: article.updatedAt,
+    inLanguage: "en",
+    wordCount: article.wordCount,
+    timeRequired: `PT${article.readingTimeMinutes}M`,
+    keywords: article.tags.join(", "),
+    articleSection: article.tags,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": articleUrl,
+      isPartOf: {
+        "@id": WEBSITE_ID
+      }
+    },
+    isPartOf: {
+      "@id": BLOG_ID
+    },
     author: {
       "@type": "Person",
-      name: "Joseph Mukorivo",
+      "@id": PERSON_ID,
+      name: SITE_NAME,
       url: SITE_URL
     },
     publisher: {
       "@type": "Person",
-      name: "Joseph Mukorivo",
+      "@id": PERSON_ID,
+      name: SITE_NAME,
       url: SITE_URL
     }
   };
 
   return (
-    <main className={styles.articleShell}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(articleSchema).replace(/</g, "\\u003c")
-        }}
-      />
+    <PageShell variant="article">
+      <JsonLd data={articleSchema} />
 
-      <article>
-        <header className={styles.articleHeader}>
+      <article className="m-0">
+        <header className="mb-11 block text-ink">
           <IndexLink href="/blog" />
-          <div className={styles.articleMeta}>
+          <div className="mb-[18px] mt-11 flex flex-wrap gap-x-4 gap-y-2 text-[13px] text-muted max-[680px]:mt-9">
             <time dateTime={article.publishedAt}>
               {formatArticleDate(article.publishedAt)}
             </time>
@@ -108,16 +111,18 @@ export default async function ArticlePage({ params }) {
               {article.readingTimeMinutes === 1 ? "" : "s"} read
             </span>
           </div>
-          <h1 className={styles.articleTitle}>{article.title}</h1>
+          <h1 className="max-w-[600px] text-[clamp(26px,3.5vw,32px)] font-medium leading-[1.15] tracking-[-0.025em] max-[680px]:text-[26px]">
+            {article.title}
+          </h1>
         </header>
 
         <div
-          id={ARTICLE_BODY_ID}
           className={styles.articleBody}
           dangerouslySetInnerHTML={{ __html: articleHtml }}
+          id={ARTICLE_BODY_ID}
         />
         <CodeCopyEnhancer containerId={ARTICLE_BODY_ID} />
       </article>
-    </main>
+    </PageShell>
   );
 }

@@ -1,5 +1,15 @@
 import { Inter, Newsreader } from "next/font/google";
 import "./globals.css";
+import {
+  SITE_DESCRIPTION,
+  SITE_EMAIL,
+  SITE_HANDLE,
+  SITE_KEYWORDS,
+  SITE_LOCALE,
+  SITE_NAME,
+  SITE_TITLE,
+  SITE_URL
+} from "../lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,36 +25,74 @@ const newsreader = Newsreader({
   display: "swap"
 });
 
-const title = "Joseph Mukorivo — Head of Engineering & founder";
-const description =
-  "Joseph Mukorivo is an engineering leader, founder, and product builder creating thoughtful systems and polished digital products.";
-
 export const metadata = {
-  metadataBase: new URL("https://www.josemukorivo.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: title,
+    default: SITE_TITLE,
     template: "%s — Joseph Mukorivo"
   },
-  description,
-  authors: [{ name: "Joseph Mukorivo" }],
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  category: "technology",
+  classification: "Personal portfolio and software engineering writing",
+  keywords: SITE_KEYWORDS,
+  referrer: "origin-when-cross-origin",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false
+  },
   alternates: {
-    canonical: "/"
+    canonical: "/",
+    types: {
+      "application/rss+xml": [
+        {
+          url: "/feed.xml",
+          title: `${SITE_NAME} — Writing`
+        }
+      ]
+    }
   },
   icons: {
     icon: "/favicon.svg"
   },
+  manifest: "/manifest.webmanifest",
   openGraph: {
-    title,
-    description:
-      "Head of Engineering, founder of FortyOne and Complexus, and product builder.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     type: "website",
     url: "/",
-    images: [
-      {
-        url: "/assets/joseph.webp",
-        alt: "Joseph Mukorivo"
-      }
-    ]
+    siteName: SITE_NAME,
+    locale: SITE_LOCALE
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    creator: SITE_HANDLE
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1
+    }
+  },
+  other: {
+    "profile:first_name": "Joseph",
+    "profile:last_name": "Mukorivo",
+    "profile:username": "josemukorivo",
+    "contact:email": SITE_EMAIL
+  },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION
   }
 };
 
@@ -55,7 +103,9 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${newsreader.variable}`}>
-      <body>{children}</body>
+      <body className="min-w-80 bg-canvas font-sans text-[15px] leading-[1.65] text-ink">
+        {children}
+      </body>
     </html>
   );
 }

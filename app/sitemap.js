@@ -1,18 +1,26 @@
 import { getArticles } from "../lib/blog";
-
-const SITE_URL = "https://www.josemukorivo.com";
+import { SITE_URL } from "../lib/site";
 
 export default async function sitemap() {
   const articles = await getArticles();
+  const latestUpdate = articles.reduce(
+    (latest, article) =>
+      !latest || new Date(article.updatedAt) > new Date(latest)
+        ? article.updatedAt
+        : latest,
+    null
+  );
 
   return [
     {
       url: SITE_URL,
+      ...(latestUpdate ? { lastModified: latestUpdate } : {}),
       changeFrequency: "monthly",
       priority: 1
     },
     {
       url: `${SITE_URL}/blog`,
+      ...(latestUpdate ? { lastModified: latestUpdate } : {}),
       changeFrequency: "weekly",
       priority: 0.8
     },
