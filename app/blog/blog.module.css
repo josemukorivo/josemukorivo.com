@@ -1,0 +1,354 @@
+.shell {
+  width: min(100% - 48px, 884px);
+  margin: 0 auto;
+  padding: 96px 0 48px;
+}
+
+.indexHeader {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 640px);
+  column-gap: 40px;
+  align-items: center;
+}
+
+a.indexLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  color: var(--text);
+  font-family: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.2;
+  background-image: none;
+  text-decoration: none;
+}
+
+.indexLink svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.35;
+  transition: transform 180ms var(--ease-out);
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.writing {
+  max-width: 640px;
+  margin: 72px 0 0 200px;
+}
+
+.empty {
+  padding: 48px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  color: var(--subtle);
+}
+
+.articleShell {
+  width: min(100% - 48px, 640px);
+  margin: 0 auto;
+  padding: 56px 0 64px;
+}
+
+.articleShell > article {
+  margin-top: 0;
+}
+
+.articleHeader {
+  display: block;
+  margin: 0 0 44px;
+  color: var(--text);
+  font-size: inherit;
+}
+
+.articleMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-bottom: 18px;
+  margin-top: 44px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.articleTitle {
+  max-width: 600px;
+  margin: 0;
+  font-family: inherit;
+  font-size: clamp(26px, 3.5vw, 32px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.articleBody {
+  --article-radius-scale: 1;
+  --article-code-radius: calc(8px * var(--article-radius-scale));
+  --article-inline-code-radius: calc(4px * var(--article-radius-scale));
+  font-size: 15px;
+  line-height: 1.72;
+}
+
+.articleBody > :first-child {
+  margin-top: 0;
+}
+
+.articleBody h2,
+.articleBody h3,
+.articleBody h4 {
+  margin: 2.4em 0 0.8em;
+  font-family: inherit;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+
+.articleBody h2 {
+  font-size: 22px;
+}
+
+.articleBody h3 {
+  font-size: 18px;
+}
+
+.articleBody h4 {
+  font-size: 15px;
+}
+
+.articleBody p,
+.articleBody ul,
+.articleBody ol,
+.articleBody blockquote,
+.articleBody table,
+.articleBody hr {
+  margin: 1.35em 0;
+}
+
+.articleBody ul,
+.articleBody ol {
+  padding-left: 1.4em;
+}
+
+.articleBody li + li {
+  margin-top: 0.45em;
+}
+
+.articleBody li > p {
+  margin: 0.6em 0;
+}
+
+.articleBody a {
+  background-image: none !important;
+  text-decoration: underline;
+  text-decoration-color: var(--text);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.articleBody :global(.headingAnchor) {
+  color: inherit;
+  background-image: none;
+  text-decoration: none;
+}
+
+.articleBody img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.75em auto;
+  border-radius: 4px;
+}
+
+.articleBody blockquote {
+  padding-left: 20px;
+  border-left: 2px solid var(--text);
+  color: var(--subtle);
+}
+
+.articleBody hr {
+  height: 1px;
+  border: 0;
+  background: var(--line);
+}
+
+.articleBody table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.articleBody th,
+.articleBody td {
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  text-align: left;
+}
+
+.articleBody th {
+  background: color-mix(in srgb, var(--line) 55%, transparent);
+  font-weight: 500;
+}
+
+.articleBody input[type="checkbox"] {
+  margin: 0 8px 0 0;
+  accent-color: var(--text);
+}
+
+.articleBody code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.88em;
+}
+
+.articleBody :not(pre) > code {
+  padding: 2px 5px;
+  border-radius: var(--article-inline-code-radius);
+  background: color-mix(in srgb, var(--line) 52%, transparent);
+}
+
+.articleBody :global(.codeBlock) {
+  margin: 1.75em 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--article-code-radius);
+  background: #f4f4f0;
+  color: var(--text);
+}
+
+.articleBody :global(.codeBlockHeader) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 0;
+  color: var(--subtle);
+  background: #eeeeea;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.articleBody :global(.codeBlockCopy) {
+  padding: 8px 0;
+  border: 0;
+  color: var(--subtle);
+  background: transparent;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  transition: color 160ms var(--ease-out);
+}
+
+.articleBody :global(.codeBlockCopy):focus-visible {
+  border-radius: 2px;
+  outline: 1px solid var(--text);
+  outline-offset: 2px;
+}
+
+.articleBody :global(.codeBlockPre) {
+  margin: 0;
+  overflow-x: auto;
+  padding: 18px 20px 20px;
+  background: transparent !important;
+  font-size: 13px;
+  line-height: 1.65;
+  tab-size: 2;
+}
+
+.articleBody :global(.codeBlockCode) {
+  display: grid;
+  min-width: 100%;
+  width: max-content;
+  background: transparent;
+  font-size: inherit;
+}
+
+.articleBody :global(.codeBlockCode) [data-line] {
+  padding-right: 20px;
+}
+
+@supports (corner-shape: squircle) {
+  .articleBody {
+    --article-radius-scale: 2;
+  }
+
+  .articleBody :not(pre) > code,
+  .articleBody :global(.codeBlock) {
+    corner-shape: squircle;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .indexLink:hover svg {
+    transform: translateX(-2px);
+  }
+
+  .articleBody :global(.codeBlockCopy):hover {
+    color: var(--text);
+  }
+}
+
+@media (max-width: 680px) {
+  .shell,
+  .articleShell {
+    width: min(100% - 36px, 960px);
+  }
+
+  .shell {
+    padding-top: 40px;
+  }
+
+  .articleShell {
+    padding-top: 28px;
+  }
+
+  .indexHeader {
+    grid-template-columns: 1fr auto;
+    column-gap: 24px;
+  }
+
+  .writing {
+    max-width: none;
+    margin: 48px 0 0;
+  }
+
+  .indexLink {
+    font-size: 17px;
+  }
+
+  .articleMeta {
+    margin-top: 36px;
+  }
+
+  .articleTitle {
+    font-size: 26px;
+  }
+
+  .articleBody :global(.codeBlock) {
+    margin-right: -6px;
+    margin-left: -6px;
+  }
+
+  .articleBody :global(.codeBlockPre) {
+    padding: 16px;
+    font-size: 12px;
+  }
+}
