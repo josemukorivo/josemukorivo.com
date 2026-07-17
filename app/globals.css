@@ -6,7 +6,7 @@
   --color-muted: #8b8b86;
   --color-subtle: #62625f;
   --color-rule: #e9e9e5;
-  --color-link-underline: #adada8;
+  --color-link-underline: #242424;
   --font-sans:
     var(--font-inter), ui-sans-serif, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
@@ -24,7 +24,7 @@
   --muted: #8b8b86;
   --subtle: #62625f;
   --line: #e9e9e5;
-  --link-underline: #adada8;
+  --link-underline: #242424;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
