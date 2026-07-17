@@ -193,6 +193,28 @@ export default function Home() {
           </div>
         </div>
 
+        <PageSection id="writing" title="Writing">
+          <WritingList articles={writing} />
+          <p className="mt-[18px]">
+            <InlineLink href="/blog">All writing</InlineLink>
+          </p>
+        </PageSection>
+
+        <PageSection title="Projects">
+          <div className="grid grid-cols-3 gap-9 max-[640px]:grid-cols-1 max-[640px]:gap-[26px]">
+            {projects.map((project) => (
+              <div key={project.name}>
+                <span className="font-medium">
+                  <ExternalLink href={project.href}>
+                    {project.name}
+                  </ExternalLink>
+                </span>
+                <p className="mt-1.5 text-subtle">{project.description}</p>
+              </div>
+            ))}
+          </div>
+        </PageSection>
+
         <PageSection id="building" title="Building">
           <div>
             <div className="mb-5 flex items-baseline justify-between gap-6">
@@ -225,28 +247,6 @@ export default function Home() {
               </p>
             </div>
           </div>
-        </PageSection>
-
-        <PageSection title="Projects">
-          <div className="grid grid-cols-3 gap-9 max-[640px]:grid-cols-1 max-[640px]:gap-[26px]">
-            {projects.map((project) => (
-              <div key={project.name}>
-                <span className="font-medium">
-                  <ExternalLink href={project.href}>
-                    {project.name}
-                  </ExternalLink>
-                </span>
-                <p className="mt-1.5 text-subtle">{project.description}</p>
-              </div>
-            ))}
-          </div>
-        </PageSection>
-
-        <PageSection id="writing" title="Writing">
-          <WritingList articles={writing} />
-          <p className="mt-[18px]">
-            <InlineLink href="/blog">All writing</InlineLink>
-          </p>
         </PageSection>
 
         <PageSection title="Education">
