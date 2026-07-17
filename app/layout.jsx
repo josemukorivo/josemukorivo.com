@@ -19,7 +19,7 @@ const inter = Inter({
 
 const newsreader = Newsreader({
   subsets: ["latin"],
-  weight: "500",
+  weight: ["400", "500"],
   style: ["normal", "italic"],
   variable: "--font-newsreader",
   display: "swap"
