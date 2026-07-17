@@ -176,7 +176,7 @@
   overflow: hidden;
   border: 0;
   border-radius: var(--article-code-radius);
-  background: #f4f4f0;
+  background: var(--code-background);
   color: var(--text);
 }
 
@@ -188,7 +188,7 @@
   padding: 0 12px;
   border: 0;
   color: var(--subtle);
-  background: #eeeeea;
+  background: var(--code-header-background);
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   font-size: 10px;
   letter-spacing: 0.08em;
@@ -230,6 +230,26 @@
   width: max-content;
   background: transparent;
   font-size: inherit;
+}
+
+.articleBody :global(.codeBlockCode) span {
+  color: var(--shiki-light);
+}
+
+:global(html[data-theme="dark"])
+  .articleBody
+  :global(.codeBlockCode)
+  span {
+  color: var(--shiki-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme]))
+    .articleBody
+    :global(.codeBlockCode)
+    span {
+    color: var(--shiki-dark);
+  }
 }
 
 .articleBody :global(.codeBlockCode) [data-line] {

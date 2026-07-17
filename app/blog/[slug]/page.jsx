@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { IndexLink } from "../../_components/index-link";
 import { JsonLd } from "../../_components/json-ld";
 import { PageShell } from "../../_components/page-shell";
+import { ThemeToggle } from "../../_components/theme-toggle";
 import { CodeCopyEnhancer } from "../_components/code-copy-enhancer";
 import {
   formatArticleDate,
@@ -101,7 +102,10 @@ export default async function ArticlePage({ params }) {
 
       <article className="m-0">
         <header className="mb-11 block text-ink">
-          <IndexLink href="/blog" />
+          <div className="-mr-2 flex items-center justify-between gap-6">
+            <IndexLink href="/blog" />
+            <ThemeToggle />
+          </div>
           <div className="mb-[18px] mt-11 flex flex-wrap gap-x-4 gap-y-2 text-[13px] text-muted max-[680px]:mt-9">
             <time dateTime={article.publishedAt}>
               {formatArticleDate(article.publishedAt)}

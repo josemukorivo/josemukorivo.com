@@ -1,4 +1,5 @@
 import { Inter, Newsreader } from "next/font/google";
+import { ThemeScript } from "./_components/theme-script";
 import "./globals.css";
 import {
   SITE_DESCRIPTION,
@@ -97,12 +98,20 @@ export const metadata = {
 };
 
 export const viewport = {
+  colorScheme: "light dark",
   themeColor: "#fdfdfc"
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${newsreader.variable}`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${newsreader.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <ThemeScript />
+      </head>
       <body className="min-w-80 bg-canvas font-sans text-[15px] leading-[1.65] text-ink">
         {children}
       </body>

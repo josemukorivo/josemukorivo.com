@@ -1,6 +1,7 @@
 import { IndexLink } from "../_components/index-link";
 import { JsonLd } from "../_components/json-ld";
 import { PageShell } from "../_components/page-shell";
+import { ThemeToggle } from "../_components/theme-toggle";
 import { WritingList } from "../_components/writing-list";
 import { getArticles } from "../../lib/blog";
 import { createPageMetadata } from "../../lib/seo";
@@ -93,7 +94,10 @@ export default async function BlogPage() {
 
       <header className="grid grid-cols-[160px_minmax(0,640px)] items-center gap-x-10 max-[680px]:grid-cols-[1fr_auto] max-[680px]:gap-x-6">
         <IndexLink href="/" />
-        <h1 className="text-base font-medium leading-6">Writing</h1>
+        <div className="-mr-2 flex items-center justify-between gap-6">
+          <h1 className="text-base font-medium leading-6">Writing</h1>
+          <ThemeToggle />
+        </div>
       </header>
 
       <section className="ml-[200px] mt-[72px] max-w-[640px] max-[680px]:ml-0 max-[680px]:mt-12 max-[680px]:max-w-none">
