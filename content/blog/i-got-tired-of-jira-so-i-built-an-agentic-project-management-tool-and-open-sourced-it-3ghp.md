@@ -23,7 +23,7 @@ I built [FortyOne](https://www.fortyone.app) because I had become frustrated wit
 
 Most platforms are effective systems of record. They store tickets, statuses, comments, estimates, and due dates. The problem is that delivery does not fail because a team lacks another place to store a ticket. It fails when priorities are disconnected from goals, ownership is unclear, capacity is invisible, and important context is scattered across conversations and integrations.
 
-FortyOne is my attempt to build a more active project management system—one that connects strategy, planning, execution, and feedback, then helps teams reason about what should happen next.
+> FortyOne is my attempt to build a more active project management system—one that connects strategy, planning, execution, and feedback, then helps teams reason about what should happen next.
 
 The distinction matters. A passive system waits for people to keep every field accurate and then reports the state they entered. An active system helps structure incoming work, exposes missing decisions, identifies risks, and prepares the next action while preserving human control.
 
@@ -57,7 +57,7 @@ A story can carry the operational information a team needs to make and review a 
 - Associations with other stories.
 - External development or request context.
 
-The point is not to maximize the number of fields. It is to preserve the relationships that explain the work.
+<u>The point is not to maximize the number of fields.</u> It is to preserve the relationships that explain the work.
 
 When a story moves, the relevant surfaces should move with it. Lists, detail views, personal work, sprint progress, objective reporting, roadmap views, and analytics all observe different projections of the same underlying commitment.
 
@@ -138,7 +138,7 @@ The tool surface includes operations for:
 
 That breadth does not mean Maya receives unrestricted database access. Each tool has a schema, retrieves current application data, calls an existing product boundary, and returns a structured result.
 
-The language model handles interpretation and planning. Deterministic software handles identity, authorization, validation, persistence, and side effects.
+> The language model handles interpretation and planning. Deterministic software handles identity, authorization, validation, persistence, and side effects.
 
 The important design decision is that consequential actions remain reviewable. Maya can prepare a change, explain the reasoning, and ask for confirmation before applying it. The objective is not autonomous project management. It is better decision support with less coordination overhead.
 
@@ -153,7 +153,7 @@ This is defence in depth:
 3. The tool implementation refuses to execute without it.
 4. The backend authenticates and authorizes the resulting request.
 
-A prompt is guidance. The application boundary is enforcement.
+_A prompt is guidance. The application boundary is enforcement._
 
 ## Planning requires capacity, not optimism
 
@@ -176,7 +176,7 @@ The deterministic ranking favours earlier availability, lower estimated load, fe
 
 When no candidate has enough calendar space, the planner can still recommend the strongest owner while producing an explicit schedule-risk action. That is more honest than placing a date on the story simply because the interface requires one.
 
-This is the direction I find most valuable: software should make constraints explicit before a plan becomes a promise.
+_This is the direction I find most valuable: software should make constraints explicit before a plan becomes a promise._
 
 The analytics layer follows the same principle. Reports are not only retrospective charts. They help teams examine delivery health, sprint progress, objective status, workload distribution, timeline risk, and the relationship between planned and completed work.
 
@@ -204,7 +204,7 @@ The product also supports different surfaces around the same workspace: the core
 
 FortyOne runs background work for recurring sprint operations, story automation, digest and overdue communication, lifecycle cleanup, integration synchronization, and Maya-assisted assignment.
 
-Automation becomes dangerous when it changes state without leaving an understandable reason.
+_Automation becomes dangerous when it changes state without leaving an understandable reason._
 
 When a system actor archives work, moves unfinished stories, assigns a person, or creates a schedule block, the activity should explain what happened and why. People need to distinguish a teammate’s decision from a workspace rule, integration event, or Maya proposal.
 
@@ -235,9 +235,9 @@ I want the product to help a team maintain a continuous line from goals to deliv
 
 The long-term opportunity is to reduce the distance between understanding a problem and moving the right work forward. That requires more than boards and tickets. It requires a product that understands relationships, constraints, and decisions while keeping people firmly in control.
 
-The goal is not to make project management invisible. Teams still need deliberate planning, difficult tradeoffs, and accountable decisions.
-
-The goal is to remove the administrative distance between those decisions and the system that records them.
+> The goal is not to make project management invisible. Teams still need deliberate planning, difficult tradeoffs, and accountable decisions.
+>
+> The goal is to remove the administrative distance between those decisions and the system that records them.
 
 When strategy, intake, capacity, execution, feedback, and analytics share one model, the software can do more than display status. It can identify incomplete thinking before it becomes delivery risk.
 

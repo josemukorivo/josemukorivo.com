@@ -74,6 +74,25 @@
   text-underline-offset: 3px;
 }
 
+.articleBody em {
+  font-family: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  font-size: 1.04em;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+}
+
+.articleBody em code {
+  font-style: normal;
+}
+
+.articleBody u {
+  text-decoration-color: var(--text);
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
 .articleBody :global(.headingAnchor) {
   color: inherit;
   background-image: none;
@@ -89,9 +108,24 @@
 }
 
 .articleBody blockquote {
+  margin: 2.15em 0;
   padding-left: 20px;
-  border-left: 2px solid var(--text);
-  color: var(--subtle);
+  border-left: 1px solid var(--text);
+  color: var(--text);
+  font-family: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  font-size: 19px;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  line-height: 1.55;
+}
+
+.articleBody blockquote p {
+  margin: 0;
+}
+
+.articleBody blockquote p + p {
+  margin-top: 0.8em;
 }
 
 .articleBody hr {
@@ -220,6 +254,10 @@
 }
 
 @media (max-width: 680px) {
+  .articleBody blockquote {
+    font-size: 18px;
+  }
+
   .articleBody :global(.codeBlock) {
     margin-right: -6px;
     margin-left: -6px;

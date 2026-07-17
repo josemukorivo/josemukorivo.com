@@ -17,7 +17,7 @@ originalUrl: >-
   https://dev.to/josemukorivo/deep-dive-into-go-reflection-crafting-a-dynamic-open-source-config-package-13kn
 ---
 
-Configuration is one of those concerns that begins with three environment variables and quietly grows into dozens of repeated parsing operations.
+> Configuration is one of those concerns that begins with three environment variables and quietly grows into dozens of repeated parsing operations.
 
 Every application needs to read strings from the environment, convert them into the expected types, apply defaults, report missing values, and make the result available through a typed structure. Writing those steps by hand is explicit, but it also creates repetitive code that is easy to implement inconsistently.
 
@@ -44,7 +44,7 @@ if err := config.Parse("app", &cfg); err != nil {
 
 The package maps the fields to `APP_HOST`, `APP_PORT`, `APP_TIMEOUT`, and `APP_DEBUG`, then performs the required conversions.
 
-This is an appropriate use of reflection because the exact structure is supplied by the caller at runtime. The important engineering decision is to keep reflection behind a small API and make every failure predictable.
+_This is an appropriate use of reflection because the exact structure is supplied by the caller at runtime._ The important engineering decision is to keep reflection behind a small API and make every failure predictable.
 
 ## What reflection gives us
 
@@ -80,7 +80,7 @@ Reflection is useful when the concrete type is not known in advance and the code
 
 ## `Type`, `Kind`, and named types
 
-`Type` and `Kind` are not interchangeable.
+<u>`Type` and `Kind` are not interchangeable.</u>
 
 `Type` preserves the complete declared type. `Kind` describes its underlying category:
 
@@ -211,7 +211,7 @@ type Config struct {
 
 The package can populate `Host`, but it should not attempt to bypass Go’s visibility rules to set `password`.
 
-Reflection offers powerful low-level operations, but a configuration library should respect ordinary language boundaries rather than using unsafe techniques to defeat them.
+_Reflection offers powerful low-level operations, but a configuration library should respect ordinary language boundaries rather than using unsafe techniques to defeat them._
 
 ## Deriving environment variable names
 
@@ -282,7 +282,7 @@ if !found && field.Required {
 
 There is a subtle design question around empty defaults. A tag such as `default:""` cannot be distinguished from an absent tag by calling `Tag.Get`. A package that needs empty-string defaults should use `StructTag.Lookup`, which returns a second boolean indicating whether the tag exists.
 
-That is the kind of edge case that matters in reflective libraries: metadata has both a value and a presence state.
+_That is the kind of edge case that matters in reflective libraries: metadata has both a value and a presence state._
 
 ## Parsing values by kind
 
@@ -400,7 +400,7 @@ if fieldValue.Kind() == reflect.Struct {
 
 This is convenient, but named scalar structures must be considered. A library should decide explicitly whether types such as `time.Time`, `url.URL`, or application-specific value objects are namespaces or scalar values.
 
-Reflection removes compile-time certainty, so the library must replace it with deliberate runtime rules.
+> Reflection removes compile-time certainty, so the library must replace it with deliberate runtime rules.
 
 ## Custom types through a small interface
 
@@ -476,7 +476,7 @@ func (err *FieldError) Unwrap() error {
 
 That allows callers to use `errors.As` for the field error and `errors.Is` for an underlying sentinel.
 
-Reflection errors should never require a caller to reverse-engineer which field failed.
+_Reflection errors should never require a caller to reverse-engineer which field failed._
 
 ## `Parse` and `MustParse`
 
@@ -508,7 +508,7 @@ config.Parse("app", &cfg, ".env", ".env.local")
 
 This is convenient during local development, but production systems should remain clear about precedence. Operating-system environment variables should generally win over file defaults, and secrets should not be committed to source control.
 
-Configuration loading is also part of application startup observability. Log which configuration source was selected, but never log secret values.
+Configuration loading is also part of application startup observability. _Log which configuration source was selected, but never log secret values._
 
 ## Testing reflective code
 
@@ -559,7 +559,7 @@ It is usually the wrong tool when:
 
 For this package, reflection belongs in the adapter that translates strings into a caller-owned struct. After `Parse` returns, the rest of the application uses ordinary typed configuration.
 
-That is the boundary I aim for: dynamic work at the edge, static types everywhere else.
+> That is the boundary I aim for: dynamic work at the edge, static types everywhere else.
 
 The purpose of reflection is not to make the code feel magical. It is to remove repetitive configuration plumbing while retaining strict input validation, explicit conversion rules, useful errors, and a thoroughly tested public contract.
 

@@ -19,7 +19,7 @@ originalUrl: >-
 
 When I began building [FortyOne](https://www.fortyone.app), the difficult question was not whether one person could write enough code. It was whether one person could design a system that remained understandable as it accumulated planning workflows, objectives, real-time collaboration, integrations, analytics, background processing, and an AI teammate.
 
-The distinction is important. A complex product can be implemented quickly and still become impossible to operate. The real engineering task is to control the number of concepts that must be understood at the same time.
+> The distinction is important. A complex product can be implemented quickly and still become impossible to operate. The real engineering task is to control the number of concepts that must be understood at the same time.
 
 FortyOne is built around that constraint. The architecture favours explicit boundaries, one-directional data flow, asynchronous work where appropriate, and narrowly defined interfaces between product capabilities.
 
@@ -78,7 +78,7 @@ PostgreSQL + Redis
 workers, integrations, and SSE
 ```
 
-This is intentionally less distributed than a microservice architecture. FortyOne has many product domains, but they do not each need an independent network boundary. Keeping them in one backend preserves straightforward transactions, local refactoring, and a deployment model that one person can operate.
+_This is intentionally less distributed than a microservice architecture._ FortyOne has many product domains, but they do not each need an independent network boundary. Keeping them in one backend preserves straightforward transactions, local refactoring, and a deployment model that one person can operate.
 
 The important separation exists inside the code: HTTP handlers translate requests, services enforce product rules, repositories persist state, and publishers communicate effects that should happen after a change.
 
@@ -248,7 +248,7 @@ That keeps inactive cached views from receiving an update whose filter semantics
 
 That avoids two common extremes: refetching the entire application after every event or trying to maintain a second client-side database with perfect local knowledge of backend rules.
 
-The system also has explicit backpressure. If a client cannot accept an event within a short timeout, the event is dropped rather than allowing one slow connection to block the hub. This is acceptable because the stream improves freshness; PostgreSQL remains the source of truth and the client can revalidate.
+The system also has explicit backpressure. If a client cannot accept an event within a short timeout, the event is dropped rather than allowing one slow connection to block the hub. This is acceptable because the stream improves freshness; <u>PostgreSQL remains the source of truth</u> and the client can revalidate.
 
 There is still room to strengthen the design. Event identifiers and replay would make recovery across a lost connection more deterministic. At the current scale, bounded delivery plus query revalidation provides a simpler operational tradeoff.
 
@@ -412,7 +412,7 @@ An optional AI advisor receives only the candidate set and structured evidence:
 
 The advisor can recommend one of those candidates and explain the fit. If it fails, returns an invalid identity, or is unavailable, the deterministic ranking remains functional.
 
-This is a critical architectural property: AI improves the decision but is not required for the system to produce a valid plan.
+> This is a critical architectural property: AI improves the decision but is not required for the system to produce a valid plan.
 
 The output is a set of proposed actions:
 
@@ -469,7 +469,7 @@ FortyOne stores the last synchronization source and a hash of the outbound field
 
 The hash intentionally covers only title, body, and state because those are the issue fields written by the outbound path. Labels and assignees remain outside that fingerprint so genuine GitHub-originated changes are not suppressed.
 
-This is a general integration lesson: sender identity is not enough to establish causality. A robust sync path records what it sent and compares the resulting event with that ledger.
+_This is a general integration lesson: sender identity is not enough to establish causality._ A robust sync path records what it sent and compares the resulting event with that ledger.
 
 ## Observability is part of the design
 
@@ -521,7 +521,7 @@ FortyOne has focused tests for:
 
 The planner tests are especially valuable because time logic is full of edge cases: weekends, occupied windows, sprint boundaries, duplicate schedule blocks, unavailable candidates, and advisor failure.
 
-For a solo-built system, tests are external memory. They preserve decisions that would otherwise live only in the builder’s head.
+_For a solo-built system, tests are external memory._ They preserve decisions that would otherwise live only in the builder’s head.
 
 ## What makes solo development possible
 
@@ -547,7 +547,7 @@ These are not hidden flaws. They are tradeoffs to monitor. Architecture becomes 
 
 The tradeoff is concentration. Product design, implementation, operations, and support decisions still pass through one person. Strong boundaries reduce that cognitive load, but they do not remove it.
 
-One person can build a complex system from scratch. The sustainable version of that claim is less dramatic: one person can build it when the architecture continuously limits how much complexity must be considered for each change.
+> One person can build a complex system from scratch. The sustainable version of that claim is less dramatic: one person can build it when the architecture continuously limits how much complexity must be considered for each change.
 
 The most valuable decisions were not choosing Next.js, Go, PostgreSQL, Redis, or an AI model. They were:
 
@@ -559,4 +559,4 @@ The most valuable decisions were not choosing Next.js, Go, PostgreSQL, Redis, or
 - Preserving review boundaries between external demand and committed work.
 - Recording reasons and actors for automated changes.
 
-Complexity cannot be eliminated from a product that solves a complex operational problem. It can be placed behind boundaries so that each change requires understanding a manageable part of the whole.
+_Complexity cannot be eliminated from a product that solves a complex operational problem._ It can be placed behind boundaries so that each change requires understanding a manageable part of the whole.

@@ -16,7 +16,7 @@ originalUrl: "https://dev.to/josemukorivo/getting-started-with-python-data-class
 
 Python’s `@dataclass` decorator is useful when a class primarily represents structured data. It generates common methods from type-annotated fields, allowing the class to communicate its model without repeating mechanical code.
 
-The feature was added in Python 3.7 through PEP 557. It does not replace ordinary classes and it does not turn Python into a statically typed language. A data class is still a normal Python class. The decorator inspects its annotated fields and adds methods according to the options you select.
+The feature was added in Python 3.7 through PEP 557. It does not replace ordinary classes and it does not turn Python into a statically typed language. <u>A data class is still a normal Python class.</u> The decorator inspects its annotated fields and adds methods according to the options you select.
 
 To understand why this helps, it is useful to begin with the code we would otherwise write.
 
@@ -125,7 +125,7 @@ class Release:
     patch: int
 ```
 
-This generates comparisons such as `<`, `<=`, `>`, and `>=` using field order. Set `order=True` only when tuple-like ordering represents the domain correctly. Ordering people by `(name, age)` merely because those happen to be their fields would be a misleading contract.
+This generates comparisons such as `<`, `<=`, `>`, and `>=` using field order. _Set `order=True` only when tuple-like ordering represents the domain correctly._ Ordering people by `(name, age)` merely because those happen to be their fields would be a misleading contract.
 
 The main decorator options include:
 
@@ -254,7 +254,7 @@ class User:
 
 `raw_password` is passed to `__post_init__`, but it is not returned by `fields()` and is not retained as an ordinary instance field.
 
-This can reduce accidental retention of initialization-only data. For security-sensitive systems, the hashing operation and secret lifecycle still require careful design; a decorator does not provide security by itself.
+This can reduce accidental retention of initialization-only data. For security-sensitive systems, the hashing operation and secret lifecycle still require careful design; _a decorator does not provide security by itself._
 
 ## Immutable value objects
 
@@ -313,7 +313,7 @@ The default relationship between `eq`, `frozen`, and `__hash__` is intentionally
 - `eq=True` and `frozen=False` normally make the class unhashable.
 - `eq=False` leaves the superclass hashing behaviour unchanged.
 
-A mutable value should not usually be hashable because changing a field after insertion can make the object impossible to find in the hash table.
+> A mutable value should not usually be hashable because changing a field after insertion can make the object impossible to find in the hash table.
 
 ```python
 @dataclass(frozen=True)
@@ -413,7 +413,7 @@ The generated `Project.__init__` includes the base fields before `name`.
 
 Inheritance becomes harder when base classes contain defaults, subclasses introduce required fields, or a non-data-class base needs its own initializer. The generated child initializer does not automatically call an ordinary base class’s `__init__`.
 
-When inheritance begins to require workarounds, composition or a factory may produce a clearer model.
+_When inheritance begins to require workarounds, composition or a factory may produce a clearer model._
 
 ## Pattern matching
 
@@ -455,11 +455,11 @@ An explicit class may be better when:
 - Equality is based on identity rather than field values.
 - Attribute access needs substantial custom logic.
 
-Data classes reduce boilerplate, but their real value is communication. A well-designed data class tells the reader that the type is a structured value with a small, predictable contract.
+> Data classes reduce boilerplate, but their real value is communication. A well-designed data class tells the reader that the type is a structured value with a small, predictable contract.
 
 Generated methods can always be disabled or overridden when the defaults do not represent the domain correctly.
 
-The most important question is not whether a class _can_ be written as a data class. It is whether field-based construction, representation, and equality accurately describe what the object means.
+_The most important question is not whether a class can be written as a data class._ It is whether field-based construction, representation, and equality accurately describe what the object means.
 
 For coordinates, identifiers, configuration records, events, commands, and other value-oriented types, the answer is often yes. For stateful services, database sessions, controllers, or objects with a complicated lifecycle, an explicit class usually communicates more.
 

@@ -22,13 +22,13 @@ originalUrl: >-
 
 Large frontend applications rarely become difficult because React or Next.js cannot support the required scale. They become difficult when product boundaries are unclear, state has no obvious owner, shared components make inconsistent promises, and every new feature introduces another local convention.
 
-After four years of building with Next.js, I have found that enterprise frontend architecture is primarily an exercise in making change predictable. A developer should be able to locate a feature, understand its dependencies, modify it without reading the entire repository, and verify the result with confidence.
+> After four years of building with Next.js, I have found that enterprise frontend architecture is primarily an exercise in making change predictable. A developer should be able to locate a feature, understand its dependencies, modify it without reading the entire repository, and verify the result with confidence.
 
 This is not the only valid approach. It is the collection of principles and conventions that has worked consistently for me.
 
 The word _enterprise_ can be misleading. It does not necessarily mean millions of users or hundreds of engineers. It means the application has accumulated responsibilities that must remain reliable over time: authentication, permissions, complex forms, long-lived workflows, integrations, accessibility, observability, multiple environments, and several teams changing the same product.
 
-At that point, architecture is less about choosing a fashionable framework and more about controlling coupling.
+_At that point, architecture is less about choosing a fashionable framework and more about controlling coupling._
 
 ## The principles I start with
 
@@ -42,7 +42,7 @@ Shared code is useful when it represents a genuinely stable contract. Premature 
 
 Routes should compose product capabilities. Product modules should own business behaviour. Shared UI primitives should know about interaction and presentation but not about a specific domain.
 
-The same principle applies across the network boundary. Authentication, authorization, validation, and persistence should be explicit server responsibilities. A client-side hidden button is not an authorization rule, and a TypeScript type is not runtime validation.
+The same principle applies across the network boundary. Authentication, authorization, validation, and persistence should be explicit server responsibilities. <u>A client-side hidden button is not an authorization rule</u>, and a TypeScript type is not runtime validation.
 
 ### Scalability by design
 
@@ -76,7 +76,7 @@ Retrofitting these behaviours in every product screen is slower and produces inc
 
 Performance work should begin with evidence. I pay attention to server response time, client JavaScript, hydration cost, interaction latency, image delivery, caching, and avoidable data waterfalls.
 
-The objective is not a perfect synthetic score. It is a product that remains responsive on the devices and networks its users actually have.
+_The objective is not a perfect synthetic score._ It is a product that remains responsive on the devices and networks its users actually have.
 
 In a Next.js application, I normally investigate:
 
@@ -275,7 +275,7 @@ Generic names should be descriptive when the relationship is not obvious. `TData
 
 I do not apply “always use `type`” or “always use `interface`” as an absolute rule. Type aliases are excellent for unions, mapped types, and most application models. Interfaces remain useful for extensible object contracts and declaration merging.
 
-Consistency matters, but semantic accuracy matters more than turning a team preference into a language law.
+_Consistency matters, but semantic accuracy matters more than turning a team preference into a language law._
 
 ### Validate at runtime
 
@@ -309,7 +309,7 @@ Server Components are useful when data can be fetched and rendered at the route 
 
 The URL is often the best store for state that a user expects to bookmark, share, or restore. Local React state is usually enough for transient interaction state.
 
-For independent server operations, start work in parallel to avoid unnecessary waterfalls. For every mutation, define the consistency strategy: update the cache directly, invalidate a precise query, or navigate to data rendered from the server. Scattered refetch calls are not a strategy.
+For independent server operations, start work in parallel to avoid unnecessary waterfalls. For every mutation, define the consistency strategy: update the cache directly, invalidate a precise query, or navigate to data rendered from the server. _Scattered refetch calls are not a strategy._
 
 ### Server state
 
@@ -337,7 +337,7 @@ If a Context value changes frequently and wraps a large tree, split the provider
 
 ## Reusable components are contracts
 
-A reusable component is successful when consumers can predict its semantics and behaviour without reading its implementation.
+> A reusable component is successful when consumers can predict its semantics and behaviour without reading its implementation.
 
 A button should preserve native button attributes, forward the relevant ref, expose a clear loading contract, and prevent duplicate actions while loading:
 
@@ -503,7 +503,7 @@ An application may depend on shared packages. A shared package should not import
 
 Formatting, linting, type checking, tests, builds, and dependency checks should run automatically in CI. Local tooling should make the correct workflow easy, while CI protects the shared repository.
 
-Choose a tool because it removes a recurring source of complexity, not because it appears on an enterprise technology checklist.
+_Choose a tool because it removes a recurring source of complexity, not because it appears on an enterprise technology checklist._
 
 ## Team conventions are architecture
 
@@ -540,7 +540,7 @@ The rules should also evolve. If developers repeatedly need to violate a convent
 
 ## Conclusion
 
-Enterprise frontend architecture is not measured by the number of layers in a repository. It is measured by the cost and safety of change.
+> Enterprise frontend architecture is not measured by the number of layers in a repository. It is measured by the cost and safety of change.
 
 Domain boundaries make ownership clear. TypeScript expresses product constraints. Runtime validation protects trust boundaries. Explicit state ownership prevents duplication. Accessible primitives make quality repeatable. Focused tests protect important behaviour.
 
@@ -550,7 +550,7 @@ It should also remain proportionate. A five-person product does not need every p
 
 Next.js provides rendering, routing, caching, and server capabilities. TypeScript provides a language for contracts. Turborepo, TanStack Query, Playwright, Storybook, and design-system tooling solve specific coordination problems.
 
-None of them can decide where your product boundaries belong. That is the architectural work: turning business responsibilities into code that remains legible after years of change.
+_None of them can decide where your product boundaries belong._ That is the architectural work: turning business responsibilities into code that remains legible after years of change.
 
 ## Further reading
 

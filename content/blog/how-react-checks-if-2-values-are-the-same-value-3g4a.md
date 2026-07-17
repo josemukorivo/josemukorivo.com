@@ -19,7 +19,7 @@ originalUrl: >-
   https://dev.to/josemukorivo/how-react-checks-if-2-values-are-the-same-value-3g4a
 ---
 
-React constantly needs to answer a deceptively small question: did this value change?
+> React constantly needs to answer a deceptively small question: did this value change?
 
 That decision appears in state updates, Hook dependency arrays, memoized components, reducers, and several internal optimization paths. The answer cannot simply be “use `==`” or “use `===`,” because JavaScript has multiple equality algorithms with slightly different semantics.
 
@@ -84,7 +84,7 @@ Object.is(project, project); // true
 
 The two empty object literals may look identical, but they occupy different locations in memory. The `project` variable, on the other hand, points to the same object on both sides of the comparison.
 
-This distinction between value equality and reference identity is fundamental to React.
+_This distinction between value equality and reference identity is fundamental to React._
 
 ## React’s `Object.is` helper
 
@@ -259,7 +259,7 @@ const Profile = memo(function Profile({ name, age }) {
 
 If `name` and `age` remain the same, React can usually skip rendering `Profile` when its parent renders.
 
-Memoization is not a guarantee. React may render a memoized component for its own reasons, and context or local state changes still affect it. `memo` is a performance optimization, not a semantic boundary.
+Memoization is not a guarantee. React may render a memoized component for its own reasons, and context or local state changes still affect it. _`memo` is a performance optimization, not a semantic boundary._
 
 ## How shallow comparison works
 
@@ -318,7 +318,7 @@ Both variables still reference exactly the same top-level object:
 Object.is(previous, next); // true
 ```
 
-The nested value changed, but the identity React can cheaply compare did not.
+The nested value changed, but <u>the identity React can cheaply compare did not</u>.
 
 An immutable update creates new references along the changed path:
 
@@ -339,7 +339,7 @@ Object.is(previous, next); // false
 Object.is(previous.profile, next.profile); // false
 ```
 
-Unchanged branches can keep their existing references, while changed branches receive new ones. This is structural sharing, and it allows shallow comparisons to remain fast without losing useful change information.
+> Unchanged branches can keep their existing references, while changed branches receive new ones. This is structural sharing, and it allows shallow comparisons to remain fast without losing useful change information.
 
 ## Objects, arrays, and functions as props
 
@@ -351,7 +351,7 @@ Inline values can defeat memoization because they create a new reference on ever
 
 The object is new each time, so a memoized `Profile` sees a changed prop.
 
-The first question should not be “Where can I add `useMemo`?” It should be whether the component needs that object-shaped prop at all:
+_The first question should not be “Where can I add `useMemo`?”_ It should be whether the component needs that object-shaped prop at all:
 
 ```jsx
 <Profile compact />
@@ -380,7 +380,7 @@ const Chart = memo(ChartView, (previous, next) => {
 });
 ```
 
-This should be used carefully.
+_This should be used carefully._
 
 The comparator must include every prop, including functions. If it incorrectly declares two prop sets equal, the component can keep stale closures and display outdated information.
 
@@ -397,7 +397,7 @@ Instead, it relies heavily on:
 - New references to signal changed object branches.
 - Memoization only where skipping work is measurably useful.
 
-The small `Object.is` helper is therefore more than an implementation curiosity. It explains why `NaN` can remain stable, why signed zero is distinct, why inline objects change on every render, and why immutable updates make React applications easier to reason about.
+> The small `Object.is` helper is therefore more than an implementation curiosity. It explains why `NaN` can remain stable, why signed zero is distinct, why inline objects change on every render, and why immutable updates make React applications easier to reason about.
 
 Once references are treated as part of the state contract, many apparently mysterious React renders become ordinary JavaScript equality decisions.
 
