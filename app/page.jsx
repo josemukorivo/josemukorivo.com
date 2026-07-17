@@ -242,6 +242,13 @@ export default function Home() {
           </div>
         </PageSection>
 
+        <PageSection id="writing" title="Writing">
+          <WritingList articles={writing} />
+          <p className="mt-[18px]">
+            <InlineLink href="/blog">All writing</InlineLink>
+          </p>
+        </PageSection>
+
         <PageSection title="Education">
           <div className="max-w-[600px] [&>p+p]:mt-6 [&_strong]:font-medium">
             <p>
@@ -257,13 +264,6 @@ export default function Home() {
               from Chinhoyi University of Technology in 2019.
             </p>
           </div>
-        </PageSection>
-
-        <PageSection id="writing" title="Writing">
-          <WritingList articles={writing} />
-          <p className="mt-[18px]">
-            <InlineLink href="/blog">All writing</InlineLink>
-          </p>
         </PageSection>
 
         <PageSection title="Now">
