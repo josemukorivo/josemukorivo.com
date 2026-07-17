@@ -7,7 +7,7 @@ description: >-
   A detailed walkthrough of Object.is, React's equality helper, shallow
   comparison, memoization, Hook dependencies, and immutable updates.
 publishedAt: "2022-02-14T05:47:53Z"
-updatedAt: "2026-07-16T00:00:00Z"
+updatedAt: "2026-07-17T19:00:22Z"
 tags:
   - react
   - javascript
@@ -351,7 +351,7 @@ Inline values can defeat memoization because they create a new reference on ever
 
 The object is new each time, so a memoized `Profile` sees a changed prop.
 
-_The first question should not be “Where can I add `useMemo`?”_ It should be whether the component needs that object-shaped prop at all:
+_Before adding `useMemo`, ask whether the component needs that object-shaped prop at all:_
 
 ```jsx
 <Profile compact />

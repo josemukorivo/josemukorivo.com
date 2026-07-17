@@ -22,32 +22,32 @@ const RESUME_URL =
 
 const writing = [
   {
+    id: "engineering-leadership-product-role",
+    title: "Engineering Leadership Is a Product Role",
+    date: "Jul 2026",
+    dateTime: "2026-07-17T18:37:02Z",
+    href: "/blog/engineering-leadership-is-a-product-role"
+  },
+  {
+    id: "quality-culture",
+    title: "Building a Culture of Quality Without Slowing the Team Down",
+    date: "Jun 2026",
+    dateTime: "2026-06-19T08:30:00Z",
+    href: "/blog/building-a-culture-of-quality-without-slowing-the-team-down"
+  },
+  {
+    id: "considered-software",
+    title: "What I Mean When I Say Software Should Feel Considered",
+    date: "May 2026",
+    dateTime: "2026-05-18T08:30:00Z",
+    href: "/blog/what-i-mean-when-i-say-software-should-feel-considered"
+  },
+  {
     id: "fortyone-jira",
     title: "I Got Tired of Jira. So I Built an Agentic Project Management Tool",
     date: "Jan 2026",
     dateTime: "2026-01-10T09:17:19Z",
     href: "/blog/i-got-tired-of-jira-so-i-built-an-agentic-project-management-tool-and-open-sourced-it-3ghp"
-  },
-  {
-    id: "complex-system",
-    title: "Can One Person Really Build a Complex System from Scratch?",
-    date: "Aug 2025",
-    dateTime: "2025-08-01T11:28:03Z",
-    href: "/blog/can-one-person-really-build-a-complex-system-from-scratch-7dn"
-  },
-  {
-    id: "go-reflection",
-    title: "Deep Dive into Go Reflection",
-    date: "Jan 2024",
-    dateTime: "2024-01-26T09:40:20Z",
-    href: "/blog/deep-dive-into-go-reflection-crafting-a-dynamic-open-source-config-package-13kn"
-  },
-  {
-    id: "enterprise-frontends",
-    title: "How I Structure Enterprise Frontend Applications",
-    date: "Sep 2023",
-    dateTime: "2023-09-09T13:09:00Z",
-    href: "/blog/how-i-approach-and-structure-enterprise-frontend-applications-after-4-years-of-using-nextjs-2f5"
   }
 ];
 
@@ -184,7 +184,8 @@ export default function Home() {
               <InlineLink href="https://www.linkedin.com/in/josemukorivo/">
                 LinkedIn
               </InlineLink>
-              , read my <InlineLink href="/blog">writing</InlineLink>, or{" "}
+              , <InlineLink href="https://x.com/josemukorivo">X</InlineLink>,
+              read my <InlineLink href="/blog">writing</InlineLink>, or{" "}
               <InlineLink href={`mailto:${SITE_EMAIL}`}>
                 send me an email
               </InlineLink>
@@ -288,7 +289,9 @@ export default function Home() {
             <InlineLink href="https://www.linkedin.com/in/josemukorivo/">
               LinkedIn
             </InlineLink>
-            , or view my <InlineLink href={RESUME_URL}>résumé</InlineLink>.
+            , follow me on{" "}
+            <InlineLink href="https://x.com/josemukorivo">X</InlineLink>, or view
+            my <InlineLink href={RESUME_URL}>résumé</InlineLink>.
           </p>
         </PageSection>
       </article>

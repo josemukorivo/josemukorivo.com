@@ -8,7 +8,7 @@ description: >-
   ownership, rendering boundaries, accessibility, testing, tooling, and
   operating large Next.js applications.
 publishedAt: "2023-09-09T13:09:00Z"
-updatedAt: "2026-07-16T00:00:00Z"
+updatedAt: "2026-07-17T19:00:22Z"
 tags:
   - nextjs
   - typescript
@@ -24,9 +24,9 @@ Large frontend applications rarely become difficult because React or Next.js can
 
 > After four years of building with Next.js, I have found that enterprise frontend architecture is primarily an exercise in making change predictable. A developer should be able to locate a feature, understand its dependencies, modify it without reading the entire repository, and verify the result with confidence.
 
-This is not the only valid approach. It is the collection of principles and conventions that has worked consistently for me.
+The principles and conventions below are the approach that has worked consistently for me, while leaving room for other teams to make different choices.
 
-The word _enterprise_ can be misleading. It does not necessarily mean millions of users or hundreds of engineers. It means the application has accumulated responsibilities that must remain reliable over time: authentication, permissions, complex forms, long-lived workflows, integrations, accessibility, observability, multiple environments, and several teams changing the same product.
+The word _enterprise_ can be misleading. I use it for applications that have accumulated responsibilities which must remain reliable over time: authentication, permissions, complex forms, long-lived workflows, integrations, accessibility, observability, multiple environments, and several teams changing the same product. Millions of users or hundreds of engineers are optional.
 
 _At that point, architecture is less about choosing a fashionable framework and more about controlling coupling._
 
@@ -46,7 +46,7 @@ The same principle applies across the network boundary. Authentication, authoriz
 
 ### Scalability by design
 
-Scalability is not only the number of users a system can serve. It is also the number of engineers and product changes the codebase can support without becoming incoherent.
+Scalability includes the number of engineers and product changes a codebase can support without becoming incoherent, alongside the number of users the system can serve.
 
 I prefer structures that allow teams to work in separate domains, packages that have clear ownership, and APIs that can evolve without forcing unrelated parts of the application to change.
 
@@ -176,7 +176,7 @@ export { createProject } from "./actions/create-project";
 export type { ProjectSummary } from "./types";
 ```
 
-The entry point is not permission to export everything. It defines which parts of the module other code is allowed to depend on.
+The entry point defines which parts of the module other code is allowed to depend on; exporting everything would erase that boundary.
 
 Dependency rules can be enforced with ESLint boundaries, package-level exports, TypeScript project references, or separate workspace packages. Tooling should reinforce the architecture instead of leaving it as a diagram in documentation.
 
@@ -381,7 +381,7 @@ A component library alone is not a design system. A sustainable system also incl
 - Versioning or migration guidance.
 - Examples of when _not_ to use a component.
 
-The objective is not to prevent product teams from designing. It is to centralize decisions that should not be rediscovered in every feature.
+Centralising recurring decisions gives product teams a stable foundation while leaving the design of each feature in their hands.
 
 Variant APIs should describe meaningful choices:
 
@@ -470,7 +470,7 @@ I test at the narrowest level that protects the contract:
 
 React Testing Library is useful when tests describe behaviour from the user’s perspective. Playwright is my preference for end-to-end coverage because it exercises the application in real browsers and supports reliable tracing when a test fails.
 
-The goal is not maximum test volume. It is confidence in the paths where a regression would be expensive: authentication, permissions, payments, creation flows, destructive actions, and core collaboration workflows.
+I optimise the test suite for confidence in the paths where a regression would be expensive: authentication, permissions, payments, creation flows, destructive actions, and core collaboration workflows.
 
 I also include contract tests at boundaries that have caused production incidents: date serialization, API error mapping, feature-flag defaults, webhook payloads, and cache invalidation after mutations.
 
@@ -540,13 +540,13 @@ The rules should also evolve. If developers repeatedly need to violate a convent
 
 ## Conclusion
 
-> Enterprise frontend architecture is not measured by the number of layers in a repository. It is measured by the cost and safety of change.
+> The cost and safety of change reveal far more about an enterprise frontend architecture than the number of layers in its repository.
 
 Domain boundaries make ownership clear. TypeScript expresses product constraints. Runtime validation protects trust boundaries. Explicit state ownership prevents duplication. Accessible primitives make quality repeatable. Focused tests protect important behaviour.
 
 The best architecture is the one that allows a team to understand where a change belongs, implement it without surprising unrelated features, and verify that it works.
 
-It should also remain proportionate. A five-person product does not need every platform practice used by a five-hundred-person organization. It does need boundaries that match its current risks and a path to strengthen them as those risks grow.
+It should also remain proportionate. A five-person product needs boundaries that match its current risks and a path to strengthen them as those risks grow, without adopting every platform practice used by a five-hundred-person organization.
 
 Next.js provides rendering, routing, caching, and server capabilities. TypeScript provides a language for contracts. Turborepo, TanStack Query, Playwright, Storybook, and design-system tooling solve specific coordination problems.
 

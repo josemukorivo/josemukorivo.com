@@ -6,7 +6,7 @@ description: >-
   A detailed guide to generated methods, fields, defaults, validation,
   immutability, hashing, slots, inheritance, and value-object design.
 publishedAt: "2022-11-28T08:47:41Z"
-updatedAt: "2026-07-16T00:00:00Z"
+updatedAt: "2026-07-17T19:00:22Z"
 tags:
   - python
 socialImage: >-
@@ -364,7 +364,7 @@ class HttpClient:
     default_timeout: ClassVar[int] = 30
 ```
 
-`default_timeout` is not added to the generated initializer, representation, or equality comparison. It remains a normal class variable shared by all instances.
+`default_timeout` remains a normal class variable shared by all instances and stays outside the generated initializer, representation, and equality comparison.
 
 This is clearer than relying on an unannotated value and communicates the intent to type checkers.
 
@@ -459,7 +459,7 @@ An explicit class may be better when:
 
 Generated methods can always be disabled or overridden when the defaults do not represent the domain correctly.
 
-_The most important question is not whether a class can be written as a data class._ It is whether field-based construction, representation, and equality accurately describe what the object means.
+_The useful question is whether field-based construction, representation, and equality accurately describe what the object means._ The fact that a class can be written as a data class tells us very little on its own.
 
 For coordinates, identifiers, configuration records, events, commands, and other value-oriented types, the answer is often yes. For stateful services, database sessions, controllers, or objects with a complicated lifecycle, an explicit class usually communicates more.
 

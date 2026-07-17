@@ -5,7 +5,7 @@ description: >-
   Build a production-oriented environment configuration parser in Go while
   exploring values, types, struct tags, custom setters, recursion, and errors.
 publishedAt: "2024-01-26T09:40:20Z"
-updatedAt: "2026-07-16T00:00:00Z"
+updatedAt: "2026-07-17T19:00:22Z"
 tags:
   - backend
   - opensource
@@ -561,7 +561,7 @@ For this package, reflection belongs in the adapter that translates strings into
 
 > That is the boundary I aim for: dynamic work at the edge, static types everywhere else.
 
-The purpose of reflection is not to make the code feel magical. It is to remove repetitive configuration plumbing while retaining strict input validation, explicit conversion rules, useful errors, and a thoroughly tested public contract.
+Here, reflection removes repetitive configuration plumbing while retaining strict input validation, explicit conversion rules, useful errors, and a thoroughly tested public contract. Nothing needs to feel magical.
 
 ## Further reading
 
