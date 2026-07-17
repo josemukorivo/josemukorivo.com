@@ -38,11 +38,11 @@
 :root[data-theme="dark"] {
   color-scheme: dark;
   --background: #10100f;
-  --text: #e7e7e2;
+  --text: #d8d8d3;
   --muted: #8d8d86;
   --subtle: #adada6;
   --line: #2a2a27;
-  --link-underline: #e7e7e2;
+  --link-underline: #d8d8d3;
   --code-background: #1b1b19;
   --code-header-background: #222220;
 }
@@ -51,11 +51,11 @@
   :root:not([data-theme]) {
     color-scheme: dark;
     --background: #10100f;
-    --text: #e7e7e2;
+    --text: #d8d8d3;
     --muted: #8d8d86;
     --subtle: #adada6;
     --line: #2a2a27;
-    --link-underline: #e7e7e2;
+    --link-underline: #d8d8d3;
     --code-background: #1b1b19;
     --code-header-background: #222220;
   }
