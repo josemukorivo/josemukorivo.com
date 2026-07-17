@@ -92,19 +92,33 @@ export default async function BlogPage() {
     <PageShell variant="writing">
       <JsonLd data={blogSchema} />
 
-      <header className="grid grid-cols-[160px_minmax(0,640px)] items-center gap-x-10 max-[680px]:grid-cols-[1fr_auto] max-[680px]:gap-x-6">
-        <IndexLink href="/" />
-        <div className="-mr-2 flex items-center justify-between gap-6">
+      <header
+        className="grid grid-cols-[160px_minmax(0,640px)] items-center gap-x-10 max-[680px]:grid-cols-[1fr_auto] max-[680px]:gap-x-6"
+        data-reveal="page-header"
+      >
+        <div data-reveal-item>
+          <IndexLink href="/" />
+        </div>
+        <div
+          className="reveal-page-heading -mr-2 flex items-center justify-between gap-6"
+          data-reveal-item
+        >
           <h1 className="text-base font-medium leading-6">Writing</h1>
           <ThemeToggle />
         </div>
       </header>
 
-      <section className="ml-[200px] mt-[72px] max-w-[640px] max-[680px]:ml-0 max-[680px]:mt-12 max-[680px]:max-w-none">
+      <section
+        className="ml-[200px] mt-[72px] max-w-[640px] max-[680px]:ml-0 max-[680px]:mt-12 max-[680px]:max-w-none"
+        data-reveal="writing-list"
+      >
         {articles.length > 0 ? (
-          <WritingList articles={writingItems} />
+          <WritingList articles={writingItems} revealItems />
         ) : (
-          <p className="border-y border-rule py-12 text-subtle">
+          <p
+            className="border-y border-rule py-12 text-subtle"
+            data-reveal-item
+          >
             No articles are available right now. Please check back soon.
           </p>
         )}

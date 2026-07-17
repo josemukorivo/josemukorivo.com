@@ -3,8 +3,9 @@ import { ThemeToggle } from "./theme-toggle";
 export function SiteHeader() {
   return (
     <header
-      className="reveal-header flex items-baseline justify-between gap-6 text-sm leading-[1.65] text-muted"
+      className="reveal-from-top flex items-baseline justify-between gap-6 text-sm leading-[1.65] text-muted"
       data-reveal
+      data-reveal-self
     >
       <a
         className="name-link relative font-serif text-xl font-medium italic leading-[1.2] text-ink"

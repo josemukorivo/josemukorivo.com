@@ -101,12 +101,21 @@ export default async function ArticlePage({ params }) {
       <JsonLd data={articleSchema} />
 
       <article className="m-0">
-        <header className="mb-11 block text-ink">
-          <div className="-mr-2 flex items-center justify-between gap-6">
+        <header
+          className="mb-11 block text-ink"
+          data-reveal="article-header"
+        >
+          <div
+            className="-mr-2 flex items-center justify-between gap-6"
+            data-reveal-item
+          >
             <IndexLink href="/blog" />
             <ThemeToggle />
           </div>
-          <div className="mb-[18px] mt-11 flex flex-wrap gap-x-4 gap-y-2 text-[13px] text-muted max-[680px]:mt-9">
+          <div
+            className="reveal-article-meta mb-[18px] mt-11 flex flex-wrap gap-x-4 gap-y-2 text-[13px] text-muted max-[680px]:mt-9"
+            data-reveal-item
+          >
             <time dateTime={article.publishedAt}>
               {formatArticleDate(article.publishedAt)}
             </time>
@@ -115,7 +124,10 @@ export default async function ArticlePage({ params }) {
               {article.readingTimeMinutes === 1 ? "" : "s"} read
             </span>
           </div>
-          <h1 className="max-w-[600px] text-[clamp(26px,3.5vw,32px)] font-medium leading-[1.15] tracking-[-0.025em] max-[680px]:text-[26px]">
+          <h1
+            className="reveal-article-title max-w-[600px] text-[clamp(26px,3.5vw,32px)] font-medium leading-[1.15] tracking-[-0.025em] max-[680px]:text-[26px]"
+            data-reveal-item
+          >
             {article.title}
           </h1>
         </header>

@@ -1,5 +1,6 @@
 import { Inter, Newsreader } from "next/font/google";
 import { ThemeScript } from "./_components/theme-script";
+import { RevealObserver } from "./reveal-observer";
 import "./globals.css";
 import {
   SITE_DESCRIPTION,
@@ -124,6 +125,15 @@ export default function RootLayout({ children }) {
         <ThemeScript />
       </head>
       <body className="min-w-80 bg-canvas font-sans text-[15px] leading-[1.65] text-ink">
+        <RevealObserver />
+        <div
+          aria-hidden="true"
+          className="viewport-blur viewport-blur--top"
+        />
+        <div
+          aria-hidden="true"
+          className="viewport-blur viewport-blur--bottom"
+        />
         {children}
       </body>
     </html>

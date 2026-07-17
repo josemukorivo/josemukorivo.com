@@ -6,7 +6,6 @@ import { PageShell } from "./_components/page-shell";
 import { SiteFooter } from "./_components/site-footer";
 import { SiteHeader } from "./_components/site-header";
 import { WritingList } from "./_components/writing-list";
-import { RevealObserver } from "./reveal-observer";
 import {
   PERSON_ID,
   SITE_DESCRIPTION,
@@ -151,18 +150,17 @@ export default function Home() {
   return (
     <PageShell>
       <JsonLd data={homepageSchema} />
-      <RevealObserver />
       <SiteHeader />
 
       <article className="mt-[88px] max-[640px]:mt-16" id="top">
-        <div className="reveal-intro max-w-[600px]" data-reveal>
+        <div className="reveal-intro max-w-[600px]">
           <div className="[&>p+p]:mt-6">
-            <p>
+            <p className="intro-reveal-item">
               I’m an engineering leader and product builder. Harare, Zimbabwe
               is home. I design, build, and lead secure software systems across
               fintech, SaaS, AI products, and regulated environments.
             </p>
-            <p>
+            <p className="intro-reveal-item">
               I’m the founder and product engineer behind{" "}
               <InlineLink href="https://www.fortyone.app">FortyOne</InlineLink>,
               an agentic project management platform, and the founder of{" "}
@@ -173,11 +171,11 @@ export default function Home() {
               AI-powered creative tools, lending, conversational AI,
               public-sector platforms, and financial infrastructure.
             </p>
-            <p>
+            <p className="intro-reveal-item">
               I care about useful software, clear interfaces, strong systems,
               and the small details that make products feel considered.
             </p>
-            <p className="text-subtle">
+            <p className="intro-reveal-item text-subtle">
               Find me on{" "}
               <InlineLink href="https://github.com/josemukorivo">
                 GitHub
