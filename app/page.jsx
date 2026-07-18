@@ -36,18 +36,18 @@ const writing = [
     href: "/blog/building-a-culture-of-quality-without-slowing-the-team-down"
   },
   {
-    id: "considered-software",
-    title: "What I Mean When I Say Software Should Feel Considered",
-    date: "May 2026",
-    dateTime: "2026-05-18T08:30:00Z",
-    href: "/blog/what-i-mean-when-i-say-software-should-feel-considered"
+    id: "go-reflection",
+    title: "Deep Dive into Go Reflection: Building a Dynamic Config Package",
+    date: "Jan 2024",
+    dateTime: "2024-01-26T09:40:20Z",
+    href: "/blog/deep-dive-into-go-reflection-crafting-a-dynamic-open-source-config-package-13kn"
   },
   {
-    id: "fortyone-jira",
-    title: "I Got Tired of Jira. So I Built an Agentic Project Management Tool",
-    date: "Jan 2026",
-    dateTime: "2026-01-10T09:17:19Z",
-    href: "/blog/i-got-tired-of-jira-so-i-built-an-agentic-project-management-tool-and-open-sourced-it-3ghp"
+    id: "enterprise-frontends",
+    title: "How I Structure Enterprise Frontend Applications",
+    date: "Sep 2023",
+    dateTime: "2023-09-09T13:09:00Z",
+    href: "/blog/how-i-approach-and-structure-enterprise-frontend-applications-after-4-years-of-using-nextjs-2f5"
   }
 ];
 
