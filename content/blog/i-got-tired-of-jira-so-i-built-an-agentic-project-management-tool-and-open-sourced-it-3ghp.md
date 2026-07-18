@@ -3,11 +3,10 @@ id: 3162259
 title: >-
   I Got Tired of Jira. So I Built an Agentic Project Management Tool
 description: >-
-  Why I built FortyOne, a project management platform designed to connect
-  goals, planning, execution, customer feedback, workload, and intelligent
-  assistance in one operating system for delivery.
+  Why I built FortyOne to connect goals, incoming requests, capacity, and
+  delivery while keeping people in control of the decisions.
 publishedAt: "2026-01-10T09:17:19Z"
-updatedAt: "2026-07-17T19:00:22Z"
+updatedAt: "2026-07-18T17:47:50Z"
 tags:
   - webdev
   - typescript
@@ -19,224 +18,73 @@ originalUrl: >-
   https://dev.to/josemukorivo/i-got-tired-of-jira-so-i-built-an-agentic-project-management-tool-and-open-sourced-it-3ghp
 ---
 
-I built [FortyOne](https://www.fortyone.app) because I had become frustrated with a familiar contradiction in project management software: teams spend a considerable amount of time maintaining the tool, yet the tool contributes very little to the work itself.
+I built [FortyOne](https://www.fortyone.app) after spending too much time maintaining project management tools that did very little to help with the work itself.
 
-Most platforms are effective systems of record. They store tickets, statuses, comments, estimates, and due dates. Delivery usually breaks down elsewhere: priorities drift away from goals, ownership remains unclear, capacity stays invisible, and important context is scattered across conversations and integrations.
+The tickets were there. So were the statuses, estimates, and due dates. The harder questions lived somewhere else: why is this important, who has room to take it, what will it displace, and is the plan still realistic?
 
-> FortyOne is my attempt to build a more active project management system—one that connects strategy, planning, execution, and feedback, then helps teams reason about what should happen next.
+I wanted the software to take part in those questions. That is what I mean by agentic project management. The agent works with the same stories, goals, sprints, workload, and permissions as the rest of the product. It does not sit in a chat box with a separate understanding of the workspace.
 
-The distinction matters. A passive system waits for people to keep every field accurate and then reports the state they entered. An active system helps structure incoming work, exposes missing decisions, identifies risks, and prepares the next action while preserving human control.
+## Connect the work to the reason
 
-That is what I mean by _agentic project management_. The agent works inside a structured delivery model made up of stories, teams, sprints, objectives, key results, workload, calendars, integrations, and reports. It has a role in the workflow beyond sitting beside it as a chatbot.
+The main unit in FortyOne is a story. It can belong to a sprint, support an objective and key result, have an owner and estimate, and appear on the roadmap.
 
-## Start with the work, not the board
+Those relationships matter because a backlog should help a team decide, not simply collect requests. When looking at a story, I want to know why it matters and what commitment already exists around it.
 
-The core unit in FortyOne is a story, connected to the rest of the plan. It can belong to a sprint, support an objective and key result, carry an estimate, have an owner, and appear on a roadmap. That context changes the quality of planning.
+Objectives are part of the same model. A team can see the work supporting an objective and notice when a key result has no delivery activity. Sprints handle the near-term plan; the roadmap shows sequencing over a longer period. Both read from the same work instead of asking people to rebuild it as presentation cards.
 
-A backlog should answer more than “What could we do?” It should also help answer:
+## Keep incoming requests pending
 
-- Why does this work matter?
-- Which goal does it support?
-- Who has the capacity and context to own it?
-- When can it realistically be completed?
-- What other work is likely to be displaced?
+Work often starts in GitHub, Slack, customer feedback, or a support conversation. Automatically turning every message into a story would replace manual entry with a noisy backlog.
 
-The product brings these decisions into the same system. Teams can manage stories and sprints, define objectives and measurable key results, review roadmap commitments, and inspect workload without maintaining a separate planning model in a spreadsheet.
+FortyOne stores these items as integration requests. A team can review the original context, choose an owner, add an estimate, connect a goal, schedule the work, and then accept or decline it.
 
-### Stories as connected work
+The point of this boundary is product judgment. GitHub owns its issue. A customer owns the problem they reported. FortyOne owns the decision to make that input part of the delivery plan.
 
-A story can carry the operational information a team needs to make and review a commitment:
+Accepted requests keep a link to their source. A GitHub issue can stay connected to its story, and public feedback can show a useful status without exposing internal implementation detail.
 
-- Team and workflow status.
-- Priority and estimate.
-- Reporter and assignee.
-- Start and target dates.
-- Sprint membership.
-- Objective and key-result relationships.
-- Labels, comments, links, attachments, and activity.
-- Associations with other stories.
-- External development or request context.
+Bidirectional sync also needs memory. When FortyOne edits a GitHub issue, GitHub sends the change back through a webhook. The integration records what it sent so it can recognise that echo instead of treating it as a fresh external decision.
 
-<u>Each field should help preserve a relationship that explains the work.</u>
+## Give Maya narrow tools
 
-When a story moves, the relevant surfaces should move with it. Lists, detail views, personal work, sprint progress, objective reporting, roadmap views, and analytics all observe different projections of the same underlying commitment.
+Maya is the AI teammate inside FortyOne. It can search workspace data, create or update stories, inspect workload, prepare reports, and help with planning.
 
-### Objectives should be part of delivery
+Each ability is a defined tool with a schema and an application boundary. Maya has no unrestricted database access. The model interprets the request and chooses an operation; ordinary software handles identity, permissions, validation, and persistence.
 
-Many organizations maintain OKRs in a presentation or spreadsheet and manage daily work somewhere else. The two systems meet during a review meeting, usually after the work has already drifted.
+Changes with consequences require confirmation. I enforce that in several places: the prompt describes when to ask, the tool schema includes confirmation, the tool refuses to run without it, and the backend still authorises the request.
 
-FortyOne connects objectives and key results to stories while work is being planned. That makes it possible to ask:
+A prompt can guide behaviour. It cannot be the security boundary.
 
-- Which active work supports this objective?
-- Which key result has no delivery activity?
-- How much effort is committed to each outcome?
-- Is progress based on completed work or an optimistic status update?
-- Which objective is at risk because its supporting work is late or unowned?
+This tool-based design also makes answers less speculative. Maya can read the current workspace or call the same reporting service as the interface instead of inventing a status from an old conversation.
 
-An objective carries more than a coloured progress bar: it has a lead, a time window, status history, measurable key results, supporting work, and activity that can be inspected over time.
+## Plan with capacity
 
-### Sprints and the roadmap answer different questions
+Assigning a story is usually presented as choosing a name from a menu. A responsible assignment also depends on existing work, estimates, role context, and calendar availability.
 
-Sprints organize near-term execution. The roadmap communicates sequencing and direction across a longer horizon.
+FortyOne builds a candidate set from product data. It knows each person's active work, estimated load, recent activity, and busy calendar windows. A deterministic planner finds available time first. An AI adviser can consider work fit among those valid candidates, but it cannot choose someone outside the set.
 
-FortyOne keeps both views connected to the same work rather than requiring teams to recreate projects as roadmap cards. A story may belong to a sprint and also contribute to a larger objective or roadmap commitment.
+If no one has enough room, the result should say so. A date generated to satisfy a required field is worse than an explicit scheduling risk.
 
-This matters because teams need to see both the immediate plan and the reason that plan exists.
+The same rule applies to analytics. Maya uses the reporting contracts that power the product, so a workload or sprint answer should agree with the report a person can open themselves.
 
-### Personal work should reflect the full system
+## Keep automation visible
 
-The “My work” surface brings together assignments and relevant commitments across teams. A person should not need to inspect several boards to understand what currently requires attention.
+FortyOne runs background work for sprint changes, reminders, cleanup, integrations, and assisted assignment. When one of those processes changes a story, the activity records the system actor and the reason.
 
-The same principle applies to search and notifications. They are horizontal capabilities over the product model, not isolated modules with their own interpretation of work.
+People need to know whether a teammate, GitHub, a workspace rule, or Maya made the change. Without that history, useful automation starts to feel arbitrary.
 
-## Intake should not become administrative debt
+Permissions follow the same rule everywhere. Maya can expose an operation in conversation and still be refused by the backend because the current user lacks the role. Public feedback has its own boundary, separate from internal workspace access.
 
-Important work rarely begins inside a project management tool. It arrives through GitHub issues, Slack conversations, customer feedback, support requests, and internal discussions.
+## What I am building toward
 
-FortyOne treats these sources as intake rather than automatically turning every message into committed work. An integration request can be reviewed, refined, assigned, estimated, linked to an objective, scheduled into a sprint, accepted, or declined.
+I want a team to move through one connected sequence:
 
-That distinction matters. Automation should reduce transcription, but it should not bypass product judgment. A useful intake system preserves the original context while giving the team a deliberate point at which a request becomes planned work.
-
-An incoming request remains pending while the team refines it. Before acceptance, it can receive:
-
-- A target team and workflow status.
-- An assignee.
-- Priority and estimate.
-- Objective and key-result links.
-- Sprint membership.
-- Planned start and end dates.
-
-Only after acceptance does FortyOne create the corresponding story and connect it back to its provider.
-
-This review boundary also prevents a common integration failure: allowing an external system to become the accidental source of truth for internal planning. GitHub knows about issues and development events. Slack knows about conversations. Customers know about their problems. FortyOne owns the delivery decision that connects those signals to a plan.
-
-The GitHub integration goes beyond importing a title. It can link stories to issues, pull requests, branches, and commits, synchronize selected issue fields, expose comments, and preserve repository context beside planned work.
-
-That synchronization requires causality, not just webhooks. If FortyOne updates a GitHub issue, the resulting webhook must not be treated as a new GitHub-originated decision and written back over the story. The integration records enough sync state to distinguish an echo from a real external change.
-
-The same model applies to customer feedback. Public feedback boards allow customers to submit ideas, comment, vote, and follow status changes. Internally, the team can triage an item and create a story when the feedback is ready to enter the delivery process. The public conversation and the internal plan remain connected without being treated as the same thing.
-
-Feedback can move through statuses such as pending, reviewing, planned, in progress, completed, and closed. A roadmap summary can communicate the public decision without exposing internal implementation detail.
-
-When the team creates a story from feedback, FortyOne records the relationship instead of copying the text and losing its origin. Product teams can trace delivery back to the customer problem that motivated it.
-
-## Maya is part of the workflow
-
-FortyOne includes an AI teammate called Maya. I designed Maya to understand the product’s operating model and work through explicit tools, giving it a meaningful role beyond a chat window placed beside the application.
-
-Maya can search workspace information, create and update stories, help structure objectives and key results, prepare reports, inspect team workload, propose a work plan, and assist with integration requests. Each capability is narrow and tied to the same authorization rules as the rest of the product.
-
-The tool surface includes operations for:
-
-- Creating, updating, assigning, duplicating, restoring, and associating stories.
-- Managing teams, objectives, and key results.
-- Inspecting sprint and objective performance.
-- Producing workspace, team, story, sprint, timeline, and pulse reports.
-- Reviewing integration requests and GitHub context.
-- Searching, navigating, commenting, and working with labels or links.
-- Inspecting workload and preparing assignment and scheduling plans.
-
-Maya reaches that breadth through defined tools, never unrestricted database access. Each tool has a schema, retrieves current application data, calls an existing product boundary, and returns a structured result.
-
-> The language model handles interpretation and planning. Deterministic software handles identity, authorization, validation, persistence, and side effects.
-
-The important design decision is that consequential actions remain reviewable. Maya can prepare a change, explain the reasoning, and ask for confirmation before applying it. This provides better decision support with less coordination overhead while keeping people accountable for the outcome.
-
-This approach also makes the assistant more reliable. Instead of inventing an answer from a large prompt, Maya can retrieve current product data and invoke a defined operation. The boundary between reasoning and execution stays visible.
-
-For example, an update tool requires an explicit confirmation value before it will change a story. Integration acceptance, bulk changes, GitHub synchronization actions, and work-plan application follow the same pattern.
-
-This is defence in depth:
-
-1. The system prompt tells Maya when confirmation is required.
-2. The tool schema includes a confirmation field.
-3. The tool implementation refuses to execute without it.
-4. The backend authenticates and authorizes the resulting request.
-
-_A prompt is guidance. The application boundary is enforcement._
-
-## Planning requires capacity, not optimism
-
-Assignment is often treated as a dropdown selection, even though a responsible assignment depends on workload, existing commitments, estimates, role context, and availability.
-
-FortyOne’s planning model can combine active work, estimated effort, recent activity, and calendar availability to propose an owner and a realistic time window. When no safe slot exists, the system should surface a scheduling risk rather than quietly overloading someone.
-
-The planner begins with a structured candidate set from product data before AI contributes any judgment:
-
-- Current open stories and total estimated load.
-- Team-specific role and work-focus information.
-- Recent story activity.
-- Busy windows synchronized from calendars.
-- Existing schedule blocks.
-- The story’s estimate and sprint window.
-
-It searches working days and working hours for available time, aligns candidate slots to predictable intervals, avoids calendar conflicts, and limits the first focus block to a reasonable duration.
-
-The deterministic ranking favours earlier availability, lower estimated load, fewer open stories, and recent activity. An AI advisor can evaluate role and work fit among the valid candidates, but it cannot select someone outside the supplied set.
-
-When no candidate has enough calendar space, the planner can still recommend the strongest owner while producing an explicit schedule-risk action. That is more honest than placing a date on the story simply because the interface requires one.
-
-_This is the direction I find most valuable: software should make constraints explicit before a plan becomes a promise._
-
-The analytics layer follows the same principle. Reports help teams examine delivery health, sprint progress, objective status, workload distribution, timeline risk, and the relationship between planned and completed work, giving them a role well beyond retrospective charts.
-
-FortyOne includes focused reports and broader operating views. A command-centre report can combine workload, stories, sprints, objectives, and incoming requests. A pulse report highlights the conditions that need attention rather than presenting every metric with equal weight.
-
-Maya can use the same reporting contracts when answering questions. This prevents the assistant from calculating an unofficial metric that disagrees with the analytics interface.
-
-## A calmer interface for a complex domain
-
-Project management is inherently dense. The answer is not to expose every possible control at once.
-
-FortyOne’s interface is intentionally restrained. Views are designed around the decision a person is making: prioritizing a backlog, planning a sprint, reviewing a roadmap, checking personal work, assessing an objective, or responding to an incoming request.
-
-Consistency matters here. Shared interaction patterns, predictable keyboard behavior, clear loading states, and focused menus reduce the effort required to navigate a large product. The interface should reveal depth when it is needed without making every screen feel heavy.
-
-The frontend is organized by product modules such as stories, sprints, objectives, key results, roadmap, analytics, integration requests, notifications, public portal, teams, settings, search, and Maya. Shared UI primitives provide the visual and interaction foundations, while domain components remain close to the workflows they implement.
-
-Real-time updates help the product feel coherent when several people or systems are working at once. Server-Sent Events deliver workspace story changes and personal notifications to connected clients. The browser patches the relevant TanStack Query records or invalidates a precise query rather than refreshing the whole application.
-
-This matters for calmness as much as speed. A collaborative interface should update without surprising page jumps, lost filters, or an unnecessary loading state across unrelated content.
-
-The product also supports different surfaces around the same workspace: the core projects application, public feedback portal, administration, documentation, mobile work, and integrations. Shared contracts keep those surfaces from inventing different meanings for the same entities.
-
-## Automation should have visible reasons
-
-FortyOne runs background work for recurring sprint operations, story automation, digest and overdue communication, lifecycle cleanup, integration synchronization, and Maya-assisted assignment.
-
-_Automation becomes dangerous when it changes state without leaving an understandable reason._
-
-When a system actor archives work, moves unfinished stories, assigns a person, or creates a schedule block, the activity should explain what happened and why. People need to distinguish a teammate’s decision from a workspace rule, integration event, or Maya proposal.
-
-This is especially important in an agentic product. Intelligence without provenance feels arbitrary. A recommendation becomes useful when the user can inspect the evidence and decide whether the reasoning is appropriate.
-
-## Permissions remain a product feature
-
-Every workspace operation is evaluated in context: the current user, workspace membership, team access, and required role.
-
-Maya does not override that model. A tool can be available in the assistant while its execution still fails because the user lacks the required permission. Planning and scheduling operations, for example, can require administrative access.
-
-The public portal has a different trust boundary from the internal application. Public reading, authenticated writes, moderation, and internal story creation are separate capabilities.
-
-Permissions also need to be legible in the interface. People should understand why an action is disabled, which role can perform it, and whether they need to change context.
-
-## What I am ultimately building
-
-FortyOne begins from a different view of what project software should be responsible for, rather than recreating Jira behind a new visual design.
-
-I want the product to help a team maintain a continuous line from goals to delivery:
-
-1. Capture a request without losing its source context.
+1. Capture a request with its source.
 2. Decide whether it is worth doing.
-3. Connect it to an objective.
-4. Estimate and schedule it against real capacity.
-5. Execute it with the relevant context nearby.
-6. Learn from the result and communicate progress.
+3. Connect it to an outcome.
+4. Plan it against real capacity.
+5. Do the work with the context nearby.
+6. Learn from the result.
 
-The long-term opportunity is to reduce the distance between understanding a problem and moving the right work forward. That requires more than boards and tickets. It requires a product that understands relationships, constraints, and decisions while keeping people firmly in control.
+People still make the commitment and own the trade-off. FortyOne should remove the administrative distance between that decision and the system that records it.
 
-> Teams still need deliberate planning, difficult tradeoffs, and accountable decisions. FortyOne reduces the administrative distance between those decisions and the system that records them.
-
-When strategy, intake, capacity, execution, feedback, and analytics share one model, the software can do more than display status. It can identify incomplete thinking before it becomes delivery risk.
-
-That is the product I want FortyOne to become: an operating system for delivery in which humans decide what matters and intelligent software helps turn those decisions into coherent, realistic action.
+That is the part of Jira I wanted to rethink. A project tool can do better than display the status people typed into it. It can notice missing context, prepare the next step, and make an unrealistic plan harder to ignore.

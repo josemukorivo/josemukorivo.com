@@ -2,10 +2,10 @@
 id: 1740898
 title: "Deep Dive into Go Reflection: Crafting a Dynamic Open Source Config Package"
 description: >-
-  Build a production-oriented environment configuration parser in Go while
-  exploring values, types, struct tags, custom setters, recursion, and errors.
+  How I used Go reflection to load environment variables into typed structs
+  without letting dynamic code spread through the application.
 publishedAt: "2024-01-26T09:40:20Z"
-updatedAt: "2026-07-17T19:00:22Z"
+updatedAt: "2026-07-18T17:47:50Z"
 tags:
   - backend
   - opensource
@@ -17,11 +17,9 @@ originalUrl: >-
   https://dev.to/josemukorivo/deep-dive-into-go-reflection-crafting-a-dynamic-open-source-config-package-13kn
 ---
 
-> Configuration is one of those concerns that begins with three environment variables and quietly grows into dozens of repeated parsing operations.
+Configuration code starts small. Read a string from the environment, parse an integer, check an error. A few months later the application has the same parsing code in several places and each version handles defaults differently.
 
-Every application needs to read strings from the environment, convert them into the expected types, apply defaults, report missing values, and make the result available through a typed structure. Writing those steps by hand is explicit, but it also creates repetitive code that is easy to implement inconsistently.
-
-I built a small Go configuration package around a simple contract:
+I built a small [configuration package](https://github.com/josemukorivo/config) around this contract:
 
 ```go
 type Config struct {
@@ -30,112 +28,49 @@ type Config struct {
 	Timeout time.Duration `default:"5s"`
 	Debug   bool          `default:"false"`
 }
-```
 
-The application passes a pointer to that structure:
-
-```go
 var cfg Config
-
 if err := config.Parse("app", &cfg); err != nil {
 	log.Fatal(err)
 }
 ```
 
-The package maps the fields to `APP_HOST`, `APP_PORT`, `APP_TIMEOUT`, and `APP_DEBUG`, then performs the required conversions.
+The parser maps those fields to `APP_HOST`, `APP_PORT`, `APP_TIMEOUT`, and `APP_DEBUG`. Reflection is useful here because the package does not know the caller's struct at compile time.
 
-_This is an appropriate use of reflection because the exact structure is supplied by the caller at runtime._ The important engineering decision is to keep reflection behind a small API and make every failure predictable.
+I keep that dynamic work behind `Parse`. Once it returns, the application has an ordinary typed `Config` value.
 
-## What reflection gives us
+## Values, types, and kinds
 
-Go is statically typed, but an interface value can hold a value of any concrete type. Reflection allows a program to inspect that dynamic type and value while it is running.
-
-The two entry points are:
+The two functions I use first are:
 
 ```go
 value := reflect.ValueOf(input)
-valueType := reflect.TypeOf(input)
+typ := reflect.TypeOf(input)
 ```
 
-`reflect.Type` describes a type: its name, package path, methods, fields, and underlying kind.
-
-`reflect.Value` represents an actual runtime value. It can be inspected and, when the value is addressable and settable, modified.
-
-The distinction is easiest to see with an interface:
-
-```go
-var input any = 42
-
-fmt.Println(reflect.TypeOf(input))        // int
-fmt.Println(reflect.ValueOf(input).Int()) // 42
-```
-
-Reflection is related to type assertions but solves a different problem. A type assertion asks whether an interface contains one specific type:
-
-```go
-number, ok := input.(int)
-```
-
-Reflection is useful when the concrete type is not known in advance and the code needs to inspect it dynamically.
-
-## `Type`, `Kind`, and named types
-
-<u>`Type` and `Kind` are not interchangeable.</u>
-
-`Type` preserves the complete declared type. `Kind` describes its underlying category:
+`reflect.Type` describes the declared type. `reflect.Value` gives access to a runtime value. A type also has a `Kind`, which is its underlying category:
 
 ```go
 type Port int
 
-var value Port = 8080
-typ := reflect.TypeOf(value)
+var port Port = 8080
+typ := reflect.TypeOf(port)
 
 fmt.Println(typ.Name()) // Port
 fmt.Println(typ.Kind()) // int
 ```
 
-This matters for `time.Duration`. Its kind is `reflect.Int64`, but treating it as an ordinary integer would reject values such as `5s` or `250ms`.
+That distinction matters for `time.Duration`. Its kind is `int64`, but parsing `5s` as a plain integer would be wrong. The package checks the declared type before falling back to kind-based conversion.
 
-The parser checks both its kind and declared type:
+## Why `Parse` needs a pointer
 
-```go
-if field.Kind() == reflect.Int64 &&
-	field.Type().PkgPath() == "time" &&
-	field.Type().Name() == "Duration" {
-	duration, err := time.ParseDuration(raw)
-	// ...
-}
-```
-
-The underlying kind determines which setter is available, while the declared type can require specialised parsing.
-
-## Why the destination must be a pointer
-
-Reflection can inspect most values, but it cannot modify an unaddressable copy.
-
-This call cannot work:
+Reflection can inspect a value without being able to change it. This call passes a copy:
 
 ```go
-var cfg Config
 config.Parse("app", cfg)
 ```
 
-`cfg` is passed by value. The parser receives a copy and cannot populate the caller’s variable.
-
-The package therefore requires a pointer to a struct:
-
-```go
-config.Parse("app", &cfg)
-```
-
-The validation path should reject:
-
-- Non-pointer values.
-- Nil pointers.
-- Pointers to scalar values.
-- Maps, slices, and other unsupported destinations.
-
-A defensive helper can make the contract explicit:
+The parser requires a non-nil pointer to a struct. A small validation function keeps the error at the API boundary:
 
 ```go
 func destination(input any) (reflect.Value, error) {
@@ -150,97 +85,40 @@ func destination(input any) (reflect.Value, error) {
 	if value.Kind() != reflect.Struct {
 		return reflect.Value{}, ErrInvalidConfig
 	}
+
 	return value, nil
 }
 ```
 
-`Elem` dereferences the pointer. Once the result is an addressable struct value, its exported fields can be set.
+`Elem` dereferences the pointer. The returned struct is addressable, so exported fields can be changed.
 
-## Extracting fields and metadata
+## Reading fields and tags
 
-The parser walks the structure with a `reflect.Value` and its corresponding `reflect.Type`:
+The parser walks the value and its type together:
 
 ```go
-value := reflect.ValueOf(cfg).Elem()
-typ := value.Type()
-
 for index := 0; index < value.NumField(); index++ {
 	fieldValue := value.Field(index)
-	fieldType := typ.Field(index)
-	// Build the configuration field metadata.
+	fieldType := value.Type().Field(index)
+
+	if !fieldValue.CanSet() {
+		continue
+	}
+
+	// Read tags and assign the environment value.
 }
 ```
 
-`value.Field(index)` gives access to the runtime field value.
+The value is needed for assignment. `reflect.StructField` contains the field name, declared type, and tags such as `env`, `default`, and `required`.
 
-`typ.Field(index)` returns a `reflect.StructField`, which includes the field name, declared type, package information, and struct tags.
+I translate that reflection data into a small internal `Field` type. This keeps the rest of the parser from reaching into `reflect` for every decision and gives error messages one place to get the field name and environment key.
 
-The package converts that information into a smaller internal model:
-
-```go
-type Field struct {
-	Name     string
-	Field    reflect.Value
-	Key      string
-	EnvKey   string
-	Required bool
-	Default  string
-}
-```
-
-This is a useful boundary. The rest of the parser operates on `Field` values instead of repeatedly reaching into the reflection API.
-
-## Settable and exported fields
-
-Before assigning a reflected value, the code checks `CanSet`:
-
-```go
-if !fieldValue.CanSet() {
-	continue
-}
-```
-
-An exported field on an addressable struct is normally settable. An unexported field is not.
-
-```go
-type Config struct {
-	Host     string
-	password string
-}
-```
-
-The package can populate `Host`, but it should not attempt to bypass Go’s visibility rules to set `password`.
-
-_Reflection offers powerful low-level operations, but a configuration library should respect ordinary language boundaries rather than using unsafe techniques to defeat them._
-
-## Deriving environment variable names
-
-By default, a field name is uppercased and prefixed:
-
-```go
-type Config struct {
-	Host string
-}
-```
-
-With the prefix `app`, the key becomes `APP_HOST`.
-
-An `env` tag can provide an explicit name:
-
-```go
-type Config struct {
-	User string `env:"config_user"`
-}
-```
-
-The package can look for the exact override and the prefixed form, depending on the intended convention.
-
-The key-building logic is straightforward:
+An `env` tag can replace the field name. Otherwise the package uppercases the field and adds the prefix:
 
 ```go
 key := fieldType.Name
-if envName := fieldType.Tag.Get("env"); envName != "" {
-	key = envName
+if name, ok := fieldType.Tag.Lookup("env"); ok {
+	key = name
 }
 if prefix != "" {
 	key = prefix + "_" + key
@@ -248,165 +126,34 @@ if prefix != "" {
 key = strings.ToUpper(key)
 ```
 
-Centralising this rule prevents every application from developing a slightly different environment naming scheme.
+I use `Lookup` where an empty tag value is meaningful because it tells me whether the tag exists. `Get` only returns a string, so a missing tag and an explicitly empty tag look the same.
 
-## Defaults and required values
+## Converting the value
 
-Environment variables are strings, but their absence is different from an empty string.
+`os.LookupEnv` is important for the same reason: a missing variable is different from a present variable whose value is empty.
 
-`os.LookupEnv` returns both the value and whether the key existed:
-
-```go
-raw, found := os.LookupEnv(field.Key)
-```
-
-That distinction allows the parser to apply a default only when the variable is missing:
+Once the raw string is resolved, the parser switches on the field kind. Strings can be assigned directly. Integers and floats use the field's bit width so overflow is checked correctly:
 
 ```go
-if !found && field.Default != "" {
-	raw = field.Default
-	found = true
-}
-```
-
-Required values should fail before conversion:
-
-```go
-if !found && field.Required {
-	return fmt.Errorf(
-		"config: required key %s missing value",
-		field.Key,
-	)
-}
-```
-
-There is a subtle design question around empty defaults. A tag such as `default:""` cannot be distinguished from an absent tag by calling `Tag.Get`. A package that needs empty-string defaults should use `StructTag.Lookup`, which returns a second boolean indicating whether the tag exists.
-
-_That is the kind of edge case that matters in reflective libraries: metadata has both a value and a presence state._
-
-## Parsing values by kind
-
-After resolving the raw string, the parser selects a conversion based on the field kind.
-
-Strings are direct:
-
-```go
-case reflect.String:
-	field.SetString(raw)
-```
-
-Booleans use `strconv.ParseBool`:
-
-```go
-case reflect.Bool:
-	value, err := strconv.ParseBool(raw)
-	if err != nil {
-		return err
-	}
-	field.SetBool(value)
-```
-
-Integers need the field’s bit width:
-
-```go
-case reflect.Int, reflect.Int8, reflect.Int16,
-	reflect.Int32, reflect.Int64:
-	value, err := strconv.ParseInt(
-		raw,
-		0,
-		field.Type().Bits(),
-	)
-```
-
-Using `Bits` means an `int8` field receives the correct overflow checks rather than being parsed as an unrestricted `int64`.
-
-Floats follow the same principle:
-
-```go
-case reflect.Float32, reflect.Float64:
-	value, err := strconv.ParseFloat(
-		raw,
-		field.Type().Bits(),
-	)
-```
-
-Once conversion succeeds, reflection provides kind-specific setters such as `SetInt`, `SetBool`, and `SetFloat`.
-
-## Supporting maps with JSON
-
-The current package supports maps with string keys by treating the environment value as JSON:
-
-```bash
-APP_LABELS={"environment":"production","region":"af-south-1"}
-```
-
-The corresponding field is:
-
-```go
-type Config struct {
-	Labels map[string]string
-}
-```
-
-Because the complete map type is only known at runtime, the parser creates a new value of that type and asks `encoding/json` to populate it:
-
-```go
-mapPointer := reflect.New(field.Type())
-if err := json.Unmarshal(
-	[]byte(raw),
-	mapPointer.Interface(),
-); err != nil {
+number, err := strconv.ParseInt(
+	raw,
+	0,
+	field.Type().Bits(),
+)
+if err != nil {
 	return err
 }
-field.Set(mapPointer.Elem())
+
+field.SetInt(number)
 ```
 
-`reflect.New` returns a pointer to a new zero value. Calling `Interface` exposes that pointer to `json.Unmarshal`, and `Elem` retrieves the populated map afterwards.
+Booleans use `strconv.ParseBool`. `time.Duration` is handled before the generic integer branch with `time.ParseDuration`.
 
-Shells and dotenv files sometimes wrap JSON in quotes, so the implementation also normalises single- or double-quoted values before decoding them.
+Nested structs can recurse with a longer prefix, producing keys such as `APP_DATABASE_HOST`. The package has to decide which structs are namespaces and which are scalar values. Treating every struct as a namespace would break types such as `time.Time` or `url.URL`.
 
-## Nested structures and recursive prefixes
+## Let custom types parse themselves
 
-Nested structs make related configuration easier to read:
-
-```go
-type Config struct {
-	Web struct {
-		Host string
-	}
-	DB struct {
-		Host string
-		Port int
-	}
-}
-```
-
-With an `APP` prefix, the expected keys become:
-
-```text
-APP_WEB_HOST
-APP_DB_HOST
-APP_DB_PORT
-```
-
-The parser can recurse when it encounters a struct field:
-
-```go
-if fieldValue.Kind() == reflect.Struct {
-	nestedPrefix := prefix + "_" + fieldType.Name
-	return Parse(nestedPrefix, fieldValue.Addr().Interface())
-}
-```
-
-This is convenient, but named scalar structures must be considered. A library should decide explicitly whether types such as `time.Time`, `url.URL`, or application-specific value objects are namespaces or scalar values.
-
-> Reflection removes compile-time certainty, so the library must replace it with deliberate runtime rules.
-
-## Custom types through a small interface
-
-A switch over `reflect.Kind` cannot understand every useful application type. Adding every possible parser to the configuration package would make it grow without limit.
-
-The package solves this with a narrow interface:
+A kind switch cannot know every application type. I did not want the package to grow a built-in parser for every enum or identifier, so it supports a small interface:
 
 ```go
 type Setter interface {
@@ -414,7 +161,7 @@ type Setter interface {
 }
 ```
 
-A custom type can own its parsing:
+A domain type can then own its rules:
 
 ```go
 type LogLevel string
@@ -430,141 +177,20 @@ func (level *LogLevel) Set(value string) error {
 }
 ```
 
-The reflective parser checks both the field value and its address because pointer-receiver methods are common:
+The parser checks the field's address for `Setter`, which supports the usual pointer receiver.
 
-```go
-if setter, ok := field.Addr().Interface().(Setter); ok {
-	return setter.Set(raw)
-}
-```
+## Errors and tests are part of the API
 
-This keeps the generic parser small while allowing domain types to define their own valid input.
+Reflection moves mistakes from compile time to runtime. An error such as `parsing "eight": invalid syntax` is missing the detail an operator needs. I wrap conversion errors with the field name, environment key, expected type, and original error. Supporting `Unwrap` also lets callers use `errors.Is` and `errors.As`.
 
-## Designing useful errors
+The tests cover the runtime contracts: invalid destinations, missing required values, defaults, bad conversions, nested fields, custom setters, unsupported kinds, and unexported fields. Every new branch in reflective code needs a failure test as well as a success test.
 
-A conversion failure without field context is difficult to diagnose:
+I use reflection when the caller owns the type and the package must work with many possible structs. I avoid it when a few concrete types or a type switch would be clearer.
 
-```text
-strconv.ParseInt: parsing "eight": invalid syntax
-```
-
-A field-specific error is much more useful:
-
-```text
-config: error assigning to field Port:
-converting 'eight' to type int
-```
-
-The package wraps conversion information in `FieldError`:
-
-```go
-type FieldError struct {
-	fieldName  string
-	fieldType  string
-	fieldValue string
-	fieldErr   error
-}
-```
-
-For a public library, I would also expose safe accessor methods or exported fields and implement:
-
-```go
-func (err *FieldError) Unwrap() error {
-	return err.fieldErr
-}
-```
-
-That allows callers to use `errors.As` for the field error and `errors.Is` for an underlying sentinel.
-
-_Reflection errors should never require a caller to reverse-engineer which field failed._
-
-## `Parse` and `MustParse`
-
-The ordinary API returns an error:
-
-```go
-if err := config.Parse("app", &cfg); err != nil {
-	return fmt.Errorf("load configuration: %w", err)
-}
-```
-
-The package also provides `MustParse`, which panics on failure:
-
-```go
-config.MustParse("app", &cfg)
-```
-
-The panicking version is reasonable at a process entry point where invalid configuration means the application cannot start. Library code and tests should usually prefer `Parse` because it keeps failure under the caller’s control.
-
-`Must` helpers should remain thin wrappers. The parsing behaviour must live in one implementation.
-
-## Loading dotenv files
-
-The parser can load one or more dotenv files before reading the environment:
-
-```go
-config.Parse("app", &cfg, ".env", ".env.local")
-```
-
-This is convenient during local development, but production systems should remain clear about precedence. Operating-system environment variables should generally win over file defaults, and secrets should not be committed to source control.
-
-Configuration loading is also part of application startup observability. _Log which configuration source was selected, but never log secret values._
-
-## Testing reflective code
-
-Reflection moves errors from compile time to runtime. That makes tests especially important.
-
-The high-value cases include:
-
-- A non-pointer destination.
-- A pointer to something other than a struct.
-- Missing required values.
-- Default values.
-- Malformed integers, booleans, floats, durations, and JSON.
-- Alternate environment names.
-- Nested structures.
-- Custom `Setter` implementations.
-- Unsupported field kinds.
-- Nil pointers and unexported fields.
-
-Table-driven tests work well for conversion errors:
-
-```go
-func TestParseRejectsInvalidPort(t *testing.T) {
-	t.Setenv("APP_PORT", "not-a-number")
-
-	var cfg Config
-	err := Parse("app", &cfg)
-
-	var fieldErr *FieldError
-	if !errors.As(err, &fieldErr) {
-		t.Fatalf("expected FieldError, got %v", err)
-	}
-}
-```
-
-Tests should also protect package policy. If unsupported kinds must return an error, add a test so a future switch default cannot silently ignore a field.
-
-## Where reflection is worth using
-
-Reflection is justified when the caller defines a type and the library must operate across many possible structures. Configuration decoding, serialization, validation, dependency injection, and database mapping are common examples.
-
-It is usually the wrong tool when:
-
-- A small number of concrete types are already known.
-- Generics can express the operation safely.
-- A type switch is clearer.
-- Performance depends on a tight inner loop.
-- The reflective API would leak throughout the application.
-
-For this package, reflection belongs in the adapter that translates strings into a caller-owned struct. After `Parse` returns, the rest of the application uses ordinary typed configuration.
-
-> That is the boundary I aim for: dynamic work at the edge, static types everywhere else.
-
-Here, reflection removes repetitive configuration plumbing while retaining strict input validation, explicit conversion rules, useful errors, and a thoroughly tested public contract. Nothing needs to feel magical.
+For configuration, the boundary is small enough to be worth it: strings and metadata enter at startup, reflection translates them once, and the rest of the program stays statically typed.
 
 ## Further reading
 
-- [The `reflect` package documentation](https://pkg.go.dev/reflect)
+- [The `reflect` package](https://pkg.go.dev/reflect)
 - [The Laws of Reflection](https://go.dev/blog/laws-of-reflection)
 - [The configuration package](https://github.com/josemukorivo/config)
