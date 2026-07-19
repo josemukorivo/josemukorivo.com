@@ -3,7 +3,9 @@ import { IndexLink } from "../../_components/index-link";
 import { JsonLd } from "../../_components/json-ld";
 import { PageShell } from "../../_components/page-shell";
 import { ThemeToggle } from "../../_components/theme-toggle";
+import { ArticleNavigation } from "../_components/article-navigation";
 import { CodeCopyEnhancer } from "../_components/code-copy-enhancer";
+import { ScrollToTop } from "../_components/scroll-to-top";
 import {
   formatArticleDate,
   getArticle,
@@ -48,8 +50,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ArticlePage({ params }) {
-  const { slug } = await params;
-  const article = await getArticle(slug);
+  const [{ slug }, articles] = await Promise.all([params, getArticles()]);
+  const article = articles.find((item) => item.slug === slug);
 
   if (!article) {
     notFound();
@@ -138,7 +140,9 @@ export default async function ArticlePage({ params }) {
           id={ARTICLE_BODY_ID}
         />
         <CodeCopyEnhancer containerId={ARTICLE_BODY_ID} />
+        <ArticleNavigation articles={articles} currentSlug={article.slug} />
       </article>
+      <ScrollToTop />
     </PageShell>
   );
 }
