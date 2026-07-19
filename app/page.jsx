@@ -17,8 +17,7 @@ import {
   absoluteUrl
 } from "../lib/site";
 
-const RESUME_URL =
-  "https://docs.google.com/document/d/16-sqqDzL3SR1vomlTW6gKOKIqJ7xd_MgfJXrDLkqbnU/edit";
+const RESUME_URL = "/joseph-mukorivo-head-of-engineering-resume.pdf";
 
 const writing = [
   {
