@@ -16,8 +16,8 @@ const SUGGESTED_QUESTIONS = [
   "Why did he build FortyOne?",
   "What can Complexus build for my team?",
   "Walk me through his résumé",
-  "Show me Joseph",
-  "What is he open to working on?"
+  "Tell me more about Joseph",
+  "Open his engineering leadership article"
 ];
 
 function CloseIcon() {
