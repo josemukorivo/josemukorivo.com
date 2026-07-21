@@ -3,6 +3,7 @@
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
 import { Streamdown } from "streamdown";
@@ -314,9 +315,14 @@ function resizeComposer(event) {
   textarea.style.height = `${Math.min(textarea.scrollHeight, 104)}px`;
 }
 
-export function PortfolioAssistant({ open, onClose }) {
+export function PortfolioAssistant({
+  open,
+  onClose,
+  presentation = "dialog"
+}) {
   const pathname = usePathname();
   const router = useRouter();
+  const isPage = presentation === "page";
   const dialogRef = useRef(null);
   const inputRef = useRef(null);
   const messagesRef = useRef(null);
@@ -376,19 +382,28 @@ export function PortfolioAssistant({ open, onClose }) {
 
   useEffect(() => {
     const dialog = dialogRef.current;
+    let focusFrame;
 
-    if (!dialog) {
-      return;
+    if (isPage) {
+      focusFrame = window.requestAnimationFrame(() =>
+        inputRef.current?.focus()
+      );
+    } else {
+      if (!dialog) {
+        return;
+      }
+
+      if (open && !dialog.open) {
+        dialog.show();
+        focusFrame = window.requestAnimationFrame(() =>
+          inputRef.current?.focus()
+        );
+      } else if (!open && dialog.open) {
+        dialog.close();
+      }
     }
 
-    if (open && !dialog.open) {
-      dialog.show();
-      window.requestAnimationFrame(() => inputRef.current?.focus());
-    } else if (!open && dialog.open) {
-      dialog.close();
-    }
-
-    if (!open) {
+    if (!isPage && !open) {
       return;
     }
 
@@ -400,11 +415,17 @@ export function PortfolioAssistant({ open, onClose }) {
 
     window.addEventListener("keydown", handleEscape);
 
-    return () => window.removeEventListener("keydown", handleEscape);
-  }, [open]);
+    return () => {
+      if (focusFrame) {
+        window.cancelAnimationFrame(focusFrame);
+      }
+
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [isPage, open]);
 
   useEffect(() => {
-    if (!open || !messagesRef.current) {
+    if ((!isPage && !open) || !messagesRef.current) {
       return;
     }
 
@@ -412,7 +433,7 @@ export function PortfolioAssistant({ open, onClose }) {
       top: messagesRef.current.scrollHeight,
       behavior: status === "streaming" ? "auto" : "smooth"
     });
-  }, [messages, open, status]);
+  }, [isPage, messages, open, status]);
 
   function submitMessage(
     value,
@@ -484,15 +505,8 @@ export function PortfolioAssistant({ open, onClose }) {
     stop();
   }
 
-  return (
-    <dialog
-      aria-labelledby="portfolio-assistant-title"
-      className="portfolio-assistant-dialog"
-      id="portfolio-assistant-dialog"
-      onClose={onClose}
-      ref={dialogRef}
-    >
-      <div className="portfolio-assistant-shell">
+  const assistantContent = (
+    <div className="portfolio-assistant-shell">
         <header className="portfolio-assistant-header">
           <span className="portfolio-assistant-avatar">
             <Image
@@ -522,14 +536,24 @@ export function PortfolioAssistant({ open, onClose }) {
                 New chat
               </button>
             ) : null}
-            <button
-              aria-label="Close assistant"
-              className="portfolio-assistant-close"
-              onClick={onClose}
-              type="button"
-            >
-              <CloseIcon />
-            </button>
+            {isPage ? (
+              <Link
+                aria-label="Close assistant"
+                className="portfolio-assistant-close"
+                href="/"
+              >
+                <CloseIcon />
+              </Link>
+            ) : (
+              <button
+                aria-label="Close assistant"
+                className="portfolio-assistant-close"
+                onClick={onClose}
+                type="button"
+              >
+                <CloseIcon />
+              </button>
+            )}
           </span>
         </header>
 
@@ -634,7 +658,30 @@ export function PortfolioAssistant({ open, onClose }) {
             AI can make mistakes. Check important details.
           </p>
         </footer>
-      </div>
+    </div>
+  );
+
+  if (isPage) {
+    return (
+      <main
+        aria-labelledby="portfolio-assistant-title"
+        className="portfolio-assistant-page"
+        id="portfolio-assistant-page"
+      >
+        {assistantContent}
+      </main>
+    );
+  }
+
+  return (
+    <dialog
+      aria-labelledby="portfolio-assistant-title"
+      className="portfolio-assistant-dialog"
+      id="portfolio-assistant-dialog"
+      onClose={onClose}
+      ref={dialogRef}
+    >
+      {assistantContent}
     </dialog>
   );
 }

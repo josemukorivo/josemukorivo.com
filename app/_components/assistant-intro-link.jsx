@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { requestPortfolioAssistantOpen } from "./assistant-events";
 
 function AssistantArrow() {
@@ -10,21 +11,27 @@ function AssistantArrow() {
   );
 }
 
-function openAssistant() {
-  requestPortfolioAssistantOpen("homepage_intro");
-}
-
 export function AssistantIntroLink({ children }) {
   return (
-    <button
-      aria-controls="portfolio-assistant-dialog"
-      className="assistant-intro-link"
-      onClick={openAssistant}
-      type="button"
-    >
-      <span>{children}</span>
-      <AssistantArrow />
-      <span className="sr-only">—opens my AI assistant</span>
-    </button>
+    <>
+      <button
+        aria-controls="portfolio-assistant-dialog"
+        className="assistant-intro-link assistant-intro-link-desktop"
+        onClick={() => requestPortfolioAssistantOpen("homepage_intro")}
+        type="button"
+      >
+        <span>{children}</span>
+        <AssistantArrow />
+        <span className="sr-only">—opens my AI assistant</span>
+      </button>
+      <Link
+        className="assistant-intro-link assistant-intro-link-mobile"
+        href="/assistant"
+      >
+        <span>{children}</span>
+        <AssistantArrow />
+        <span className="sr-only">—opens my AI assistant</span>
+      </Link>
+    </>
   );
 }

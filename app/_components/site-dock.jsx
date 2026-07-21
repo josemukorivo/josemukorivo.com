@@ -3,7 +3,7 @@
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { OPEN_PORTFOLIO_ASSISTANT_EVENT } from "./assistant-events";
 import {
@@ -71,8 +71,10 @@ function isActivePath(pathname, href) {
 
 export function SiteDock() {
   const pathname = usePathname();
+  const router = useRouter();
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [assistantLoaded, setAssistantLoaded] = useState(false);
+  const isAssistantPage = pathname === "/assistant";
 
   function openAssistant(source) {
     captureAnalyticsEvent(ANALYTICS_EVENTS.assistantOpened, {
@@ -89,6 +91,12 @@ export function SiteDock() {
         current_path: pathname,
         source: event.detail?.source || "unknown"
       });
+
+      if (window.matchMedia("(max-width: 680px)").matches) {
+        router.push("/assistant");
+        return;
+      }
+
       setAssistantLoaded(true);
       setAssistantOpen(true);
     }
@@ -103,7 +111,7 @@ export function SiteDock() {
         OPEN_PORTFOLIO_ASSISTANT_EVENT,
         handleOpenAssistant
       );
-  }, [pathname]);
+  }, [pathname, router]);
 
   return (
     <>
@@ -133,25 +141,27 @@ export function SiteDock() {
           <ThemeToggle />
         </span>
       </nav>
-      <button
-        aria-controls="portfolio-assistant-dialog"
-        aria-expanded={assistantOpen}
-        className="assistant-launcher"
-        data-open={assistantOpen ? "true" : undefined}
-        onClick={() => {
-          if (assistantOpen) {
-            setAssistantOpen(false);
-            return;
-          }
+      {!isAssistantPage ? (
+        <button
+          aria-controls="portfolio-assistant-dialog"
+          aria-expanded={assistantOpen}
+          className="assistant-launcher"
+          data-open={assistantOpen ? "true" : undefined}
+          onClick={() => {
+            if (assistantOpen) {
+              setAssistantOpen(false);
+              return;
+            }
 
-          openAssistant("floating_launcher");
-        }}
-        type="button"
-      >
-        <span className="assistant-launcher-copy">Ask about Joseph</span>
-        <AssistantArrow />
-      </button>
-      {assistantLoaded ? (
+            openAssistant("floating_launcher");
+          }}
+          type="button"
+        >
+          <span className="assistant-launcher-copy">Ask about Joseph</span>
+          <AssistantArrow />
+        </button>
+      ) : null}
+      {assistantLoaded && !isAssistantPage ? (
         <PortfolioAssistant
           onClose={() => setAssistantOpen(false)}
           open={assistantOpen}
