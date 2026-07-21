@@ -55,7 +55,7 @@ function loadTurnstile() {
   return turnstileScriptPromise;
 }
 
-function ContactDelivered() {
+function ContactDelivered({ confirmationDelivered }) {
   return (
     <section
       className="assistant-contact-card assistant-generative-ui"
@@ -65,7 +65,11 @@ function ContactDelivered() {
         <i aria-hidden="true" /> Message sent
       </span>
       <strong>Joseph has received your message.</strong>
-      <p>He can reply directly to the email address you provided.</p>
+      <p>
+        {confirmationDelivered
+          ? "A confirmation email is on its way."
+          : "The confirmation email could not be sent, but your message was delivered."}
+      </p>
     </section>
   );
 }
@@ -73,7 +77,9 @@ function ContactDelivered() {
 export function ContactMessageCard({ output }) {
   const challengeRef = useRef(null);
   const requestIdRef = useRef(null);
+  const sendingRef = useRef(false);
   const widgetIdRef = useRef(null);
+  const [confirmationDelivered, setConfirmationDelivered] = useState(false);
   const [error, setError] = useState("");
   const [status, setStatus] = useState("idle");
   const [turnstileToken, setTurnstileToken] = useState("");
@@ -130,9 +136,11 @@ export function ContactMessageCard({ output }) {
   }, [siteKey]);
 
   async function sendContactMessage() {
-    if (!turnstileToken || status === "sending") {
+    if (!turnstileToken || sendingRef.current || status === "sending") {
       return;
     }
+
+    sendingRef.current = true;
 
     if (!requestIdRef.current) {
       requestIdRef.current = crypto.randomUUID();
@@ -154,19 +162,31 @@ export function ContactMessageCard({ output }) {
         headers: { "Content-Type": "application/json" },
         method: "POST"
       });
-      const result = await response.json();
-
       if (!response.ok) {
-        throw new Error(result.error || "The message could not be sent.");
+        let errorMessage = "The message could not be sent.";
+
+        try {
+          const errorResult = await response.json();
+          errorMessage = errorResult.error || errorMessage;
+        } catch {
+          // Use the safe fallback when an intermediary returns a non-JSON error.
+        }
+
+        throw new Error(errorMessage);
       }
+
+      const result = await response.json();
 
       if (widgetIdRef.current && window.turnstile) {
         window.turnstile.remove(widgetIdRef.current);
         widgetIdRef.current = null;
       }
 
+      setConfirmationDelivered(result.confirmationDelivered === true);
       setStatus("sent");
-      captureAnalyticsEvent(ANALYTICS_EVENTS.contactMessageSent);
+      captureAnalyticsEvent(ANALYTICS_EVENTS.contactMessageSent, {
+        confirmation_delivered: result.confirmationDelivered === true
+      });
     } catch (sendError) {
       setError(sendError.message || "The message could not be sent.");
       setStatus("idle");
@@ -176,11 +196,15 @@ export function ContactMessageCard({ output }) {
       if (widgetIdRef.current) {
         window.turnstile?.reset(widgetIdRef.current);
       }
+    } finally {
+      sendingRef.current = false;
     }
   }
 
   if (status === "sent") {
-    return <ContactDelivered />;
+    return (
+      <ContactDelivered confirmationDelivered={confirmationDelivered} />
+    );
   }
 
   return (

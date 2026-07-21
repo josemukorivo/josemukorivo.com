@@ -12,7 +12,7 @@ const TURNSTILE_VERIFY_URL =
   "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
 const contactMessageSchema = z.object({
-  email: z.string().trim().email().max(254),
+  email: z.email().max(254),
   message: z.string().trim().min(10).max(2_000),
   name: z
     .string()
@@ -20,7 +20,7 @@ const contactMessageSchema = z.object({
     .min(2)
     .max(80)
     .regex(/^[^\r\n<>]+$/),
-  requestId: z.string().uuid(),
+  requestId: z.uuid(),
   turnstileToken: z.string().min(1).max(2_048)
 });
 
@@ -105,6 +105,16 @@ function getContactEmailText({ email, message, name }) {
   ].join("\n");
 }
 
+function getConfirmationEmailText() {
+  return [
+    "Your message to Joseph has been received.",
+    "",
+    "If a response is needed, Joseph can reply to the email address you provided.",
+    "",
+    "— Joseph's AI Assistant"
+  ].join("\n");
+}
+
 export async function POST(request) {
   if (
     !process.env.RESEND_API_KEY ||
@@ -184,7 +194,7 @@ export async function POST(request) {
         to: SITE_EMAIL
       },
       {
-        idempotencyKey: `portfolio-contact/${parsed.data.requestId}`
+        idempotencyKey: `portfolio-contact/${parsed.data.requestId}/owner`
       }
     );
   } catch {
@@ -205,8 +215,39 @@ export async function POST(request) {
     );
   }
 
+  let confirmationDelivered = false;
+
+  try {
+    const confirmation = await resend.emails.send(
+      {
+        from: process.env.CONTACT_FROM_EMAIL,
+        replyTo: SITE_EMAIL,
+        subject: "Your message to Joseph was received",
+        text: getConfirmationEmailText(),
+        to: parsed.data.email
+      },
+      {
+        idempotencyKey: `portfolio-contact/${parsed.data.requestId}/visitor`
+      }
+    );
+
+    confirmationDelivered = !confirmation.error;
+
+    if (confirmation.error) {
+      console.error(
+        "Portfolio contact confirmation failed",
+        confirmation.error.name || "resend_error"
+      );
+    }
+  } catch {
+    console.error(
+      "Portfolio contact confirmation failed",
+      "delivery_exception"
+    );
+  }
+
   return Response.json(
-    { delivered: true },
+    { confirmationDelivered, delivered: true },
     { headers: { "Cache-Control": "no-store" } }
   );
 }
