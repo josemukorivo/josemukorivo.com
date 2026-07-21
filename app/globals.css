@@ -29,8 +29,8 @@
   --code-header-background: #eeeeea;
   --tooltip-background: rgba(253, 253, 252, 0.86);
   --viewport-blur-background: rgba(253, 253, 252, 0.08);
-  --assistant-background: #eeeeea;
-  --assistant-input: rgb(255 255 255 / 0.58);
+  --assistant-background: rgb(251 251 249 / 0.94);
+  --assistant-input: rgb(244 244 241 / 0.96);
   --assistant-raised: #f7f7f4;
   --assistant-user: #e3e3de;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
