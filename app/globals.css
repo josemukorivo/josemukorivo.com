@@ -475,7 +475,7 @@ a:focus-visible > .external-link-label {
 }
 
 .link-preview[data-variant="media"] .link-preview-description {
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.5;
 }
 
