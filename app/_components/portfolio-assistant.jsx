@@ -11,6 +11,7 @@ import {
   captureAnalyticsEvent,
   getPostHogDistinctId
 } from "../../lib/analytics";
+import { ContactMessageCard } from "./contact-message-card";
 
 const assistantTransport = new DefaultChatTransport({
   api: "/api/assistant"
@@ -28,8 +29,40 @@ const SUGGESTED_QUESTIONS = [
   {
     id: "engineering_leadership_article",
     label: "Open his engineering leadership article"
+  },
+  {
+    id: "contact",
+    label: "Send Joseph a message"
+  },
+  {
+    id: "availability",
+    label: "What kind of work is Joseph open to?"
+  },
+  {
+    id: "leadership_approach",
+    label: "How does Joseph approach engineering leadership?"
+  },
+  {
+    id: "personal_interests",
+    label: "What does Joseph enjoy outside work?"
   }
 ];
+
+const SUGGESTION_COUNT = 6;
+
+function getRandomSuggestions() {
+  const suggestions = [...SUGGESTED_QUESTIONS];
+
+  for (let index = suggestions.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [suggestions[index], suggestions[randomIndex]] = [
+      suggestions[randomIndex],
+      suggestions[index]
+    ];
+  }
+
+  return suggestions.slice(0, SUGGESTION_COUNT);
+}
 
 function getCompletedToolNames(message) {
   const toolNames = new Set();
@@ -101,7 +134,7 @@ function ExternalArrow() {
 function ResourceResult({ description, eyebrow, href, title }) {
   return (
     <a
-      className="assistant-resource-card"
+      className="assistant-resource-card assistant-generative-ui"
       href={href}
       rel="noopener noreferrer"
       target="_blank"
@@ -140,7 +173,7 @@ function ProjectCard({ output }) {
 
 function ArticleCards({ label = "Related writing", output }) {
   return (
-    <div className="assistant-article-results">
+    <div className="assistant-article-results assistant-generative-ui">
       <span className="assistant-results-label">{label}</span>
       <div className="assistant-article-list">
         {output.results.map((article) => (
@@ -161,7 +194,7 @@ function ArticleCards({ label = "Related writing", output }) {
 function JosephPhotos({ output }) {
   return (
     <div
-      className="assistant-photo-grid"
+      className="assistant-photo-grid assistant-generative-ui"
       data-count={output.images.length}
     >
       {output.images.map((photo) => (
@@ -197,6 +230,10 @@ function ToolPart({ part }) {
 
   if (!part.output) {
     return null;
+  }
+
+  if (part.type === "tool-prepareContactMessage") {
+    return <ContactMessageCard output={part.output} />;
   }
 
   if (part.type === "tool-showResume") {
@@ -284,6 +321,9 @@ export function PortfolioAssistant({ open, onClose }) {
   const inputRef = useRef(null);
   const messagesRef = useRef(null);
   const [input, setInput] = useState("");
+  const [suggestedQuestions, setSuggestedQuestions] = useState(
+    getRandomSuggestions
+  );
   const {
     clearError,
     error,
@@ -432,6 +472,7 @@ export function PortfolioAssistant({ open, onClose }) {
     clearError();
     setMessages([]);
     setInput("");
+    setSuggestedQuestions(getRandomSuggestions());
 
     window.requestAnimationFrame(() => inputRef.current?.focus());
   }
@@ -502,12 +543,12 @@ export function PortfolioAssistant({ open, onClose }) {
               <div>
                 <h2>Ask anything about Joseph</h2>
                 <p>
-                  This AI assistant can answer questions about his work, ideas,
-                  experience, products, writing, or résumé.
+                  Ask about his work, experience, products, writing, or résumé—or
+                  send Joseph a message.
                 </p>
               </div>
               <div className="portfolio-assistant-suggestions">
-                {SUGGESTED_QUESTIONS.map((question) => (
+                {suggestedQuestions.map((question) => (
                   <button
                     key={question.id}
                     onClick={() =>
@@ -573,7 +614,7 @@ export function PortfolioAssistant({ open, onClose }) {
               onChange={(event) => setInput(event.currentTarget.value)}
               onInput={resizeComposer}
               onKeyDown={handleKeyDown}
-              placeholder="Ask about Joseph…"
+              placeholder="Ask anything about Joseph…"
               ref={inputRef}
               rows={1}
               value={input}
@@ -590,7 +631,7 @@ export function PortfolioAssistant({ open, onClose }) {
             </div>
           </form>
           <p className="portfolio-assistant-note">
-            Your messages aren’t stored by this site.
+            AI can make mistakes. Check important details.
           </p>
         </footer>
       </div>

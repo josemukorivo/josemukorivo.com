@@ -1182,6 +1182,129 @@ a:focus-visible > .external-link-label {
   line-height: 1.35;
 }
 
+.assistant-generative-ui {
+  margin-bottom: 6px;
+}
+
+.assistant-contact-card {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 15px 1px 17px;
+  border-top: 1px solid color-mix(in srgb, var(--text) 9%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 9%, transparent);
+}
+
+.assistant-contact-kicker {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 520;
+  line-height: 1.3;
+}
+
+.assistant-contact-kicker i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.assistant-contact-identity {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.assistant-contact-identity strong,
+.assistant-contact-card[data-state="sent"] strong {
+  font-size: 15px;
+  font-weight: 540;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+}
+
+.assistant-contact-identity span {
+  overflow-wrap: anywhere;
+  color: var(--subtle);
+  font-size: 13.5px;
+  line-height: 1.4;
+}
+
+.assistant-contact-message {
+  max-height: 176px;
+  margin: 0;
+  overflow-y: auto;
+  padding: 11px 12px;
+  border-radius: 4px;
+  color: var(--text);
+  background: var(--assistant-raised);
+  font-size: 14px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.assistant-contact-challenge {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.assistant-contact-challenge iframe {
+  max-width: 100%;
+}
+
+.assistant-contact-send {
+  min-height: 42px;
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 4px;
+  color: var(--background);
+  background: var(--text);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 150ms var(--ease-standard);
+}
+
+.assistant-contact-send:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.assistant-contact-send:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+.assistant-contact-consent {
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.assistant-contact-error {
+  margin: 0;
+  color: #b94f45;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.assistant-contact-card[data-state="sent"] {
+  gap: 8px;
+}
+
+.assistant-contact-card[data-state="sent"] p {
+  margin: 0;
+  color: var(--subtle);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
 .assistant-tool-status {
   display: flex;
   align-items: center;

@@ -127,6 +127,25 @@ function validateMessages(messages) {
 
 function createAssistantTools(articles) {
   return {
+    prepareContactMessage: tool({
+      description:
+        "Prepare a visitor's completed message for explicit review and confirmation before it is emailed to Joseph. This tool does not send the message. Call it only after the visitor has provided their name, email address, and complete message.",
+      inputSchema: z.object({
+        email: z
+          .string()
+          .trim()
+          .max(254)
+          .regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
+        message: z.string().trim().min(10).max(2_000),
+        name: z.string().trim().min(2).max(80)
+      }),
+      execute: async ({ email, message, name }) => ({
+        kind: "contact-draft",
+        email,
+        message,
+        name
+      })
+    }),
     showResume: tool({
       description:
         "Show Joseph's public resume when a visitor asks to see, open, or download it.",

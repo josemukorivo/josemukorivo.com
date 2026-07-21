@@ -1,11 +1,16 @@
 import posthog from "posthog-js";
 
+import {
+  POSTHOG_PROXY_PATH,
+  POSTHOG_UI_HOST
+} from "./lib/posthog-config.mjs";
+
 const projectToken = process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN;
 
 if (projectToken) {
   posthog.init(projectToken, {
-    api_host:
-      process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
+    api_host: POSTHOG_PROXY_PATH,
+    ui_host: POSTHOG_UI_HOST,
     capture_pageleave: true,
     capture_pageview: "history_change",
     defaults: "2026-06-25",
