@@ -1,6 +1,8 @@
 node_modules/
 .next/
 out/
+.env
+.env*.local
 .playwright-cli/
 output/
 .DS_Store

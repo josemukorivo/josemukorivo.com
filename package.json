@@ -9,6 +9,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@ai-sdk/openai": "^4.0.17",
+    "@ai-sdk/react": "^4.0.36",
+    "ai": "^7.0.33",
     "gray-matter": "^4.0.3",
     "next": "^16.2.10",
     "react": "^19.2.7",
@@ -24,8 +27,10 @@
     "remark-rehype": "^11.1.2",
     "server-only": "^0.0.1",
     "shiki": "^4.3.1",
+    "streamdown": "^1.6.11",
     "unified": "^11.0.5",
-    "unist-util-visit": "^5.1.0"
+    "unist-util-visit": "^5.1.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",

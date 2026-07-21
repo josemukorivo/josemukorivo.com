@@ -1,9 +1,19 @@
 "use client";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { ThemeToggle } from "./theme-toggle";
+
+const PortfolioAssistant = dynamic(
+  () =>
+    import("./portfolio-assistant").then(
+      (module) => module.PortfolioAssistant
+    ),
+  { ssr: false }
+);
 
 function HomeIcon() {
   return (
@@ -36,6 +46,14 @@ function ProjectsIcon() {
   );
 }
 
+function AssistantArrow() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 16 16">
+      <path d="M4 12 12 4M6 4h6v6" />
+    </svg>
+  );
+}
+
 const ITEMS = [
   { href: "/", label: "Home", icon: HomeIcon },
   { href: "/blog", label: "Writing", icon: WritingIcon },
@@ -48,33 +66,66 @@ function isActivePath(pathname, href) {
 
 export function SiteDock() {
   const pathname = usePathname();
+  const [assistantOpen, setAssistantOpen] = useState(false);
+  const [assistantLoaded, setAssistantLoaded] = useState(false);
+
+  function openAssistant() {
+    setAssistantLoaded(true);
+    setAssistantOpen(true);
+  }
 
   return (
-    <nav aria-label="Main navigation" className="site-dock">
-      <span aria-hidden="true" className="site-dock-surface" />
-      {ITEMS.map(({ href, icon: Icon, label }) => {
-        const active = isActivePath(pathname, href);
+    <>
+      <nav aria-label="Main navigation" className="site-dock">
+        <span aria-hidden="true" className="site-dock-surface" />
+        {ITEMS.map(({ href, icon: Icon, label }) => {
+          const active = isActivePath(pathname, href);
 
-        return (
-          <Link
-            aria-current={active ? "page" : undefined}
-            aria-label={label}
-            className="site-dock-item"
-            data-active={active ? "true" : undefined}
-            href={href}
-            key={href}
-          >
-            <Icon />
-            <span className="site-dock-label" aria-hidden="true">
-              {label}
-            </span>
-          </Link>
-        );
-      })}
-      <span aria-hidden="true" className="site-dock-divider" />
-      <span className="site-dock-theme">
-        <ThemeToggle />
-      </span>
-    </nav>
+          return (
+            <Link
+              aria-current={active ? "page" : undefined}
+              aria-label={label}
+              className="site-dock-item"
+              data-active={active ? "true" : undefined}
+              href={href}
+              key={href}
+            >
+              <Icon />
+              <span className="site-dock-label" aria-hidden="true">
+                {label}
+              </span>
+            </Link>
+          );
+        })}
+        <span aria-hidden="true" className="site-dock-divider" />
+        <span className="site-dock-theme">
+          <ThemeToggle />
+        </span>
+      </nav>
+      <button
+        aria-controls="portfolio-assistant-dialog"
+        aria-expanded={assistantOpen}
+        className="assistant-launcher"
+        data-open={assistantOpen ? "true" : undefined}
+        onClick={() => {
+          if (assistantOpen) {
+            setAssistantOpen(false);
+            return;
+          }
+
+          openAssistant();
+        }}
+        type="button"
+      >
+        <span className="assistant-launcher-copy">Ask about Joseph</span>
+        <AssistantArrow />
+      </button>
+      {assistantLoaded ? (
+        <PortfolioAssistant
+          onClose={() => setAssistantOpen(false)}
+          open={assistantOpen}
+        />
+      ) : null}
+    </>
   );
 }
