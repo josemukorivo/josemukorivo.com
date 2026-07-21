@@ -829,6 +829,14 @@ export function PortfolioAssistant({
         ? `Speaking · ${formatRemainingTime(voice.remainingSeconds)}`
         : `Listening · ${formatRemainingTime(voice.remainingSeconds)}`;
     }
+    if (
+      Number.isFinite(voice.dailyRemainingSeconds) &&
+      voice.dailyRemainingSeconds < 3 * 60
+    ) {
+      return `Live voice · ${formatRemainingTime(
+        voice.dailyRemainingSeconds
+      )} left`;
+    }
     return "Live voice";
   }
 
@@ -1030,6 +1038,10 @@ export function PortfolioAssistant({
                     ? "End live voice"
                     : voice.dailyLimitReached
                       ? formatDailyLimitTitle(voice.dailyLimitResetAt)
+                      : Number.isFinite(voice.dailyRemainingSeconds)
+                        ? `${formatRemainingTime(
+                            voice.dailyRemainingSeconds
+                          )} of Live voice remains in this 24-hour period`
                     : "Start a three-minute voice conversation"
                 }
                 type="button"

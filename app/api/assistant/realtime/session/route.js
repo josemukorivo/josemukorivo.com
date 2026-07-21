@@ -9,6 +9,12 @@ import {
   validateMessages
 } from "../../../../../lib/assistant-request";
 import { createRealtimeAssistantTools } from "../../../../../lib/assistant-tools";
+import {
+  VOICE_ALLOWANCE_BUCKET,
+  VOICE_ALLOWANCE_COOKIE,
+  VOICE_ALLOWANCE_SECONDS,
+  VOICE_ALLOWANCE_WINDOW_MS
+} from "../../../../../lib/assistant-voice-allowance";
 import { getArticles } from "../../../../../lib/blog";
 import { projects } from "../../../../../lib/projects";
 
@@ -19,11 +25,8 @@ const OPENAI_REALTIME_CLIENT_SECRETS_URL =
 const REALTIME_MODEL = "gpt-realtime-2.1-mini";
 const REALTIME_TRANSCRIPTION_MODEL = "gpt-4o-mini-transcribe";
 const REALTIME_VOICE = "cedar";
-const MAX_SESSION_SECONDS = 3 * 60;
-const DAILY_ALLOWANCE_WINDOW_MS = 24 * 60 * 60 * 1000;
-const DAILY_ALLOWANCE_COOKIE = "jm_live_voice_daily";
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
-const RATE_LIMIT_REQUESTS = 4;
+const RATE_LIMIT_REQUESTS = 20;
 
 function getCurrentPath(value) {
   return typeof value === "string" && value.length <= 240 ? value : "/";
@@ -121,21 +124,26 @@ export async function POST(request) {
     }
   };
   const dailyAllowance = claimDailyAllowance(request, {
-    bucket: "realtime-daily-allowance",
-    cookieName: DAILY_ALLOWANCE_COOKIE,
-    windowMs: DAILY_ALLOWANCE_WINDOW_MS
+    bucket: VOICE_ALLOWANCE_BUCKET,
+    cookieName: VOICE_ALLOWANCE_COOKIE,
+    limitSeconds: VOICE_ALLOWANCE_SECONDS,
+    windowMs: VOICE_ALLOWANCE_WINDOW_MS
   });
 
   if (!dailyAllowance.allowed) {
+    const hasActiveSession = dailyAllowance.reason === "active_session";
     return Response.json(
       {
-        code: "daily_voice_limit_reached",
-        error:
-          "You have used your three-minute Live voice allowance. Please try again when it resets.",
+        code: hasActiveSession
+          ? "voice_session_active"
+          : "daily_voice_limit_reached",
+        error: hasActiveSession
+          ? "Another Live voice session is still active. End it before starting a new one."
+          : "You have used your three-minute Live voice allowance. Please try again when it resets.",
         retryAfterSeconds: dailyAllowance.retryAfterSeconds
       },
       {
-        status: 429,
+        status: hasActiveSession ? 409 : 429,
         headers: {
           "Retry-After": String(dailyAllowance.retryAfterSeconds)
         }
@@ -193,12 +201,13 @@ export async function POST(request) {
 
   const response = Response.json({
     clientSecret,
-    dailyLimitSeconds: MAX_SESSION_SECONDS,
-    dailyRemainingSeconds: 0,
+    dailyLimitSeconds: VOICE_ALLOWANCE_SECONDS,
+    dailyRemainingSeconds: dailyAllowance.remainingSeconds,
     dailyResetAt: dailyAllowance.expiresAt,
     expiresAt,
-    maxSessionSeconds: MAX_SESSION_SECONDS,
+    maxSessionSeconds: dailyAllowance.maxSessionSeconds,
     model: REALTIME_MODEL,
+    sessionId: dailyAllowance.sessionId,
     voice: REALTIME_VOICE
   });
   response.headers.append(
