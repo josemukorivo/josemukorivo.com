@@ -401,13 +401,15 @@ export function PortfolioAssistant({ open, onClose }) {
             <span>Grounded in his public work</span>
           </span>
           <span className="portfolio-assistant-header-actions">
-            <button
-              className="portfolio-assistant-new-chat"
-              onClick={startNewChat}
-              type="button"
-            >
-              New chat
-            </button>
+            {messages.length > 0 ? (
+              <button
+                className="portfolio-assistant-new-chat"
+                onClick={startNewChat}
+                type="button"
+              >
+                New chat
+              </button>
+            ) : null}
             <button
               aria-label="Close assistant"
               className="portfolio-assistant-close"
