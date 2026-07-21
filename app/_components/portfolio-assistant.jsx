@@ -3,6 +3,7 @@
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
 import { Streamdown } from "streamdown";
 
@@ -12,9 +13,11 @@ const assistantTransport = new DefaultChatTransport({
 
 const SUGGESTED_QUESTIONS = [
   "What has Joseph built with AI?",
-  "Summarize his experience",
-  "Tell me about FortyOne",
-  "Show me his résumé"
+  "Why did he build FortyOne?",
+  "What can Complexus build for my team?",
+  "Walk me through his résumé",
+  "Show me Joseph",
+  "What is he open to working on?"
 ];
 
 function CloseIcon() {
@@ -109,10 +112,10 @@ function ProjectCard({ output }) {
   );
 }
 
-function ArticleCards({ output }) {
+function ArticleCards({ label = "Related writing", output }) {
   return (
     <div className="assistant-article-results">
-      <span className="assistant-results-label">Related writing</span>
+      <span className="assistant-results-label">{label}</span>
       <div className="assistant-article-list">
         {output.results.map((article) => (
           <a
@@ -125,6 +128,29 @@ function ArticleCards({ output }) {
           </a>
         ))}
       </div>
+    </div>
+  );
+}
+
+function JosephPhotos({ output }) {
+  return (
+    <div
+      className="assistant-photo-grid"
+      data-count={output.images.length}
+    >
+      {output.images.map((photo) => (
+        <figure className="assistant-photo" key={photo.src}>
+          <span className="assistant-photo-frame">
+            <Image
+              alt={photo.alt}
+              fill
+              sizes="(max-width: 680px) calc(100vw - 76px), 184px"
+              src={photo.src}
+            />
+          </span>
+          <figcaption>{photo.label}</figcaption>
+        </figure>
+      ))}
     </div>
   );
 }
@@ -151,12 +177,32 @@ function ToolPart({ part }) {
     return <ResumeCard output={part.output} />;
   }
 
+  if (part.type === "tool-showJosephPhotos") {
+    return <JosephPhotos output={part.output} />;
+  }
+
   if (part.type === "tool-showProject") {
     return <ProjectCard output={part.output} />;
   }
 
   if (part.type === "tool-searchWriting") {
     return <ArticleCards output={part.output} />;
+  }
+
+  if (part.type === "tool-readArticle") {
+    if (part.output.kind !== "article") {
+      return null;
+    }
+
+    return (
+      <ArticleCards label="Article source" output={{ results: [part.output] }} />
+    );
+  }
+
+  if (part.type === "tool-openArticle") {
+    return part.output.message ? (
+      <span className="assistant-tool-status">{part.output.message}</span>
+    ) : null;
   }
 
   return null;
@@ -206,6 +252,8 @@ function resizeComposer(event) {
 }
 
 export function PortfolioAssistant({ open, onClose }) {
+  const pathname = usePathname();
+  const router = useRouter();
   const dialogRef = useRef(null);
   const inputRef = useRef(null);
   const messagesRef = useRef(null);
@@ -219,6 +267,18 @@ export function PortfolioAssistant({ open, onClose }) {
     status,
     stop
   } = useChat({
+    onFinish: ({ message }) => {
+      for (const part of message.parts) {
+        if (
+          part.type === "tool-openArticle" &&
+          part.state === "output-available" &&
+          part.output?.kind === "navigation" &&
+          part.output.route
+        ) {
+          router.push(part.output.route);
+        }
+      }
+    },
     transport: assistantTransport,
     throttle: 50
   });
@@ -273,7 +333,14 @@ export function PortfolioAssistant({ open, onClose }) {
     }
 
     clearError();
-    sendMessage({ text });
+    sendMessage(
+      { text },
+      {
+        body: {
+          currentPath: pathname
+        }
+      }
+    );
     setInput("");
 
     if (inputRef.current) {
@@ -360,10 +427,10 @@ export function PortfolioAssistant({ open, onClose }) {
           {messages.length === 0 ? (
             <div className="portfolio-assistant-empty">
               <div>
-                <h2>Curious about Joseph?</h2>
+                <h2>Ask anything about Joseph</h2>
                 <p>
-                  Ask about his experience, AI work, projects, writing, or
-                  résumé. I’ll answer from his public work.
+                  This AI assistant can answer questions about his work, ideas,
+                  experience, products, writing, or résumé.
                 </p>
               </div>
               <div className="portfolio-assistant-suggestions">

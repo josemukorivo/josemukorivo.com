@@ -126,6 +126,35 @@ function createAssistantTools(articles) {
           "A two-page resume covering engineering leadership, AI products, full-stack systems, fintech, cloud infrastructure, and selected impact."
       })
     }),
+    showJosephPhotos: tool({
+      description:
+        "Show approved photos of Joseph when a visitor asks to see him, requests a photo, or asks about his workspace.",
+      inputSchema: z.object({
+        view: z.enum(["professional", "workspace", "both"])
+      }),
+      execute: async ({ view }) => {
+        const photos = {
+          professional: {
+            src: "/assets/joseph-professional.webp",
+            alt: "Professional portrait of Joseph Mukorivo",
+            label: "Joseph Mukorivo"
+          },
+          workspace: {
+            src: "/assets/joseph-workspace.webp",
+            alt: "Joseph Mukorivo at his home workspace",
+            label: "At his workspace"
+          }
+        };
+
+        return {
+          kind: "photos",
+          images:
+            view === "both"
+              ? [photos.professional, photos.workspace]
+              : [photos[view]]
+        };
+      }
+    }),
     showProject: tool({
       description:
         "Show a project card when a visitor asks about FortyOne, Config, or Complexus.",
@@ -155,6 +184,57 @@ function createAssistantTools(articles) {
         kind: "articles",
         results: searchWriting(articles, query)
       })
+    }),
+    readArticle: tool({
+      description:
+        "Load the complete content of one of Joseph's published articles before summarizing, explaining, or discussing its ideas.",
+      inputSchema: z.object({
+        slug: z.string().min(2).max(180)
+      }),
+      execute: async ({ slug }) => {
+        const article = articles.find((item) => item.slug === slug);
+
+        if (!article) {
+          return {
+            kind: "article-not-found",
+            error: "That article could not be found."
+          };
+        }
+
+        return {
+          kind: "article",
+          title: article.title,
+          href: `/blog/${article.slug}`,
+          description: article.description,
+          publishedAt: article.publishedAt,
+          readingTimeMinutes: article.readingTimeMinutes,
+          content: article.content
+        };
+      }
+    }),
+    openArticle: tool({
+      description:
+        "Navigate the visitor to one of Joseph's published articles when they ask to open, view, visit, or read it on the website.",
+      inputSchema: z.object({
+        slug: z.string().min(2).max(180)
+      }),
+      execute: async ({ slug }) => {
+        const article = articles.find((item) => item.slug === slug);
+
+        if (!article) {
+          return {
+            kind: "navigation-error",
+            error: "That article could not be found."
+          };
+        }
+
+        return {
+          kind: "navigation",
+          route: `/blog/${article.slug}`,
+          title: article.title,
+          message: `Opening “${article.title}”`
+        };
+      }
     })
   };
 }
@@ -187,15 +267,21 @@ export async function POST(request) {
   }
 
   const articles = await getArticles();
+  const currentArticle =
+    typeof body.currentPath === "string" && body.currentPath.length <= 240
+      ? articles.find(
+          (article) => body.currentPath === `/blog/${article.slug}`
+        )
+      : null;
   const tools = createAssistantTools(articles);
   const messages = await convertToModelMessages(body.messages, { tools });
   const result = streamText({
     model: openai(process.env.OPENAI_MODEL || "gpt-5.6-terra"),
-    system: buildAssistantInstructions({ articles, projects }),
+    system: buildAssistantInstructions({ articles, currentArticle, projects }),
     messages,
     tools,
-    stopWhen: stepCountIs(3),
-    maxOutputTokens: 700,
+    stopWhen: stepCountIs(4),
+    maxOutputTokens: 950,
     providerOptions: {
       openai: {
         reasoningEffort: "low",

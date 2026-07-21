@@ -4,7 +4,8 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { OPEN_PORTFOLIO_ASSISTANT_EVENT } from "./assistant-events";
 import { ThemeToggle } from "./theme-toggle";
 
 const PortfolioAssistant = dynamic(
@@ -73,6 +74,24 @@ export function SiteDock() {
     setAssistantLoaded(true);
     setAssistantOpen(true);
   }
+
+  useEffect(() => {
+    function handleOpenAssistant() {
+      setAssistantLoaded(true);
+      setAssistantOpen(true);
+    }
+
+    window.addEventListener(
+      OPEN_PORTFOLIO_ASSISTANT_EVENT,
+      handleOpenAssistant
+    );
+
+    return () =>
+      window.removeEventListener(
+        OPEN_PORTFOLIO_ASSISTANT_EVENT,
+        handleOpenAssistant
+      );
+  }, []);
 
   return (
     <>

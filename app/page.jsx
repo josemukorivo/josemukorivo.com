@@ -1,4 +1,5 @@
 import { ExternalLink } from "./_components/external-link";
+import { AssistantIntroLink } from "./_components/assistant-intro-link";
 import { InlineLink } from "./_components/inline-link";
 import { JsonLd } from "./_components/json-ld";
 import { PageSection } from "./_components/page-section";
@@ -156,7 +157,11 @@ export default function Home() {
             </p>
             <p className="intro-reveal-item">
               I care about useful software, clear interfaces, strong systems,
-              and the small details that make products feel considered.
+              and the small details that make products feel considered.{" "}
+              <span className="assistant-intro-copy">
+                If you want to go deeper, <AssistantIntroLink />—an AI
+                assistant grounded in my work, experience, and ideas.
+              </span>
             </p>
             <p className="intro-reveal-item text-subtle">
               Find me on{" "}
