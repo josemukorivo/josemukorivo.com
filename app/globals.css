@@ -800,10 +800,6 @@ a:focus-visible > .external-link-label {
   width: 20px;
   height: 20px;
   fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.25;
 }
 
 .portfolio-assistant-heading {
@@ -956,6 +952,34 @@ a:focus-visible > .external-link-label {
   padding: 10px 13px;
   border-radius: 7px 7px 2px 7px;
   background: var(--assistant-user);
+}
+
+.assistant-message-actions {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: -1px;
+}
+
+.assistant-message-actions button {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    color 140ms var(--ease-standard),
+    background-color 140ms var(--ease-standard);
+}
+
+.assistant-message-actions svg {
+  width: 17px;
+  height: 17px;
 }
 
 .assistant-markdown {
@@ -1391,15 +1415,23 @@ a:focus-visible > .external-link-label {
 .portfolio-assistant-form-actions {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
+  gap: 8px;
   padding: 0 8px 8px;
+}
+
+.portfolio-assistant-submit-actions {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 6px;
 }
 
 .portfolio-assistant-form textarea::placeholder {
   color: var(--muted);
 }
 
-.portfolio-assistant-form button {
+.portfolio-assistant-send-button {
   display: grid;
   width: 32px;
   height: 32px;
@@ -1415,8 +1447,68 @@ a:focus-visible > .external-link-label {
     transform 140ms var(--ease-out);
 }
 
-.portfolio-assistant-form button:disabled {
+.portfolio-assistant-send-button:disabled {
   opacity: 0.28;
+  cursor: default;
+}
+
+.portfolio-assistant-talk-button,
+.portfolio-assistant-voice-button {
+  display: inline-flex;
+  min-width: 0;
+  height: 32px;
+  align-items: center;
+  gap: 7px;
+  padding: 0 10px;
+  border-radius: 4px;
+  font: inherit;
+  font-size: 12.5px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color 140ms var(--ease-standard),
+    background-color 140ms var(--ease-standard),
+    border-color 140ms var(--ease-standard),
+    opacity 140ms var(--ease-standard);
+}
+
+.portfolio-assistant-talk-button {
+  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  color: var(--text);
+  background: color-mix(in srgb, var(--text) 3%, transparent);
+}
+
+.portfolio-assistant-voice-button {
+  border: 1px solid var(--text);
+  color: var(--background);
+  background: var(--text);
+}
+
+.portfolio-assistant-talk-button svg,
+.portfolio-assistant-voice-button svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+}
+
+.portfolio-assistant-form .assistant-compact-filled-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.portfolio-assistant-talk-button[data-state="recording"] {
+  border-color: color-mix(in srgb, var(--text) 24%, transparent);
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+}
+
+.portfolio-assistant-talk-button:disabled,
+.portfolio-assistant-voice-button:disabled {
+  opacity: 0.42;
+  cursor: default;
+}
+
+.portfolio-assistant-form textarea:disabled {
+  color: var(--muted);
   cursor: default;
 }
 
@@ -1869,6 +1961,21 @@ a:focus-visible .writing-link-title {
     color: var(--text);
   }
 
+  .assistant-message-actions button:hover {
+    color: var(--text);
+    background: color-mix(in srgb, var(--text) 6%, transparent);
+  }
+
+  .portfolio-assistant-talk-button:not(:disabled):hover {
+    border-color: color-mix(in srgb, var(--text) 18%, transparent);
+    background: color-mix(in srgb, var(--text) 6%, transparent);
+  }
+
+  .portfolio-assistant-voice-button:not(:disabled):hover {
+    border-color: var(--text);
+    background: color-mix(in srgb, var(--text) 88%, transparent);
+  }
+
   .portfolio-assistant-suggestions button:hover {
     color: var(--subtle);
   }
@@ -1947,6 +2054,7 @@ a:focus-visible .writing-link-title {
 
 .assistant-launcher:focus-visible,
 .assistant-intro-link:focus-visible,
+.assistant-message-actions button:focus-visible,
 .portfolio-assistant-close:focus-visible,
 .portfolio-assistant-suggestions button:focus-visible,
 .portfolio-assistant-form button:focus-visible,
