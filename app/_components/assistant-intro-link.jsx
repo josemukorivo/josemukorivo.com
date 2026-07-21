@@ -10,11 +10,11 @@ function AssistantArrow() {
   );
 }
 
-export function AssistantIntroLink() {
-  function openAssistant() {
-    window.dispatchEvent(new Event(OPEN_PORTFOLIO_ASSISTANT_EVENT));
-  }
+function openAssistant() {
+  window.dispatchEvent(new Event(OPEN_PORTFOLIO_ASSISTANT_EVENT));
+}
 
+export function AssistantIntroLink({ children }) {
   return (
     <button
       aria-controls="portfolio-assistant-dialog"
@@ -22,9 +22,9 @@ export function AssistantIntroLink() {
       onClick={openAssistant}
       type="button"
     >
-      <span>ask about Joseph</span>
+      <span>{children}</span>
       <AssistantArrow />
-      <span className="sr-only"> using his AI assistant</span>
+      <span className="sr-only">—opens my AI assistant</span>
     </button>
   );
 }

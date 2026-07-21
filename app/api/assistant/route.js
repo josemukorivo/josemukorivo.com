@@ -128,9 +128,13 @@ function createAssistantTools(articles) {
     }),
     showJosephPhotos: tool({
       description:
-        "Show approved photos of Joseph when a visitor asks to see him, requests a photo, or asks about his workspace.",
+        "Show approved photos of Joseph. Use both for a general request; use professional or workspace only when the visitor explicitly requests that image or asks for a single image.",
       inputSchema: z.object({
-        view: z.enum(["professional", "workspace", "both"])
+        view: z
+          .enum(["professional", "workspace", "both"])
+          .describe(
+            "Choose both unless the visitor explicitly requests one image or a specific view."
+          )
       }),
       execute: async ({ view }) => {
         const photos = {
