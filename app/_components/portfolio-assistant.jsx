@@ -511,7 +511,7 @@ export function PortfolioAssistant({ open, onClose }) {
             </div>
           </form>
           <p className="portfolio-assistant-note">
-            Answers use public information. This site doesn’t store your chat.
+            Your messages aren’t stored by this site.
           </p>
         </footer>
       </div>
