@@ -63,7 +63,10 @@ async function parseJsonResponse(response, fallback) {
   const payload = await response.json().catch(() => null);
 
   if (!response.ok) {
-    throw new Error(payload?.error || fallback);
+    const error = new Error(payload?.error || fallback);
+    error.code = payload?.code;
+    error.retryAfterSeconds = payload?.retryAfterSeconds;
+    throw error;
   }
 
   return payload;
@@ -75,6 +78,8 @@ export function usePortfolioRealtimeVoice({
   onToolOutput
 }) {
   const peerConnectionRef = useRef(null);
+  const connectionAttemptRef = useRef(0);
+  const connectionAbortControllerRef = useRef(null);
   const dataChannelRef = useRef(null);
   const localStreamRef = useRef(null);
   const remoteAudioRef = useRef(null);
@@ -89,6 +94,8 @@ export function usePortfolioRealtimeVoice({
   const [status, setStatus] = useState("idle");
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [error, setError] = useState(null);
+  const [dailyLimitReached, setDailyLimitReached] = useState(false);
+  const [dailyLimitResetAt, setDailyLimitResetAt] = useState(null);
   const [messages, setMessages] = useState([]);
   const [remainingSeconds, setRemainingSeconds] = useState(null);
 
@@ -121,6 +128,9 @@ export function usePortfolioRealtimeVoice({
   }, []);
 
   const closeConnection = useCallback(() => {
+    connectionAttemptRef.current += 1;
+    connectionAbortControllerRef.current?.abort();
+    connectionAbortControllerRef.current = null;
     clearIdleTimer();
     clearSessionTimers();
     setIsSpeaking(false);
@@ -401,7 +411,7 @@ export function usePortfolioRealtimeVoice({
     ]
   );
 
-  const createSession = useCallback(async () => {
+  const createSession = useCallback(async (signal) => {
     const response = await fetch("/api/assistant/realtime/session", {
       method: "POST",
       body: JSON.stringify({
@@ -411,14 +421,15 @@ export function usePortfolioRealtimeVoice({
           ...messages
         ].slice(-24)
       }),
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
+      signal
     });
 
     return parseJsonResponse(response, "Failed to create voice session.");
   }, [currentPath, messages]);
 
   const connect = useCallback(async () => {
-    if (status !== "idle") return;
+    if (status !== "idle" || dailyLimitReached) return;
 
     setError(null);
     if (!browserSupportsRealtime()) {
@@ -427,6 +438,10 @@ export function usePortfolioRealtimeVoice({
     }
 
     setStatus("connecting");
+    const attemptId = connectionAttemptRef.current + 1;
+    connectionAttemptRef.current = attemptId;
+    const abortController = new AbortController();
+    connectionAbortControllerRef.current = abortController;
 
     try {
       const localStream = await navigator.mediaDevices.getUserMedia({
@@ -436,9 +451,21 @@ export function usePortfolioRealtimeVoice({
           noiseSuppression: true
         }
       });
+
+      if (connectionAttemptRef.current !== attemptId) {
+        localStream.getTracks().forEach((track) => track.stop());
+        return;
+      }
+
       localStreamRef.current = localStream;
 
-      const session = await createSession();
+      const session = await createSession(abortController.signal);
+      if (connectionAttemptRef.current !== attemptId) return;
+
+      if (session.dailyRemainingSeconds === 0) {
+        setDailyLimitReached(true);
+        setDailyLimitResetAt(session.dailyResetAt || null);
+      }
       const peerConnection = new RTCPeerConnection();
       peerConnectionRef.current = peerConnection;
 
@@ -495,20 +522,36 @@ export function usePortfolioRealtimeVoice({
         headers: {
           Authorization: `Bearer ${session.clientSecret}`,
           "Content-Type": "application/sdp"
-        }
+        },
+        signal: abortController.signal
       });
 
       if (!answerResponse.ok) {
         throw new Error("Failed to connect the voice session.");
       }
 
+      if (connectionAttemptRef.current !== attemptId) return;
+
+      const answerSdp = await answerResponse.text();
+      if (connectionAttemptRef.current !== attemptId) return;
+
       await peerConnection.setRemoteDescription({
         type: "answer",
-        sdp: await answerResponse.text()
+        sdp: answerSdp
       });
     } catch (connectError) {
+      if (abortController.signal.aborted) return;
+
       closeConnection();
       setStatus("idle");
+      if (connectError?.code === "daily_voice_limit_reached") {
+        setDailyLimitReached(true);
+        setDailyLimitResetAt(
+          Number.isFinite(connectError.retryAfterSeconds)
+            ? Date.now() + connectError.retryAfterSeconds * 1000
+            : null
+        );
+      }
       setError(
         getErrorMessage(connectError, "Failed to start the voice session.")
       );
@@ -516,6 +559,7 @@ export function usePortfolioRealtimeVoice({
   }, [
     closeConnection,
     createSession,
+    dailyLimitReached,
     handleRealtimeEvent,
     resetIdleTimer,
     startSessionTimer,
@@ -554,6 +598,8 @@ export function usePortfolioRealtimeVoice({
   return {
     clearMessages,
     connect,
+    dailyLimitReached,
+    dailyLimitResetAt,
     disconnect,
     error,
     isListening: status === "connected" && !isSpeaking,

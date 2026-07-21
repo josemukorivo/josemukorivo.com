@@ -58,6 +58,10 @@ const SUGGESTED_QUESTIONS = [
 ];
 
 const SUGGESTION_COUNT = 6;
+const DAILY_LIMIT_TIME_FORMATTER = new Intl.DateTimeFormat(undefined, {
+  hour: "numeric",
+  minute: "2-digit"
+});
 
 function getRandomSuggestions() {
   const suggestions = [...SUGGESTED_QUESTIONS];
@@ -465,6 +469,16 @@ function formatRemainingTime(seconds) {
   return `${minutes}:${String(seconds % 60).padStart(2, "0")}`;
 }
 
+function formatDailyLimitTitle(resetAt) {
+  if (!Number.isFinite(resetAt)) {
+    return "The three-minute Live voice allowance has been used for this 24-hour period";
+  }
+
+  const resetTime = DAILY_LIMIT_TIME_FORMATTER.format(new Date(resetAt));
+
+  return `Live voice will be available again at ${resetTime}`;
+}
+
 function resizeComposer(event) {
   const textarea = event.currentTarget;
   textarea.style.height = "auto";
@@ -767,6 +781,8 @@ export function PortfolioAssistant({
   }
 
   async function toggleVoice() {
+    if (voice.dailyLimitReached && !isVoiceActive) return;
+
     if (isVoiceActive) {
       voice.disconnect();
       captureAnalyticsEvent(ANALYTICS_EVENTS.assistantVoiceEnded, {
@@ -803,6 +819,9 @@ export function PortfolioAssistant({
   }
 
   function getVoiceButtonLabel() {
+    if (voice.status === "idle" && voice.dailyLimitReached) {
+      return "Used today";
+    }
     if (voice.status === "connecting") return "Connecting";
     if (voice.status === "disconnecting") return "Ending";
     if (voice.status === "connected") {
@@ -989,7 +1008,11 @@ export function PortfolioAssistant({
             <div className="portfolio-assistant-form-actions">
               <button
                 aria-label={
-                  isVoiceActive ? "End live voice" : "Start live voice"
+                  isVoiceActive
+                    ? "End live voice"
+                    : voice.dailyLimitReached
+                      ? "Live voice daily limit reached"
+                      : "Start live voice"
                 }
                 aria-pressed={isVoiceActive}
                 className="portfolio-assistant-voice-button"
@@ -997,6 +1020,7 @@ export function PortfolioAssistant({
                 disabled={
                   isWorking ||
                   isTranscriptionActive ||
+                  (voice.dailyLimitReached && !isVoiceActive) ||
                   voice.status === "connecting" ||
                   voice.status === "disconnecting"
                 }
@@ -1004,6 +1028,8 @@ export function PortfolioAssistant({
                 title={
                   isVoiceActive
                     ? "End live voice"
+                    : voice.dailyLimitReached
+                      ? formatDailyLimitTitle(voice.dailyLimitResetAt)
                     : "Start a three-minute voice conversation"
                 }
                 type="button"

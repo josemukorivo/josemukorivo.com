@@ -1,8 +1,11 @@
 import { buildRealtimeAssistantInstructions } from "../../../../../lib/assistant-profile";
 import {
+  claimDailyAllowance,
   formatRecentConversation,
   getSafetyIdentifier,
   isRateLimited,
+  releaseDailyAllowance,
+  serializeDailyAllowanceCookie,
   validateMessages
 } from "../../../../../lib/assistant-request";
 import { createRealtimeAssistantTools } from "../../../../../lib/assistant-tools";
@@ -17,6 +20,8 @@ const REALTIME_MODEL = "gpt-realtime-2.1-mini";
 const REALTIME_TRANSCRIPTION_MODEL = "gpt-4o-mini-transcribe";
 const REALTIME_VOICE = "cedar";
 const MAX_SESSION_SECONDS = 3 * 60;
+const DAILY_ALLOWANCE_WINDOW_MS = 24 * 60 * 60 * 1000;
+const DAILY_ALLOWANCE_COOKIE = "jm_live_voice_daily";
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_REQUESTS = 4;
 
@@ -115,6 +120,28 @@ export async function POST(request) {
       }
     }
   };
+  const dailyAllowance = claimDailyAllowance(request, {
+    bucket: "realtime-daily-allowance",
+    cookieName: DAILY_ALLOWANCE_COOKIE,
+    windowMs: DAILY_ALLOWANCE_WINDOW_MS
+  });
+
+  if (!dailyAllowance.allowed) {
+    return Response.json(
+      {
+        code: "daily_voice_limit_reached",
+        error:
+          "You have used your three-minute Live voice allowance. Please try again when it resets.",
+        retryAfterSeconds: dailyAllowance.retryAfterSeconds
+      },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": String(dailyAllowance.retryAfterSeconds)
+        }
+      }
+    );
+  }
 
   let openAIResponse;
 
@@ -130,6 +157,7 @@ export async function POST(request) {
       signal: AbortSignal.timeout(12_000)
     });
   } catch (error) {
+    releaseDailyAllowance(dailyAllowance);
     console.error("Portfolio realtime session creation failed", error);
     return Response.json(
       { error: "The voice session could not be created." },
@@ -139,6 +167,7 @@ export async function POST(request) {
 
   const responseBody = await readResponseBody(openAIResponse);
   if (!openAIResponse.ok) {
+    releaseDailyAllowance(dailyAllowance);
     console.error("OpenAI realtime session request failed", {
       status: openAIResponse.status,
       error: responseBody?.error?.message
@@ -155,17 +184,27 @@ export async function POST(request) {
     responseBody.expires_at || responseBody.client_secret?.expires_at || null;
 
   if (!clientSecret) {
+    releaseDailyAllowance(dailyAllowance);
     return Response.json(
       { error: "The voice session did not include a client secret." },
       { status: 502 }
     );
   }
 
-  return Response.json({
+  const response = Response.json({
     clientSecret,
+    dailyLimitSeconds: MAX_SESSION_SECONDS,
+    dailyRemainingSeconds: 0,
+    dailyResetAt: dailyAllowance.expiresAt,
     expiresAt,
     maxSessionSeconds: MAX_SESSION_SECONDS,
     model: REALTIME_MODEL,
     voice: REALTIME_VOICE
   });
+  response.headers.append(
+    "Set-Cookie",
+    serializeDailyAllowanceCookie(request, dailyAllowance)
+  );
+
+  return response;
 }
