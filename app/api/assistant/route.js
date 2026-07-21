@@ -13,6 +13,7 @@ import {
   searchWriting
 } from "../../../lib/assistant-profile";
 import { getArticles } from "../../../lib/blog";
+import { createPostHogTracedModel } from "../../../lib/posthog-server";
 import { projects } from "../../../lib/projects";
 
 export const maxDuration = 30;
@@ -46,6 +47,18 @@ function getSafetyIdentifier(request) {
     .update(`${salt}:${getClientAddress(request)}`)
     .digest("hex")
     .slice(0, 32);
+}
+
+function getPostHogDistinctId(value, fallback) {
+  if (
+    typeof value !== "string" ||
+    value.length > 200 ||
+    !/^[A-Za-z0-9._:-]+$/.test(value)
+  ) {
+    return fallback;
+  }
+
+  return value;
 }
 
 function isRateLimited(request) {
@@ -279,8 +292,27 @@ export async function POST(request) {
       : null;
   const tools = createAssistantTools(articles);
   const messages = await convertToModelMessages(body.messages, { tools });
+  const safetyIdentifier = getSafetyIdentifier(request);
+  const currentPath =
+    typeof body.currentPath === "string" && body.currentPath.length <= 240
+      ? body.currentPath
+      : "/";
+  const model = createPostHogTracedModel(
+    openai(process.env.OPENAI_MODEL || "gpt-5.6-terra"),
+    {
+      distinctId: getPostHogDistinctId(
+        body.posthogDistinctId,
+        safetyIdentifier
+      ),
+      properties: {
+        current_path: currentPath,
+        environment: process.env.VERCEL_ENV || process.env.NODE_ENV,
+        message_count: body.messages.length
+      }
+    }
+  );
   const result = streamText({
-    model: openai(process.env.OPENAI_MODEL || "gpt-5.6-terra"),
+    model,
     system: buildAssistantInstructions({ articles, currentArticle, projects }),
     messages,
     tools,
@@ -289,7 +321,7 @@ export async function POST(request) {
     providerOptions: {
       openai: {
         reasoningEffort: "low",
-        safetyIdentifier: getSafetyIdentifier(request),
+        safetyIdentifier,
         store: false,
         textVerbosity: "low"
       }

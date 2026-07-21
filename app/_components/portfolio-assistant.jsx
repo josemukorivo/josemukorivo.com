@@ -6,19 +6,45 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
 import { Streamdown } from "streamdown";
+import {
+  ANALYTICS_EVENTS,
+  captureAnalyticsEvent,
+  getPostHogDistinctId
+} from "../../lib/analytics";
 
 const assistantTransport = new DefaultChatTransport({
   api: "/api/assistant"
 });
 
 const SUGGESTED_QUESTIONS = [
-  "What has Joseph built with AI?",
-  "Why did he build FortyOne?",
-  "What can Complexus build for my team?",
-  "Walk me through his résumé",
-  "Tell me more about Joseph",
-  "Open his engineering leadership article"
+  { id: "ai_work", label: "What has Joseph built with AI?" },
+  { id: "fortyone_origin", label: "Why did he build FortyOne?" },
+  {
+    id: "complexus_capabilities",
+    label: "What can Complexus build for my team?"
+  },
+  { id: "resume", label: "Walk me through his résumé" },
+  { id: "biography", label: "Tell me more about Joseph" },
+  {
+    id: "engineering_leadership_article",
+    label: "Open his engineering leadership article"
+  }
 ];
+
+function getCompletedToolNames(message) {
+  const toolNames = new Set();
+
+  for (const part of message.parts) {
+    if (
+      part.type.startsWith("tool-") &&
+      part.state === "output-available"
+    ) {
+      toolNames.add(part.type.slice(5));
+    }
+  }
+
+  return [...toolNames];
+}
 
 function CloseIcon() {
   return (
@@ -268,16 +294,39 @@ export function PortfolioAssistant({ open, onClose }) {
     stop
   } = useChat({
     onFinish: ({ message }) => {
+      const toolNames = getCompletedToolNames(message);
+
+      captureAnalyticsEvent(ANALYTICS_EVENTS.assistantResponseCompleted, {
+        current_path: pathname,
+        tool_names: toolNames,
+        used_tools: toolNames.length > 0
+      });
+
       for (const part of message.parts) {
+        const destinationPath = part.output?.route;
+
         if (
           part.type === "tool-openArticle" &&
           part.state === "output-available" &&
           part.output?.kind === "navigation" &&
-          part.output.route
+          destinationPath
         ) {
-          router.push(part.output.route);
+          captureAnalyticsEvent(
+            ANALYTICS_EVENTS.assistantNavigationRequested,
+            {
+              current_path: pathname,
+              destination_path: destinationPath,
+              destination_type: "article"
+            }
+          );
+          router.push(destinationPath);
         }
       }
+    },
+    onError: () => {
+      captureAnalyticsEvent(ANALYTICS_EVENTS.assistantResponseFailed, {
+        current_path: pathname
+      });
     },
     transport: assistantTransport,
     throttle: 50
@@ -325,7 +374,10 @@ export function PortfolioAssistant({ open, onClose }) {
     });
   }, [messages, open, status]);
 
-  function submitMessage(value) {
+  function submitMessage(
+    value,
+    { source = "composer", suggestionId } = {}
+  ) {
     const text = value.trim();
 
     if (!text || isWorking) {
@@ -333,11 +385,19 @@ export function PortfolioAssistant({ open, onClose }) {
     }
 
     clearError();
+    captureAnalyticsEvent(ANALYTICS_EVENTS.assistantQuestionSubmitted, {
+      current_path: pathname,
+      source,
+      suggestion_id: suggestionId,
+      turn_number:
+        messages.filter((message) => message.role === "user").length + 1
+    });
     sendMessage(
       { text },
       {
         body: {
-          currentPath: pathname
+          currentPath: pathname,
+          posthogDistinctId: getPostHogDistinctId()
         }
       }
     );
@@ -362,14 +422,25 @@ export function PortfolioAssistant({ open, onClose }) {
 
   function startNewChat() {
     if (isWorking) {
-      stop();
+      stopResponse();
     }
 
+    captureAnalyticsEvent(ANALYTICS_EVENTS.assistantNewChatStarted, {
+      current_path: pathname,
+      previous_message_count: messages.length
+    });
     clearError();
     setMessages([]);
     setInput("");
 
     window.requestAnimationFrame(() => inputRef.current?.focus());
+  }
+
+  function stopResponse() {
+    captureAnalyticsEvent(ANALYTICS_EVENTS.assistantResponseStopped, {
+      current_path: pathname
+    });
+    stop();
   }
 
   return (
@@ -423,7 +494,7 @@ export function PortfolioAssistant({ open, onClose }) {
 
         <div
           aria-live="polite"
-          className="portfolio-assistant-messages"
+          className="portfolio-assistant-messages ph-no-capture"
           ref={messagesRef}
         >
           {messages.length === 0 ? (
@@ -438,11 +509,16 @@ export function PortfolioAssistant({ open, onClose }) {
               <div className="portfolio-assistant-suggestions">
                 {SUGGESTED_QUESTIONS.map((question) => (
                   <button
-                    key={question}
-                    onClick={() => submitMessage(question)}
+                    key={question.id}
+                    onClick={() =>
+                      submitMessage(question.label, {
+                        source: "suggestion",
+                        suggestionId: question.id
+                      })
+                    }
                     type="button"
                   >
-                    {question}
+                    {question.label}
                   </button>
                 ))}
               </div>
@@ -491,6 +567,7 @@ export function PortfolioAssistant({ open, onClose }) {
               Ask a question about Joseph
             </label>
             <textarea
+              className="ph-no-capture"
               id="portfolio-assistant-input"
               maxLength={700}
               onChange={(event) => setInput(event.currentTarget.value)}
@@ -505,7 +582,7 @@ export function PortfolioAssistant({ open, onClose }) {
               <button
                 aria-label={isWorking ? "Stop response" : "Send message"}
                 disabled={!isWorking && !input.trim()}
-                onClick={isWorking ? stop : undefined}
+                onClick={isWorking ? stopResponse : undefined}
                 type={isWorking ? "button" : "submit"}
               >
                 {isWorking ? <StopIcon /> : <SendIcon />}

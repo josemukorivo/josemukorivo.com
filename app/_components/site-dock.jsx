@@ -6,6 +6,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { OPEN_PORTFOLIO_ASSISTANT_EVENT } from "./assistant-events";
+import {
+  ANALYTICS_EVENTS,
+  captureAnalyticsEvent
+} from "../../lib/analytics";
 import { ThemeToggle } from "./theme-toggle";
 
 const PortfolioAssistant = dynamic(
@@ -70,13 +74,21 @@ export function SiteDock() {
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [assistantLoaded, setAssistantLoaded] = useState(false);
 
-  function openAssistant() {
+  function openAssistant(source) {
+    captureAnalyticsEvent(ANALYTICS_EVENTS.assistantOpened, {
+      current_path: pathname,
+      source
+    });
     setAssistantLoaded(true);
     setAssistantOpen(true);
   }
 
   useEffect(() => {
-    function handleOpenAssistant() {
+    function handleOpenAssistant(event) {
+      captureAnalyticsEvent(ANALYTICS_EVENTS.assistantOpened, {
+        current_path: pathname,
+        source: event.detail?.source || "unknown"
+      });
       setAssistantLoaded(true);
       setAssistantOpen(true);
     }
@@ -91,7 +103,7 @@ export function SiteDock() {
         OPEN_PORTFOLIO_ASSISTANT_EVENT,
         handleOpenAssistant
       );
-  }, []);
+  }, [pathname]);
 
   return (
     <>
@@ -132,7 +144,7 @@ export function SiteDock() {
             return;
           }
 
-          openAssistant();
+          openAssistant("floating_launcher");
         }}
         type="button"
       >

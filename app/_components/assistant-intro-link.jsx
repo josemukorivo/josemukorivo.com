@@ -1,6 +1,6 @@
 "use client";
 
-import { OPEN_PORTFOLIO_ASSISTANT_EVENT } from "./assistant-events";
+import { requestPortfolioAssistantOpen } from "./assistant-events";
 
 function AssistantArrow() {
   return (
@@ -11,7 +11,7 @@ function AssistantArrow() {
 }
 
 function openAssistant() {
-  window.dispatchEvent(new Event(OPEN_PORTFOLIO_ASSISTANT_EVENT));
+  requestPortfolioAssistantOpen("homepage_intro");
 }
 
 export function AssistantIntroLink({ children }) {

@@ -3,6 +3,10 @@
 import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import {
+  ANALYTICS_EVENTS,
+  captureAnalyticsEvent
+} from "../../lib/analytics";
 
 const COMPACT_PREVIEW_WIDTH = 252;
 const MEDIA_PREVIEW_WIDTH = 288;
@@ -74,6 +78,7 @@ export function PreviewLink({
   const anchorRef = useRef(null);
   const openTimerRef = useRef(null);
   const closeTimerRef = useRef(null);
+  const previewTrackedRef = useRef(false);
   const previewId = useId();
   const [previewState, setPreviewState] = useState(null);
   const desiredPreviewWidth = preview?.image
@@ -111,6 +116,15 @@ export function PreviewLink({
         input,
         width: previewWidth
       });
+
+      if (!previewTrackedRef.current) {
+        captureAnalyticsEvent(ANALYTICS_EVENTS.linkPreviewViewed, {
+          input,
+          preview_title: preview.title,
+          preview_type: preview.image ? "project" : preview.icon || "link"
+        });
+        previewTrackedRef.current = true;
+      }
     };
 
     if (input === "keyboard") {
