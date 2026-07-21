@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ExternalMark } from "../_components/external-link";
 import { IndexLink } from "../_components/index-link";
 import { JsonLd } from "../_components/json-ld";
@@ -78,24 +79,29 @@ export default function ProjectsPage() {
             key={project.id}
             preview={getLinkPreview(project.href)}
           >
-            <span className="project-index-mark" aria-hidden="true">
-              {project.mark}
+            <span aria-hidden="true" className="project-index-media">
+              <Image
+                alt=""
+                fill
+                sizes="(max-width: 680px) calc(100vw - 36px), 232px"
+                src={project.image}
+              />
             </span>
-            <span className="project-index-identity">
-              <span className="project-index-name">
-                {project.name}
-                <ExternalMark />
+            <span className="project-index-copy">
+              <span className="project-index-identity">
+                <span className="project-index-name">
+                  {project.name}
+                  <ExternalMark />
+                </span>
+                <span className="project-index-domain">{project.domain}</span>
               </span>
-              <span className="project-index-domain">{project.domain}</span>
+              <span className="project-index-description">
+                {project.description}
+              </span>
             </span>
-            <span className="project-index-description">
-              {project.description}
-            </span>
-            <span className="project-index-category">{project.category}</span>
           </PreviewLink>
         ))}
       </section>
     </PageShell>
   );
 }
-

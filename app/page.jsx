@@ -193,7 +193,9 @@ export default function Home() {
                     {project.name}
                   </ExternalLink>
                 </span>
-                <p className="mt-1.5 text-subtle">{project.description}</p>
+                <p className="mt-1.5 text-subtle">
+                  {project.shortDescription}
+                </p>
               </div>
             ))}
           </div>
@@ -214,23 +216,16 @@ export default function Home() {
             </div>
             <div className="[&>p+p]:mt-6">
               <p>
-                FortyOne is an AI project management platform that connects
-                company goals and key results to the plans, projects, and daily
-                work that move them forward.
+                FortyOne is an AI project management platform that keeps
+                company goals, projects, and daily work connected. Maya helps
+                teams turn requests into planned work, suggest owners and
+                estimates, and spot delivery risk while keeping important
+                changes reviewable.
               </p>
               <p>
-                Its AI assistant, Maya, can help turn requests into planned
-                work, recommend owners and estimates, surface delivery risk,
-                and answer questions about what is happening across a team.
-                Important changes remain reviewable by a person before they are
-                applied.
-              </p>
-              <p>
-                It gives leaders a clear view of which key results are
-                progressing, at risk, or disconnected from active work. Teams
-                can see how their projects and daily decisions contribute to
-                measurable outcomes, making key results part of delivery
-                rather than a quarterly reporting exercise.
+                Customer feedback lives in the same flow. Teams can collect and
+                prioritize requests, move accepted ideas into the plan, and let
+                customers follow their progress on a public roadmap.
               </p>
             </div>
           </div>
@@ -249,20 +244,6 @@ export default function Home() {
                 First Class BSc Honours in Information Technology
               </strong>{" "}
               from Chinhoyi University of Technology in 2019.
-            </p>
-          </div>
-        </PageSection>
-
-        <PageSection title="Now">
-          <div className="max-w-[600px] [&>p+p]:mt-6">
-            <p>
-              Leading engineering and AI strategy at Art Circles, growing
-              FortyOne as a live product, and pursuing an MBA at NUST.
-            </p>
-            <p>
-              I’m interested in ambitious products, difficult systems problems,
-              and meeting people who care deeply about the quality of what they
-              make.
             </p>
           </div>
         </PageSection>
