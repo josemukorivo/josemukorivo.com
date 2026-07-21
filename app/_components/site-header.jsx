@@ -1,5 +1,3 @@
-import { ThemeToggle } from "./theme-toggle";
-
 export function SiteHeader() {
   return (
     <header
@@ -13,12 +11,9 @@ export function SiteHeader() {
       >
         Joseph Mukorivo
       </a>
-      <div className="-mr-2 flex items-center gap-4">
-        <span className="max-[640px]:hidden">
-          Head of Engineering & founder
-        </span>
-        <ThemeToggle />
-      </div>
+      <span className="max-[640px]:hidden">
+        Head of Engineering & founder
+      </span>
     </header>
   );
 }

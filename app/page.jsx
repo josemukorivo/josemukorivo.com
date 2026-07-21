@@ -3,9 +3,11 @@ import { InlineLink } from "./_components/inline-link";
 import { JsonLd } from "./_components/json-ld";
 import { PageSection } from "./_components/page-section";
 import { PageShell } from "./_components/page-shell";
+import { RolePhrase } from "./_components/role-phrase";
 import { SiteFooter } from "./_components/site-footer";
 import { SiteHeader } from "./_components/site-header";
 import { WritingList } from "./_components/writing-list";
+import { projects } from "../lib/projects";
 import {
   PERSON_ID,
   SITE_DESCRIPTION,
@@ -47,25 +49,6 @@ const writing = [
     date: "Sep 2023",
     dateTime: "2023-09-09T13:09:00Z",
     href: "/blog/how-i-approach-and-structure-enterprise-frontend-applications-after-4-years-of-using-nextjs-2f5"
-  }
-];
-
-const projects = [
-  {
-    name: "FortyOne",
-    href: "https://www.fortyone.app",
-    description: "AI project management that connects goals to daily work."
-  },
-  {
-    name: "Config",
-    href: "https://github.com/josemukorivo/config",
-    description: "An open-source configuration package for Go applications."
-  },
-  {
-    name: "Complexus",
-    href: "https://complexus.tech",
-    description:
-      "The product company through which I build thoughtful software and explore new ideas."
   }
 ];
 
@@ -155,9 +138,10 @@ export default function Home() {
         <div className="reveal-intro max-w-[600px]">
           <div className="[&>p+p]:mt-6">
             <p className="intro-reveal-item">
-              I’m an engineering leader and product builder. Harare, Zimbabwe
-              is home. I design, build, and lead secure software systems across
-              fintech, SaaS, AI products, and regulated environments.
+              I’m an <RolePhrase>engineering leader and product builder</RolePhrase>.
+              Harare, Zimbabwe is home. I design, build, and lead secure
+              software systems across fintech, SaaS, AI products, and regulated
+              environments.
             </p>
             <p className="intro-reveal-item">
               I’m the founder and product engineer behind{" "}
@@ -213,6 +197,9 @@ export default function Home() {
               </div>
             ))}
           </div>
+          <p className="mt-[22px]">
+            <InlineLink href="/projects">All projects</InlineLink>
+          </p>
         </PageSection>
 
         <PageSection id="building" title="Building">

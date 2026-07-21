@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { IndexLink } from "../../_components/index-link";
 import { JsonLd } from "../../_components/json-ld";
 import { PageShell } from "../../_components/page-shell";
-import { ThemeToggle } from "../../_components/theme-toggle";
+import { ArticleMap } from "../_components/article-map";
 import { ArticleNavigation } from "../_components/article-navigation";
 import { CodeCopyEnhancer } from "../_components/code-copy-enhancer";
 import { ScrollToTop } from "../_components/scroll-to-top";
@@ -11,7 +11,7 @@ import {
   getArticle,
   getArticles
 } from "../../../lib/blog";
-import { renderMarkdown } from "../../../lib/markdown";
+import { getArticleHeadings, renderMarkdown } from "../../../lib/markdown";
 import { createPageMetadata } from "../../../lib/seo";
 import {
   BLOG_ID,
@@ -57,7 +57,10 @@ export default async function ArticlePage({ params }) {
     notFound();
   }
 
-  const articleHtml = await renderMarkdown(article.content);
+  const [articleHtml, articleHeadings] = await Promise.all([
+    renderMarkdown(article.content),
+    getArticleHeadings(article.content)
+  ]);
   const articleUrl = `${SITE_URL}/blog/${article.slug}`;
   const articleSchema = {
     "@context": "https://schema.org",
@@ -101,18 +104,12 @@ export default async function ArticlePage({ params }) {
   return (
     <PageShell variant="article">
       <JsonLd data={articleSchema} />
+      <ArticleMap headings={articleHeadings} />
 
       <article className="m-0">
-        <header
-          className="mb-11 block text-ink"
-          data-reveal="article-header"
-        >
-          <div
-            className="-mr-2 flex items-center justify-between gap-6"
-            data-reveal-item
-          >
+        <header className="mb-11 text-ink" data-reveal="article-header">
+          <div data-reveal-item>
             <IndexLink href="/blog" />
-            <ThemeToggle />
           </div>
           <div
             className="reveal-article-meta mb-[18px] mt-11 flex flex-wrap gap-x-4 gap-y-2 text-[13px] text-muted max-[680px]:mt-9"

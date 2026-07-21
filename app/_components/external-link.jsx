@@ -1,4 +1,7 @@
-function ExternalMark() {
+import { getLinkPreview } from "../../lib/link-previews";
+import { PreviewLink } from "./preview-link";
+
+export function ExternalMark() {
   return (
     <svg
       aria-hidden="true"
@@ -11,15 +14,16 @@ function ExternalMark() {
 }
 
 export function ExternalLink({ children, href }) {
+  const preview = getLinkPreview(href);
+
   return (
-    <a
+    <PreviewLink
       className="group inline-flex w-fit items-center gap-1"
       href={href}
-      rel="noopener noreferrer"
-      target="_blank"
+      preview={preview}
     >
       <span className="external-link-label">{children}</span>
       <ExternalMark />
-    </a>
+    </PreviewLink>
   );
 }

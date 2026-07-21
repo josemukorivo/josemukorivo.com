@@ -24,6 +24,11 @@ export default async function sitemap() {
       changeFrequency: "weekly",
       priority: 0.8
     },
+    {
+      url: `${SITE_URL}/projects`,
+      changeFrequency: "monthly",
+      priority: 0.8
+    },
     ...articles.map((article) => ({
       url: `${SITE_URL}/blog/${article.slug}`,
       lastModified: article.updatedAt,

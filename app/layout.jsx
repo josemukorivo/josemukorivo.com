@@ -1,4 +1,5 @@
 import { Inter, Newsreader } from "next/font/google";
+import { SiteDock } from "./_components/site-dock";
 import { ThemeScript } from "./_components/theme-script";
 import { RevealObserver } from "./reveal-observer";
 import "./globals.css";
@@ -119,6 +120,7 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       className={`${inter.variable} ${newsreader.variable}`}
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <head>
@@ -135,6 +137,7 @@ export default function RootLayout({ children }) {
           className="viewport-blur viewport-blur--bottom"
         />
         {children}
+        <SiteDock />
       </body>
     </html>
   );

@@ -1,7 +1,6 @@
 import { IndexLink } from "../_components/index-link";
 import { JsonLd } from "../_components/json-ld";
 import { PageShell } from "../_components/page-shell";
-import { ThemeToggle } from "../_components/theme-toggle";
 import { WritingList } from "../_components/writing-list";
 import { getArticles } from "../../lib/blog";
 import { createPageMetadata } from "../../lib/seo";
@@ -99,12 +98,8 @@ export default async function BlogPage() {
         <div data-reveal-item>
           <IndexLink href="/" />
         </div>
-        <div
-          className="reveal-page-heading -mr-2 flex items-center justify-between gap-6"
-          data-reveal-item
-        >
+        <div className="reveal-page-heading" data-reveal-item>
           <h1 className="text-base font-medium leading-6">Writing</h1>
-          <ThemeToggle />
         </div>
       </header>
 
