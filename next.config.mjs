@@ -12,16 +12,7 @@ const nextConfig = {
     ];
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**.dev.to"
-      },
-      {
-        protocol: "https",
-        hostname: "res.cloudinary.com"
-      }
-    ]
+    unoptimized: true
   }
 };
 
