@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const REALTIME_CALLS_URL = "https://api.openai.com/v1/realtime/calls";
 const FALLBACK_MAX_SESSION_SECONDS = 3 * 60;
 const IDLE_TIMEOUT_MS = 60_000;
+const GOODBYE_DISCONNECT_DELAY_MS = 800;
 const ACTIVITY_EVENTS = new Set([
   "conversation.item.created",
   "conversation.item.input_audio_transcription.delta",
@@ -79,6 +80,7 @@ export function usePortfolioRealtimeVoice({
   const remoteAudioRef = useRef(null);
   const handledFunctionCallsRef = useRef(new Set());
   const idleTimeoutRef = useRef(null);
+  const goodbyeTimeoutRef = useRef(null);
   const sessionTimeoutRef = useRef(null);
   const countdownIntervalRef = useRef(null);
   const sessionEndsAtRef = useRef(null);
@@ -122,6 +124,11 @@ export function usePortfolioRealtimeVoice({
     clearIdleTimer();
     clearSessionTimers();
     setIsSpeaking(false);
+
+    if (goodbyeTimeoutRef.current) {
+      window.clearTimeout(goodbyeTimeoutRef.current);
+      goodbyeTimeoutRef.current = null;
+    }
 
     dataChannelRef.current?.close();
     dataChannelRef.current = null;
@@ -293,8 +300,11 @@ export function usePortfolioRealtimeVoice({
       );
 
       if (name === "endConversation") {
-        closeConnection();
-        setStatus("idle");
+        setStatus("disconnecting");
+        goodbyeTimeoutRef.current = window.setTimeout(() => {
+          closeConnection();
+          setStatus("idle");
+        }, GOODBYE_DISCONNECT_DELAY_MS);
         return;
       }
 
@@ -465,6 +475,15 @@ export function usePortfolioRealtimeVoice({
         setStatus("connected");
         startSessionTimer(session.maxSessionSeconds);
         resetIdleTimer();
+        dataChannel.send(
+          JSON.stringify({
+            type: "response.create",
+            response: {
+              instructions:
+                "Begin the conversation with one warm, concise sentence. Introduce yourself as Joseph's assistant and ask what the visitor would like to know about Joseph."
+            }
+          })
+        );
       };
 
       const offer = await peerConnection.createOffer();
@@ -526,7 +545,11 @@ export function usePortfolioRealtimeVoice({
     setError(null);
   }, []);
 
-  useEffect(() => closeConnection, [closeConnection]);
+  useEffect(() => {
+    return () => {
+      closeConnection();
+    };
+  }, [closeConnection]);
 
   return {
     clearMessages,
