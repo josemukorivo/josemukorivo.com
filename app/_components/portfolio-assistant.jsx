@@ -18,6 +18,7 @@ import {
   captureAnalyticsEvent,
   getPostHogDistinctId
 } from "../../lib/analytics";
+import { applyTheme, THEME_PREFERENCES } from "../../lib/theme";
 import { ContactMessageCard } from "./contact-message-card";
 import { usePortfolioRealtimeVoice } from "./use-portfolio-realtime-voice";
 import { usePortfolioTranscription } from "./use-portfolio-transcription";
@@ -90,6 +91,22 @@ function getCompletedToolNames(message) {
   }
 
   return [...toolNames];
+}
+
+function applyAssistantTheme(output, { currentPath, source }) {
+  if (
+    output?.kind !== "theme" ||
+    !THEME_PREFERENCES.includes(output.theme)
+  ) {
+    return;
+  }
+
+  applyTheme(output.theme);
+  captureAnalyticsEvent(ANALYTICS_EVENTS.assistantThemeChanged, {
+    current_path: currentPath,
+    source,
+    theme: output.theme
+  });
 }
 
 function CloseIcon() {
@@ -523,6 +540,16 @@ export function PortfolioAssistant({
         const destinationPath = part.output?.route;
 
         if (
+          part.type === "tool-setTheme" &&
+          part.state === "output-available"
+        ) {
+          applyAssistantTheme(part.output, {
+            currentPath: pathname,
+            source: "text"
+          });
+        }
+
+        if (
           part.type === "tool-openArticle" &&
           part.state === "output-available" &&
           part.output?.kind === "navigation" &&
@@ -551,6 +578,13 @@ export function PortfolioAssistant({
   const isWorking = status === "submitted" || status === "streaming";
   const handleVoiceToolOutput = useCallback(
     ({ name, output }) => {
+      if (name === "setTheme") {
+        applyAssistantTheme(output, {
+          currentPath: pathname,
+          source: "voice"
+        });
+      }
+
       if (output?.kind === "navigation" && output.route) {
         captureAnalyticsEvent(
           ANALYTICS_EVENTS.assistantNavigationRequested,
