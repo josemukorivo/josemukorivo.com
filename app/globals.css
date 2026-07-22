@@ -578,8 +578,8 @@ a:focus-visible > .external-link-label {
 .assistant-invitation::before {
   position: absolute;
   z-index: 0;
-  padding: 1px;
-  border-radius: inherit;
+  padding: 2px;
+  border-radius: 10px;
   background: conic-gradient(
     from var(--assistant-invitation-angle),
     var(--assistant-accent-warm),
@@ -588,7 +588,7 @@ a:focus-visible > .external-link-label {
     var(--assistant-accent-warm)
   );
   content: "";
-  inset: -1px;
+  inset: -2px;
   opacity: 0.72;
   pointer-events: none;
   animation: assistant-invitation-border 5.5s linear infinite;
