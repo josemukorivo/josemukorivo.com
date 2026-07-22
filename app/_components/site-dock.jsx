@@ -36,7 +36,7 @@ const DEFAULT_INVITATION_COPY = Object.freeze({
   context: "general",
   description: "Ask about me, my work, and what I’m building.",
   prompt: "Tell me more about Joseph, his work, and what he is building.",
-  title: "Ask Maya"
+  title: "Talk to Maya"
 });
 
 function getAssistantInvitationCopy(pathname) {
@@ -566,7 +566,7 @@ export function SiteDock() {
               type="button"
             >
               <span className="assistant-launcher-copy">
-                Ask Maya
+                Talk to Maya
               </span>
               <AssistantArrow />
             </button>
