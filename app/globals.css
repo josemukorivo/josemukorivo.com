@@ -30,6 +30,7 @@
   --tooltip-background: rgba(253, 253, 252, 0.86);
   --viewport-blur-background: rgba(253, 253, 252, 0.08);
   --assistant-background: rgb(251 251 249 / 0.94);
+  --assistant-invitation: rgb(253 253 252 / 0.82);
   --assistant-input: rgb(244 244 241 / 0.96);
   --assistant-raised: #f7f7f4;
   --assistant-user: #e3e3de;
@@ -55,6 +56,7 @@
   --tooltip-background: rgba(28, 28, 26, 0.92);
   --viewport-blur-background: rgba(16, 16, 15, 0.14);
   --assistant-background: rgb(26 26 24 / 0.74);
+  --assistant-invitation: rgb(28 28 26 / 0.78);
   --assistant-input: rgb(255 255 255 / 0.035);
   --assistant-raised: rgb(255 255 255 / 0.045);
   --assistant-user: rgb(255 255 255 / 0.065);
@@ -74,6 +76,7 @@
     --tooltip-background: rgba(28, 28, 26, 0.92);
     --viewport-blur-background: rgba(16, 16, 15, 0.14);
     --assistant-background: rgb(26 26 24 / 0.74);
+    --assistant-invitation: rgb(28 28 26 / 0.78);
     --assistant-input: rgb(255 255 255 / 0.035);
     --assistant-raised: rgb(255 255 255 / 0.045);
     --assistant-user: rgb(255 255 255 / 0.065);
@@ -523,6 +526,101 @@ a:focus-visible > .external-link-label {
   letter-spacing: 0;
   transition:
     opacity 150ms var(--ease-standard);
+}
+
+.assistant-invitation {
+  position: fixed;
+  right: 22px;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  z-index: 421;
+  display: grid;
+  width: min(300px, calc(100vw - 44px));
+  grid-template-columns: minmax(0, 1fr) 28px;
+  align-items: start;
+  gap: 6px;
+  padding: 13px 9px 13px 14px;
+  border: 1px solid color-mix(in srgb, var(--text) 7%, transparent);
+  border-radius: 8px;
+  color: var(--text);
+  background: var(--assistant-invitation);
+  box-shadow: none;
+  animation: assistant-invitation-enter 440ms var(--ease-out) both;
+  -webkit-backdrop-filter: blur(20px) saturate(1.08);
+  backdrop-filter: blur(20px) saturate(1.08);
+}
+
+.assistant-invitation-action {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+  padding: 1px 0;
+  border: 0;
+  color: var(--text);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.assistant-invitation-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: transparent;
+  background-image: linear-gradient(
+    92deg,
+    #dc7a4a 0%,
+    #a783c9 45%,
+    #5598aa 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.assistant-invitation-description {
+  color: var(--subtle);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.assistant-invitation-accent svg {
+  width: 13px;
+  height: 13px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: #5598aa;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.25;
+  transition: transform 180ms var(--ease-out);
+}
+
+.assistant-invitation-close {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 5px;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    color 140ms var(--ease-standard),
+    background-color 140ms var(--ease-standard);
+}
+
+.assistant-invitation-close svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 1.25;
 }
 
 .assistant-launcher-copy {
@@ -1541,6 +1639,27 @@ a:focus-visible > .external-link-label {
   }
 }
 
+@keyframes assistant-invitation-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+
+  62% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.012);
+  }
+
+  82% {
+    transform: translateY(1px) scale(0.998);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes assistant-dot {
   from {
     opacity: 0.28;
@@ -1984,6 +2103,15 @@ a:focus-visible .writing-link-title {
     transform: translate(1.5px, -1.5px);
   }
 
+  .assistant-invitation-action:hover .assistant-invitation-accent svg {
+    transform: translate(1.5px, -1.5px);
+  }
+
+  .assistant-invitation-close:hover {
+    color: var(--text);
+    background: color-mix(in srgb, var(--text) 6%, transparent);
+  }
+
   .assistant-intro-link:hover > span:first-child::after {
     transform: scaleX(1);
     transform-origin: left;
@@ -2054,6 +2182,8 @@ a:focus-visible .writing-link-title {
 
 .assistant-launcher:focus-visible,
 .assistant-intro-link:focus-visible,
+.assistant-invitation-action:focus-visible,
+.assistant-invitation-close:focus-visible,
 .assistant-message-actions button:focus-visible,
 .portfolio-assistant-close:focus-visible,
 .portfolio-assistant-suggestions button:focus-visible,
@@ -2077,6 +2207,10 @@ a:focus-visible .writing-link-title {
   }
 
   .assistant-launcher {
+    display: none;
+  }
+
+  .assistant-invitation {
     display: none;
   }
 
@@ -2125,6 +2259,8 @@ a:focus-visible .writing-link-title {
   .link-preview,
   .site-dock-item,
   .assistant-launcher,
+  .assistant-invitation-action,
+  .assistant-invitation-close,
   .site-dock-label,
   .theme-toggle-option,
   .project-index-media,
@@ -2137,6 +2273,7 @@ a:focus-visible .writing-link-title {
   }
 
   .portfolio-assistant-dialog[open],
+  .assistant-invitation,
   .assistant-thinking-dots i {
     animation-duration: 0.01ms !important;
   }
