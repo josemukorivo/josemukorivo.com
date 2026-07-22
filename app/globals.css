@@ -40,6 +40,9 @@
   --assistant-input: rgb(244 244 241 / 0.96);
   --assistant-raised: #f7f7f4;
   --assistant-user: #e3e3de;
+  --assistant-accent-warm: #a94f30;
+  --assistant-accent-violet: #71509b;
+  --assistant-accent-cool: #2f6d7d;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-reveal: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -66,6 +69,9 @@
   --assistant-input: rgb(255 255 255 / 0.035);
   --assistant-raised: rgb(255 255 255 / 0.045);
   --assistant-user: rgb(255 255 255 / 0.065);
+  --assistant-accent-warm: #dc7a4a;
+  --assistant-accent-violet: #a783c9;
+  --assistant-accent-cool: #5598aa;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -86,6 +92,9 @@
     --assistant-input: rgb(255 255 255 / 0.035);
     --assistant-raised: rgb(255 255 255 / 0.045);
     --assistant-user: rgb(255 255 255 / 0.065);
+    --assistant-accent-warm: #dc7a4a;
+    --assistant-accent-violet: #a783c9;
+    --assistant-accent-cool: #5598aa;
   }
 }
 
@@ -295,9 +304,9 @@ a:focus-visible > .external-link-label {
   color: transparent;
   background-image: linear-gradient(
     92deg,
-    #dc7a4a 0%,
-    #a783c9 38%,
-    #5598aa 72%,
+    var(--assistant-accent-warm) 0%,
+    var(--assistant-accent-violet) 38%,
+    var(--assistant-accent-cool) 72%,
     var(--text) 100%
   );
   background-position: 0 50%;
@@ -313,7 +322,12 @@ a:focus-visible > .external-link-label {
   bottom: -1px;
   left: 0;
   height: 1px;
-  background: linear-gradient(90deg, #dc7a4a, #a783c9 48%, #5598aa);
+  background: linear-gradient(
+    90deg,
+    var(--assistant-accent-warm),
+    var(--assistant-accent-violet) 48%,
+    var(--assistant-accent-cool)
+  );
   content: "";
   opacity: 0.72;
   transform: scaleX(0);
@@ -522,7 +536,7 @@ a:focus-visible > .external-link-label {
   padding: 5px 0;
   border: 0;
   border-radius: 0;
-  color: #5598aa;
+  color: var(--assistant-accent-cool);
   background: transparent;
   box-shadow: none;
   cursor: pointer;
@@ -564,10 +578,10 @@ a:focus-visible > .external-link-label {
   border-radius: inherit;
   background: conic-gradient(
     from var(--assistant-invitation-angle),
-    #dc7a4a,
-    #a783c9 42%,
-    #5598aa 70%,
-    #dc7a4a
+    var(--assistant-accent-warm),
+    var(--assistant-accent-violet) 42%,
+    var(--assistant-accent-cool) 70%,
+    var(--assistant-accent-warm)
   );
   content: "";
   inset: -1px;
@@ -607,9 +621,9 @@ a:focus-visible > .external-link-label {
   color: transparent;
   background-image: linear-gradient(
     92deg,
-    #dc7a4a 0%,
-    #a783c9 45%,
-    #5598aa 100%
+    var(--assistant-accent-warm) 0%,
+    var(--assistant-accent-violet) 45%,
+    var(--assistant-accent-cool) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
@@ -626,7 +640,7 @@ a:focus-visible > .external-link-label {
   height: 13px;
   flex: 0 0 auto;
   fill: none;
-  stroke: #5598aa;
+  stroke: var(--assistant-accent-cool);
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 1.25;
@@ -662,9 +676,9 @@ a:focus-visible > .external-link-label {
   color: transparent;
   background-image: linear-gradient(
     92deg,
-    #dc7a4a 0%,
-    #a783c9 45%,
-    #5598aa 100%
+    var(--assistant-accent-warm) 0%,
+    var(--assistant-accent-violet) 45%,
+    var(--assistant-accent-cool) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
@@ -678,7 +692,7 @@ a:focus-visible > .external-link-label {
   padding: 0;
   border: 0;
   border-radius: 0;
-  color: #5598aa;
+  color: var(--assistant-accent-cool);
   background: transparent;
   font: inherit;
   cursor: pointer;
@@ -694,9 +708,9 @@ a:focus-visible > .external-link-label {
   color: transparent;
   background-image: linear-gradient(
     92deg,
-    #dc7a4a 0%,
-    #a783c9 45%,
-    #5598aa 100%
+    var(--assistant-accent-warm) 0%,
+    var(--assistant-accent-violet) 45%,
+    var(--assistant-accent-cool) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
@@ -708,7 +722,12 @@ a:focus-visible > .external-link-label {
   bottom: -1px;
   left: 0;
   height: 1px;
-  background: linear-gradient(90deg, #dc7a4a, #a783c9 48%, #5598aa);
+  background: linear-gradient(
+    90deg,
+    var(--assistant-accent-warm),
+    var(--assistant-accent-violet) 48%,
+    var(--assistant-accent-cool)
+  );
   content: "";
   opacity: 0.72;
   transform: scaleX(0);

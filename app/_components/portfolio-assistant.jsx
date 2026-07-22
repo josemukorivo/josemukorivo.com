@@ -503,6 +503,7 @@ function resizeComposer(event) {
 }
 
 export function PortfolioAssistant({
+  initialPrompt,
   open,
   onClose,
   presentation = "dialog"
@@ -513,6 +514,7 @@ export function PortfolioAssistant({
   const dialogRef = useRef(null);
   const inputRef = useRef(null);
   const messagesRef = useRef(null);
+  const submittedInitialPromptRef = useRef(null);
   const [input, setInput] = useState("");
   const [suggestedQuestions, setSuggestedQuestions] = useState(
     () => SUGGESTED_QUESTIONS.slice(0, SUGGESTION_COUNT)
@@ -644,6 +646,15 @@ export function PortfolioAssistant({
     (message) => message.role === "assistant" && getMessageText(message)
   );
   const closeAssistant = useEffectEvent(onClose);
+  const submitInitialPrompt = useEffectEvent(() => {
+    if (!initialPrompt) {
+      return;
+    }
+
+    submitMessage(initialPrompt.text, {
+      source: initialPrompt.source
+    });
+  });
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -688,6 +699,21 @@ export function PortfolioAssistant({
       window.removeEventListener("keydown", handleEscape);
     };
   }, [isPage, open]);
+
+  useEffect(() => {
+    const promptId = initialPrompt?.id;
+
+    if (
+      (!isPage && !open) ||
+      !promptId ||
+      submittedInitialPromptRef.current === promptId
+    ) {
+      return;
+    }
+
+    submittedInitialPromptRef.current = promptId;
+    submitInitialPrompt();
+  }, [initialPrompt?.id, isPage, open]);
 
   useEffect(() => {
     if (!isPage && !open && isVoiceActive) {

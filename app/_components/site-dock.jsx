@@ -29,6 +29,7 @@ const ASSISTANT_INVITATION_DISMISSAL_MS = 14 * 24 * 60 * 60 * 1000;
 const DEFAULT_INVITATION_COPY = Object.freeze({
   context: "general",
   description: "Ask about me, my work, and what I’m building.",
+  prompt: "Tell me more about Joseph, his work, and what he is building.",
   title: "Ask my AI Assistant"
 });
 
@@ -37,6 +38,8 @@ function getAssistantInvitationCopy(pathname) {
     return {
       context: "article",
       description: "Get a quick summary or explore the ideas behind it.",
+      prompt:
+        "Summarize the article I am currently reading and explain its main takeaway.",
       title: "Ask about this article"
     };
   }
@@ -45,6 +48,8 @@ function getAssistantInvitationCopy(pathname) {
     return {
       context: "writing",
       description: "Explore an article or ask for a quick summary.",
+      prompt:
+        "Give me an overview of Joseph's writing and recommend an article to start with.",
       title: "Ask about my writing"
     };
   }
@@ -53,6 +58,8 @@ function getAssistantInvitationCopy(pathname) {
     return {
       context: "projects",
       description: "Get the story behind what I built and why.",
+      prompt:
+        "Tell me about these projects and which one best represents Joseph's work.",
       title: "Ask about these projects"
     };
   }
@@ -254,6 +261,7 @@ export function SiteDock() {
   const router = useRouter();
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [assistantLoaded, setAssistantLoaded] = useState(false);
+  const [assistantLaunchRequest, setAssistantLaunchRequest] = useState(null);
   const [invitationState, setInvitationState] = useState("checking");
   const invitationSoundPending = useRef(false);
   const invitationSoundPlayed = useRef(false);
@@ -271,9 +279,18 @@ export function SiteDock() {
     invitationSoundPending.current = !didPlay;
   });
 
-  function openAssistant(source) {
+  function openAssistant(source, initialPrompt) {
     rememberAssistantWasOpened();
     setInvitationState("dismissed");
+    setAssistantLaunchRequest(
+      initialPrompt
+        ? {
+            id: window.crypto.randomUUID(),
+            source: "contextual_invitation",
+            text: initialPrompt
+          }
+        : null
+    );
     captureAnalyticsEvent(ANALYTICS_EVENTS.assistantOpened, {
       current_path: pathname,
       source
@@ -353,6 +370,7 @@ export function SiteDock() {
     function handleOpenAssistant(event) {
       rememberAssistantWasOpened();
       setInvitationState("dismissed");
+      setAssistantLaunchRequest(null);
       captureAnalyticsEvent(ANALYTICS_EVENTS.assistantOpened, {
         current_path: pathname,
         source: event.detail?.source || "unknown"
@@ -424,7 +442,7 @@ export function SiteDock() {
                       invitation_context: invitationCopy.context
                     }
                   );
-                  openAssistant("timed_invitation");
+                  openAssistant("timed_invitation", invitationCopy.prompt);
                 }}
                 type="button"
               >
@@ -483,6 +501,7 @@ export function SiteDock() {
       ) : null}
       {assistantLoaded && !isAssistantPage ? (
         <PortfolioAssistant
+          initialPrompt={assistantLaunchRequest}
           onClose={() => setAssistantOpen(false)}
           open={assistantOpen}
         />
