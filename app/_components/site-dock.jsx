@@ -22,6 +22,99 @@ const PortfolioAssistant = dynamic(
 
 let invitationAudioContext;
 
+const ASSISTANT_INVITATION_STORAGE_KEY =
+  "joseph-portfolio:assistant-invitation:v1";
+const ASSISTANT_INVITATION_DISMISSAL_MS = 14 * 24 * 60 * 60 * 1000;
+
+const DEFAULT_INVITATION_COPY = Object.freeze({
+  context: "general",
+  description: "Ask about me, my work, and what I’m building.",
+  title: "Ask my AI Assistant"
+});
+
+function getAssistantInvitationCopy(pathname) {
+  if (pathname.startsWith("/blog/")) {
+    return {
+      context: "article",
+      description: "Get a quick summary or explore the ideas behind it.",
+      title: "Ask about this article"
+    };
+  }
+
+  if (pathname === "/blog") {
+    return {
+      context: "writing",
+      description: "Explore an article or ask for a quick summary.",
+      title: "Ask about my writing"
+    };
+  }
+
+  if (pathname === "/projects") {
+    return {
+      context: "projects",
+      description: "Get the story behind what I built and why.",
+      title: "Ask about these projects"
+    };
+  }
+
+  return DEFAULT_INVITATION_COPY;
+}
+
+function readAssistantInvitationPreference() {
+  try {
+    const storedPreference = window.localStorage.getItem(
+      ASSISTANT_INVITATION_STORAGE_KEY
+    );
+
+    return storedPreference ? JSON.parse(storedPreference) : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function writeAssistantInvitationPreference(preference) {
+  try {
+    window.localStorage.setItem(
+      ASSISTANT_INVITATION_STORAGE_KEY,
+      JSON.stringify(preference)
+    );
+  } catch {
+    // The invitation remains usable when storage is unavailable.
+  }
+}
+
+function rememberAssistantWasOpened() {
+  writeAssistantInvitationPreference({
+    status: "opened",
+    updatedAt: Date.now()
+  });
+}
+
+function snoozeAssistantInvitation() {
+  writeAssistantInvitationPreference({
+    status: "dismissed",
+    suppressUntil: Date.now() + ASSISTANT_INVITATION_DISMISSAL_MS
+  });
+}
+
+function assistantInvitationShouldAppear() {
+  const preference = readAssistantInvitationPreference();
+
+  if (preference?.status === "opened") {
+    return false;
+  }
+
+  if (
+    preference?.status === "dismissed" &&
+    Number.isFinite(preference.suppressUntil) &&
+    preference.suppressUntil > Date.now()
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
 function HomeIcon() {
   return (
     <span className="site-dock-avatar">
@@ -161,10 +254,11 @@ export function SiteDock() {
   const router = useRouter();
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [assistantLoaded, setAssistantLoaded] = useState(false);
-  const [invitationState, setInvitationState] = useState("waiting");
+  const [invitationState, setInvitationState] = useState("checking");
   const invitationSoundPending = useRef(false);
   const invitationSoundPlayed = useRef(false);
   const isAssistantPage = pathname === "/assistant";
+  const invitationCopy = getAssistantInvitationCopy(pathname);
 
   const attemptInvitationSound = useEffectEvent(() => {
     if (invitationSoundPlayed.current) {
@@ -178,6 +272,7 @@ export function SiteDock() {
   });
 
   function openAssistant(source) {
+    rememberAssistantWasOpened();
     setInvitationState("dismissed");
     captureAnalyticsEvent(ANALYTICS_EVENTS.assistantOpened, {
       current_path: pathname,
@@ -189,6 +284,26 @@ export function SiteDock() {
 
   useEffect(() => {
     if (isAssistantPage) {
+      rememberAssistantWasOpened();
+    }
+
+    const preferenceFrame = window.requestAnimationFrame(() => {
+      setInvitationState(
+        !isAssistantPage && assistantInvitationShouldAppear()
+          ? "waiting"
+          : "dismissed"
+      );
+    });
+
+    return () => window.cancelAnimationFrame(preferenceFrame);
+  }, [isAssistantPage]);
+
+  useEffect(() => {
+    if (
+      isAssistantPage ||
+      invitationSoundPlayed.current ||
+      !["waiting", "visible"].includes(invitationState)
+    ) {
       return undefined;
     }
 
@@ -213,7 +328,7 @@ export function SiteDock() {
       window.removeEventListener("pointerdown", primeSound);
       window.removeEventListener("keydown", primeSound);
     };
-  }, [isAssistantPage]);
+  }, [invitationState, isAssistantPage]);
 
   useEffect(() => {
     if (isAssistantPage || invitationState !== "waiting") {
@@ -226,15 +341,17 @@ export function SiteDock() {
       attemptInvitationSound();
       captureAnalyticsEvent(ANALYTICS_EVENTS.assistantInvitationShown, {
         current_path: pathname,
-        delay_ms: 5000
+        delay_ms: 5000,
+        invitation_context: invitationCopy.context
       });
     }, 5000);
 
     return () => window.clearTimeout(invitationTimer);
-  }, [invitationState, isAssistantPage, pathname]);
+  }, [invitationCopy.context, invitationState, isAssistantPage, pathname]);
 
   useEffect(() => {
     function handleOpenAssistant(event) {
+      rememberAssistantWasOpened();
       setInvitationState("dismissed");
       captureAnalyticsEvent(ANALYTICS_EVENTS.assistantOpened, {
         current_path: pathname,
@@ -302,29 +419,34 @@ export function SiteDock() {
                 onClick={() => {
                   captureAnalyticsEvent(
                     ANALYTICS_EVENTS.assistantInvitationClicked,
-                    { current_path: pathname }
+                    {
+                      current_path: pathname,
+                      invitation_context: invitationCopy.context
+                    }
                   );
                   openAssistant("timed_invitation");
                 }}
                 type="button"
               >
                 <span className="assistant-invitation-accent">
-                  Ask my AI Assistant
+                  {invitationCopy.title}
                   <AssistantArrow />
                 </span>
                 <span className="assistant-invitation-description">
-                  Ask about me, my work, and what I’m building.
+                  {invitationCopy.description}
                 </span>
               </button>
               <button
                 aria-label="Dismiss AI assistant invitation"
                 className="assistant-invitation-close"
                 onClick={() => {
+                  snoozeAssistantInvitation();
                   setInvitationState("dismissed");
                   captureAnalyticsEvent(
                     ANALYTICS_EVENTS.assistantInvitationDismissed,
                     {
                       current_path: pathname,
+                      invitation_context: invitationCopy.context,
                       reason: "manual"
                     }
                   );

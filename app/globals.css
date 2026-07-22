@@ -15,6 +15,12 @@
   --ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
+@property --assistant-invitation-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
 :root {
   color-scheme: light;
   font-synthesis: none;
@@ -529,6 +535,7 @@ a:focus-visible > .external-link-label {
 }
 
 .assistant-invitation {
+  --assistant-invitation-angle: 0deg;
   position: fixed;
   right: 22px;
   bottom: calc(20px + env(safe-area-inset-bottom));
@@ -547,6 +554,34 @@ a:focus-visible > .external-link-label {
   animation: assistant-invitation-enter 440ms var(--ease-out) both;
   -webkit-backdrop-filter: blur(20px) saturate(1.08);
   backdrop-filter: blur(20px) saturate(1.08);
+  isolation: isolate;
+}
+
+.assistant-invitation::before {
+  position: absolute;
+  z-index: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--assistant-invitation-angle),
+    #dc7a4a,
+    #a783c9 42%,
+    #5598aa 70%,
+    #dc7a4a
+  );
+  content: "";
+  inset: -1px;
+  opacity: 0.72;
+  pointer-events: none;
+  animation: assistant-invitation-border 5.5s linear infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
 }
 
 .assistant-invitation-action {
@@ -1660,6 +1695,12 @@ a:focus-visible > .external-link-label {
   }
 }
 
+@keyframes assistant-invitation-border {
+  to {
+    --assistant-invitation-angle: 360deg;
+  }
+}
+
 @keyframes assistant-dot {
   from {
     opacity: 0.28;
@@ -2276,6 +2317,10 @@ a:focus-visible .writing-link-title {
   .assistant-invitation,
   .assistant-thinking-dots i {
     animation-duration: 0.01ms !important;
+  }
+
+  .assistant-invitation::before {
+    animation: none !important;
   }
 
   .role-phrase:hover .role-phrase-mark,
