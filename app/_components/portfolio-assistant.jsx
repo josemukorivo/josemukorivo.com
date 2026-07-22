@@ -446,7 +446,7 @@ function Message({ isAnimating, message, onRetry }) {
   return (
     <div className="assistant-message" data-role={message.role}>
       <span className="assistant-message-label">
-        {isUser ? "You" : "Joseph’s assistant"}
+        {isUser ? "You" : "Maya"}
       </span>
       <div className="assistant-message-body">
         {message.parts.map((part, index) => {
@@ -917,9 +917,9 @@ export function PortfolioAssistant({
               className="portfolio-assistant-title"
               id="portfolio-assistant-title"
             >
-              Ask my AI Assistant
+              Ask about Joseph
             </span>
-            <span>Grounded in his public work</span>
+            <span>AI assistant</span>
           </span>
           <span className="portfolio-assistant-header-actions">
             {allMessages.length > 0 ? (
@@ -1021,7 +1021,7 @@ export function PortfolioAssistant({
               {status === "submitted" ? (
                 <div className="assistant-message" data-role="assistant">
                   <span className="assistant-message-label">
-                    Joseph’s assistant
+                    Maya
                   </span>
                   <span className="assistant-tool-status">
                     <span

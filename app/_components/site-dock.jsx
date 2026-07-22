@@ -36,7 +36,7 @@ const DEFAULT_INVITATION_COPY = Object.freeze({
   context: "general",
   description: "Ask about me, my work, and what I’m building.",
   prompt: "Tell me more about Joseph, his work, and what he is building.",
-  title: "Ask my AI Assistant"
+  title: "Ask Maya"
 });
 
 function getAssistantInvitationCopy(pathname) {
@@ -274,7 +274,7 @@ function isActivePath(pathname, href) {
 function MobileAssistantLauncher({ onOpen, pathname }) {
   return (
     <Link
-      aria-label="Open my AI Assistant"
+      aria-label="Open Maya, Joseph’s AI assistant"
       className="mobile-assistant-launcher"
       href="/assistant"
       onClick={() => {
@@ -503,7 +503,7 @@ export function SiteDock() {
           ) : null}
           {invitationState === "visible" && !assistantOpen ? (
             <aside
-              aria-label="AI assistant invitation"
+              aria-label="Maya invitation"
               className="assistant-invitation"
             >
               <button
@@ -529,7 +529,7 @@ export function SiteDock() {
                 </span>
               </button>
               <button
-                aria-label="Dismiss AI assistant invitation"
+                aria-label="Dismiss Maya invitation"
                 className="assistant-invitation-close"
                 onClick={() => {
                   snoozeAssistantInvitation();
@@ -566,7 +566,7 @@ export function SiteDock() {
               type="button"
             >
               <span className="assistant-launcher-copy">
-                Ask my AI Assistant
+                Ask Maya
               </span>
               <AssistantArrow />
             </button>

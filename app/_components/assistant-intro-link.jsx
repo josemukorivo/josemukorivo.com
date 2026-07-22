@@ -22,7 +22,7 @@ export function AssistantIntroLink({ children }) {
       >
         <span>{children}</span>
         <AssistantArrow />
-        <span className="sr-only">—opens my AI assistant</span>
+        <span className="sr-only">—opens Maya, my AI assistant</span>
       </button>
       <Link
         className="assistant-intro-link assistant-intro-link-mobile"
@@ -30,7 +30,7 @@ export function AssistantIntroLink({ children }) {
       >
         <span>{children}</span>
         <AssistantArrow />
-        <span className="sr-only">—opens my AI assistant</span>
+        <span className="sr-only">—opens Maya, my AI assistant</span>
       </Link>
     </>
   );

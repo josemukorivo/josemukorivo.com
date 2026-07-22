@@ -24,7 +24,7 @@ const OPENAI_REALTIME_CLIENT_SECRETS_URL =
   "https://api.openai.com/v1/realtime/client_secrets";
 const REALTIME_MODEL = "gpt-realtime-2.1-mini";
 const REALTIME_TRANSCRIPTION_MODEL = "gpt-4o-mini-transcribe";
-const REALTIME_VOICE = "cedar";
+const REALTIME_VOICE = "marin";
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_REQUESTS = 20;
 

@@ -159,8 +159,8 @@ export default function Home() {
               I care about useful software, clear interfaces, strong systems,
               and thoughtful details.{" "}
               <span className="assistant-intro-copy">
-                <AssistantIntroLink>Ask my AI assistant</AssistantIntroLink> if
-                you’d like to know more.
+                <AssistantIntroLink>Ask Maya, my AI assistant</AssistantIntroLink>{" "}
+                if you’d like to know more.
               </span>
             </p>
             <p className="intro-reveal-item text-subtle">

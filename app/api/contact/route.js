@@ -111,7 +111,7 @@ function getConfirmationEmailText() {
     "",
     "If a response is needed, Joseph can reply to the email address you provided.",
     "",
-    "— Joseph's AI Assistant"
+    "— Maya, Joseph's AI Assistant"
   ].join("\n");
 }
 

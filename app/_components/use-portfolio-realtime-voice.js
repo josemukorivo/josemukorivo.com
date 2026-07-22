@@ -569,7 +569,7 @@ export function usePortfolioRealtimeVoice({
               type: "response.create",
               response: {
                 instructions:
-                  "Begin the conversation with one warm, concise sentence. Introduce yourself as Joseph's assistant and ask what the visitor would like to know about Joseph."
+                  "Begin the conversation with one warm, concise sentence. Introduce yourself as Maya, Joseph's AI assistant, and ask what the visitor would like to know about Joseph."
               }
             })
           );
