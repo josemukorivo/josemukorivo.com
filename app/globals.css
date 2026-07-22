@@ -43,6 +43,7 @@
   --assistant-accent-warm: #a94f30;
   --assistant-accent-violet: #71509b;
   --assistant-accent-cool: #2f6d7d;
+  --role-phrase-font-weight: 500;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-reveal: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -72,6 +73,7 @@
   --assistant-accent-warm: #dc7a4a;
   --assistant-accent-violet: #a783c9;
   --assistant-accent-cool: #5598aa;
+  --role-phrase-font-weight: 400;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -95,6 +97,7 @@
     --assistant-accent-warm: #dc7a4a;
     --assistant-accent-violet: #a783c9;
     --assistant-accent-cool: #5598aa;
+    --role-phrase-font-weight: 400;
   }
 }
 
@@ -302,6 +305,7 @@ a:focus-visible > .external-link-label {
 .role-phrase-copy {
   position: relative;
   color: transparent;
+  font-weight: var(--role-phrase-font-weight);
   background-image: linear-gradient(
     92deg,
     var(--assistant-accent-warm) 0%,
@@ -674,6 +678,7 @@ a:focus-visible > .external-link-label {
 
 .assistant-launcher-copy {
   color: transparent;
+  font-weight: var(--role-phrase-font-weight);
   background-image: linear-gradient(
     92deg,
     var(--assistant-accent-warm) 0%,
@@ -706,6 +711,7 @@ a:focus-visible > .external-link-label {
 .assistant-intro-link > span:first-child {
   position: relative;
   color: transparent;
+  font-weight: var(--role-phrase-font-weight);
   background-image: linear-gradient(
     92deg,
     var(--assistant-accent-warm) 0%,
