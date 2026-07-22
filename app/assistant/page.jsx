@@ -1,7 +1,7 @@
 import { PortfolioAssistantPage } from "../_components/portfolio-assistant-page";
 
 export const metadata = {
-  title: "Ask about Joseph",
+  title: "Ask my AI Assistant",
   description:
     "Ask Joseph Mukorivo's AI assistant about his work, experience, products, writing, and résumé.",
   alternates: { canonical: "/assistant" },

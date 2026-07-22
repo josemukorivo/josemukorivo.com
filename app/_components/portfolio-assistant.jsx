@@ -891,7 +891,7 @@ export function PortfolioAssistant({
               className="portfolio-assistant-title"
               id="portfolio-assistant-title"
             >
-              Ask about Joseph
+              Ask my AI Assistant
             </span>
             <span>Grounded in his public work</span>
           </span>

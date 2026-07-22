@@ -157,7 +157,7 @@ export function SiteDock() {
           }}
           type="button"
         >
-          <span className="assistant-launcher-copy">Ask about Joseph</span>
+          <span className="assistant-launcher-copy">Ask my AI Assistant</span>
           <AssistantArrow />
         </button>
       ) : null}
