@@ -444,7 +444,9 @@
 
   .scrollToTop {
     right: 12px;
-    bottom: calc(18px + env(safe-area-inset-bottom));
+    bottom: calc(21px + env(safe-area-inset-bottom));
+    width: 46px;
+    height: 46px;
   }
 }
 

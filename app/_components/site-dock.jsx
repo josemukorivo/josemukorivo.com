@@ -5,7 +5,10 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
-import { OPEN_PORTFOLIO_ASSISTANT_EVENT } from "./assistant-events";
+import {
+  OPEN_PORTFOLIO_ASSISTANT_EVENT,
+  queuePortfolioAssistantPrompt
+} from "./assistant-events";
 import {
   ANALYTICS_EVENTS,
   captureAnalyticsEvent
@@ -25,6 +28,9 @@ let invitationAudioContext;
 const ASSISTANT_INVITATION_STORAGE_KEY =
   "joseph-portfolio:assistant-invitation:v1";
 const ASSISTANT_INVITATION_DISMISSAL_MS = 14 * 24 * 60 * 60 * 1000;
+const DESKTOP_INVITATION_DELAY_MS = 5000;
+const MOBILE_INVITATION_DELAY_MS = 10000;
+const MOBILE_INVITATION_VISIBLE_MS = 8000;
 
 const DEFAULT_INVITATION_COPY = Object.freeze({
   context: "general",
@@ -153,6 +159,15 @@ function ProjectsIcon() {
   );
 }
 
+function AssistantIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 20 20">
+      <path d="M4.25 5.25h11.5v8H9l-3.5 2v-2H4.25v-8Z" />
+      <path d="m10 7.25.45 1.3 1.3.45-1.3.45-.45 1.3-.45-1.3-1.3-.45 1.3-.45.45-1.3Z" />
+    </svg>
+  );
+}
+
 function AssistantArrow() {
   return (
     <svg aria-hidden="true" viewBox="0 0 16 16">
@@ -249,7 +264,13 @@ function playAssistantInvitationSound() {
 const ITEMS = [
   { href: "/", label: "Home", icon: HomeIcon },
   { href: "/blog", label: "Writing", icon: WritingIcon },
-  { href: "/projects", label: "Projects", icon: ProjectsIcon }
+  { href: "/projects", label: "Projects", icon: ProjectsIcon },
+  {
+    href: "/assistant",
+    label: "My AI Assistant",
+    icon: AssistantIcon,
+    mobileOnly: true
+  }
 ];
 
 function isActivePath(pathname, href) {
@@ -280,21 +301,28 @@ export function SiteDock() {
   });
 
   function openAssistant(source, initialPrompt) {
+    const launchRequest = initialPrompt
+      ? {
+          id: window.crypto.randomUUID(),
+          source: "contextual_invitation",
+          text: initialPrompt
+        }
+      : null;
+
     rememberAssistantWasOpened();
     setInvitationState("dismissed");
-    setAssistantLaunchRequest(
-      initialPrompt
-        ? {
-            id: window.crypto.randomUUID(),
-            source: "contextual_invitation",
-            text: initialPrompt
-          }
-        : null
-    );
     captureAnalyticsEvent(ANALYTICS_EVENTS.assistantOpened, {
       current_path: pathname,
       source
     });
+
+    if (window.matchMedia("(max-width: 680px)").matches) {
+      queuePortfolioAssistantPrompt(launchRequest);
+      router.push("/assistant");
+      return;
+    }
+
+    setAssistantLaunchRequest(launchRequest);
     setAssistantLoaded(true);
     setAssistantOpen(true);
   }
@@ -352,19 +380,41 @@ export function SiteDock() {
       return undefined;
     }
 
+    const invitationDelay = window.matchMedia(
+      "(max-width: 680px)"
+    ).matches
+      ? MOBILE_INVITATION_DELAY_MS
+      : DESKTOP_INVITATION_DELAY_MS;
+
     const invitationTimer = window.setTimeout(() => {
       setInvitationState("visible");
       invitationSoundPending.current = true;
       attemptInvitationSound();
       captureAnalyticsEvent(ANALYTICS_EVENTS.assistantInvitationShown, {
         current_path: pathname,
-        delay_ms: 5000,
+        delay_ms: invitationDelay,
         invitation_context: invitationCopy.context
       });
-    }, 5000);
+    }, invitationDelay);
 
     return () => window.clearTimeout(invitationTimer);
   }, [invitationCopy.context, invitationState, isAssistantPage, pathname]);
+
+  useEffect(() => {
+    if (
+      isAssistantPage ||
+      invitationState !== "visible" ||
+      !window.matchMedia("(max-width: 680px)").matches
+    ) {
+      return undefined;
+    }
+
+    const dismissalTimer = window.setTimeout(() => {
+      setInvitationState("dismissed");
+    }, MOBILE_INVITATION_VISIBLE_MS);
+
+    return () => window.clearTimeout(dismissalTimer);
+  }, [invitationState, isAssistantPage]);
 
   useEffect(() => {
     function handleOpenAssistant(event) {
@@ -399,16 +449,22 @@ export function SiteDock() {
 
   return (
     <>
-      <nav aria-label="Main navigation" className="site-dock">
+      <nav
+        aria-label="Main navigation"
+        className="site-dock"
+        data-assistant-page={isAssistantPage ? "true" : undefined}
+      >
         <span aria-hidden="true" className="site-dock-surface" />
-        {ITEMS.map(({ href, icon: Icon, label }) => {
+        {ITEMS.map(({ href, icon: Icon, label, mobileOnly }) => {
           const active = isActivePath(pathname, href);
 
           return (
             <Link
               aria-current={active ? "page" : undefined}
               aria-label={label}
-              className="site-dock-item"
+              className={`site-dock-item${
+                mobileOnly ? " site-dock-item-mobile" : ""
+              }`}
               data-active={active ? "true" : undefined}
               href={href}
               key={href}
