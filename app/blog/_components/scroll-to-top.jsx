@@ -51,6 +51,7 @@ export function ScrollToTop() {
     <button
       aria-label="Back to top"
       className={styles.scrollToTop}
+      data-back-to-top=""
       data-visible={isVisible}
       onClick={scrollToTop}
       title="Back to top"

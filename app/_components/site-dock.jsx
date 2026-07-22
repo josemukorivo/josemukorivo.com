@@ -161,9 +161,9 @@ function ProjectsIcon() {
 
 function AssistantIcon() {
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 20">
-      <path d="M4.25 5.25h11.5v8H9l-3.5 2v-2H4.25v-8Z" />
-      <path d="m10 7.25.45 1.3 1.3.45-1.3.45-.45 1.3-.45-1.3-1.3-.45 1.3-.45.45-1.3Z" />
+    <svg aria-hidden="true" viewBox="0 0 24 24">
+      <path d="M10 6.25c-.314 0-.594.195-.703.49l-.516 1.394c-.7 1.892-.985 2.615-1.509 3.138-.523.524-1.246.809-3.138 1.509l-1.394.516a.75.75 0 0 0 0 1.406l1.394.516c1.892.7 2.615.985 3.138 1.509.524.523.809 1.246 1.509 3.138l.516 1.394a.75.75 0 0 0 1.406 0l.516-1.394c.7-1.892.985-2.615 1.509-3.138.523-.524 1.246-.809 3.138-1.509l1.394-.516a.75.75 0 0 0 0-1.406l-1.394-.516c-1.892-.7-2.615-.985-3.138-1.509-.524-.523-.809-1.246-1.509-3.138l-.516-1.394a.75.75 0 0 0-.703-.49Z" />
+      <path d="M18 2.25a.75.75 0 0 0-.703.49l-.221.597c-.314.848-.405 1.048-.548 1.191-.142.142-.343.234-1.191.548l-.597.22a.75.75 0 0 0 0 1.407l.597.221c.848.314 1.049.405 1.191.548.143.142.234.343.548 1.19l.221.598a.75.75 0 0 0 1.406 0l.221-.597c.314-.848.405-1.049.548-1.191.142-.143.343-.234 1.19-.548l.598-.221a.75.75 0 0 0 0-1.406l-.597-.221c-.848-.314-1.049-.406-1.191-.548-.143-.143-.234-.343-.548-1.191l-.221-.597a.75.75 0 0 0-.703-.49Z" />
     </svg>
   );
 }
@@ -264,17 +264,31 @@ function playAssistantInvitationSound() {
 const ITEMS = [
   { href: "/", label: "Home", icon: HomeIcon },
   { href: "/blog", label: "Writing", icon: WritingIcon },
-  { href: "/projects", label: "Projects", icon: ProjectsIcon },
-  {
-    href: "/assistant",
-    label: "My AI Assistant",
-    icon: AssistantIcon,
-    mobileOnly: true
-  }
+  { href: "/projects", label: "Projects", icon: ProjectsIcon }
 ];
 
 function isActivePath(pathname, href) {
   return href === "/" ? pathname === href : pathname.startsWith(href);
+}
+
+function MobileAssistantLauncher({ onOpen, pathname }) {
+  return (
+    <Link
+      aria-label="Open my AI Assistant"
+      className="mobile-assistant-launcher"
+      href="/assistant"
+      onClick={() => {
+        rememberAssistantWasOpened();
+        onOpen();
+        captureAnalyticsEvent(ANALYTICS_EVENTS.assistantOpened, {
+          current_path: pathname,
+          source: "mobile_floating_launcher"
+        });
+      }}
+    >
+      <AssistantIcon />
+    </Link>
+  );
 }
 
 export function SiteDock() {
@@ -455,16 +469,14 @@ export function SiteDock() {
         data-assistant-page={isAssistantPage ? "true" : undefined}
       >
         <span aria-hidden="true" className="site-dock-surface" />
-        {ITEMS.map(({ href, icon: Icon, label, mobileOnly }) => {
+        {ITEMS.map(({ href, icon: Icon, label }) => {
           const active = isActivePath(pathname, href);
 
           return (
             <Link
               aria-current={active ? "page" : undefined}
               aria-label={label}
-              className={`site-dock-item${
-                mobileOnly ? " site-dock-item-mobile" : ""
-              }`}
+              className="site-dock-item"
               data-active={active ? "true" : undefined}
               href={href}
               key={href}
@@ -483,6 +495,12 @@ export function SiteDock() {
       </nav>
       {!isAssistantPage ? (
         <>
+          {invitationState !== "visible" ? (
+            <MobileAssistantLauncher
+              onOpen={() => setInvitationState("dismissed")}
+              pathname={pathname}
+            />
+          ) : null}
           {invitationState === "visible" && !assistantOpen ? (
             <aside
               aria-label="AI assistant invitation"

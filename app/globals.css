@@ -764,6 +764,10 @@ a:focus-visible > .external-link-label {
   transition: transform 180ms var(--ease-out);
 }
 
+.mobile-assistant-launcher {
+  display: none;
+}
+
 .site-dock-surface {
   position: absolute;
   z-index: -1;
@@ -791,10 +795,6 @@ a:focus-visible > .external-link-label {
     color 150ms var(--ease-standard),
     transform 140ms var(--ease-out),
     background-color 180ms var(--ease-standard);
-}
-
-.site-dock-item-mobile {
-  display: none;
 }
 
 .site-dock-theme {
@@ -2301,16 +2301,40 @@ a:focus-visible .writing-link-title {
     display: inline-flex;
   }
 
-  .site-dock-item-mobile {
-    display: grid;
-  }
-
-  .site-dock-item {
-    width: 36px;
-  }
-
   .site-dock[data-assistant-page="true"] {
     display: none;
+  }
+
+  .mobile-assistant-launcher {
+    position: fixed;
+    right: 12px;
+    bottom: calc(21px + env(safe-area-inset-bottom));
+    z-index: 190;
+    display: grid;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    color: var(--subtle);
+    background: color-mix(in srgb, var(--text) 7%, transparent);
+    transition:
+      bottom 220ms var(--ease-out),
+      color 160ms var(--ease-standard),
+      transform 160ms var(--ease-out);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  .mobile-assistant-launcher svg {
+    width: 21px;
+    height: 21px;
+    fill: currentColor;
+  }
+
+  body:has([data-back-to-top][data-visible="true"])
+    .mobile-assistant-launcher {
+    bottom: calc(79px + env(safe-area-inset-bottom));
   }
 
   .portfolio-assistant-dialog {
