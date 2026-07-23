@@ -160,7 +160,7 @@ export default function Home() {
               and thoughtful details.{" "}
               <span className="assistant-intro-copy">
                 <AssistantIntroLink>Ask Maya, my AI assistant</AssistantIntroLink>{" "}
-                if you’d like to know more.
+                if you’d like to know more about me.
               </span>
             </p>
             <p className="intro-reveal-item text-subtle">
