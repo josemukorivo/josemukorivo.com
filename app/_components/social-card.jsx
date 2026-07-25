@@ -5,6 +5,13 @@ export const socialImageSize = {
 
 export const socialImageContentType = "image/png";
 
+const socialCardColors = {
+  background: "#10100f",
+  foreground: "#d8d8d3",
+  muted: "#8d8d86",
+  subtle: "#adada6"
+};
+
 export function SocialCard({ eyebrow, title }) {
   const titleSize = title.length > 80 ? 54 : title.length > 52 ? 62 : 72;
 
@@ -17,8 +24,8 @@ export function SocialCard({ eyebrow, title }) {
         flexDirection: "column",
         justifyContent: "space-between",
         padding: "72px 80px",
-        background: "#fdfdfc",
-        color: "#242424",
+        background: socialCardColors.background,
+        color: socialCardColors.foreground,
         fontFamily:
           "Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif"
       }}
@@ -29,7 +36,7 @@ export function SocialCard({ eyebrow, title }) {
           alignItems: "center",
           justifyContent: "space-between",
           fontSize: 24,
-          color: "#62625f"
+          color: socialCardColors.subtle
         }}
       >
         <span style={{ display: "flex" }}>{eyebrow}</span>
@@ -66,8 +73,8 @@ export function SocialCard({ eyebrow, title }) {
         >
           Joseph Mukorivo
         </span>
-        <span style={{ display: "flex", color: "#adada8" }}>—</span>
-        <span style={{ display: "flex", color: "#62625f" }}>
+        <span style={{ display: "flex", color: socialCardColors.muted }}>—</span>
+        <span style={{ display: "flex", color: socialCardColors.subtle }}>
           Head of Engineering & founder
         </span>
       </div>
