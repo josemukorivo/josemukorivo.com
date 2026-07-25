@@ -11,7 +11,8 @@ import {
   getArticle,
   getArticles
 } from "../../../lib/blog";
-import { getArticleHeadings, renderMarkdown } from "../../../lib/markdown";
+import { getArticleHeadings } from "../../../lib/markdown";
+import { renderMdx } from "../../../lib/mdx";
 import { createPageMetadata } from "../../../lib/seo";
 import {
   BLOG_ID,
@@ -57,8 +58,8 @@ export default async function ArticlePage({ params }) {
     notFound();
   }
 
-  const [articleHtml, articleHeadings] = await Promise.all([
-    renderMarkdown(article.content),
+  const [articleContent, articleHeadings] = await Promise.all([
+    renderMdx(article.content),
     getArticleHeadings(article.content)
   ]);
   const articleUrl = `${SITE_URL}/blog/${article.slug}`;
@@ -133,9 +134,10 @@ export default async function ArticlePage({ params }) {
 
         <div
           className={styles.articleBody}
-          dangerouslySetInnerHTML={{ __html: articleHtml }}
           id={ARTICLE_BODY_ID}
-        />
+        >
+          {articleContent}
+        </div>
         <CodeCopyEnhancer containerId={ARTICLE_BODY_ID} />
         <ArticleNavigation articles={articles} currentSlug={article.slug} />
       </article>

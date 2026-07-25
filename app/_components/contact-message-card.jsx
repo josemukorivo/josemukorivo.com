@@ -74,7 +74,7 @@ function ContactDelivered({ confirmationDelivered }) {
   );
 }
 
-export function ContactMessageCard({ output }) {
+export function ContactMessageCard({ output, preview = false }) {
   const challengeRef = useRef(null);
   const requestIdRef = useRef(null);
   const sendingRef = useRef(false);
@@ -86,11 +86,15 @@ export function ContactMessageCard({ output }) {
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
   useEffect(() => {
+    if (preview) {
+      return;
+    }
+
     captureAnalyticsEvent(ANALYTICS_EVENTS.contactMessagePrepared);
-  }, []);
+  }, [preview]);
 
   useEffect(() => {
-    if (!siteKey || !challengeRef.current) {
+    if (preview || !siteKey || !challengeRef.current) {
       return;
     }
 
@@ -133,10 +137,15 @@ export function ContactMessageCard({ output }) {
         widgetIdRef.current = null;
       }
     };
-  }, [siteKey]);
+  }, [preview, siteKey]);
 
   async function sendContactMessage() {
-    if (!turnstileToken || sendingRef.current || status === "sending") {
+    if (
+      preview ||
+      !turnstileToken ||
+      sendingRef.current ||
+      status === "sending"
+    ) {
       return;
     }
 
@@ -208,7 +217,10 @@ export function ContactMessageCard({ output }) {
   }
 
   return (
-    <section className="assistant-contact-card assistant-generative-ui">
+    <section
+      className="assistant-contact-card assistant-generative-ui"
+      data-preview={preview ? "true" : undefined}
+    >
       <span className="assistant-contact-kicker">Review before sending</span>
       <div className="assistant-contact-identity">
         <strong>{output.name}</strong>
@@ -220,7 +232,7 @@ export function ContactMessageCard({ output }) {
         className="assistant-contact-challenge"
         ref={challengeRef}
       />
-      {!siteKey ? (
+      {!preview && !siteKey ? (
         <p className="assistant-contact-error" role="alert">
           Contact messaging is not configured yet.
         </p>
@@ -232,7 +244,7 @@ export function ContactMessageCard({ output }) {
       ) : null}
       <button
         className="assistant-contact-send"
-        disabled={!turnstileToken || status === "sending"}
+        disabled={preview || !turnstileToken || status === "sending"}
         onClick={sendContactMessage}
         type="button"
       >

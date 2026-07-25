@@ -1,0 +1,257 @@
+---
+id: turning-a-personal-website-into-an-ai-assistant
+title: "Turning a Personal Website Into an AI Assistant"
+description: >-
+  How I turned a personal website into a tool-using AI assistant with streamed
+  chat, browser audio, WebRTC voice, and server-side controls.
+publishedAt: "2026-07-25T12:00:00+02:00"
+updatedAt: "2026-07-25T12:00:00+02:00"
+tags:
+  - ai
+  - nextjs
+  - webrtc
+  - openai
+  - engineering
+---
+
+Most personal websites are read-only. They present projects, articles, and work history, but the visitor still has to find the right page and work out which details matter.
+
+I wanted mine to behave differently.
+
+I wanted someone to ask, "What has Joseph built with AI?" and get an answer based on my actual projects. I also wanted them to speak naturally, interrupt the assistant, and continue the conversation without moving to another application.
+
+The finished interface looks like a chat window. The interesting work sits behind it: streamed text generation, structured tool calls, browser audio recording, a WebRTC voice session, usage controls, and a contact flow that keeps consequential actions outside the model.
+
+<AssistantArchitecture />
+
+This article follows those paths from the browser to the model and back. The code excerpts are trimmed to keep the decisions visible. Request validation and error handling are discussed separately where they affect the design.
+
+## The assistant needed a narrow job
+
+The first design decision was not about models. It was deciding what the assistant was allowed to be.
+
+Maya is a conversational interface to my personal website. She can explain my projects, experience, writing, and ways to contact me. She speaks about me in the third person rather than pretending to be me. If the available data does not support an answer, she says that.
+
+Those rules live in one assistant profile rather than being scattered across routes. The profile contains the shared identity and factual boundaries, then adds instructions for the current mode. Voice needs shorter responses and should not read URLs aloud. Text can use Markdown and return richer detail.
+
+Keeping that contract centralized matters because the application has two model connections. A prompt copied into both routes would eventually drift.
+
+```text
+lib/assistant-profile.js
+  shared identity and factual boundaries
+  text conversation instructions
+  realtime voice instructions
+  current page context
+```
+
+The current page is useful context. If a visitor opens the assistant while reading an article and asks, "What is this post about?", the assistant can resolve "this post" to the article on screen instead of asking the visitor to repeat its title.
+
+## A long prompt was not enough
+
+I could have placed every project and article inside the system instructions. That would have been easy to prototype and awkward to maintain.
+
+Large prompts also give the model information it does not need for most questions. A visitor asking about frontend work does not need the full text of every backend article.
+
+I gave the assistant a small set of tools instead. The tools retrieve profile data, search projects, list or read articles, and prepare a contact message. The model decides when a tool is useful. The server owns the implementation and validates every argument.
+
+The definition is structurally similar to this:
+
+```js
+const searchProjects = tool({
+  description: "Find Joseph's projects relevant to a visitor's question.",
+  inputSchema: z.object({
+    query: z.string().trim().min(1).max(120)
+  }),
+  execute: async ({ query }) => findProjects(query)
+});
+```
+
+This gives the model a way to work with the website's content without giving it direct access to the filesystem, database, or email provider.
+
+<ToolCallTrace
+  question="Which projects involved AI?"
+  tool="searchProjects"
+  query="AI"
+  result="A ranked set of matching projects with descriptions and links."
+/>
+
+The response UI renders structured tool results separately from the assistant's prose. The instructions tell the model not to repeat titles and links that the interface already displays. Without that rule, a project card and the following paragraph would often say the same thing.
+
+## Streaming the text conversation
+
+The typed conversation uses a server route built around the AI SDK. At a high level, the route validates the incoming messages, constructs the assistant instructions, exposes the approved tools, and streams the result.
+
+```js
+export async function POST(request) {
+  const input = await validateAssistantRequest(request);
+
+  const result = streamText({
+    model: openai(TEXT_MODEL),
+    system: buildAssistantInstructions(input.pageContext),
+    messages: await convertToModelMessages(input.messages),
+    tools: createAssistantTools()
+  });
+
+  return result.toUIMessageStreamResponse();
+}
+```
+
+The streaming response is important for perceived speed, but it also changes the frontend state model. A message can be incomplete, waiting for a tool, or followed by a structured result. The renderer has to understand those states rather than treating every response as a finished string.
+
+The route is also the boundary for abuse controls. It checks message shape and size, applies rate limits, and derives a safety identifier before sending anything to the model.
+
+## Recorded voice starts as an array of chunks
+
+The first voice path is push-to-record. It uses the browser's `MediaRecorder` API and works like a voice note.
+
+`MediaRecorder` does not wait and return one complete file. It emits smaller `dataavailable` events while it records. I collect those pieces in a ref because they are mutable recording state and do not need to rerender the component.
+
+```js
+const chunksRef = useRef([]);
+
+recorder.addEventListener("dataavailable", (event) => {
+  if (event.data.size > 0) {
+    chunksRef.current.push(event.data);
+  }
+});
+```
+
+When recording stops, the chunks become one `Blob`:
+
+```js
+recorder.addEventListener("stop", async () => {
+  const audio = new Blob(chunksRef.current, {
+    type: recorder.mimeType
+  });
+
+  chunksRef.current = [];
+  await transcribe(audio);
+});
+```
+
+The transcription endpoint checks that an audio file exists, rejects oversized uploads, and forwards the valid file to the transcription model. The resulting text enters the same conversation path as a typed message.
+
+<AudioChunkTimeline />
+
+Reusing the text path gave recorded voice the same tools, rate limits, rendering, and conversation history without implementing them twice.
+
+## Live voice is a different system
+
+A recorded message still has a clear request and response boundary. A live conversation does not.
+
+For live voice, the browser creates an `RTCPeerConnection`, adds the microphone track, and opens a data channel for Realtime API events.
+
+```js
+const peerConnection = new RTCPeerConnection();
+const mediaStream = await navigator.mediaDevices.getUserMedia({
+  audio: true
+});
+
+for (const track of mediaStream.getAudioTracks()) {
+  peerConnection.addTrack(track, mediaStream);
+}
+
+const eventChannel =
+  peerConnection.createDataChannel("oai-events");
+```
+
+The audio track carries speech. The data channel carries session events: transcript deltas, assistant output, interruptions, errors, and function calls.
+
+The browser creates an SDP offer and sends it through a server-created Realtime session. Once the remote description is applied, audio can move directly over the peer connection.
+
+```js
+const offer = await peerConnection.createOffer();
+await peerConnection.setLocalDescription(offer);
+
+const answer = await startRealtimeSession(offer.sdp);
+
+await peerConnection.setRemoteDescription({
+  type: "answer",
+  sdp: answer
+});
+```
+
+This route avoids proxying a continuous audio stream through my application server. The server still controls session creation and tool execution, but WebRTC handles the media path.
+
+## Sharing tools between text and voice
+
+The text SDK can execute a registered tool as part of its normal response loop. A Realtime session reports function calls as data-channel events, so I needed a small bridge.
+
+When the voice model requests a tool, the browser sends the tool name and arguments to a dedicated server route. That route resolves the same validated tool implementation used by text chat. The browser then returns the result to the Realtime conversation.
+
+```js
+eventChannel.send(
+  JSON.stringify({
+    type: "conversation.item.create",
+    item: {
+      type: "function_call_output",
+      call_id: callId,
+      output: JSON.stringify(toolResult)
+    }
+  })
+);
+
+eventChannel.send(
+  JSON.stringify({ type: "response.create" })
+);
+```
+
+This was one of the most useful boundaries in the project. The transport-specific code is separate, but the website data and validation rules have one source of truth.
+
+## Voice needs lifecycle controls
+
+Real-time sessions can remain open after a person walks away. They can also disconnect halfway through a response or fail before the browser reports a clean end.
+
+The application treats a voice conversation as a lifecycle:
+
+```text
+claim allowance
+  -> start session
+  -> connect peer
+  -> exchange audio and events
+  -> end or disconnect
+  -> complete allowance record
+```
+
+The server signs the allowance state instead of trusting a duration reported by the browser. Separate start and end routes make session accounting explicit. Idle timers close forgotten conversations, and the client performs cleanup for microphone tracks, data channels, peer connections, and pending timers.
+
+There are two reasons for this work. Voice sessions cost more than ordinary page requests, and an active microphone deserves a clear end state.
+
+## The model does not send email
+
+Maya can help a visitor contact me, but the tool only prepares a draft.
+
+<ContactMessagePreview />
+
+The interface renders that draft as a contact card. The visitor can review and edit the name, address, and message before submitting it. A separate contact endpoint handles validation, spam protection, idempotency, and email delivery.
+
+That separation keeps a consequential action behind an explicit user gesture. It also means the email provider is never exposed as a general-purpose model tool.
+
+The same rule is useful beyond contact forms: let the model propose, retrieve, and organize; let application code authorize and execute.
+
+## What took the most time
+
+The model call was not the difficult part.
+
+Most of the work went into the boundaries around it:
+
+- deciding which information belongs in instructions and which belongs behind tools
+- keeping text and voice behavior consistent
+- reconciling streamed text, structured results, and partial voice transcripts
+- cleaning up browser media resources across every exit path
+- accounting for sessions without trusting the client
+- keeping email delivery outside the model's authority
+
+Those details determine whether the assistant feels like part of the site or a demo attached to it.
+
+## What I would change next
+
+I would add better visibility into failed voice sessions. Client analytics already describe how people open and use the assistant, but a compact trace across session creation, WebRTC connection, tool execution, and teardown would make production failures easier to reconstruct.
+
+I would also evaluate tool responses independently from final answers. A correct search result can still be summarized poorly, while a well-written answer can hide a weak retrieval result. Measuring the two stages separately would make improvements more precise.
+
+The current architecture gives me room to do that. The model is replaceable, the tools are ordinary server code, and the two conversation transports share the same website content contract.
+
+<TryMaya />
+
+The personal website still has pages, links, and articles. The assistant does not replace them. It gives visitors another way to find their way through the work, using the same information the site already publishes.
