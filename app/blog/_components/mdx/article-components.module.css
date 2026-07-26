@@ -52,6 +52,7 @@
 }
 
 .architectureNode[data-tone="visitor"] {
+  border-radius: var(--article-code-radius);
   background: var(--assistant-raised);
 }
 
@@ -61,6 +62,7 @@
 
 .architectureNode[data-tone="tools"] {
   width: min(100%, 330px);
+  border-radius: var(--article-code-radius);
   background: var(--assistant-raised);
 }
 
@@ -155,16 +157,17 @@
   align-items: center;
   flex-direction: column;
   border: 0;
-  border-radius: var(--article-inline-code-radius);
+  border-radius: var(--article-code-radius);
   background: var(--code-header-background);
 }
 
 .branchLabel {
   margin-bottom: 12px;
   color: var(--text);
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
   line-height: 1.4;
   text-transform: uppercase;
 }
@@ -399,6 +402,61 @@
   font-size: 14px;
 }
 
+.generativeUiTabs {
+  display: flex;
+  padding: 12px 14px 0;
+  gap: 6px;
+}
+
+.generativeUiTab {
+  min-height: 32px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: var(--article-inline-code-radius);
+  color: var(--muted);
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition:
+    color 150ms var(--ease-standard),
+    background-color 150ms var(--ease-standard),
+    transform 140ms var(--ease-out);
+}
+
+.generativeUiTab[aria-pressed="true"] {
+  color: var(--text);
+  background: var(--assistant-raised);
+}
+
+.generativeUiTab:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.generativeUiStage {
+  min-height: 230px;
+  padding: 14px 20px 20px;
+}
+
+.generativeUiStage :global(.assistant-generative-ui) {
+  margin-top: 0;
+}
+
+.generativeUiStage :global(.assistant-resource-card),
+.generativeUiStage :global(.assistant-article-card) {
+  text-decoration: none;
+}
+
+.generativeUiStage :global(.assistant-photo) {
+  margin: 0;
+}
+
+.generativeUiStage :global(.assistant-photo-frame img) {
+  margin: 0;
+  border-radius: 0;
+}
+
 :global(html[data-theme="light"]) .figure,
 :global(html[data-theme="light"]) .trace,
 :global(html[data-theme="light"]) .tryMaya {
@@ -496,8 +554,62 @@
   .architectureNode,
   .architectureBranch,
   .traceCode,
-  .tracePre {
+  .tracePre,
+  .generativeUiTab {
     corner-shape: squircle;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .architecture:hover .splitConnector::before,
+  .architecture:hover .splitConnector::after,
+  .architecture:hover .splitConnector span,
+  .architecture:hover .inlineConnector,
+  .architecture:hover .mergeConnector::before,
+  .architecture:hover .mergeConnector::after,
+  .architecture:hover .mergeConnector span {
+    animation: architecture-flow-pulse 1.9s var(--ease-standard) infinite;
+  }
+
+  .architecture:hover .splitConnector::after {
+    animation-delay: 100ms;
+  }
+
+  .architecture:hover .splitConnector span {
+    animation-delay: 220ms;
+  }
+
+  .architecture:hover .inlineConnector {
+    animation-delay: 480ms;
+  }
+
+  .architecture:hover .mergeConnector span {
+    animation-delay: 760ms;
+  }
+
+  .architecture:hover .mergeConnector::after {
+    animation-delay: 900ms;
+  }
+
+  .architecture:hover .mergeConnector::before {
+    animation-delay: 1.04s;
+  }
+
+  .generativeUiTab:hover {
+    color: var(--text);
+    background: color-mix(in srgb, var(--text) 5%, transparent);
+  }
+}
+
+@keyframes architecture-flow-pulse {
+  0%,
+  100% {
+    opacity: 0.28;
+  }
+
+  42% {
+    opacity: 1;
+    background: color-mix(in srgb, var(--text) 64%, transparent);
   }
 }
 
@@ -570,5 +682,15 @@
     animation: none;
     opacity: 1;
     transform: none;
+  }
+
+  .architecture:hover .splitConnector::before,
+  .architecture:hover .splitConnector::after,
+  .architecture:hover .splitConnector span,
+  .architecture:hover .inlineConnector,
+  .architecture:hover .mergeConnector::before,
+  .architecture:hover .mergeConnector::after,
+  .architecture:hover .mergeConnector span {
+    animation: none;
   }
 }
