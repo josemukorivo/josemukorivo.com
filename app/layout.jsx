@@ -40,7 +40,8 @@ export const metadata = {
   creator: SITE_NAME,
   publisher: SITE_NAME,
   category: "technology",
-  classification: "Personal portfolio and software engineering writing",
+  classification:
+    "Personal portfolio, AI product engineering, and software engineering writing",
   keywords: SITE_KEYWORDS,
   referrer: "origin-when-cross-origin",
   formatDetection: {

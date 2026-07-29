@@ -20,9 +20,16 @@ import {
   absoluteUrl
 } from "../lib/site";
 
-const RESUME_URL = "/joseph-mukorivo-head-of-engineering-resume.pdf";
+const RESUME_URL = "/joseph-mukorivo-ai-product-engineer-resume.pdf";
 
 const writing = [
+  {
+    id: "portfolio-ai-assistant",
+    title: "Turning a Personal Website Into an AI Assistant",
+    date: "Jul 2026",
+    dateTime: "2026-07-25T10:00:00Z",
+    href: "/blog/turning-a-personal-website-into-an-ai-assistant"
+  },
   {
     id: "engineering-leadership-product-role",
     title: "Engineering Leadership Is a Product Role",
@@ -31,25 +38,18 @@ const writing = [
     href: "/blog/engineering-leadership-is-a-product-role"
   },
   {
-    id: "quality-culture",
-    title: "Building a Culture of Quality Without Slowing the Team Down",
-    date: "Jun 2026",
-    dateTime: "2026-06-19T08:30:00Z",
-    href: "/blog/building-a-culture-of-quality-without-slowing-the-team-down"
+    id: "fortyone-agentic-project-management",
+    title: "I Built an Agentic Project Management Tool",
+    date: "Jan 2026",
+    dateTime: "2026-01-10T09:17:19Z",
+    href: "/blog/i-got-tired-of-jira-so-i-built-an-agentic-project-management-tool-and-open-sourced-it-3ghp"
   },
   {
-    id: "go-reflection",
-    title: "Deep Dive into Go Reflection: Building a Dynamic Config Package",
-    date: "Jan 2024",
-    dateTime: "2024-01-26T09:40:20Z",
-    href: "/blog/deep-dive-into-go-reflection-crafting-a-dynamic-open-source-config-package-13kn"
-  },
-  {
-    id: "enterprise-frontends",
-    title: "How I Structure Enterprise Frontend Applications",
-    date: "Sep 2023",
-    dateTime: "2023-09-09T13:09:00Z",
-    href: "/blog/how-i-approach-and-structure-enterprise-frontend-applications-after-4-years-of-using-nextjs-2f5"
+    id: "react-value-comparison",
+    title: "How React Checks if Two Values Are the Same Value",
+    date: "Feb 2022",
+    dateTime: "2022-02-14T05:47:53Z",
+    href: "/blog/how-react-checks-if-2-values-are-the-same-value-3g4a"
   }
 ];
 
@@ -63,7 +63,7 @@ const homepageSchema = {
       url: SITE_URL,
       image: absoluteUrl("/assets/joseph.webp"),
       email: `mailto:${SITE_EMAIL}`,
-      jobTitle: "Head of Engineering and founder",
+      jobTitle: "AI Product Engineer and Head of Engineering",
       description: SITE_DESCRIPTION,
       homeLocation: {
         "@type": "Place",
@@ -91,8 +91,12 @@ const homepageSchema = {
         name: "Chinhoyi University of Technology"
       },
       knowsAbout: [
+        "AI product engineering",
+        "AI agents",
+        "Conversational AI",
+        "Voice AI",
+        "Human-in-the-loop AI systems",
         "Software engineering leadership",
-        "Artificial intelligence products",
         "Financial technology",
         "Software architecture",
         "Next.js",
@@ -139,10 +143,13 @@ export default function Home() {
         <div className="reveal-intro max-w-[600px]">
           <div className="[&>p+p]:mt-6">
             <p className="intro-reveal-item">
-              I’m an <RolePhrase>engineering leader and product builder</RolePhrase>.
-              Harare, Zimbabwe is home. I design, build, and lead secure
-              software systems across fintech, SaaS, AI products, and regulated
-              environments.
+              I’m an{" "}
+              <RolePhrase>
+                AI product engineer and engineering leader
+              </RolePhrase>
+              . Harare, Zimbabwe is home. I build production AI systems across
+              agents, conversational interfaces, voice, structured automation,
+              and human-in-the-loop workflows.
             </p>
             <p className="intro-reveal-item">
               I’m the founder and product engineer behind{" "}
@@ -151,9 +158,9 @@ export default function Home() {
               <InlineLink href="https://complexus.tech">Complexus</InlineLink>.
               I currently lead engineering at Art Circles, where I set
               technical direction, shape AI strategy, and lead product
-              delivery. Across my career, I’ve built and led systems spanning
-              AI-powered creative tools, lending, conversational AI,
-              public-sector platforms, and financial infrastructure.
+              delivery. The work beneath that AI layer spans secure full-stack
+              systems, cloud architecture, analytics, integrations, fintech,
+              and regulated environments.
             </p>
             <p className="intro-reveal-item">
               I care about useful software, clear interfaces, strong systems,
@@ -221,11 +228,11 @@ export default function Home() {
             </div>
             <div className="[&>p+p]:mt-6">
               <p>
-                FortyOne is an AI project management platform that keeps
-                company goals, projects, and daily work connected. Maya helps
-                teams turn requests into planned work, suggest owners and
-                estimates, and spot delivery risk while keeping important
-                changes reviewable.
+                FortyOne is an agentic project management platform that keeps
+                company goals, projects, and daily work connected. I built Maya
+                to turn requests into planned work, suggest owners and
+                estimates, answer workspace questions, and surface delivery
+                risk while keeping important changes reviewable.
               </p>
               <p>
                 Customer feedback lives in the same flow. Teams can collect and

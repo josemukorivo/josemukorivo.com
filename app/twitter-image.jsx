@@ -12,7 +12,7 @@ export const contentType = socialImageContentType;
 
 export default function TwitterImage() {
   return new ImageResponse(
-    <SocialCard eyebrow="Engineering, products, and systems" title={SITE_TITLE} />,
+    <SocialCard eyebrow="Applied AI, products, and systems" title={SITE_TITLE} />,
     size
   );
 }

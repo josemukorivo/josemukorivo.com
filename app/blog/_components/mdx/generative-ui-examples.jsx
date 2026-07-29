@@ -33,9 +33,9 @@ const ARTICLE_OUTPUT = {
 
 const RESUME_OUTPUT = {
   description:
-    "A two-page résumé covering engineering leadership, AI products, full-stack systems, fintech, cloud infrastructure, and selected impact.",
-  href: "/assets/joseph-mukorivo-resume.pdf",
-  title: "Joseph Mukorivo — Head of Engineering"
+    "A two-page résumé covering AI product engineering, engineering leadership, conversational AI, full-stack systems, fintech, and cloud infrastructure.",
+  href: "/joseph-mukorivo-ai-product-engineer-resume.pdf",
+  title: "Joseph Mukorivo — AI Product Engineer"
 };
 
 const PHOTO_OUTPUT = {

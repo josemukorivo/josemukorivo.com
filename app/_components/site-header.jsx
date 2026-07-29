@@ -12,7 +12,7 @@ export function SiteHeader() {
         Joseph Mukorivo
       </a>
       <span className="max-[640px]:hidden">
-        Head of Engineering & founder
+        AI Product Engineer & Engineering Leader
       </span>
     </header>
   );

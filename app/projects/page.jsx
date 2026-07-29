@@ -10,7 +10,7 @@ import { createPageMetadata } from "../../lib/seo";
 import { PERSON_ID, SITE_URL, WEBSITE_ID } from "../../lib/site";
 
 const description =
-  "Selected products, open-source tools, and companies built by Joseph Mukorivo.";
+  "Selected AI products, open-source tools, and companies built by Joseph Mukorivo.";
 
 export const metadata = createPageMetadata({
   title: "Projects",
@@ -19,6 +19,8 @@ export const metadata = createPageMetadata({
   path: "/projects",
   keywords: [
     "Joseph Mukorivo projects",
+    "AI product engineering",
+    "AI agents",
     "FortyOne",
     "Complexus",
     "Go open source"

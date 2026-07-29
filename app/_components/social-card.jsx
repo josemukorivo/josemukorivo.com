@@ -75,7 +75,7 @@ export function SocialCard({ eyebrow, title }) {
         </span>
         <span style={{ display: "flex", color: socialCardColors.muted }}>—</span>
         <span style={{ display: "flex", color: socialCardColors.subtle }}>
-          Head of Engineering & founder
+          AI Product Engineer & Engineering Leader
         </span>
       </div>
     </div>

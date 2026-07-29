@@ -43,6 +43,10 @@ const SUGGESTED_QUESTIONS = [
   { id: "resume", label: "Walk me through his résumé" },
   { id: "biography", label: "Tell me more about Joseph" },
   {
+    id: "ai_assistant_article",
+    label: "Open his AI assistant article"
+  },
+  {
     id: "engineering_leadership_article",
     label: "Open his engineering leadership article"
   },

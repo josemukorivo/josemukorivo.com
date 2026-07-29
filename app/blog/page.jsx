@@ -14,7 +14,7 @@ import {
 } from "../../lib/site";
 
 const description =
-  "Joseph Mukorivo’s writing on software engineering, product development, AI, cloud infrastructure, and building complex systems.";
+  "Joseph Mukorivo’s writing on AI product engineering, software architecture, engineering leadership, and building complex systems.";
 
 export const metadata = createPageMetadata({
   title: "Writing",
@@ -22,8 +22,10 @@ export const metadata = createPageMetadata({
   description,
   path: "/blog",
   keywords: [
+    "AI product engineering",
+    "AI agents",
+    "conversational AI",
     "software engineering writing",
-    "AI product development",
     "Next.js architecture",
     "Go programming",
     "Joseph Mukorivo"
