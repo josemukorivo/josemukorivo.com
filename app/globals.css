@@ -13,6 +13,26 @@
   --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
+  /* Match FortyOne's round fallback and native squircle radius scale. */
+  --radius-scale: 1.2;
+  --radius-base: 0.3rem;
+  --radius-base-xs: 0.15rem;
+  --radius-base-sm: 0.3rem;
+  --radius-base-md: 0.5rem;
+  --radius-base-lg: 0.6rem;
+  --radius-base-xl: 0.8rem;
+  --radius-base-2xl: 1.1rem;
+  --radius-base-3xl: 1.6rem;
+  --radius-base-4xl: 2.2rem;
+  --radius: calc(var(--radius-base) * var(--radius-scale));
+  --radius-xs: calc(var(--radius-base-xs) * var(--radius-scale));
+  --radius-sm: calc(var(--radius-base-sm) * var(--radius-scale));
+  --radius-md: calc(var(--radius-base-md) * var(--radius-scale));
+  --radius-lg: calc(var(--radius-base-lg) * var(--radius-scale));
+  --radius-xl: calc(var(--radius-base-xl) * var(--radius-scale));
+  --radius-2xl: calc(var(--radius-base-2xl) * var(--radius-scale));
+  --radius-3xl: calc(var(--radius-base-3xl) * var(--radius-scale));
+  --radius-4xl: calc(var(--radius-base-4xl) * var(--radius-scale));
 }
 
 @property --assistant-invitation-angle {
@@ -43,6 +63,8 @@
   --assistant-accent-warm: #a94f30;
   --assistant-accent-violet: #71509b;
   --assistant-accent-cool: #2f6d7d;
+  --brand-primary: #f54e00;
+  --interactive-accent: var(--brand-primary);
   --role-phrase-font-weight: 500;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-reveal: cubic-bezier(0.23, 1, 0.32, 1);
@@ -55,21 +77,21 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --background: #10100f;
-  --text: #d8d8d3;
-  --muted: #8d8d86;
-  --subtle: #adada6;
-  --line: #2a2a27;
-  --link-underline: #d8d8d3;
-  --code-background: #1b1b19;
-  --code-header-background: #222220;
-  --tooltip-background: rgba(28, 28, 26, 0.92);
-  --viewport-blur-background: rgba(16, 16, 15, 0.14);
-  --assistant-background: rgb(26 26 24 / 0.74);
-  --assistant-invitation: rgb(28 28 26 / 0.78);
-  --assistant-input: rgb(255 255 255 / 0.035);
-  --assistant-raised: rgb(255 255 255 / 0.045);
-  --assistant-user: rgb(255 255 255 / 0.065);
+  --background: #171411;
+  --text: #e7dfd4;
+  --muted: #9a9084;
+  --subtle: #bdb2a4;
+  --line: #342d27;
+  --link-underline: #e7dfd4;
+  --code-background: #211c18;
+  --code-header-background: #29221d;
+  --tooltip-background: rgba(39, 33, 28, 0.92);
+  --viewport-blur-background: rgba(23, 20, 17, 0.14);
+  --assistant-background: rgb(33 28 24 / 0.78);
+  --assistant-invitation: rgb(38 32 27 / 0.82);
+  --assistant-input: rgb(244 232 217 / 0.045);
+  --assistant-raised: rgb(244 232 217 / 0.06);
+  --assistant-user: rgb(244 232 217 / 0.09);
   --assistant-accent-warm: #dc7a4a;
   --assistant-accent-violet: #a783c9;
   --assistant-accent-cool: #5598aa;
@@ -79,21 +101,21 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     color-scheme: dark;
-    --background: #10100f;
-    --text: #d8d8d3;
-    --muted: #8d8d86;
-    --subtle: #adada6;
-    --line: #2a2a27;
-    --link-underline: #d8d8d3;
-    --code-background: #1b1b19;
-    --code-header-background: #222220;
-    --tooltip-background: rgba(28, 28, 26, 0.92);
-    --viewport-blur-background: rgba(16, 16, 15, 0.14);
-    --assistant-background: rgb(26 26 24 / 0.74);
-    --assistant-invitation: rgb(28 28 26 / 0.78);
-    --assistant-input: rgb(255 255 255 / 0.035);
-    --assistant-raised: rgb(255 255 255 / 0.045);
-    --assistant-user: rgb(255 255 255 / 0.065);
+    --background: #171411;
+    --text: #e7dfd4;
+    --muted: #9a9084;
+    --subtle: #bdb2a4;
+    --line: #342d27;
+    --link-underline: #e7dfd4;
+    --code-background: #211c18;
+    --code-header-background: #29221d;
+    --tooltip-background: rgba(39, 33, 28, 0.92);
+    --viewport-blur-background: rgba(23, 20, 17, 0.14);
+    --assistant-background: rgb(33 28 24 / 0.78);
+    --assistant-invitation: rgb(38 32 27 / 0.82);
+    --assistant-input: rgb(244 232 217 / 0.045);
+    --assistant-raised: rgb(244 232 217 / 0.06);
+    --assistant-user: rgb(244 232 217 / 0.09);
     --assistant-accent-warm: #dc7a4a;
     --assistant-accent-violet: #a783c9;
     --assistant-accent-cool: #5598aa;
@@ -102,6 +124,12 @@
 }
 
 @layer base {
+  @supports (corner-shape: squircle) {
+    :root {
+      --radius-scale: 2.8;
+    }
+  }
+
   html {
     background: var(--background);
     scroll-behavior: smooth;
@@ -121,7 +149,7 @@
   }
 
   a:focus-visible {
-    border-radius: 2px;
+    border-radius: var(--radius-xs);
     outline: 2px solid currentColor;
     outline-offset: 3px;
   }
@@ -263,13 +291,35 @@
   background-size:
     0 1px,
     100% 1px;
-  transition: background-size 180ms var(--ease-out);
+  transition:
+    color 160ms var(--ease-standard),
+    background-size 180ms var(--ease-out);
 }
 
 .external-link-label {
   transition:
+    color 160ms var(--ease-standard),
     background-size 180ms var(--ease-out),
     transform 180ms var(--ease-out);
+}
+
+.external-link-label + svg {
+  transition:
+    color 160ms var(--ease-standard),
+    transform 180ms var(--ease-out);
+}
+
+.name-link {
+  transition: color 160ms var(--ease-standard);
+}
+
+.text-link:focus-visible,
+a:focus-visible > .external-link-label,
+a:focus-visible > .external-link-label + svg,
+a:focus-visible .writing-link-title,
+.name-link:focus-visible,
+.project-index-row:focus-visible .project-index-name {
+  color: var(--interactive-accent);
 }
 
 .text-link:focus-visible,
@@ -381,7 +431,7 @@ a:focus-visible > .external-link-label {
   gap: 12px;
   padding: 12px;
   border: 1px solid color-mix(in srgb, var(--text) 7%, transparent);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   color: var(--text);
   background: var(--tooltip-background);
   box-shadow:
@@ -428,7 +478,7 @@ a:focus-visible > .external-link-label {
   height: 40px;
   place-items: center;
   border: 1px solid color-mix(in srgb, var(--text) 7%, transparent);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   color: var(--text);
   background: color-mix(in srgb, var(--text) 4%, transparent);
 }
@@ -459,8 +509,8 @@ a:focus-visible > .external-link-label {
   overflow: hidden;
   aspect-ratio: 960 / 551;
   border: 1px solid color-mix(in srgb, var(--text) 6%, transparent);
-  border-radius: 3px;
-  background: #10100f;
+  border-radius: var(--radius-sm);
+  background: #171411;
 }
 
 .link-preview-media img {
@@ -565,7 +615,7 @@ a:focus-visible > .external-link-label {
   gap: 6px;
   padding: 13px 9px 13px 14px;
   border: 1px solid color-mix(in srgb, var(--text) 7%, transparent);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   color: var(--text);
   background: var(--assistant-invitation);
   box-shadow: none;
@@ -579,7 +629,7 @@ a:focus-visible > .external-link-label {
   position: absolute;
   z-index: 0;
   padding: 2px;
-  border-radius: 10px;
+  border-radius: var(--radius-xl);
   background: conic-gradient(
     from var(--assistant-invitation-angle),
     var(--assistant-accent-warm),
@@ -658,7 +708,7 @@ a:focus-visible > .external-link-label {
   padding: 0;
   place-items: center;
   border: 0;
-  border-radius: 5px;
+  border-radius: var(--radius-md);
   color: var(--muted);
   background: color-mix(in srgb, var(--text) 6%, transparent);
   cursor: pointer;
@@ -854,7 +904,7 @@ a:focus-visible > .external-link-label {
   left: 50%;
   padding: 5px 7px;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   color: var(--text);
   background: var(--tooltip-background);
   box-shadow: 0 6px 20px rgb(0 0 0 / 0.09);
@@ -888,7 +938,7 @@ a:focus-visible > .external-link-label {
   max-height: none;
   padding: 0;
   border: 1px solid color-mix(in srgb, var(--text) 4%, transparent);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   color: var(--text);
   background: var(--assistant-background);
   box-shadow: none;
@@ -909,7 +959,7 @@ a:focus-visible > .external-link-label {
   margin: 28px auto calc(100px + env(safe-area-inset-bottom));
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--text) 5%, transparent);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   color: var(--text);
   background: var(--assistant-background);
   -webkit-backdrop-filter: blur(28px) saturate(1.08);
@@ -989,7 +1039,7 @@ a:focus-visible > .external-link-label {
   place-items: center;
   padding: 0;
   border: 0;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   color: var(--muted);
   background: transparent;
   cursor: pointer;
@@ -1007,7 +1057,7 @@ a:focus-visible > .external-link-label {
 .portfolio-assistant-new-chat {
   padding: 7px 6px;
   border: 0;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   color: var(--muted);
   background: transparent;
   font: inherit;
@@ -1112,7 +1162,8 @@ a:focus-visible > .external-link-label {
   width: auto;
   max-width: 86%;
   padding: 10px 13px;
-  border-radius: 7px 7px 2px 7px;
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-xs)
+    var(--radius-lg);
   background: var(--assistant-user);
 }
 
@@ -1130,7 +1181,7 @@ a:focus-visible > .external-link-label {
   place-items: center;
   padding: 0;
   border: 0;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   color: var(--muted);
   background: transparent;
   cursor: pointer;
@@ -1196,7 +1247,7 @@ a:focus-visible > .external-link-label {
 
 .assistant-markdown code {
   padding: 1px 4px;
-  border-radius: 3px;
+  border-radius: var(--radius-sm);
   background: color-mix(in srgb, var(--text) 7%, transparent);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 1em;
@@ -1205,7 +1256,7 @@ a:focus-visible > .external-link-label {
 .assistant-markdown pre {
   overflow-x: auto;
   padding: 11px;
-  border-radius: 5px;
+  border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--text) 7%, transparent);
 }
 
@@ -1241,6 +1292,19 @@ a:focus-visible > .external-link-label {
   text-decoration: underline;
   text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
   text-underline-offset: 3px;
+}
+
+.assistant-message-body
+  a:not(.assistant-resource-card):not(.assistant-article-card) {
+  transition:
+    color 160ms var(--ease-standard),
+    text-decoration-color 160ms var(--ease-standard);
+}
+
+.assistant-message-body
+  a:not(.assistant-resource-card):not(.assistant-article-card):focus-visible {
+  color: var(--interactive-accent);
+  text-decoration-color: currentColor;
 }
 
 .assistant-resource-card {
@@ -1369,7 +1433,7 @@ a:focus-visible > .external-link-label {
   display: block;
   overflow: hidden;
   aspect-ratio: 1;
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--text) 6%, transparent);
 }
 
@@ -1442,7 +1506,7 @@ a:focus-visible > .external-link-label {
   margin: 0;
   overflow-y: auto;
   padding: 11px 12px;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   color: var(--text);
   background: var(--assistant-raised);
   font-size: 14px;
@@ -1464,7 +1528,7 @@ a:focus-visible > .external-link-label {
   min-height: 42px;
   padding: 10px 15px;
   border: 0;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   color: var(--background);
   background: var(--text);
   font: inherit;
@@ -1549,7 +1613,7 @@ a:focus-visible > .external-link-label {
   min-height: 76px;
   padding: 0;
   border: 0;
-  border-radius: 7px;
+  border-radius: var(--radius-lg);
   background: var(--assistant-input);
   transition: background-color 150ms var(--ease-standard);
 }
@@ -1600,7 +1664,7 @@ a:focus-visible > .external-link-label {
   place-items: center;
   padding: 0;
   border: 0;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   color: var(--background);
   background: var(--text);
   cursor: pointer;
@@ -1622,7 +1686,7 @@ a:focus-visible > .external-link-label {
   align-items: center;
   gap: 7px;
   padding: 0 10px;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font: inherit;
   font-size: 12.5px;
   line-height: 1;
@@ -1765,8 +1829,8 @@ a:focus-visible > .external-link-label {
   overflow: hidden;
   aspect-ratio: 960 / 551;
   border: 1px solid color-mix(in srgb, var(--text) 7%, transparent);
-  border-radius: 3px;
-  background: #10100f;
+  border-radius: var(--radius-sm);
+  background: #171411;
   transition:
     border-color 160ms var(--ease-standard),
     opacity 160ms var(--ease-standard);
@@ -1798,6 +1862,7 @@ a:focus-visible > .external-link-label {
   gap: 4px;
   font-weight: 500;
   line-height: 1.3;
+  transition: color 160ms var(--ease-standard);
 }
 
 .project-index-name svg {
@@ -1934,7 +1999,7 @@ a:focus-visible > .external-link-label {
   overflow-y: auto;
   padding: 14px;
   border: 1px solid color-mix(in srgb, var(--text) 7%, transparent);
-  border-radius: 10px;
+  border-radius: var(--radius-xl);
   color: var(--muted);
   background: var(--assistant-invitation);
   box-shadow: none;
@@ -1972,7 +2037,9 @@ a:focus-visible > .external-link-label {
   background-repeat: no-repeat;
   background-size: 0 1px;
   box-decoration-break: clone;
-  transition: background-size 180ms var(--ease-out);
+  transition:
+    color 160ms var(--ease-standard),
+    background-size 180ms var(--ease-out);
 }
 
 a:focus-visible .writing-link-title {
@@ -2098,6 +2165,7 @@ a:focus-visible .writing-link-title {
 
   .text-link:hover,
   a:hover > .external-link-label {
+    color: var(--interactive-accent);
     background-position:
       left calc(100% - 1px),
       left calc(100% - 1px);
@@ -2106,7 +2174,14 @@ a:focus-visible .writing-link-title {
       100% 1px;
   }
 
+  a:hover > .external-link-label + svg,
+  .name-link:hover,
+  .project-index-row:hover .project-index-name {
+    color: var(--interactive-accent);
+  }
+
   a:hover .writing-link-title {
+    color: var(--interactive-accent);
     background-position: left calc(100% - 1px);
     background-size: 100% 1px;
   }
@@ -2208,6 +2283,12 @@ a:focus-visible .writing-link-title {
     color: var(--subtle);
   }
 
+  .assistant-message-body
+    a:not(.assistant-resource-card):not(.assistant-article-card):hover {
+    color: var(--interactive-accent);
+    text-decoration-color: currentColor;
+  }
+
   .project-index-row:hover .project-index-media {
     border-color: color-mix(in srgb, var(--text) 13%, transparent);
   }
@@ -2225,7 +2306,7 @@ a:focus-visible .writing-link-title {
   }
 
   .article-map-list a:hover {
-    color: var(--text);
+    color: var(--interactive-accent);
   }
 }
 
@@ -2267,6 +2348,36 @@ a:focus-visible .writing-link-title {
 .assistant-article-card:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 3px;
+}
+
+@supports (corner-shape: squircle) {
+  a:focus-visible,
+  .link-preview,
+  .link-preview-mark,
+  .link-preview-media,
+  .assistant-invitation,
+  .assistant-invitation::before,
+  .assistant-invitation-close,
+  .site-dock-label,
+  .portfolio-assistant-dialog,
+  .portfolio-assistant-page,
+  .portfolio-assistant-close,
+  .portfolio-assistant-new-chat,
+  .assistant-message[data-role="user"] .assistant-message-body,
+  .assistant-message-actions button,
+  .assistant-markdown code,
+  .assistant-markdown pre,
+  .assistant-photo-frame,
+  .assistant-contact-message,
+  .assistant-contact-send,
+  .portfolio-assistant-form,
+  .portfolio-assistant-send-button,
+  .portfolio-assistant-talk-button,
+  .portfolio-assistant-voice-button,
+  .project-index-media,
+  .article-map-mobile > nav {
+    corner-shape: squircle;
+  }
 }
 
 @media (max-width: 680px) {
@@ -2347,7 +2458,7 @@ a:focus-visible .writing-link-title {
     left: 10px;
     width: auto;
     height: min(720px, calc(100dvh - 137px - env(safe-area-inset-bottom)));
-    border-radius: 8px;
+    border-radius: var(--radius-lg);
   }
 
   .portfolio-assistant-empty {
@@ -2433,6 +2544,7 @@ a:focus-visible .writing-link-title {
   }
 
   .external-link-label,
+  .external-link-label + svg,
   .name-link::after,
   .text-link,
   .theme-toggle,

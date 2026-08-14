@@ -490,7 +490,11 @@
 :global(html[data-theme="dark"]) .figure,
 :global(html[data-theme="dark"]) .trace,
 :global(html[data-theme="dark"]) .tryMaya {
-  background: color-mix(in srgb, var(--code-background) 88%, black);
+  background: color-mix(
+    in srgb,
+    var(--code-background) 88%,
+    var(--background)
+  );
 }
 
 :global(html[data-theme="dark"]) .figureHeader,
@@ -498,7 +502,7 @@
   background: color-mix(
     in srgb,
     var(--code-header-background) 90%,
-    black
+    var(--background)
   );
 }
 
@@ -506,7 +510,11 @@
 :global(html[data-theme="dark"])
   .contactPreview
   :global(.assistant-contact-message) {
-  background: color-mix(in srgb, var(--assistant-raised) 88%, black);
+  background: color-mix(
+    in srgb,
+    var(--assistant-raised) 88%,
+    var(--background)
+  );
 }
 
 @keyframes timeline-pulse {
@@ -527,7 +535,11 @@
   :global(html:not([data-theme])) .figure,
   :global(html:not([data-theme])) .trace,
   :global(html:not([data-theme])) .tryMaya {
-    background: color-mix(in srgb, var(--code-background) 88%, black);
+    background: color-mix(
+      in srgb,
+      var(--code-background) 88%,
+      var(--background)
+    );
   }
 
   :global(html:not([data-theme])) .figureHeader,
@@ -535,7 +547,7 @@
     background: color-mix(
       in srgb,
       var(--code-header-background) 90%,
-      black
+      var(--background)
     );
   }
 
@@ -543,7 +555,11 @@
   :global(html:not([data-theme]))
     .contactPreview
     :global(.assistant-contact-message) {
-    background: color-mix(in srgb, var(--assistant-raised) 88%, black);
+    background: color-mix(
+      in srgb,
+      var(--assistant-raised) 88%,
+      var(--background)
+    );
   }
 }
 

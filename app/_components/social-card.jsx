@@ -6,10 +6,10 @@ export const socialImageSize = {
 export const socialImageContentType = "image/png";
 
 const socialCardColors = {
-  background: "#10100f",
-  foreground: "#d8d8d3",
-  muted: "#8d8d86",
-  subtle: "#adada6"
+  background: "#171411",
+  foreground: "#e7dfd4",
+  muted: "#9a9084",
+  subtle: "#bdb2a4"
 };
 
 export function SocialCard({ eyebrow, title }) {
