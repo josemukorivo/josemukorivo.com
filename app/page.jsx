@@ -141,7 +141,7 @@ export default function Home() {
 
       <article className="mt-[88px] max-[640px]:mt-16" id="top">
         <div className="reveal-intro max-w-[600px]">
-          <div className="[&>p+p]:mt-6">
+          <div className="text-[16px] leading-[1.75] [&>p+p]:mt-6">
             <p className="intro-reveal-item">
               I’m an{" "}
               <RolePhrase>

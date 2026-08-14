@@ -6,7 +6,7 @@ export function SiteHeader() {
       data-reveal-self
     >
       <a
-        className="name-link relative font-serif text-xl font-medium italic leading-[1.2] text-ink"
+        className="name-link relative font-handwriting text-[24px] font-normal leading-[1.1] text-ink"
         href="#top"
       >
         Joseph Mukorivo

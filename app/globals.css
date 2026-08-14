@@ -11,6 +11,8 @@
     var(--font-inter), ui-sans-serif, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
   --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-handwriting:
+    var(--font-nothing-you-could-do), "Segoe Print", cursive;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
   /* Match FortyOne's round fallback and native squircle radius scale. */
