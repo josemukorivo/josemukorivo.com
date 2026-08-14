@@ -1,7 +1,9 @@
 import { ExternalLink } from "./_components/external-link";
 import { AssistantIntroLink } from "./_components/assistant-intro-link";
+import { IntroSketches } from "./_components/intro-sketches";
 import { InlineLink } from "./_components/inline-link";
 import { JsonLd } from "./_components/json-ld";
+import { MarkerHighlight } from "./_components/marker-highlight";
 import { PageSection } from "./_components/page-section";
 import { PageShell } from "./_components/page-shell";
 import { RolePhrase } from "./_components/role-phrase";
@@ -141,7 +143,8 @@ export default function Home() {
 
       <article className="mt-[88px] max-[640px]:mt-16" id="top">
         <div className="reveal-intro max-w-[600px]">
-          <div className="text-[15px] leading-[1.75] [&>p+p]:mt-6">
+          <IntroSketches />
+          <div className="intro-copy text-[15px] leading-[1.75] [&>p+p]:mt-6">
             <p className="intro-reveal-item">
               I’m an{" "}
               <RolePhrase>
@@ -157,21 +160,32 @@ export default function Home() {
               I founded{" "}
               <InlineLink href="https://complexus.tech">Complexus</InlineLink>{" "}
               and built{" "}
-              <InlineLink href="https://www.fortyone.app">FortyOne</InlineLink>,
+              <MarkerHighlight>
+                <InlineLink href="https://www.fortyone.app">FortyOne</InlineLink>
+              </MarkerHighlight>
+              ,
               an agentic project management platform connecting company goals,
               customer feedback, planning, and delivery. I currently lead
               engineering at Art Circles, setting technical direction, shaping
               AI strategy, and guiding product delivery.
             </p>
             <p className="intro-reveal-item">
-              My work combines technical leadership, product strategy, project
-              management, and hands-on engineering across secure full-stack
-              systems, cloud architecture, analytics, and integrations—often in
-              fintech and regulated environments where details matter.
+              My work combines{" "}
+              <MarkerHighlight tone="violet" variant="underline">
+                technical leadership
+              </MarkerHighlight>
+              , product strategy, project management, and hands-on engineering
+              across secure full-stack systems, cloud architecture, analytics,
+              and integrations—often in fintech and regulated environments where
+              details matter.
             </p>
             <p className="intro-reveal-item">
               I care about useful software, clear interfaces, strong systems,
-              and thoughtful details.{" "}
+              and{" "}
+              <MarkerHighlight tone="cool" variant="underline">
+                thoughtful details
+              </MarkerHighlight>
+              .{" "}
               <span className="assistant-intro-copy">
                 <AssistantIntroLink>Ask Maya, my AI assistant</AssistantIntroLink>{" "}
                 to learn more about me.

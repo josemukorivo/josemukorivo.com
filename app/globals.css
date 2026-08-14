@@ -411,6 +411,126 @@ a:focus-visible > .external-link-label {
   fill: var(--background);
 }
 
+.marker-highlight {
+  --marker-color: color-mix(
+    in srgb,
+    var(--brand-primary) 52%,
+    transparent
+  );
+  --marker-rotation: -1.2deg;
+  --marker-stroke: color-mix(
+    in srgb,
+    var(--brand-primary) 92%,
+    transparent
+  );
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  white-space: nowrap;
+}
+
+.marker-highlight-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.marker-highlight .text-link {
+  background-image: none;
+}
+
+.marker-highlight-art {
+  position: absolute;
+  z-index: 0;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+  filter: url("#hand-drawn-roughen");
+  transform: rotate(var(--marker-rotation));
+  transform-origin: center;
+  transition:
+    opacity 160ms var(--ease-standard),
+    transform 220ms var(--ease-out);
+}
+
+.marker-highlight-stroke {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.marker-highlight-stroke--broad {
+  stroke: var(--marker-color);
+}
+
+.marker-highlight-stroke--echo {
+  stroke: var(--marker-stroke);
+  opacity: 0.58;
+}
+
+.marker-highlight--fill .marker-highlight-art {
+  top: 42%;
+  left: -0.18em;
+  width: calc(100% + 0.36em);
+  height: 1em;
+}
+
+.marker-highlight--fill .marker-highlight-stroke--broad {
+  stroke-width: 10.5;
+}
+
+.marker-highlight--fill .marker-highlight-stroke--echo {
+  stroke-width: 2.1;
+}
+
+.marker-highlight--underline .marker-highlight-art {
+  bottom: -0.13em;
+  left: -0.08em;
+  width: calc(100% + 0.16em);
+  height: 0.7em;
+}
+
+.marker-highlight--underline .marker-highlight-stroke--broad {
+  stroke-width: 4.8;
+}
+
+.marker-highlight--underline .marker-highlight-stroke--echo {
+  stroke-width: 1.35;
+}
+
+.marker-highlight--violet {
+  --marker-color: color-mix(
+    in srgb,
+    var(--assistant-accent-violet) 38%,
+    transparent
+  );
+  --marker-rotation: 0.9deg;
+  --marker-stroke: color-mix(
+    in srgb,
+    var(--assistant-accent-violet) 82%,
+    transparent
+  );
+}
+
+.marker-highlight--cool {
+  --marker-color: color-mix(
+    in srgb,
+    var(--assistant-accent-cool) 38%,
+    transparent
+  );
+  --marker-rotation: -0.7deg;
+  --marker-stroke: color-mix(
+    in srgb,
+    var(--assistant-accent-cool) 82%,
+    transparent
+  );
+}
+
+.marker-highlight--primary:has(.text-link:focus-visible) .marker-highlight-art {
+  opacity: 0.24;
+  transition-duration: 0ms;
+}
+
 @media (max-width: 360px) {
   .role-phrase {
     display: inline;
@@ -2077,6 +2197,72 @@ a:focus-visible .writing-link-title {
   }
 }
 
+.reveal-intro {
+  position: relative;
+}
+
+.intro-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.intro-sketches {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hand-drawn-filter {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.intro-sketch {
+  position: absolute;
+  display: block;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  filter: url("#hand-drawn-roughen");
+}
+
+.intro-sketch path {
+  vector-effect: non-scaling-stroke;
+}
+
+.intro-sketch--orbit {
+  top: 12px;
+  right: -82px;
+  width: 142px;
+  color: var(--brand-primary);
+  opacity: 0.3;
+  transform: rotate(-7deg);
+}
+
+.intro-sketch--spark {
+  top: 48%;
+  left: -48px;
+  width: 28px;
+  color: var(--assistant-accent-violet);
+  opacity: 0.46;
+  transform: rotate(6deg);
+}
+
+.intro-sketch--wave {
+  right: -62px;
+  bottom: 72px;
+  width: 82px;
+  color: var(--assistant-accent-cool);
+  opacity: 0.42;
+  transform: rotate(6deg);
+}
+
 .intro-reveal-item {
   animation: intro-enter 900ms var(--ease-reveal) both;
 }
@@ -2155,12 +2341,24 @@ a:focus-visible .writing-link-title {
     display: none !important;
   }
 
+  .intro-sketch {
+    display: none;
+  }
+
   .intro-reveal-item {
     animation: none !important;
   }
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .marker-highlight:hover .marker-highlight-art {
+    transform: rotate(var(--marker-rotation)) scaleX(1.035);
+  }
+
+  .marker-highlight--primary:has(.text-link:hover) .marker-highlight-art {
+    opacity: 0.24;
+  }
+
   .theme-toggle-option:hover {
     color: var(--text);
   }
@@ -2489,6 +2687,10 @@ a:focus-visible .writing-link-title {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .marker-highlight-art {
+    transition-duration: 0.01ms !important;
+  }
+
   .role-phrase-copy,
   .role-phrase-copy::after,
   .role-phrase-mark,
