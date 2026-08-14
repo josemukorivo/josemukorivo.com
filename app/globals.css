@@ -6,7 +6,6 @@
   --color-muted: var(--muted);
   --color-subtle: var(--subtle);
   --color-rule: var(--line);
-  --color-link-underline: var(--link-underline);
   --font-sans:
     var(--font-inter), ui-sans-serif, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
@@ -52,7 +51,8 @@
   --muted: #8b8b86;
   --subtle: #62625f;
   --line: #e9e9e5;
-  --link-underline: #242424;
+  --sketch-link-underline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 8' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23f54e00'/%3E%3Cstop offset='.5' stop-color='%2371509b'/%3E%3Cstop offset='1' stop-color='%232f6d7d'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 4.7C17 1.2 33 6.8 50 3.4C66 1.1 82 6.1 99 2.8' fill='none' stroke='url(%23g)' stroke-width='2.6' stroke-linecap='round'/%3E%3Cpath d='M2 6.3C20 3.4 36 7 54 4.6C72 2.4 86 6.2 98 4.2' fill='none' stroke='url(%23g)' stroke-width='1.3' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E");
+  --sketch-link-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 8' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23f54e00'/%3E%3Cstop offset='.5' stop-color='%23a783c9'/%3E%3Cstop offset='1' stop-color='%235598aa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 4.7C17 1.2 33 6.8 50 3.4C66 1.1 82 6.1 99 2.8' fill='none' stroke='url(%23g)' stroke-width='3.4' stroke-linecap='round'/%3E%3Cpath d='M2 6.3C20 3.4 36 7 54 4.6C72 2.4 86 6.2 98 4.2' fill='none' stroke='url(%23g)' stroke-width='1.6' stroke-linecap='round' opacity='.72'/%3E%3C/svg%3E");
   --code-background: #f4f4f0;
   --code-header-background: #eeeeea;
   --tooltip-background: rgba(253, 253, 252, 0.86);
@@ -84,7 +84,6 @@
   --muted: #9a9084;
   --subtle: #bdb2a4;
   --line: #342d27;
-  --link-underline: #e7dfd4;
   --code-background: #211c18;
   --code-header-background: #29221d;
   --tooltip-background: rgba(39, 33, 28, 0.92);
@@ -108,7 +107,6 @@
     --muted: #9a9084;
     --subtle: #bdb2a4;
     --line: #342d27;
-    --link-underline: #e7dfd4;
     --code-background: #211c18;
     --code-header-background: #29221d;
     --tooltip-background: rgba(39, 33, 28, 0.92);
@@ -284,24 +282,21 @@
 .text-link,
 .external-link-label {
   background-image:
-    linear-gradient(currentColor, currentColor),
-    linear-gradient(var(--link-underline), var(--link-underline));
+    var(--sketch-link-accent),
+    var(--sketch-link-underline);
   background-position:
-    right calc(100% - 1px),
-    left calc(100% - 1px);
+    right bottom,
+    left bottom;
   background-repeat: no-repeat;
   background-size:
-    0 1px,
-    100% 1px;
-  transition:
-    color 160ms var(--ease-standard),
-    background-size 180ms var(--ease-out);
+    0 8px,
+    100% 8px;
+  transition: color 160ms var(--ease-standard);
 }
 
 .external-link-label {
   transition:
     color 160ms var(--ease-standard),
-    background-size 180ms var(--ease-out),
     transform 180ms var(--ease-out);
 }
 
@@ -327,11 +322,11 @@ a:focus-visible .writing-link-title,
 .text-link:focus-visible,
 a:focus-visible > .external-link-label {
   background-position:
-    left calc(100% - 1px),
-    left calc(100% - 1px);
+    left bottom,
+    left bottom;
   background-size:
-    100% 1px,
-    100% 1px;
+    100% 8px,
+    100% 8px;
 }
 
 .name-link::after {
@@ -339,8 +334,11 @@ a:focus-visible > .external-link-label {
   right: 0;
   bottom: -3px;
   left: 0;
-  height: 1px;
-  background: currentColor;
+  height: 8px;
+  background-image: var(--sketch-link-accent);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 8px;
   content: "";
   transform: scaleX(0);
   transform-origin: right;
@@ -348,14 +346,17 @@ a:focus-visible > .external-link-label {
 }
 
 .role-phrase {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.16em;
+  isolation: isolate;
   white-space: nowrap;
 }
 
 .role-phrase-copy {
   position: relative;
+  z-index: 1;
   color: transparent;
   font-weight: var(--role-phrase-font-weight);
   background-image: linear-gradient(
@@ -372,23 +373,39 @@ a:focus-visible > .external-link-label {
   -webkit-background-clip: text;
 }
 
-.role-phrase-copy::after {
+.role-phrase-sketch {
   position: absolute;
-  right: 0;
-  bottom: -1px;
-  left: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    var(--assistant-accent-warm),
-    var(--assistant-accent-violet) 48%,
-    var(--assistant-accent-cool)
-  );
-  content: "";
-  opacity: 0.72;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 190ms var(--ease-out);
+  z-index: 0;
+  bottom: -0.19em;
+  left: -0.12em;
+  display: block;
+  width: calc(100% + 0.24em);
+  height: 0.72em;
+  overflow: visible;
+  pointer-events: none;
+  filter: url("#hand-drawn-roughen");
+  transform: rotate(-0.55deg);
+}
+
+.role-phrase-sketch-stroke {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3.2;
+  opacity: 0.46;
+  vector-effect: non-scaling-stroke;
+}
+
+.role-phrase-sketch-stroke--warm {
+  stroke: var(--assistant-accent-warm);
+}
+
+.role-phrase-sketch-stroke--violet {
+  stroke: var(--assistant-accent-violet);
+}
+
+.role-phrase-sketch-stroke--cool {
+  stroke: var(--assistant-accent-cool);
 }
 
 .role-phrase-mark {
@@ -491,11 +508,11 @@ a:focus-visible > .external-link-label {
 }
 
 .marker-highlight--underline .marker-highlight-stroke--broad {
-  stroke-width: 4.8;
+  stroke-width: 5.8;
 }
 
 .marker-highlight--underline .marker-highlight-stroke--echo {
-  stroke-width: 1.35;
+  stroke-width: 1.8;
 }
 
 .marker-highlight--violet {
@@ -507,7 +524,7 @@ a:focus-visible > .external-link-label {
   --marker-rotation: 0.9deg;
   --marker-stroke: color-mix(
     in srgb,
-    var(--assistant-accent-violet) 82%,
+    var(--brand-primary) 86%,
     transparent
   );
 }
@@ -521,7 +538,7 @@ a:focus-visible > .external-link-label {
   --marker-rotation: -0.7deg;
   --marker-stroke: color-mix(
     in srgb,
-    var(--assistant-accent-cool) 82%,
+    var(--assistant-accent-violet) 86%,
     transparent
   );
 }
@@ -1410,23 +1427,31 @@ a:focus-visible > .external-link-label {
   font-weight: 600;
 }
 
-.assistant-message-body a {
-  text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
-  text-underline-offset: 3px;
-}
-
 .assistant-message-body
   a:not(.assistant-resource-card):not(.assistant-article-card) {
-  transition:
-    color 160ms var(--ease-standard),
-    text-decoration-color 160ms var(--ease-standard);
+  background-image:
+    var(--sketch-link-accent),
+    var(--sketch-link-underline);
+  background-position:
+    right bottom,
+    left bottom;
+  background-repeat: no-repeat;
+  background-size:
+    0 8px,
+    100% 8px;
+  text-decoration: none;
+  transition: color 160ms var(--ease-standard);
 }
 
 .assistant-message-body
   a:not(.assistant-resource-card):not(.assistant-article-card):focus-visible {
   color: var(--interactive-accent);
-  text-decoration-color: currentColor;
+  background-position:
+    left bottom,
+    left bottom;
+  background-size:
+    100% 8px,
+    100% 8px;
 }
 
 .assistant-resource-card {
@@ -2154,19 +2179,17 @@ a:focus-visible > .external-link-label {
 
 .writing-link-title {
   -webkit-box-decoration-break: clone;
-  background-image: linear-gradient(currentColor, currentColor);
-  background-position: right calc(100% - 1px);
+  background-image: var(--sketch-link-accent);
+  background-position: right bottom;
   background-repeat: no-repeat;
-  background-size: 0 1px;
+  background-size: 0 8px;
   box-decoration-break: clone;
-  transition:
-    color 160ms var(--ease-standard),
-    background-size 180ms var(--ease-out);
+  transition: color 160ms var(--ease-standard);
 }
 
 a:focus-visible .writing-link-title {
-  background-position: left calc(100% - 1px);
-  background-size: 100% 1px;
+  background-position: left bottom;
+  background-size: 100% 8px;
 }
 
 .reveal-ready [data-reveal][data-reveal-self],
@@ -2236,31 +2259,183 @@ a:focus-visible .writing-link-title {
   vector-effect: non-scaling-stroke;
 }
 
-.intro-sketch--orbit {
-  top: 12px;
-  right: -82px;
-  width: 142px;
-  color: var(--brand-primary);
+.intro-sketch circle {
+  vector-effect: non-scaling-stroke;
+}
+
+.intro-sketch-motion--code {
+  --sketch-rotation: -4deg;
+  top: 18px;
+  right: -62px;
+  width: 88px;
   opacity: 0.3;
-  transform: rotate(-7deg);
 }
 
-.intro-sketch--spark {
+.intro-sketch--code {
+  color: var(--brand-primary);
+}
+
+.intro-sketch--terminal {
   top: 48%;
-  left: -48px;
-  width: 28px;
+  left: -58px;
+  width: 38px;
   color: var(--assistant-accent-violet);
-  opacity: 0.46;
-  transform: rotate(6deg);
+  opacity: 0.38;
+  transform: rotate(-5deg);
 }
 
-.intro-sketch--wave {
+.intro-sketch-motion--waveform {
+  --sketch-rotation: 6deg;
   right: -62px;
   bottom: 72px;
   width: 82px;
-  color: var(--assistant-accent-cool);
   opacity: 0.42;
-  transform: rotate(6deg);
+}
+
+.intro-sketch--waveform {
+  color: var(--assistant-accent-cool);
+}
+
+.intro-sketch-motion {
+  position: absolute;
+  display: block;
+  animation: technical-sketch-drift 8s cubic-bezier(0.77, 0, 0.175, 1)
+    infinite alternate;
+  pointer-events: none;
+  transform: rotate(var(--sketch-rotation));
+  transform-origin: center;
+  will-change: transform;
+}
+
+.intro-sketch-motion .intro-sketch {
+  position: static;
+  width: 100%;
+}
+
+.intro-sketch-motion--waveform {
+  animation-delay: -3.5s;
+  animation-duration: 10s;
+}
+
+.intro-sketch--nodes {
+  top: 31%;
+  right: -74px;
+  width: 44px;
+  color: var(--assistant-accent-violet);
+  opacity: 0.3;
+  transform: rotate(-8deg);
+}
+
+.intro-sketch--nodes circle {
+  fill: currentColor;
+  stroke: none;
+}
+
+.intro-sketch--pixels {
+  bottom: 12px;
+  left: -72px;
+  width: 40px;
+  color: var(--brand-primary);
+  fill: currentColor;
+  stroke: none;
+  opacity: 0.22;
+  transform: rotate(12deg);
+}
+
+@keyframes technical-sketch-drift {
+  0% {
+    transform: translate3d(0, -2px, 0) rotate(var(--sketch-rotation));
+  }
+
+  48% {
+    transform: translate3d(3px, 4px, 0)
+      rotate(calc(var(--sketch-rotation) + 1.5deg));
+  }
+
+  100% {
+    transform: translate3d(-2px, 1px, 0)
+      rotate(calc(var(--sketch-rotation) - 0.8deg));
+  }
+}
+
+.page-section {
+  position: relative;
+}
+
+.page-section > :not(.section-sketch) {
+  position: relative;
+  z-index: 1;
+}
+
+.section-sketch {
+  position: absolute;
+  z-index: 0;
+  display: block;
+  width: 42px;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  pointer-events: none;
+  filter: url("#hand-drawn-roughen");
+  opacity: 0.3;
+}
+
+.section-sketch path,
+.section-sketch circle {
+  vector-effect: non-scaling-stroke;
+}
+
+.section-sketch-dot {
+  fill: currentColor;
+  stroke: none;
+}
+
+.section-sketch--primary {
+  color: var(--brand-primary);
+}
+
+.section-sketch--violet {
+  color: var(--assistant-accent-violet);
+}
+
+.section-sketch--cool {
+  color: var(--assistant-accent-cool);
+}
+
+.section-sketch--branch {
+  top: -12px;
+  right: -64px;
+  transform: rotate(9deg);
+}
+
+.section-sketch--nodes {
+  top: 46%;
+  left: -67px;
+  transform: rotate(-7deg);
+}
+
+.section-sketch--terminal {
+  top: 8px;
+  right: -70px;
+  width: 48px;
+  transform: rotate(8deg);
+}
+
+.section-sketch--data {
+  bottom: 2px;
+  left: -64px;
+  width: 40px;
+  opacity: 0.26;
+  transform: rotate(-12deg);
+}
+
+.section-sketch--signal {
+  top: -9px;
+  right: -62px;
+  transform: rotate(-4deg);
 }
 
 .intro-reveal-item {
@@ -2345,8 +2520,23 @@ a:focus-visible .writing-link-title {
     display: none;
   }
 
+  .section-sketch {
+    top: -14px;
+    right: 2px;
+    bottom: auto;
+    left: auto;
+    width: 30px;
+    opacity: 0.2;
+  }
+
   .intro-reveal-item {
     animation: none !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .intro-sketch-motion {
+    display: none;
   }
 }
 
@@ -2364,14 +2554,16 @@ a:focus-visible .writing-link-title {
   }
 
   .text-link:hover,
-  a:hover > .external-link-label {
+  a:hover > .external-link-label,
+  .assistant-message-body
+    a:not(.assistant-resource-card):not(.assistant-article-card):hover {
     color: var(--interactive-accent);
     background-position:
-      left calc(100% - 1px),
-      left calc(100% - 1px);
+      left bottom,
+      left bottom;
     background-size:
-      100% 1px,
-      100% 1px;
+      100% 8px,
+      100% 8px;
   }
 
   a:hover > .external-link-label + svg,
@@ -2382,8 +2574,8 @@ a:focus-visible .writing-link-title {
 
   a:hover .writing-link-title {
     color: var(--interactive-accent);
-    background-position: left calc(100% - 1px);
-    background-size: 100% 1px;
+    background-position: left bottom;
+    background-size: 100% 8px;
   }
 
   .name-link:hover::after {
@@ -2393,11 +2585,6 @@ a:focus-visible .writing-link-title {
 
   .role-phrase:hover .role-phrase-copy {
     background-position: 100% 50%;
-  }
-
-  .role-phrase:hover .role-phrase-copy::after {
-    transform: scaleX(1);
-    transform-origin: left;
   }
 
   .role-phrase:hover .role-phrase-mark {
@@ -2691,8 +2878,12 @@ a:focus-visible .writing-link-title {
     transition-duration: 0.01ms !important;
   }
 
+  .intro-sketch-motion {
+    animation: none !important;
+    transform: rotate(var(--sketch-rotation));
+  }
+
   .role-phrase-copy,
-  .role-phrase-copy::after,
   .role-phrase-mark,
   .link-preview,
   .site-dock-item,

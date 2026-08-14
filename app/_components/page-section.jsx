@@ -1,10 +1,13 @@
-export function PageSection({ children, id, title }) {
+import { SectionSketch } from "./section-sketch";
+
+export function PageSection({ children, id, sketch, sketchTone, title }) {
   return (
     <section
-      className="mt-[88px] max-[640px]:mt-[72px]"
+      className="page-section mt-[88px] max-[640px]:mt-[72px]"
       data-reveal
       id={id}
     >
+      {sketch ? <SectionSketch tone={sketchTone} variant={sketch} /> : null}
       <h2
         className="reveal-section-label mb-7 text-sm font-medium leading-[1.5]"
         data-reveal-item

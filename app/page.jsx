@@ -158,7 +158,9 @@ export default function Home() {
             </p>
             <p className="intro-reveal-item">
               I founded{" "}
-              <InlineLink href="https://complexus.tech">Complexus</InlineLink>{" "}
+              <MarkerHighlight tone="violet" variant="underline">
+                <InlineLink href="https://complexus.tech">Complexus</InlineLink>
+              </MarkerHighlight>{" "}
               and built{" "}
               <MarkerHighlight>
                 <InlineLink href="https://www.fortyone.app">FortyOne</InlineLink>
@@ -210,14 +212,19 @@ export default function Home() {
           </div>
         </div>
 
-        <PageSection id="writing" title="Writing">
+        <PageSection
+          id="writing"
+          sketch="branch"
+          sketchTone="primary"
+          title="Writing"
+        >
           <WritingList articles={writing} />
           <p className="mt-[18px]">
             <InlineLink href="/blog">All writing</InlineLink>
           </p>
         </PageSection>
 
-        <PageSection title="Projects">
+        <PageSection sketch="nodes" sketchTone="cool" title="Projects">
           <div className="grid grid-cols-3 gap-9 max-[640px]:grid-cols-1 max-[640px]:gap-[26px]">
             {projects.map((project) => (
               <div key={project.name}>
@@ -237,7 +244,12 @@ export default function Home() {
           </p>
         </PageSection>
 
-        <PageSection id="building" title="Building">
+        <PageSection
+          id="building"
+          sketch="terminal"
+          sketchTone="violet"
+          title="Building"
+        >
           <div>
             <div className="mb-5 flex items-baseline justify-between gap-6">
               <span className="font-medium">
@@ -264,7 +276,7 @@ export default function Home() {
           </div>
         </PageSection>
 
-        <PageSection title="Education">
+        <PageSection sketch="data" sketchTone="primary" title="Education">
           <div className="max-w-[600px] [&>p+p]:mt-6 [&_strong]:font-medium">
             <p>
               <strong>Master of Business Administration (MBA)</strong>,
@@ -281,7 +293,7 @@ export default function Home() {
           </div>
         </PageSection>
 
-        <PageSection title="Connect">
+        <PageSection sketch="signal" sketchTone="cool" title="Connect">
           <p className="max-w-[560px]">
             Reach me at{" "}
             <InlineLink href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</InlineLink>,
