@@ -145,29 +145,38 @@ export default function Home() {
             <p className="intro-reveal-item">
               I’m an{" "}
               <RolePhrase>
-                AI product engineer and engineering leader
+                AI product engineer and engineering leader 🔧
               </RolePhrase>
-              . Harare, Zimbabwe is home. I build production AI systems across
-              agents, conversational interfaces, voice, structured automation,
-              and human-in-the-loop workflows.
+              . Harare, Zimbabwe 🇿🇼 is home. I build production software and
+              AI systems—from secure full-stack products to agents,
+              conversational interfaces, voice, structured automation, and
+              human-in-the-loop workflows—designed to hold up when people depend
+              on them, not merely look convincing in a demo.
             </p>
             <p className="intro-reveal-item">
-              I’m the founder and product engineer behind{" "}
+              I’m the founder of{" "}
+              <InlineLink href="https://complexus.tech">Complexus</InlineLink>{" "}
+              and the creator of{" "}
               <InlineLink href="https://www.fortyone.app">FortyOne</InlineLink>,
-              an agentic project management platform, and the founder of{" "}
-              <InlineLink href="https://complexus.tech">Complexus</InlineLink>.
-              I currently lead engineering at Art Circles, where I set
-              technical direction, shape AI strategy, and lead product
-              delivery. The work beneath that AI layer spans secure full-stack
-              systems, cloud architecture, analytics, integrations, fintech,
-              and regulated environments.
+              an agentic project management platform that brings company goals,
+              customer feedback, project planning, and everyday delivery into
+              one connected system. I currently lead engineering at Art
+              Circles, setting technical direction, shaping AI strategy, and
+              guiding product delivery.
+            </p>
+            <p className="intro-reveal-item">
+              Across my work, I combine technical leadership, product strategy,
+              and project management with hands-on experience building secure
+              full-stack systems, cloud architecture, analytics, and
+              integrations. Much of that experience was shaped in fintech and
+              other regulated environments, where small technical decisions can
+              carry real consequences.
             </p>
             <p className="intro-reveal-item">
               I care about useful software, clear interfaces, strong systems,
-              and thoughtful details.{" "}
+              and thoughtful details. If you’d like to know more about me,{" "}
               <span className="assistant-intro-copy">
-                <AssistantIntroLink>Ask Maya, my AI assistant</AssistantIntroLink>{" "}
-                if you’d like to know more about me.
+                <AssistantIntroLink>ask Maya, my AI assistant</AssistantIntroLink>.
               </span>
             </p>
             <p className="intro-reveal-item text-subtle">
@@ -179,7 +188,7 @@ export default function Home() {
               <InlineLink href="https://www.linkedin.com/in/josemukorivo/">
                 LinkedIn
               </InlineLink>
-              , <InlineLink href="https://x.com/josemukorivo">X</InlineLink>,
+              , or <InlineLink href="https://x.com/josemukorivo">X</InlineLink>,
               read my <InlineLink href="/blog">writing</InlineLink>, or{" "}
               <InlineLink href={`mailto:${SITE_EMAIL}`}>
                 send me an email

@@ -2028,6 +2028,10 @@ a:focus-visible .writing-link-title {
   animation-delay: 290ms;
 }
 
+.intro-reveal-item:nth-child(5) {
+  animation-delay: 360ms;
+}
+
 .reveal-ready .reveal-section-content,
 .reveal-ready .reveal-page-heading,
 .reveal-ready .reveal-article-meta {
