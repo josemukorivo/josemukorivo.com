@@ -145,38 +145,36 @@ export default function Home() {
             <p className="intro-reveal-item">
               I’m an{" "}
               <RolePhrase>
-                AI product engineer and engineering leader 🔧
+                AI product engineer and engineering leader🔧
               </RolePhrase>
               . Harare, Zimbabwe 🇿🇼 is home. I build production software and
               AI systems—from secure full-stack products to agents,
-              conversational interfaces, voice, structured automation, and
-              human-in-the-loop workflows—designed to hold up when people depend
-              on them, not merely look convincing in a demo.
+              conversational and voice interfaces, automation, and
+              human-in-the-loop workflows—that people can depend on beyond a
+              demo.
             </p>
             <p className="intro-reveal-item">
-              I’m the founder of{" "}
+              I founded{" "}
               <InlineLink href="https://complexus.tech">Complexus</InlineLink>{" "}
-              and the creator of{" "}
+              and built{" "}
               <InlineLink href="https://www.fortyone.app">FortyOne</InlineLink>,
-              an agentic project management platform that brings company goals,
-              customer feedback, project planning, and everyday delivery into
-              one connected system. I currently lead engineering at Art
-              Circles, setting technical direction, shaping AI strategy, and
-              guiding product delivery.
+              an agentic project management platform connecting company goals,
+              customer feedback, planning, and delivery. I currently lead
+              engineering at Art Circles, setting technical direction, shaping
+              AI strategy, and guiding product delivery.
             </p>
             <p className="intro-reveal-item">
-              Across my work, I combine technical leadership, product strategy,
-              and project management with hands-on experience building secure
-              full-stack systems, cloud architecture, analytics, and
-              integrations. Much of that experience was shaped in fintech and
-              other regulated environments, where small technical decisions can
-              carry real consequences.
+              My work combines technical leadership, product strategy, project
+              management, and hands-on engineering across secure full-stack
+              systems, cloud architecture, analytics, and integrations—often in
+              fintech and regulated environments where details matter.
             </p>
             <p className="intro-reveal-item">
               I care about useful software, clear interfaces, strong systems,
-              and thoughtful details. If you’d like to know more about me,{" "}
+              and thoughtful details.{" "}
               <span className="assistant-intro-copy">
-                <AssistantIntroLink>ask Maya, my AI assistant</AssistantIntroLink>.
+                <AssistantIntroLink>Ask Maya, my AI assistant</AssistantIntroLink>{" "}
+                to learn more about me.
               </span>
             </p>
             <p className="intro-reveal-item text-subtle">
