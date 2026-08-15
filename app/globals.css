@@ -45,6 +45,7 @@
   --pen-blue: #173f7a;
   --pen-black: #303947;
   --pen-red: #a13d42;
+  --emphasis-ink: var(--text);
   --sketch-primary: var(--pen-blue);
   --sketch-secondary: var(--pen-black);
   --sketch-accent: var(--pen-red);
@@ -59,6 +60,15 @@
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.46 .21' numOctaves='4' seed='8'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .17 0 0 0 0 .22 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)' opacity='.3'/%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='210' viewBox='0 0 280 210'%3E%3Cg fill='none' stroke='%235f6d7d' stroke-linecap='round'%3E%3Cpath d='M8 31c23-3 38 4 61 0s41 2 70-1 45 4 72 0 39 2 61-2' stroke-width='.55' opacity='.14'/%3E%3Cpath d='M18 94c15 2 29-3 48 0s37-2 58 1 36-3 53 0 47-1 84 2' stroke-width='.42' opacity='.11'/%3E%3Cpath d='M3 163c25-2 44 3 70-1s49 3 78 0 52 2 85-2 32 2 40 1' stroke-width='.5' opacity='.12'/%3E%3Cpath d='M52 7c-2 22 3 38 0 60s2 41-1 65 3 39 0 69' stroke-width='.35' opacity='.09'/%3E%3Cpath d='M214 4c2 18-2 35 1 54s-2 43 1 67-2 47 0 78' stroke-width='.38' opacity='.08'/%3E%3C/g%3E%3C/svg%3E");
   --paper-texture-size: 760px 540px, 180px 180px, 280px 210px;
+  --dark-paper-texture:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='760' height='540' viewBox='0 0 760 540'%3E%3Cfilter id='c' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.008 .013' numOctaves='3' seed='19'/%3E%3CfeColorMatrix values='0 0 0 0 .46 0 0 0 0 .44 0 0 0 0 .4 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='760' height='540' filter='url(%23c)' opacity='.16'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.46 .21' numOctaves='4' seed='8'/%3E%3CfeColorMatrix values='0 0 0 0 .72 0 0 0 0 .69 0 0 0 0 .64 0 0 0 .045 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)' opacity='.13'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='210' viewBox='0 0 280 210'%3E%3Cg fill='none' stroke='%23c7b8a5' stroke-linecap='round'%3E%3Cpath d='M8 31c23-3 38 4 61 0s41 2 70-1 45 4 72 0 39 2 61-2' stroke-width='.5' opacity='.14'/%3E%3Cpath d='M18 94c15 2 29-3 48 0s37-2 58 1 36-3 53 0 47-1 84 2' stroke-width='.38' opacity='.1'/%3E%3Cpath d='M3 163c25-2 44 3 70-1s49 3 78 0 52 2 85-2 32 2 40 1' stroke-width='.46' opacity='.12'/%3E%3Cpath d='M52 7c-2 22 3 38 0 60s2 41-1 65 3 39 0 69' stroke-width='.32' opacity='.075'/%3E%3Cpath d='M214 4c2 18-2 35 1 54s-2 43 1 67-2 47 0 78' stroke-width='.34' opacity='.07'/%3E%3C/g%3E%3C/svg%3E");
+  --dark-assistant-sketch-frame: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'%3E%3Cpath d='M.8 1.1C18 .5 34 1.4 51 .8S82 1.5 99.1 .7C99.6 18 98.8 34 99.3 51S98.7 82 99.2 99.1C81 99.7 65 98.8 48 99.3S17 98.7 .8 99.2C.3 81 1.3 65 .7 48S1.4 18 .8 1.1Z' fill='none' stroke='%23c7b8a5' stroke-width='1.15' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.34'/%3E%3Cpath d='M1.4 .6C20 1.3 35 .4 53 1.2S83 .4 98.6 1.3C98.9 20 99.6 36 98.8 53S99.7 83 98.5 98.6C81 98.9 64 99.7 47 98.8S17 99.6 1.5 98.5C1.1 80 .4 64 1.2 47S.4 17 1.4 .6Z' fill='none' stroke='%23aaa098' stroke-width='.62' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.12'/%3E%3C/svg%3E");
+  --dark-assistant-sketch-frame-strong: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'%3E%3Cpath d='M.8 1.1C18 .5 34 1.4 51 .8S82 1.5 99.1 .7C99.6 18 98.8 34 99.3 51S98.7 82 99.2 99.1C81 99.7 65 98.8 48 99.3S17 98.7 .8 99.2C.3 81 1.3 65 .7 48S1.4 18 .8 1.1Z' fill='none' stroke='%23c7b8a5' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.5'/%3E%3Cpath d='M1.4 .6C20 1.3 35 .4 53 1.2S83 .4 98.6 1.3C98.9 20 99.6 36 98.8 53S99.7 83 98.5 98.6C81 98.9 64 99.7 47 98.8S17 99.6 1.5 98.5C1.1 80 .4 64 1.2 47S.4 17 1.4 .6Z' fill='none' stroke='%23aaa098' stroke-width='.66' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.18'/%3E%3C/svg%3E");
+  --dark-assistant-sketch-rule: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 8'%3E%3Cpath d='M0 3.8C9 2.5 17 5.1 26 3.5S43 5 53 3.2S70 5 80 3.4S93 4.8 100 3' fill='none' stroke='%23c7b8a5' stroke-width='1.25' stroke-linecap='round' opacity='.28'/%3E%3Cpath d='M1 5.4C13 4.1 22 6 33 4.8S52 5.8 63 4.5S84 5.9 99 4.6' fill='none' stroke='%23aaa098' stroke-width='.62' stroke-linecap='round' opacity='.1'/%3E%3C/svg%3E");
+  --dark-sketch-link-underline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cpath d='M1 8.8C8 5.9 15 10.4 23 7.1S38 10.6 49 6.7S66 10.1 75 6.8S91 9.5 99 6.4' fill='none' stroke='%23c7b8a5' stroke-width='2.35' stroke-linecap='round' opacity='.78'/%3E%3Cpath d='M2 10.6C12 8 20 11.3 30 9.1S47 11.1 58 8.4S75 10.9 84 8.3S94 9.9 98 8.8' fill='none' stroke='%23aaa098' stroke-width='.9' stroke-linecap='round' opacity='.32'/%3E%3C/svg%3E");
+  --dark-sketch-link-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cpath d='M1 8.8C8 5.9 15 10.4 23 7.1S38 10.6 49 6.7S66 10.1 75 6.8S91 9.5 99 6.4' fill='none' stroke='%23e38181' stroke-width='2.65' stroke-linecap='round' opacity='.84'/%3E%3Cpath d='M2 10.6C12 8 20 11.3 30 9.1S47 11.1 58 8.4S75 10.9 84 8.3S94 9.9 98 8.8' fill='none' stroke='%23c7b8a5' stroke-width='1' stroke-linecap='round' opacity='.4'/%3E%3C/svg%3E");
   --assistant-sketch-frame: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'%3E%3Cpath d='M.8 1.1C18 .5 34 1.4 51 .8S82 1.5 99.1 .7C99.6 18 98.8 34 99.3 51S98.7 82 99.2 99.1C81 99.7 65 98.8 48 99.3S17 98.7 .8 99.2C.3 81 1.3 65 .7 48S1.4 18 .8 1.1Z' fill='none' stroke='%23173f7a' stroke-width='1.15' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.4'/%3E%3Cpath d='M1.4 .6C20 1.3 35 .4 53 1.2S83 .4 98.6 1.3C98.9 20 99.6 36 98.8 53S99.7 83 98.5 98.6C81 98.9 64 99.7 47 98.8S17 99.6 1.5 98.5C1.1 80 .4 64 1.2 47S.4 17 1.4 .6Z' fill='none' stroke='%23303947' stroke-width='.62' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.18'/%3E%3C/svg%3E");
   --assistant-sketch-frame-strong: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'%3E%3Cpath d='M.8 1.1C18 .5 34 1.4 51 .8S82 1.5 99.1 .7C99.6 18 98.8 34 99.3 51S98.7 82 99.2 99.1C81 99.7 65 98.8 48 99.3S17 98.7 .8 99.2C.3 81 1.3 65 .7 48S1.4 18 .8 1.1Z' fill='none' stroke='%23173f7a' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.58'/%3E%3Cpath d='M1.4 .6C20 1.3 35 .4 53 1.2S83 .4 98.6 1.3C98.9 20 99.6 36 98.8 53S99.7 83 98.5 98.6C81 98.9 64 99.7 47 98.8S17 99.6 1.5 98.5C1.1 80 .4 64 1.2 47S.4 17 1.4 .6Z' fill='none' stroke='%23303947' stroke-width='.66' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.25'/%3E%3C/svg%3E");
   --assistant-sketch-rule: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 8'%3E%3Cpath d='M0 3.8C9 2.5 17 5.1 26 3.5S43 5 53 3.2S70 5 80 3.4S93 4.8 100 3' fill='none' stroke='%23173f7a' stroke-width='1.25' stroke-linecap='round' opacity='.32'/%3E%3Cpath d='M1 5.4C13 4.1 22 6 33 4.8S52 5.8 63 4.5S84 5.9 99 4.6' fill='none' stroke='%23303947' stroke-width='.62' stroke-linecap='round' opacity='.14'/%3E%3C/svg%3E");
@@ -70,7 +80,7 @@
   --code-background: #f4f4f0;
   --code-header-background: #eeeeea;
   --tooltip-background: rgba(251, 250, 245, 0.88);
-  --dock-glass-background: rgb(251 250 245 / 0.58);
+  --dock-glass-background: rgb(251 250 245 / 0.44);
   --viewport-blur-background: rgba(251, 250, 245, 0.08);
   --assistant-background: rgb(251 251 249 / 0.94);
   --assistant-invitation: rgb(253 253 252 / 0.82);
@@ -98,15 +108,19 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --background: #171411;
-  --text: #e7dfd4;
-  --muted: #9a9084;
-  --subtle: #bdb2a4;
-  --line: #342d27;
-  --paper-texture: none;
-  --sketch-primary: var(--brand-primary);
-  --sketch-secondary: var(--assistant-accent-violet);
-  --sketch-accent: var(--assistant-accent-cool);
+  --background: #11100f;
+  --text: #d2d0cb;
+  --muted: #a49f98;
+  --subtle: #b7b2aa;
+  --line: color-mix(in srgb, var(--pen-blue) 58%, transparent);
+  --pen-blue: #c7b8a5;
+  --pen-black: #aaa098;
+  --pen-red: #e38181;
+  --emphasis-ink: #e5e1da;
+  --paper-texture: var(--dark-paper-texture);
+  --sketch-primary: var(--pen-blue);
+  --sketch-secondary: var(--pen-black);
+  --sketch-accent: var(--pen-red);
   --role-phrase-ink: transparent;
   --role-phrase-fill: linear-gradient(
     92deg,
@@ -115,20 +129,25 @@
     var(--assistant-accent-cool) 72%,
     var(--text) 100%
   );
-  --role-mark-ink: #c0785b;
-  --sketch-link-underline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23ef7440'/%3E%3Cstop offset='.5' stop-color='%23ad91c8'/%3E%3Cstop offset='1' stop-color='%236a9da8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 8.8C8 5.9 15 10.4 23 7.1S38 10.6 49 6.7S66 10.1 75 6.8S91 9.5 99 6.4' fill='none' stroke='url(%23g)' stroke-width='2.4' stroke-linecap='round' opacity='.72'/%3E%3Cpath d='M2 10.6C12 8 20 11.3 30 9.1S47 11.1 58 8.4S75 10.9 84 8.3S94 9.9 98 8.8' fill='none' stroke='url(%23g)' stroke-width='1.1' stroke-linecap='round' opacity='.48'/%3E%3C/svg%3E");
-  --code-background: #211c18;
-  --code-header-background: #29221d;
-  --tooltip-background: rgba(39, 33, 28, 0.92);
-  --dock-glass-background: rgb(23 20 17 / 0.56);
-  --viewport-blur-background: rgba(23, 20, 17, 0.14);
-  --assistant-background: rgb(33 28 24 / 0.78);
-  --assistant-invitation: rgb(38 32 27 / 0.82);
-  --assistant-input: rgb(244 232 217 / 0.045);
-  --assistant-sketch-frame: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'%3E%3Cpath d='M.8 1.1C18 .5 34 1.4 51 .8S82 1.5 99.1 .7C99.6 18 98.8 34 99.3 51S98.7 82 99.2 99.1C81 99.7 65 98.8 48 99.3S17 98.7 .8 99.2C.3 81 1.3 65 .7 48S1.4 18 .8 1.1Z' fill='none' stroke='%23e7dfd4' stroke-width='1.15' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.27'/%3E%3Cpath d='M1.4 .6C20 1.3 35 .4 53 1.2S83 .4 98.6 1.3C98.9 20 99.6 36 98.8 53S99.7 83 98.5 98.6C81 98.9 64 99.7 47 98.8S17 99.6 1.5 98.5C1.1 80 .4 64 1.2 47S.4 17 1.4 .6Z' fill='none' stroke='%23e7dfd4' stroke-width='.62' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.11'/%3E%3C/svg%3E");
-  --assistant-sketch-frame-strong: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'%3E%3Cpath d='M.8 1.1C18 .5 34 1.4 51 .8S82 1.5 99.1 .7C99.6 18 98.8 34 99.3 51S98.7 82 99.2 99.1C81 99.7 65 98.8 48 99.3S17 98.7 .8 99.2C.3 81 1.3 65 .7 48S1.4 18 .8 1.1Z' fill='none' stroke='%23e7dfd4' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.38'/%3E%3Cpath d='M1.4 .6C20 1.3 35 .4 53 1.2S83 .4 98.6 1.3C98.9 20 99.6 36 98.8 53S99.7 83 98.5 98.6C81 98.9 64 99.7 47 98.8S17 99.6 1.5 98.5C1.1 80 .4 64 1.2 47S.4 17 1.4 .6Z' fill='none' stroke='%23e7dfd4' stroke-width='.66' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.16'/%3E%3C/svg%3E");
-  --assistant-sketch-rule: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 8'%3E%3Cpath d='M0 3.8C9 2.5 17 5.1 26 3.5S43 5 53 3.2S70 5 80 3.4S93 4.8 100 3' fill='none' stroke='%23e7dfd4' stroke-width='1.25' stroke-linecap='round' opacity='.2'/%3E%3Cpath d='M1 5.4C13 4.1 22 6 33 4.8S52 5.8 63 4.5S84 5.9 99 4.6' fill='none' stroke='%23e7dfd4' stroke-width='.62' stroke-linecap='round' opacity='.08'/%3E%3C/svg%3E");
-  --assistant-raised: rgb(244 232 217 / 0.06);
+  --role-mark-ink: var(--pen-red);
+  --sketch-link-underline: var(--dark-sketch-link-underline);
+  --sketch-link-accent: var(--dark-sketch-link-accent);
+  --code-background: #191817;
+  --code-header-background: #201e1c;
+  --tooltip-background: rgb(27 25 23 / 0.9);
+  --dock-glass-background: rgb(17 16 15 / 0.46);
+  --viewport-blur-background: rgb(17 16 15 / 0.14);
+  --assistant-background: rgb(27 25 23 / 0.86);
+  --assistant-invitation: rgb(29 27 24 / 0.88);
+  --assistant-input: rgb(199 184 165 / 0.065);
+  --assistant-sketch-frame: var(--dark-assistant-sketch-frame);
+  --assistant-sketch-frame-strong: var(--dark-assistant-sketch-frame-strong);
+  --assistant-sketch-rule: var(--dark-assistant-sketch-rule);
+  --assistant-raised: color-mix(
+    in srgb,
+    var(--code-header-background) 92%,
+    var(--pen-blue) 8%
+  );
   --assistant-user: var(--assistant-input);
   --assistant-accent-warm: #dc7a4a;
   --assistant-accent-violet: #a783c9;
@@ -139,15 +158,19 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     color-scheme: dark;
-    --background: #171411;
-    --text: #e7dfd4;
-    --muted: #9a9084;
-    --subtle: #bdb2a4;
-    --line: #342d27;
-    --paper-texture: none;
-    --sketch-primary: var(--brand-primary);
-    --sketch-secondary: var(--assistant-accent-violet);
-    --sketch-accent: var(--assistant-accent-cool);
+    --background: #11100f;
+    --text: #d2d0cb;
+    --muted: #a49f98;
+    --subtle: #b7b2aa;
+    --line: color-mix(in srgb, var(--pen-blue) 58%, transparent);
+    --pen-blue: #c7b8a5;
+    --pen-black: #aaa098;
+    --pen-red: #e38181;
+    --emphasis-ink: #e5e1da;
+    --paper-texture: var(--dark-paper-texture);
+    --sketch-primary: var(--pen-blue);
+    --sketch-secondary: var(--pen-black);
+    --sketch-accent: var(--pen-red);
     --role-phrase-ink: transparent;
     --role-phrase-fill: linear-gradient(
       92deg,
@@ -156,20 +179,25 @@
       var(--assistant-accent-cool) 72%,
       var(--text) 100%
     );
-    --role-mark-ink: #c0785b;
-    --sketch-link-underline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23ef7440'/%3E%3Cstop offset='.5' stop-color='%23ad91c8'/%3E%3Cstop offset='1' stop-color='%236a9da8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 8.8C8 5.9 15 10.4 23 7.1S38 10.6 49 6.7S66 10.1 75 6.8S91 9.5 99 6.4' fill='none' stroke='url(%23g)' stroke-width='2.4' stroke-linecap='round' opacity='.72'/%3E%3Cpath d='M2 10.6C12 8 20 11.3 30 9.1S47 11.1 58 8.4S75 10.9 84 8.3S94 9.9 98 8.8' fill='none' stroke='url(%23g)' stroke-width='1.1' stroke-linecap='round' opacity='.48'/%3E%3C/svg%3E");
-    --code-background: #211c18;
-    --code-header-background: #29221d;
-    --tooltip-background: rgba(39, 33, 28, 0.92);
-    --dock-glass-background: rgb(23 20 17 / 0.56);
-    --viewport-blur-background: rgba(23, 20, 17, 0.14);
-    --assistant-background: rgb(33 28 24 / 0.78);
-    --assistant-invitation: rgb(38 32 27 / 0.82);
-    --assistant-input: rgb(244 232 217 / 0.045);
-    --assistant-sketch-frame: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'%3E%3Cpath d='M.8 1.1C18 .5 34 1.4 51 .8S82 1.5 99.1 .7C99.6 18 98.8 34 99.3 51S98.7 82 99.2 99.1C81 99.7 65 98.8 48 99.3S17 98.7 .8 99.2C.3 81 1.3 65 .7 48S1.4 18 .8 1.1Z' fill='none' stroke='%23e7dfd4' stroke-width='1.15' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.27'/%3E%3Cpath d='M1.4 .6C20 1.3 35 .4 53 1.2S83 .4 98.6 1.3C98.9 20 99.6 36 98.8 53S99.7 83 98.5 98.6C81 98.9 64 99.7 47 98.8S17 99.6 1.5 98.5C1.1 80 .4 64 1.2 47S.4 17 1.4 .6Z' fill='none' stroke='%23e7dfd4' stroke-width='.62' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.11'/%3E%3C/svg%3E");
-    --assistant-sketch-frame-strong: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'%3E%3Cpath d='M.8 1.1C18 .5 34 1.4 51 .8S82 1.5 99.1 .7C99.6 18 98.8 34 99.3 51S98.7 82 99.2 99.1C81 99.7 65 98.8 48 99.3S17 98.7 .8 99.2C.3 81 1.3 65 .7 48S1.4 18 .8 1.1Z' fill='none' stroke='%23e7dfd4' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.38'/%3E%3Cpath d='M1.4 .6C20 1.3 35 .4 53 1.2S83 .4 98.6 1.3C98.9 20 99.6 36 98.8 53S99.7 83 98.5 98.6C81 98.9 64 99.7 47 98.8S17 99.6 1.5 98.5C1.1 80 .4 64 1.2 47S.4 17 1.4 .6Z' fill='none' stroke='%23e7dfd4' stroke-width='.66' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.16'/%3E%3C/svg%3E");
-    --assistant-sketch-rule: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 8'%3E%3Cpath d='M0 3.8C9 2.5 17 5.1 26 3.5S43 5 53 3.2S70 5 80 3.4S93 4.8 100 3' fill='none' stroke='%23e7dfd4' stroke-width='1.25' stroke-linecap='round' opacity='.2'/%3E%3Cpath d='M1 5.4C13 4.1 22 6 33 4.8S52 5.8 63 4.5S84 5.9 99 4.6' fill='none' stroke='%23e7dfd4' stroke-width='.62' stroke-linecap='round' opacity='.08'/%3E%3C/svg%3E");
-    --assistant-raised: rgb(244 232 217 / 0.06);
+    --role-mark-ink: var(--pen-red);
+    --sketch-link-underline: var(--dark-sketch-link-underline);
+    --sketch-link-accent: var(--dark-sketch-link-accent);
+    --code-background: #191817;
+    --code-header-background: #201e1c;
+    --tooltip-background: rgb(27 25 23 / 0.9);
+    --dock-glass-background: rgb(17 16 15 / 0.46);
+    --viewport-blur-background: rgb(17 16 15 / 0.14);
+    --assistant-background: rgb(27 25 23 / 0.86);
+    --assistant-invitation: rgb(29 27 24 / 0.88);
+    --assistant-input: rgb(199 184 165 / 0.065);
+    --assistant-sketch-frame: var(--dark-assistant-sketch-frame);
+    --assistant-sketch-frame-strong: var(--dark-assistant-sketch-frame-strong);
+    --assistant-sketch-rule: var(--dark-assistant-sketch-rule);
+    --assistant-raised: color-mix(
+      in srgb,
+      var(--code-header-background) 92%,
+      var(--pen-blue) 8%
+    );
     --assistant-user: var(--assistant-input);
     --assistant-accent-warm: #dc7a4a;
     --assistant-accent-violet: #a783c9;
@@ -380,6 +408,7 @@
 
 .text-link,
 .external-link-label {
+  color: var(--emphasis-ink);
   background-image:
     var(--sketch-link-accent),
     var(--sketch-link-underline);
@@ -407,6 +436,15 @@
 
 .name-link {
   color: var(--text);
+}
+
+.name-signature,
+.marker-highlight-copy {
+  color: var(--emphasis-ink);
+}
+
+.identity-link {
+  color: var(--emphasis-ink);
 }
 
 .text-link:focus-visible,

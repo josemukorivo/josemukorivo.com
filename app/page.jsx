@@ -168,11 +168,21 @@ export default function Home() {
             <p className="intro-reveal-item">
               I founded{" "}
               <MarkerHighlight tone="violet" variant="underline">
-                <InlineLink href="https://complexus.tech">Complexus</InlineLink>
+                <InlineLink
+                  className="identity-link"
+                  href="https://complexus.tech"
+                >
+                  Complexus
+                </InlineLink>
               </MarkerHighlight>{" "}
               and built{" "}
               <MarkerHighlight>
-                <InlineLink href="https://www.fortyone.app">FortyOne</InlineLink>
+                <InlineLink
+                  className="identity-link"
+                  href="https://www.fortyone.app"
+                >
+                  FortyOne
+                </InlineLink>
               </MarkerHighlight>
               ,
               an agentic project management platform connecting company{" "}
