@@ -4,7 +4,13 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useEffectEvent, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useEffectEvent,
+  useRef,
+  useState
+} from "react";
 import {
   OPEN_PORTFOLIO_ASSISTANT_EVENT,
   queuePortfolioAssistantPrompt
@@ -38,6 +44,7 @@ const ASSISTANT_INVITATION_DISMISSAL_MS = 14 * 24 * 60 * 60 * 1000;
 const DESKTOP_INVITATION_DELAY_MS = 5000;
 const MOBILE_INVITATION_DELAY_MS = 10000;
 const MOBILE_INVITATION_VISIBLE_MS = 8000;
+const DOCK_HIDE_DELAY_MS = 1200;
 
 const DEFAULT_INVITATION_COPY = Object.freeze({
   context: "general",
@@ -277,16 +284,47 @@ function MobileAssistantLauncher({ onOpen, pathname }) {
 }
 
 export function SiteDock() {
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "";
   const router = useRouter();
+  const [dockVisible, setDockVisible] = useState(false);
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [assistantLoaded, setAssistantLoaded] = useState(false);
   const [assistantLaunchRequest, setAssistantLaunchRequest] = useState(null);
   const [invitationState, setInvitationState] = useState("checking");
   const invitationSoundPending = useRef(false);
   const invitationSoundPlayed = useRef(false);
+  const dockEngaged = useRef(false);
+  const dockHideTimeout = useRef(null);
   const isAssistantPage = pathname === "/assistant";
   const invitationCopy = getAssistantInvitationCopy(pathname);
+
+  const clearDockHideTimeout = useCallback(() => {
+    if (dockHideTimeout.current === null) {
+      return;
+    }
+
+    window.clearTimeout(dockHideTimeout.current);
+    dockHideTimeout.current = null;
+  }, []);
+
+  const scheduleDockHide = useCallback(() => {
+    clearDockHideTimeout();
+    dockHideTimeout.current = window.setTimeout(() => {
+      if (!dockEngaged.current) {
+        setDockVisible(false);
+      }
+    }, DOCK_HIDE_DELAY_MS);
+  }, [clearDockHideTimeout]);
+
+  const keepDockOpen = useCallback(() => {
+    dockEngaged.current = true;
+    clearDockHideTimeout();
+  }, [clearDockHideTimeout]);
+
+  const releaseDock = useCallback(() => {
+    dockEngaged.current = false;
+    scheduleDockHide();
+  }, [scheduleDockHide]);
 
   const attemptInvitationSound = useEffectEvent(() => {
     if (invitationSoundPlayed.current) {
@@ -325,6 +363,32 @@ export function SiteDock() {
     setAssistantLoaded(true);
     setAssistantOpen(true);
   }
+
+  useEffect(() => {
+    const siteHeader = document.querySelector("[data-site-header]");
+
+    const showDockWhileScrolling = () => {
+      setDockVisible(true);
+      scheduleDockHide();
+    };
+
+    const handleScroll = () => {
+      if (siteHeader?.getBoundingClientRect().bottom > 0) {
+        clearDockHideTimeout();
+        setDockVisible(false);
+        return;
+      }
+
+      showDockWhileScrolling();
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      clearDockHideTimeout();
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [clearDockHideTimeout, scheduleDockHide]);
 
   useEffect(() => {
     if (isAssistantPage) {
@@ -452,6 +516,15 @@ export function SiteDock() {
         aria-label="Main navigation"
         className="site-dock"
         data-assistant-page={isAssistantPage ? "true" : undefined}
+        data-visible={dockVisible ? "true" : "false"}
+        onBlurCapture={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget)) {
+            releaseDock();
+          }
+        }}
+        onFocusCapture={keepDockOpen}
+        onPointerEnter={keepDockOpen}
+        onPointerLeave={releaseDock}
       >
         <span aria-hidden="true" className="site-dock-surface" />
         {ITEMS.map(({ href, icon: Icon, label }) => {

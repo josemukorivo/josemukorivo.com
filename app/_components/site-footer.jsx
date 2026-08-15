@@ -5,7 +5,7 @@ export function SiteFooter() {
       data-reveal
       data-reveal-self
     >
-      <span className="name-signature relative font-body text-[20px] font-normal leading-[1.1] text-ink">
+      <span className="name-signature relative font-body text-[15px] font-normal italic leading-[1.1] text-ink">
         Joseph Mukorivo
       </span>
       <span>{new Date().getFullYear()}</span>

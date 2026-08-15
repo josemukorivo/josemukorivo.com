@@ -2,13 +2,10 @@
 
 import Link from "next/link";
 import { requestPortfolioAssistantOpen } from "./assistant-events";
+import { HandDrawnArrowIcon } from "./hand-drawn-icon";
 
 function AssistantArrow() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 16 16">
-      <path d="M4 12 12 4M6 4h6v6" />
-    </svg>
-  );
+  return <HandDrawnArrowIcon />;
 }
 
 export function AssistantIntroLink({ children }) {

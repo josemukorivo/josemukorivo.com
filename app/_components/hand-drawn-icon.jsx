@@ -1,12 +1,43 @@
+import { useId } from "react";
+
 export function HandDrawnIcon({ children, className = "", viewBox = "0 0 24 24" }) {
+  const filterId = `hand-drawn-icon-${useId().replaceAll(":", "")}`;
+
   return (
     <svg
       aria-hidden="true"
-      className={['hand-drawn-icon', className].filter(Boolean).join(" ")}
+      className={["hand-drawn-icon", className].filter(Boolean).join(" ")}
       viewBox={viewBox}
     >
-      <g className="hand-drawn-icon-echo">{children}</g>
-      {children}
+      <defs>
+        <filter
+          colorInterpolationFilters="sRGB"
+          id={filterId}
+          x="-12%"
+          y="-12%"
+          width="124%"
+          height="124%"
+        >
+          <feTurbulence
+            baseFrequency="0.035 0.22"
+            numOctaves="2"
+            result="noise"
+            seed="17"
+            type="fractalNoise"
+          />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="noise"
+            scale="1.45"
+            xChannelSelector="R"
+            yChannelSelector="B"
+          />
+        </filter>
+      </defs>
+      <g className="hand-drawn-icon-echo" filter={`url(#${filterId})`}>
+        {children}
+      </g>
+      <g filter={`url(#${filterId})`}>{children}</g>
     </svg>
   );
 }
@@ -23,8 +54,8 @@ export function HandDrawnWritingIcon() {
 export function HandDrawnProjectsIcon() {
   return (
     <HandDrawnIcon viewBox="0 0 20 20">
-      <path d="M3.6 5.4h4.3l1.7 1.8h6.8v8.2H3.6V5.4Z" />
-      <path d="M3.8 8.2c3.2-.2 8.4-.2 12.5 0" />
+      <path d="M3.5 5.7C4.9 5.4 6.7 5.6 8.1 5.7L9.7 7.3c2.3-.2 4.5-.1 6.8.1-.1 2.7.1 5.4-.2 8-4.1.2-8.5.1-12.8-.1C3.4 12.2 3.3 8.8 3.5 5.7Z" />
+      <path d="M3.7 8.4c3.4-.3 8.5-.2 12.7.1" />
     </HandDrawnIcon>
   );
 }
@@ -74,8 +105,8 @@ export function HandDrawnDarkIcon() {
 export function HandDrawnSystemIcon() {
   return (
     <HandDrawnIcon viewBox="0 0 18 18">
-      <rect x="2.7" y="3.5" width="12.6" height="8.5" rx="1.1" />
-      <path d="M6.8 14.5h4.4M9 12v2.5" />
+      <path d="M2.8 3.7c3.4-.3 8.9-.2 12.3.1.2 2.4.1 5.5-.1 8-3.2.3-8.6.2-12.2-.1-.2-2.3-.2-5.6 0-8Z" />
+      <path d="M6.7 14.6c1.4-.2 3-.2 4.5 0M9 12c-.1.8-.1 1.7 0 2.5" />
     </HandDrawnIcon>
   );
 }
@@ -83,8 +114,8 @@ export function HandDrawnSystemIcon() {
 export function HandDrawnSendIcon() {
   return (
     <HandDrawnIcon>
-      <path d="m3.3 11.2 17-6.8-6.2 15.9-3.1-7.3-7.7-1.8Z" />
-      <path d="m10.9 13 9.4-8.6" />
+      <path d="M3.1 11.5c5.2-2.2 11.8-4.9 17.2-7.2-1.8 5-4.3 11.2-6.4 16.1-1.2-2.9-2.2-5.3-3.3-7.2-2.7-.5-5.2-1.1-7.5-1.7Z" />
+      <path d="M10.7 13.2c2.9-2.3 6.1-6 9.4-8.7" />
     </HandDrawnIcon>
   );
 }
@@ -92,7 +123,7 @@ export function HandDrawnSendIcon() {
 export function HandDrawnStopIcon({ className }) {
   return (
     <HandDrawnIcon className={className}>
-      <rect x="4.2" y="4.2" width="15.6" height="15.6" rx="1.8" />
+      <path d="M5 4.8c3.8-.5 8.7-.4 13.9-.1.4 4.1.4 9.3 0 14.1-4.5.5-9.3.4-13.9.1-.5-4.7-.5-9.2 0-14.1Z" />
     </HandDrawnIcon>
   );
 }
@@ -100,7 +131,7 @@ export function HandDrawnStopIcon({ className }) {
 export function HandDrawnVoiceIcon() {
   return (
     <HandDrawnIcon>
-      <path d="M4 10.5v3M7.8 8v8M12 5v14M16.2 8v8M20 10.5v3" />
+      <path d="M3.5 11.1c-.2.8-.1 1.7.1 2.5M7.6 8.1c-.2 2.7-.2 5.3.1 7.9M11.9 5c-.3 4.7-.2 9.4.1 14M16.2 8.3c-.2 2.7-.1 5.2.1 7.8M20.2 10.8c-.3.8-.2 1.7.1 2.5" />
     </HandDrawnIcon>
   );
 }
@@ -108,8 +139,8 @@ export function HandDrawnVoiceIcon() {
 export function HandDrawnMicrophoneIcon({ className }) {
   return (
     <HandDrawnIcon className={className}>
-      <rect x="8" y="2.2" width="8" height="12.2" rx="4" />
-      <path d="M5.5 10.3a6.5 6.5 0 0 0 13 0M12 16.8v4M9.3 20.8h5.4" />
+      <path d="M8.2 6.2c-.1-2.1 1.5-3.8 3.8-4 2.1.1 3.8 1.7 3.8 3.9-.1 2.6.1 5.2-.2 7.8-1 .9-2.2 1.3-3.7 1.2-2.2-.1-3.6-1.6-3.7-3.8.1-1.7 0-3.4 0-5.1Z" />
+      <path d="M5.3 10.7c.1 3.8 2.6 6.6 6.5 6.6 3.5.1 6.2-2.7 6.6-6.4M12 17.4c-.2 1.2-.1 2.4 0 3.5M9.2 20.9c1.7-.2 3.6-.2 5.5 0" />
     </HandDrawnIcon>
   );
 }
