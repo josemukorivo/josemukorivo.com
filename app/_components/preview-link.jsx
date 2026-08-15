@@ -1,12 +1,15 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
   ANALYTICS_EVENTS,
   captureAnalyticsEvent
 } from "../../lib/analytics";
+import { getLocaleFromPathname } from "../../lib/i18n-config";
+import { getLinkPreview } from "../../lib/link-previews";
 
 const COMPACT_PREVIEW_WIDTH = 252;
 const MEDIA_PREVIEW_WIDTH = 288;
@@ -75,21 +78,25 @@ export function PreviewLink({
   target,
   ...props
 }) {
+  const pathname = usePathname() ?? "/";
   const anchorRef = useRef(null);
   const openTimerRef = useRef(null);
   const closeTimerRef = useRef(null);
   const previewTrackedRef = useRef(false);
   const previewId = useId();
   const [previewState, setPreviewState] = useState(null);
-  const desiredPreviewWidth = preview?.image
+  const localizedPreview = preview
+    ? getLinkPreview(href, getLocaleFromPathname(pathname)) ?? preview
+    : null;
+  const desiredPreviewWidth = localizedPreview?.image
     ? MEDIA_PREVIEW_WIDTH
     : COMPACT_PREVIEW_WIDTH;
-  const previewHeight = preview?.image ? 245 : 116;
+  const previewHeight = localizedPreview?.image ? 245 : 116;
   const linkTarget =
     target ?? (href.startsWith("mailto:") ? undefined : "_blank");
 
   function openPreview(input = "pointer") {
-    if (!preview || !anchorRef.current) {
+    if (!localizedPreview || !anchorRef.current) {
       return;
     }
 
@@ -120,8 +127,10 @@ export function PreviewLink({
       if (!previewTrackedRef.current) {
         captureAnalyticsEvent(ANALYTICS_EVENTS.linkPreviewViewed, {
           input,
-          preview_title: preview.title,
-          preview_type: preview.image ? "project" : preview.icon || "link"
+          preview_title: localizedPreview.title,
+          preview_type: localizedPreview.image
+            ? "project"
+            : localizedPreview.icon || "link"
         });
         previewTrackedRef.current = true;
       }
@@ -169,13 +178,13 @@ export function PreviewLink({
       >
         {children}
       </a>
-      {preview && previewState &&
+      {localizedPreview && previewState &&
         createPortal(
           <span
             className="link-preview"
             data-input={previewState.input}
             data-placement={previewState.placement}
-            data-variant={preview.image ? "media" : "compact"}
+            data-variant={localizedPreview.image ? "media" : "compact"}
             id={previewId}
             role="tooltip"
             style={{
@@ -184,25 +193,27 @@ export function PreviewLink({
               top: previewState.top
             }}
           >
-            {preview.image ? (
+            {localizedPreview.image ? (
               <span className="link-preview-media" aria-hidden="true">
                 <Image
                   alt=""
                   height={165}
                   sizes="288px"
-                  src={preview.image}
+                  src={localizedPreview.image}
                   width={288}
                 />
               </span>
             ) : (
               <span className="link-preview-mark" aria-hidden="true">
-                <PreviewIcon name={preview.icon} />
+                <PreviewIcon name={localizedPreview.icon} />
               </span>
             )}
             <span className="link-preview-content">
-              <span className="link-preview-title">{preview.title}</span>
+              <span className="link-preview-title">
+                {localizedPreview.title}
+              </span>
               <span className="link-preview-description">
-                {preview.description}
+                {localizedPreview.description}
               </span>
             </span>
           </span>,

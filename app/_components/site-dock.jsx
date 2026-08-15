@@ -57,38 +57,41 @@ const DEFAULT_INVITATION_COPY = Object.freeze({
   title: "Talk to Maya"
 });
 
-function getAssistantInvitationCopy(pathname) {
+function getAssistantInvitationCopy(pathname, messages) {
   if (pathname.startsWith("/blog/")) {
     return {
       context: "article",
-      description: "Get a quick summary or explore the ideas behind it.",
+      description: messages.article.description,
       prompt:
         "Summarize the article I am currently reading and explain its main takeaway.",
-      title: "Ask about this article"
+      title: messages.article.title
     };
   }
 
   if (pathname === "/blog") {
     return {
       context: "writing",
-      description: "Explore an article or ask for a quick summary.",
+      description: messages.writing.description,
       prompt:
         "Give me an overview of Joseph's writing and recommend an article to start with.",
-      title: "Ask about my writing"
+      title: messages.writing.title
     };
   }
 
   if (pathname === "/projects") {
     return {
       context: "projects",
-      description: "Get the story behind what I built and why.",
+      description: messages.projects.description,
       prompt:
         "Tell me about these projects and which one best represents Joseph's work.",
-      title: "Ask about these projects"
+      title: messages.projects.title
     };
   }
 
-  return DEFAULT_INVITATION_COPY;
+  return {
+    ...DEFAULT_INVITATION_COPY,
+    ...messages.general
+  };
 }
 
 function readAssistantInvitationPreference() {
@@ -267,10 +270,10 @@ function isActivePath(pathname, href) {
   return href === "/" ? pathname === href : pathname.startsWith(href);
 }
 
-function MobileAssistantLauncher({ href, onOpen, pathname }) {
+function MobileAssistantLauncher({ ariaLabel, href, onOpen, pathname }) {
   return (
     <Link
-      aria-label="Open Maya, Joseph’s AI assistant"
+      aria-label={ariaLabel}
       className="mobile-assistant-launcher"
       href={href}
       onClick={() => {
@@ -287,7 +290,12 @@ function MobileAssistantLauncher({ href, onOpen, pathname }) {
   );
 }
 
-export function SiteDock({ locale, messages }) {
+export function SiteDock({
+  invitationMessages,
+  locale,
+  messages,
+  themeMessages
+}) {
   const pathname = usePathname() ?? "";
   const basePathname = stripLocaleFromPathname(pathname);
   const router = useRouter();
@@ -301,7 +309,10 @@ export function SiteDock({ locale, messages }) {
   const dockEngaged = useRef(false);
   const dockHideTimeout = useRef(null);
   const isAssistantPage = basePathname === "/assistant";
-  const invitationCopy = getAssistantInvitationCopy(basePathname);
+  const invitationCopy = getAssistantInvitationCopy(
+    basePathname,
+    invitationMessages
+  );
 
   const clearDockHideTimeout = useCallback(() => {
     if (dockHideTimeout.current === null) {
@@ -518,7 +529,7 @@ export function SiteDock({ locale, messages }) {
   return (
     <>
       <nav
-        aria-label="Main navigation"
+        aria-label={messages.ariaLabel}
         className="site-dock"
         data-assistant-page={isAssistantPage ? "true" : undefined}
         data-visible={dockVisible ? "true" : "false"}
@@ -554,13 +565,14 @@ export function SiteDock({ locale, messages }) {
         })}
         <span aria-hidden="true" className="site-dock-divider" />
         <span className="site-dock-theme">
-          <ThemeToggle />
+          <ThemeToggle messages={themeMessages} />
         </span>
       </nav>
       {!isAssistantPage ? (
         <>
           {invitationState !== "visible" ? (
             <MobileAssistantLauncher
+              ariaLabel={messages.openAssistant}
               href={localizePath("/assistant", locale)}
               onOpen={() => setInvitationState("dismissed")}
               pathname={pathname}
@@ -568,7 +580,7 @@ export function SiteDock({ locale, messages }) {
           ) : null}
           {invitationState === "visible" && !assistantOpen ? (
             <aside
-              aria-label="Maya invitation"
+              aria-label={invitationMessages.ariaLabel}
               className="assistant-invitation"
             >
               <button
@@ -594,7 +606,7 @@ export function SiteDock({ locale, messages }) {
                 </span>
               </button>
               <button
-                aria-label="Dismiss Maya invitation"
+                aria-label={invitationMessages.dismissLabel}
                 className="assistant-invitation-close"
                 onClick={() => {
                   snoozeAssistantInvitation();

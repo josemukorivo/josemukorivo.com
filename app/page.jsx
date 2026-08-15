@@ -210,7 +210,16 @@ export default async function Home() {
                 </InlineLink>
               </MarkerHighlight>
               ,{" "}
-              {locale === "en" ? (
+              {home.founderAfterBeforeEdit ? (
+                <>
+                  {home.founderAfterBeforeEdit}{" "}
+                  <HandwrittenReplacement
+                    correction={home.founderCorrection}
+                    draft={home.founderDraft}
+                  />
+                  .
+                </>
+              ) : locale === "en" ? (
                 <>
                   an agentic project management platform connecting company{" "}
                   <HandwrittenInsertion
@@ -343,7 +352,16 @@ export default async function Home() {
             <div className="[&>p+p]:mt-6">
               {home.buildingParagraphs.map((paragraph, index) => (
                 <p key={paragraph}>
-                  {locale === "en" && index === 1 ? (
+                  {index === 0 && home.buildingIntroBeforeEdit ? (
+                    <>
+                      {home.buildingIntroBeforeEdit}{" "}
+                      <HandwrittenReplacement
+                        correction={home.buildingIntroCorrection}
+                        draft={home.buildingIntroDraft}
+                      />{" "}
+                      {home.buildingIntroAfterEdit}
+                    </>
+                  ) : locale === "en" && index === 1 ? (
                     <>
                       Company{" "}
                       <HandwrittenInsertion
@@ -400,7 +418,7 @@ export default async function Home() {
         >
           <p className="max-w-[560px]">
             {home.connectPrefix}{" "}
-            <InlineLink href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</InlineLink>,
+            <InlineLink href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</InlineLink>,{" "}
             {home.connectLinkedIn}{" "}
             <InlineLink href="https://www.linkedin.com/in/josemukorivo/">
               LinkedIn

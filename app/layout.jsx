@@ -154,7 +154,12 @@ export default async function RootLayout({ children }) {
           className="viewport-blur viewport-blur--bottom"
         />
         {children}
-        <SiteDock locale={locale} messages={messages.navigation} />
+        <SiteDock
+          invitationMessages={messages.assistantInvitation}
+          locale={locale}
+          messages={messages.navigation}
+          themeMessages={messages.theme}
+        />
       </body>
     </html>
   );

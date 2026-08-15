@@ -26,9 +26,9 @@ function SystemIcon() {
 }
 
 const THEMES = [
-  { id: "light", label: "Light", icon: LightIcon },
-  { id: "system", label: "System", icon: SystemIcon },
-  { id: "dark", label: "Dark", icon: DarkIcon }
+  { id: "light", icon: LightIcon },
+  { id: "system", icon: SystemIcon },
+  { id: "dark", icon: DarkIcon }
 ];
 
 function subscribeToTheme(onStoreChange) {
@@ -56,7 +56,7 @@ function selectTheme(theme) {
   applyTheme(theme);
 }
 
-export function ThemeToggle({ className = "" }) {
+export function ThemeToggle({ className = "", messages }) {
   const theme = useSyncExternalStore(
     subscribeToTheme,
     getThemePreference,
@@ -65,13 +65,13 @@ export function ThemeToggle({ className = "" }) {
 
   return (
     <div
-      aria-label="Color theme"
+      aria-label={messages.ariaLabel}
       className={`theme-toggle ${className}`.trim()}
       role="group"
     >
-      {THEMES.map(({ icon: Icon, id, label }) => (
+      {THEMES.map(({ icon: Icon, id }) => (
         <button
-          aria-label={`Use ${label.toLowerCase()} theme`}
+          aria-label={messages.options[id].action}
           aria-pressed={theme === id}
           className="theme-toggle-option"
           key={id}
@@ -80,7 +80,7 @@ export function ThemeToggle({ className = "" }) {
         >
           <Icon />
           <span aria-hidden="true" className="site-dock-label">
-            {label}
+            {messages.options[id].label}
           </span>
         </button>
       ))}
