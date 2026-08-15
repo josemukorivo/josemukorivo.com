@@ -271,19 +271,39 @@ export default function Home() {
           <div>
             <div className="mb-5 flex items-baseline justify-between gap-6">
               <span className="font-medium">
-                <ExternalLink href="https://www.fortyone.app">
-                  FortyOne
-                </ExternalLink>
+                <MarkerHighlight tone="primary" variant="underline">
+                  <ExternalLink href="https://www.fortyone.app">
+                    FortyOne
+                  </ExternalLink>
+                </MarkerHighlight>
               </span>
               <span className="text-[13px] text-muted">Live product</span>
             </div>
             <div className="[&>p+p]:mt-6">
               <p>
-                FortyOne is an agentic project management platform that keeps
-                company goals, projects, and daily work connected. I built Maya
-                to turn requests into planned work, suggest owners and
-                estimates, answer workspace questions, and surface delivery
-                risk while keeping important changes reviewable.
+                FortyOne is an agentic project management platform that
+                connects strategy, customer feedback, planning, and daily
+                delivery. I built Maya to turn requests into planned work,
+                suggest owners and estimates, answer workspace questions, and
+                surface delivery risk while keeping important changes
+                reviewable.
+              </p>
+              <p>
+                Company{" "}
+                <HandwrittenInsertion
+                  after="tategy"
+                  before="s"
+                  character="r"
+                  value="strategy"
+                />{" "}
+                starts with objectives and key results. Teams can map how goals
+                relate, connect them to roadmaps and planned work, and see
+                whether daily delivery is moving the{" "}
+                <HandwrittenReplacement
+                  correction="outcomes"
+                  draft="output"
+                />{" "}
+                they committed to.
               </p>
               <p>
                 Customer feedback lives in the same flow. Teams can collect and
@@ -297,15 +317,20 @@ export default function Home() {
         <PageSection sketch="data" sketchTone="primary" title="Education">
           <div className="max-w-[600px] [&>p+p]:mt-6 [&_strong]:font-medium">
             <p>
-              <strong>Master of Business Administration (MBA)</strong>,
+              <MarkerHighlight tone="primary" variant="underline">
+                <strong>Master of Business Administration (MBA)</strong>
+              </MarkerHighlight>
+              ,{" "}
               National University of Science and Technology (NUST) — in
               progress.
             </p>
             <p>
               I earned a{" "}
-              <strong>
-                First Class BSc Honours in Information Technology
-              </strong>{" "}
+              <MarkerHighlight tone="primary" variant="underline">
+                <strong>
+                  First Class BSc Honours in Information Technology
+                </strong>
+              </MarkerHighlight>{" "}
               from Chinhoyi University of Technology in 2019.
             </p>
           </div>

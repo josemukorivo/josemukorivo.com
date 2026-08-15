@@ -541,7 +541,8 @@ a:focus-visible > .external-link-label {
   z-index: 1;
 }
 
-.marker-highlight .text-link {
+.marker-highlight .text-link,
+.marker-highlight .external-link-label {
   background-image: none;
 }
 
