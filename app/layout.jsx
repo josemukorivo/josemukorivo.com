@@ -1,4 +1,8 @@
-import { Inter, Newsreader, Nothing_You_Could_Do } from "next/font/google";
+import {
+  Newsreader,
+  Nothing_You_Could_Do,
+  Shantell_Sans
+} from "next/font/google";
 import { SiteDock } from "./_components/site-dock";
 import { ThemeScript } from "./_components/theme-script";
 import { RevealObserver } from "./reveal-observer";
@@ -14,9 +18,11 @@ import {
   SITE_URL
 } from "../lib/site";
 
-const inter = Inter({
+const shantellSans = Shantell_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600"],
+  style: "italic",
+  variable: "--font-shantell-sans",
   display: "swap"
 });
 
@@ -127,14 +133,14 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${newsreader.variable} ${handwriting.variable}`}
+      className={`${shantellSans.variable} ${newsreader.variable} ${handwriting.variable}`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <head>
         <ThemeScript />
       </head>
-      <body className="min-w-80 bg-canvas font-sans text-[14px] leading-[1.65] text-ink antialiased font-medium">
+      <body className="min-w-80 bg-canvas font-body text-[14px] leading-[1.65] text-ink antialiased font-medium dark:font-normal italic">
         <RevealObserver />
         <div
           aria-hidden="true"
