@@ -29,14 +29,6 @@ export function IntroSketches() {
         </defs>
       </svg>
 
-      <span className="intro-sketch-motion intro-sketch-motion--code">
-        <svg className="intro-sketch intro-sketch--code" viewBox="0 0 116 72">
-          <path d="M37 11C28 19 19 27 10 36C19 45 27 53 38 62" />
-          <path d="M68 7C62 25 55 44 49 65" />
-          <path d="M78 11C88 19 97 27 106 36C98 45 89 54 78 62" />
-        </svg>
-      </span>
-
       <svg
         className="intro-sketch intro-sketch--terminal"
         viewBox="0 0 54 44"
@@ -45,18 +37,6 @@ export function IntroSketches() {
         <path d="M13 15L20 21L13 27" />
         <path d="M27 29C32 28 37 29 41 29" />
       </svg>
-
-      <span className="intro-sketch-motion intro-sketch-motion--waveform">
-        <svg
-          className="intro-sketch intro-sketch--waveform"
-          viewBox="0 0 96 32"
-        >
-          <path
-            d="M3 17C14 4 25 28 37 14C48 1 59 5 70 17C79 27 87 25 93 10"
-            pathLength="100"
-          />
-        </svg>
-      </span>
 
       <svg
         className="intro-sketch intro-sketch--nodes"
