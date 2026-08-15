@@ -154,9 +154,18 @@ function HomeIcon() {
     <span className="site-dock-avatar">
       <Image
         alt=""
+        className="site-dock-avatar-image site-dock-avatar-image--light"
         height={28}
         sizes="28px"
-        src="/assets/joseph.webp"
+        src="/assets/joseph-mukorivo-sketch-light.webp"
+        width={28}
+      />
+      <Image
+        alt=""
+        className="site-dock-avatar-image site-dock-avatar-image--dark"
+        height={28}
+        sizes="28px"
+        src="/assets/joseph-mukorivo-sketch-dark.webp"
         width={28}
       />
     </span>

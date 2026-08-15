@@ -174,9 +174,9 @@ export default async function Home() {
   return (
     <PageShell>
       <JsonLd data={createHomepageSchema(locale)} />
-      <SiteHeader role={messages.headerRole} />
+      <SiteHeader />
 
-      <article className="mt-[88px] max-[640px]:mt-16" id="top">
+      <article className="mt-14 max-[640px]:mt-10" id="top">
         <div className="reveal-intro max-w-[600px]">
           <IntroSketches />
           <div className="intro-copy leading-[1.75] [&>p+p]:mt-6">
