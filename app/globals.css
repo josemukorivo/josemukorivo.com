@@ -9,8 +9,6 @@
   --font-body:
     var(--font-shantell-sans), "Segoe Print", cursive;
   --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
-  --font-handwriting:
-    var(--font-nothing-you-could-do), "Segoe Print", cursive;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
   /* Match FortyOne's round fallback and native squircle radius scale. */
@@ -364,14 +362,13 @@
 }
 
 .name-link {
-  transition: color 160ms var(--ease-standard);
+  color: var(--text);
 }
 
 .text-link:focus-visible,
 a:focus-visible > .external-link-label,
 a:focus-visible > .external-link-label + svg,
 a:focus-visible .writing-link-title,
-.name-link:focus-visible,
 .project-index-row:focus-visible .project-index-name {
   color: var(--interactive-accent);
 }
@@ -386,20 +383,18 @@ a:focus-visible > .external-link-label {
     100% 8px;
 }
 
-.name-link::after {
+.name-signature::after {
   position: absolute;
   right: 0;
   bottom: -3px;
   left: 0;
   height: 8px;
-  background-image: var(--sketch-link-accent);
+  background-image: var(--sketch-link-underline);
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 8px;
   content: "";
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 180ms var(--ease-out);
+  transform: rotate(-0.65deg);
 }
 
 .role-phrase {
@@ -2694,7 +2689,6 @@ a:focus-visible .writing-link-title {
   }
 
   a:hover > .external-link-label + svg,
-  .name-link:hover,
   .project-index-row:hover .project-index-name {
     color: var(--interactive-accent);
   }
@@ -2703,11 +2697,6 @@ a:focus-visible .writing-link-title {
     color: var(--interactive-accent);
     background-position: left bottom;
     background-size: 100% 8px;
-  }
-
-  .name-link:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
   }
 
   .role-phrase:hover .role-phrase-copy {
@@ -3056,7 +3045,6 @@ a:focus-visible .writing-link-title {
 
   .external-link-label,
   .external-link-label + svg,
-  .name-link::after,
   .text-link,
   .theme-toggle,
   .theme-toggle-option,

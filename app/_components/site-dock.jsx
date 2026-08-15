@@ -13,6 +13,13 @@ import {
   ANALYTICS_EVENTS,
   captureAnalyticsEvent
 } from "../../lib/analytics";
+import {
+  HandDrawnArrowIcon,
+  HandDrawnAssistantIcon,
+  HandDrawnCloseIcon,
+  HandDrawnProjectsIcon,
+  HandDrawnWritingIcon
+} from "./hand-drawn-icon";
 import { ThemeToggle } from "./theme-toggle";
 
 const PortfolioAssistant = dynamic(
@@ -143,45 +150,23 @@ function HomeIcon() {
 }
 
 function WritingIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 20 20">
-      <path d="M5 4.5h10M5 8h10M5 11.5h7M5 15h5" />
-    </svg>
-  );
+  return <HandDrawnWritingIcon />;
 }
 
 function ProjectsIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 20 20">
-      <path d="M4 5.25h4.25L10 7h6v8H4v-9.75Z" />
-      <path d="M4 8h12" />
-    </svg>
-  );
+  return <HandDrawnProjectsIcon />;
 }
 
 function AssistantIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24">
-      <path d="M10 6.25c-.314 0-.594.195-.703.49l-.516 1.394c-.7 1.892-.985 2.615-1.509 3.138-.523.524-1.246.809-3.138 1.509l-1.394.516a.75.75 0 0 0 0 1.406l1.394.516c1.892.7 2.615.985 3.138 1.509.524.523.809 1.246 1.509 3.138l.516 1.394a.75.75 0 0 0 1.406 0l.516-1.394c.7-1.892.985-2.615 1.509-3.138.523-.524 1.246-.809 3.138-1.509l1.394-.516a.75.75 0 0 0 0-1.406l-1.394-.516c-1.892-.7-2.615-.985-3.138-1.509-.524-.523-.809-1.246-1.509-3.138l-.516-1.394a.75.75 0 0 0-.703-.49Z" />
-      <path d="M18 2.25a.75.75 0 0 0-.703.49l-.221.597c-.314.848-.405 1.048-.548 1.191-.142.142-.343.234-1.191.548l-.597.22a.75.75 0 0 0 0 1.407l.597.221c.848.314 1.049.405 1.191.548.143.142.234.343.548 1.19l.221.598a.75.75 0 0 0 1.406 0l.221-.597c.314-.848.405-1.049.548-1.191.142-.143.343-.234 1.19-.548l.598-.221a.75.75 0 0 0 0-1.406l-.597-.221c-.848-.314-1.049-.406-1.191-.548-.143-.143-.234-.343-.548-1.191l-.221-.597a.75.75 0 0 0-.703-.49Z" />
-    </svg>
-  );
+  return <HandDrawnAssistantIcon />;
 }
 
 function AssistantArrow() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 16 16">
-      <path d="M4 12 12 4M6 4h6v6" />
-    </svg>
-  );
+  return <HandDrawnArrowIcon />;
 }
 
 function CloseIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 16 16">
-      <path d="m4.5 4.5 7 7m0-7-7 7" />
-    </svg>
-  );
+  return <HandDrawnCloseIcon />;
 }
 
 function getInvitationAudioContext() {

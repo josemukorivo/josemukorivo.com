@@ -1,8 +1,4 @@
-import {
-  Newsreader,
-  Nothing_You_Could_Do,
-  Shantell_Sans
-} from "next/font/google";
+import { Newsreader, Shantell_Sans } from "next/font/google";
 import { SiteDock } from "./_components/site-dock";
 import { ThemeScript } from "./_components/theme-script";
 import { RevealObserver } from "./reveal-observer";
@@ -31,13 +27,6 @@ const newsreader = Newsreader({
   weight: ["400", "500"],
   style: ["normal", "italic"],
   variable: "--font-newsreader",
-  display: "swap"
-});
-
-const handwriting = Nothing_You_Could_Do({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-nothing-you-could-do",
   display: "swap"
 });
 
@@ -138,7 +127,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${shantellSans.variable} ${newsreader.variable} ${handwriting.variable}`}
+      className={`${shantellSans.variable} ${newsreader.variable}`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >

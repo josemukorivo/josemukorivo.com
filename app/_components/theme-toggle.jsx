@@ -7,31 +7,22 @@ import {
   getThemePreference,
   updateThemeColor
 } from "../../lib/theme";
+import {
+  HandDrawnDarkIcon,
+  HandDrawnLightIcon,
+  HandDrawnSystemIcon
+} from "./hand-drawn-icon";
 
 function LightIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 18 18">
-      <circle cx="9" cy="9" r="2.75" />
-      <path d="M9 1.75v1.5M9 14.75v1.5M16.25 9h-1.5M3.25 9h-1.5M14.13 3.87l-1.06 1.06M4.93 13.07l-1.06 1.06M14.13 14.13l-1.06-1.06M4.93 4.93 3.87 3.87" />
-    </svg>
-  );
+  return <HandDrawnLightIcon />;
 }
 
 function DarkIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 18 18">
-      <path d="M14.25 11.15A6.15 6.15 0 0 1 6.85 3.75a5.7 5.7 0 1 0 7.4 7.4Z" />
-    </svg>
-  );
+  return <HandDrawnDarkIcon />;
 }
 
 function SystemIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 18 18">
-      <rect x="2.75" y="3.5" width="12.5" height="8.5" rx="1.25" />
-      <path d="M7 14.5h4M9 12v2.5" />
-    </svg>
-  );
+  return <HandDrawnSystemIcon />;
 }
 
 const THEMES = [
