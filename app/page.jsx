@@ -1,5 +1,9 @@
 import { ExternalLink } from "./_components/external-link";
 import { AssistantIntroLink } from "./_components/assistant-intro-link";
+import {
+  HandwrittenInsertion,
+  HandwrittenReplacement
+} from "./_components/handwritten-edit";
 import { IntroSketches } from "./_components/intro-sketches";
 import { InlineLink } from "./_components/inline-link";
 import { JsonLd } from "./_components/json-ld";
@@ -154,7 +158,12 @@ export default function Home() {
               AI systems—from secure full-stack products to agents,
               conversational and voice interfaces, automation, and
               human-in-the-loop workflows—that people can depend on beyond a
-              demo.
+              {" "}
+              <HandwrittenReplacement
+                correction="demo"
+                draft="prototype"
+              />
+              .
             </p>
             <p className="intro-reveal-item">
               I founded{" "}
@@ -166,8 +175,14 @@ export default function Home() {
                 <InlineLink href="https://www.fortyone.app">FortyOne</InlineLink>
               </MarkerHighlight>
               ,
-              an agentic project management platform connecting company goals,
-              customer feedback, planning, and delivery. I currently lead
+              an agentic project management platform connecting company{" "}
+              <HandwrittenInsertion
+                after="als"
+                before="g"
+                character="o"
+                value="goals"
+              />
+              , customer feedback, planning, and delivery. I currently lead
               engineering at Art Circles, setting technical direction, shaping
               AI strategy, and guiding product delivery.
             </p>

@@ -45,17 +45,45 @@
   color-scheme: light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  --background: #fdfdfc;
-  --text: #242424;
-  --muted: #8b8b86;
-  --subtle: #62625f;
-  --line: #e9e9e5;
-  --sketch-link-underline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23d94b15'/%3E%3Cstop offset='.5' stop-color='%236e5291'/%3E%3Cstop offset='1' stop-color='%23356c78'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 8.6C17 6.3 33 10.2 50 7.9C66 6.1 82 10 99 7.4' fill='none' stroke='url(%23g)' stroke-width='2.4' stroke-linecap='round' opacity='.78'/%3E%3Cpath d='M2 10.4C20 8.4 36 10.9 54 9.1C72 7.6 86 10.4 98 8.8' fill='none' stroke='url(%23g)' stroke-width='1.1' stroke-linecap='round' opacity='.5'/%3E%3C/svg%3E");
-  --sketch-link-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23f54e00'/%3E%3Cstop offset='.5' stop-color='%239871b8'/%3E%3Cstop offset='1' stop-color='%234b8997'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 8.6C17 6.3 33 10.2 50 7.9C66 6.1 82 10 99 7.4' fill='none' stroke='url(%23g)' stroke-width='2.8' stroke-linecap='round' opacity='.92'/%3E%3Cpath d='M2 10.4C20 8.4 36 10.9 54 9.1C72 7.6 86 10.4 98 8.8' fill='none' stroke='url(%23g)' stroke-width='1.25' stroke-linecap='round' opacity='.58'/%3E%3C/svg%3E");
+  --background: #fbfaf5;
+  --text: #173f7a;
+  --muted: #607594;
+  --subtle: #496789;
+  --line: #8499b7;
+  --paper-texture:
+    radial-gradient(
+      ellipse at 13% -8%,
+      rgb(255 255 255 / 0.9) 0%,
+      transparent 48%
+    ),
+    radial-gradient(
+      ellipse at 88% 18%,
+      rgb(23 63 122 / 0.028) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 22% 78%,
+      rgb(77 67 50 / 0.018) 0%,
+      transparent 38%
+    ),
+    repeating-linear-gradient(
+      92deg,
+      transparent 0 5px,
+      rgb(23 63 122 / 0.017) 6px,
+      transparent 7px 13px
+    ),
+    repeating-linear-gradient(
+      1deg,
+      transparent 0 8px,
+      rgb(77 67 50 / 0.019) 9px,
+      transparent 10px 16px
+    );
+  --sketch-link-underline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23d94b15'/%3E%3Cstop offset='.5' stop-color='%236e5291'/%3E%3Cstop offset='1' stop-color='%23356c78'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 8.8C8 5.9 15 10.4 23 7.1S38 10.6 49 6.7S66 10.1 75 6.8S91 9.5 99 6.4' fill='none' stroke='url(%23g)' stroke-width='2.4' stroke-linecap='round' opacity='.78'/%3E%3Cpath d='M2 10.6C12 8 20 11.3 30 9.1S47 11.1 58 8.4S75 10.9 84 8.3S94 9.9 98 8.8' fill='none' stroke='url(%23g)' stroke-width='1.1' stroke-linecap='round' opacity='.5'/%3E%3C/svg%3E");
+  --sketch-link-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23f54e00'/%3E%3Cstop offset='.5' stop-color='%239871b8'/%3E%3Cstop offset='1' stop-color='%234b8997'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 8.8C8 5.9 15 10.4 23 7.1S38 10.6 49 6.7S66 10.1 75 6.8S91 9.5 99 6.4' fill='none' stroke='url(%23g)' stroke-width='2.8' stroke-linecap='round' opacity='.92'/%3E%3Cpath d='M2 10.6C12 8 20 11.3 30 9.1S47 11.1 58 8.4S75 10.9 84 8.3S94 9.9 98 8.8' fill='none' stroke='url(%23g)' stroke-width='1.25' stroke-linecap='round' opacity='.58'/%3E%3C/svg%3E");
   --code-background: #f4f4f0;
   --code-header-background: #eeeeea;
-  --tooltip-background: rgba(253, 253, 252, 0.86);
-  --viewport-blur-background: rgba(253, 253, 252, 0.08);
+  --tooltip-background: rgba(251, 250, 245, 0.88);
+  --viewport-blur-background: rgba(251, 250, 245, 0.08);
   --assistant-background: rgb(251 251 249 / 0.94);
   --assistant-invitation: rgb(253 253 252 / 0.82);
   --assistant-input: rgb(244 244 241 / 0.96);
@@ -83,7 +111,8 @@
   --muted: #9a9084;
   --subtle: #bdb2a4;
   --line: #342d27;
-  --sketch-link-underline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23ef7440'/%3E%3Cstop offset='.5' stop-color='%23ad91c8'/%3E%3Cstop offset='1' stop-color='%236a9da8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 8.6C17 6.3 33 10.2 50 7.9C66 6.1 82 10 99 7.4' fill='none' stroke='url(%23g)' stroke-width='2.4' stroke-linecap='round' opacity='.72'/%3E%3Cpath d='M2 10.4C20 8.4 36 10.9 54 9.1C72 7.6 86 10.4 98 8.8' fill='none' stroke='url(%23g)' stroke-width='1.1' stroke-linecap='round' opacity='.48'/%3E%3C/svg%3E");
+  --paper-texture: none;
+  --sketch-link-underline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23ef7440'/%3E%3Cstop offset='.5' stop-color='%23ad91c8'/%3E%3Cstop offset='1' stop-color='%236a9da8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 8.8C8 5.9 15 10.4 23 7.1S38 10.6 49 6.7S66 10.1 75 6.8S91 9.5 99 6.4' fill='none' stroke='url(%23g)' stroke-width='2.4' stroke-linecap='round' opacity='.72'/%3E%3Cpath d='M2 10.6C12 8 20 11.3 30 9.1S47 11.1 58 8.4S75 10.9 84 8.3S94 9.9 98 8.8' fill='none' stroke='url(%23g)' stroke-width='1.1' stroke-linecap='round' opacity='.48'/%3E%3C/svg%3E");
   --code-background: #211c18;
   --code-header-background: #29221d;
   --tooltip-background: rgba(39, 33, 28, 0.92);
@@ -107,7 +136,8 @@
     --muted: #9a9084;
     --subtle: #bdb2a4;
     --line: #342d27;
-    --sketch-link-underline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23ef7440'/%3E%3Cstop offset='.5' stop-color='%23ad91c8'/%3E%3Cstop offset='1' stop-color='%236a9da8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 8.6C17 6.3 33 10.2 50 7.9C66 6.1 82 10 99 7.4' fill='none' stroke='url(%23g)' stroke-width='2.4' stroke-linecap='round' opacity='.72'/%3E%3Cpath d='M2 10.4C20 8.4 36 10.9 54 9.1C72 7.6 86 10.4 98 8.8' fill='none' stroke='url(%23g)' stroke-width='1.1' stroke-linecap='round' opacity='.48'/%3E%3C/svg%3E");
+    --paper-texture: none;
+    --sketch-link-underline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23ef7440'/%3E%3Cstop offset='.5' stop-color='%23ad91c8'/%3E%3Cstop offset='1' stop-color='%236a9da8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 8.8C8 5.9 15 10.4 23 7.1S38 10.6 49 6.7S66 10.1 75 6.8S91 9.5 99 6.4' fill='none' stroke='url(%23g)' stroke-width='2.4' stroke-linecap='round' opacity='.72'/%3E%3Cpath d='M2 10.6C12 8 20 11.3 30 9.1S47 11.1 58 8.4S75 10.9 84 8.3S94 9.9 98 8.8' fill='none' stroke='url(%23g)' stroke-width='1.1' stroke-linecap='round' opacity='.48'/%3E%3C/svg%3E");
     --code-background: #211c18;
     --code-header-background: #29221d;
     --tooltip-background: rgba(39, 33, 28, 0.92);
@@ -139,6 +169,7 @@
 
   body {
     padding-bottom: calc(62px + env(safe-area-inset-bottom));
+    background-image: var(--paper-texture);
     transition:
       background-color 180ms var(--ease-standard),
       color 180ms var(--ease-standard);
@@ -915,20 +946,103 @@ a:focus-visible > .external-link-label {
 .assistant-intro-link > span:first-child::after {
   position: absolute;
   right: 0;
-  bottom: -1px;
+  bottom: -4px;
   left: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    var(--assistant-accent-warm),
-    var(--assistant-accent-violet) 48%,
-    var(--assistant-accent-cool)
-  );
+  height: 8px;
+  background-image: var(--sketch-link-underline);
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 8px;
   content: "";
+  opacity: 0.9;
+  transition: background-image 160ms var(--ease-standard);
+}
+
+.handwritten-replacement,
+.handwritten-insertion {
+  display: inline-block;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.handwritten-replacement-visual {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.32em;
+}
+
+.handwritten-replacement-draft {
+  position: relative;
+  color: color-mix(in srgb, var(--text) 76%, transparent);
+}
+
+.handwritten-replacement-draft::before,
+.handwritten-replacement-draft::after {
+  position: absolute;
+  top: 52%;
+  right: -0.08em;
+  left: -0.08em;
+  height: 1.5px;
+  border-radius: 999px;
+  background: currentColor;
+  content: "";
+  transform-origin: center;
+}
+
+.handwritten-replacement-draft::before {
+  transform: rotate(-7deg);
+}
+
+.handwritten-replacement-draft::after {
   opacity: 0.72;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 190ms var(--ease-out);
+  transform: rotate(5deg) translateY(1px);
+}
+
+.handwritten-replacement-correction {
+  position: relative;
+  top: -0.14em;
+  display: inline-block;
+  font-size: 0.92em;
+  transform: rotate(-3deg);
+}
+
+.handwritten-replacement-correction::before {
+  position: absolute;
+  bottom: -0.02em;
+  left: -0.32em;
+  width: 0.22em;
+  height: 0.3em;
+  border-bottom: 1.25px solid currentColor;
+  border-left: 1.25px solid currentColor;
+  content: "";
+  transform: rotate(18deg);
+}
+
+.handwritten-insertion {
+  margin-top: -0.24em;
+  padding-top: 0.24em;
+}
+
+.handwritten-insertion-visual {
+  position: relative;
+  display: inline-flex;
+}
+
+.handwritten-insertion-character {
+  position: absolute;
+  top: -0.72em;
+  left: 0.68ch;
+  font-size: 0.78em;
+  transform: rotate(-8deg);
+}
+
+.handwritten-insertion-caret {
+  position: absolute;
+  top: 0.46em;
+  left: 0.54ch;
+  font-size: 0.68em;
+  line-height: 1;
+  transform: rotate(-4deg) scaleX(0.82);
 }
 
 .assistant-intro-link svg {
@@ -2583,8 +2697,7 @@ a:focus-visible .writing-link-title {
   }
 
   .assistant-intro-link:hover > span:first-child::after {
-    transform: scaleX(1);
-    transform-origin: left;
+    background-image: var(--sketch-link-accent);
   }
 
   .assistant-intro-link:hover svg {

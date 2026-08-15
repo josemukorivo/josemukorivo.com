@@ -28,11 +28,11 @@ export function MarkerHighlight({
       >
         <path
           className="marker-highlight-stroke marker-highlight-stroke--broad"
-          d="M1 15C16 10 31 17 48 13C65 9 82 16 99 11"
+          d="M1 16C9 11 17 19 27 14S47 18 58 12S78 17 99 10"
         />
         <path
           className="marker-highlight-stroke marker-highlight-stroke--echo"
-          d="M0 18C19 14 36 19 55 15C71 12 87 17 100 14"
+          d="M1 20C13 15 24 21 39 16S61 20 73 14S90 18 99 13"
         />
       </svg>
       <span className="marker-highlight-copy">{children}</span>
