@@ -438,6 +438,164 @@
   color: var(--text);
 }
 
+.language-switcher {
+  position: relative;
+  z-index: 180;
+  flex: 0 0 auto;
+}
+
+.language-switcher-trigger {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 7px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--emphasis-ink);
+  background-color: color-mix(in srgb, var(--background) 82%, transparent);
+  background-image: var(--content-sketch-frame);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.25;
+  cursor: pointer;
+  transition:
+    color 150ms var(--ease-standard),
+    background-color 150ms var(--ease-standard);
+  -webkit-backdrop-filter: blur(14px) saturate(1.08);
+  backdrop-filter: blur(14px) saturate(1.08);
+}
+
+.language-switcher-trigger[data-suggests-shona="true"] {
+  color: var(--emphasis-ink);
+  background-image:
+    var(--sketch-link-accent), var(--content-sketch-frame);
+  background-position:
+    center bottom,
+    center;
+  background-repeat: no-repeat;
+  background-size:
+    calc(100% - 12px) 7px,
+    100% 100%;
+}
+
+.language-switcher-trigger svg {
+  width: 12px;
+  height: 12px;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.35;
+  transition: transform 150ms var(--ease-out);
+}
+
+.language-switcher-trigger[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+.language-switcher-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  display: grid;
+  width: 172px;
+  gap: 2px;
+  padding: 7px;
+  border: 0;
+  border-radius: var(--radius-md);
+  color: var(--text);
+  background-color: var(--tooltip-background);
+  background-image: var(--content-sketch-frame-strong);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.12);
+  transform-origin: 100% 0;
+  animation: language-menu-enter 170ms var(--ease-out) both;
+  -webkit-backdrop-filter: blur(20px) saturate(1.08);
+  backdrop-filter: blur(20px) saturate(1.08);
+}
+
+.language-switcher-note {
+  margin: 1px 4px 5px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.language-switcher-option {
+  display: flex;
+  width: 100%;
+  min-height: 34px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 9px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--subtle);
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+}
+
+.language-switcher-option[data-active="true"] {
+  color: var(--emphasis-ink);
+  background-color: color-mix(in srgb, var(--text) 6%, transparent);
+  background-image: var(--content-sketch-frame);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.language-switcher-option svg {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.45;
+}
+
+@keyframes language-menu-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) rotate(-0.4deg) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0) scale(1);
+  }
+}
+
+.global-language-switcher {
+  position: fixed;
+  z-index: 720;
+  top: 20px;
+  right: clamp(18px, 2.5vw, 36px);
+}
+
+.article-language-note {
+  position: relative;
+  margin: -18px 0 34px;
+  padding: 12px 14px;
+  color: var(--muted);
+  background-color: color-mix(in srgb, var(--background) 88%, transparent);
+  background-image: var(--content-sketch-frame);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
 .name-signature,
 .marker-highlight-copy {
   color: var(--emphasis-ink);
@@ -2823,6 +2981,18 @@ a:focus-visible .writing-link-title {
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .language-switcher-option:hover {
+    color: var(--emphasis-ink);
+    background-color: color-mix(
+      in srgb,
+      var(--interactive-accent) 11%,
+      transparent
+    );
+    background-image: var(--content-sketch-frame);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
   .marker-highlight:hover .marker-highlight-art {
     transform: rotate(var(--marker-rotation)) scaleX(1.035);
   }

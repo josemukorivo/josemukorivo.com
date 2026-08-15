@@ -9,7 +9,7 @@ export function PageSection({ children, id, sketch, sketchTone, title }) {
     >
       {sketch ? <SectionSketch tone={sketchTone} variant={sketch} /> : null}
       <h2
-        className="reveal-section-label mb-7 text-sm font-medium leading-[1.5]"
+        className="reveal-section-label mb-7 text-[15px] font-medium leading-[1.5]"
         data-reveal-item
       >
         {title}

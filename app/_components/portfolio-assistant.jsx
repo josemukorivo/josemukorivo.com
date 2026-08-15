@@ -18,6 +18,10 @@ import {
   captureAnalyticsEvent,
   getPostHogDistinctId
 } from "../../lib/analytics";
+import {
+  getLocaleFromPathname,
+  localizePath
+} from "../../lib/i18n-config";
 import { applyTheme, THEME_PREFERENCES } from "../../lib/theme";
 import {
   ArticleCards,
@@ -803,7 +807,10 @@ export function PortfolioAssistant({
               <Link
                 aria-label="Close assistant"
                 className="portfolio-assistant-close"
-                href="/"
+                href={localizePath(
+                  "/",
+                  getLocaleFromPathname(pathname ?? "/")
+                )}
               >
                 <CloseIcon />
               </Link>

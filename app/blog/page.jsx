@@ -3,6 +3,8 @@ import { JsonLd } from "../_components/json-ld";
 import { PageShell } from "../_components/page-shell";
 import { WritingList } from "../_components/writing-list";
 import { getArticles } from "../../lib/blog";
+import { LOCALE_DETAILS, localizePath } from "../../lib/i18n-config";
+import { getMessages, getRequestLocale } from "../../lib/i18n-server";
 import { createPageMetadata } from "../../lib/seo";
 import {
   BLOG_ID,
@@ -13,35 +15,41 @@ import {
   absoluteUrl
 } from "../../lib/site";
 
-const description =
-  "Joseph Mukorivo’s writing on AI product engineering, software architecture, engineering leadership, and building complex systems.";
+export async function generateMetadata() {
+  const locale = await getRequestLocale();
+  const messages = getMessages(locale);
 
-export const metadata = createPageMetadata({
-  title: "Writing",
-  socialTitle: "Writing — Joseph Mukorivo",
-  description,
-  path: "/blog",
-  keywords: [
-    "AI product engineering",
-    "AI agents",
-    "conversational AI",
-    "software engineering writing",
-    "Next.js architecture",
-    "Go programming",
-    "Joseph Mukorivo"
-  ]
-});
-
-const articleDateFormatter = new Intl.DateTimeFormat("en-US", {
-  month: "short",
-  year: "numeric"
-});
+  return createPageMetadata({
+    title: messages.writing.title,
+    socialTitle: `${messages.writing.title} — Joseph Mukorivo`,
+    description: messages.writing.description,
+    path: localizePath("/blog", locale),
+    locale,
+    keywords: [
+      "AI product engineering",
+      "AI agents",
+      "conversational AI",
+      "software engineering writing",
+      "Next.js architecture",
+      "Go programming",
+      "Joseph Mukorivo"
+    ]
+  });
+}
 
 export default async function BlogPage() {
-  const articles = await getArticles();
+  const [articles, locale] = await Promise.all([
+    getArticles(),
+    getRequestLocale()
+  ]);
+  const messages = getMessages(locale);
+  const articleDateFormatter = new Intl.DateTimeFormat(
+    LOCALE_DETAILS[locale].htmlLang,
+    { month: "short", year: "numeric" }
+  );
   const writingItems = articles.map((article) => ({
     id: article.id,
-    href: `/blog/${article.slug}`,
+    href: localizePath(`/blog/${article.slug}`, locale),
     title: article.title,
     date: articleDateFormatter.format(new Date(article.publishedAt)),
     dateTime: article.publishedAt
@@ -52,10 +60,10 @@ export default async function BlogPage() {
       {
         "@type": "Blog",
         "@id": BLOG_ID,
-        url: absoluteUrl("/blog"),
-        name: `${SITE_NAME} — Writing`,
-        description,
-        inLanguage: "en",
+        url: absoluteUrl(localizePath("/blog", locale)),
+        name: `${SITE_NAME} — ${messages.writing.title}`,
+        description: messages.writing.description,
+        inLanguage: locale,
         isPartOf: {
           "@id": WEBSITE_ID
         },
@@ -77,7 +85,7 @@ export default async function BlogPage() {
       },
       {
         "@type": "ItemList",
-        name: `${SITE_NAME} writing`,
+        name: `${SITE_NAME} ${messages.writing.title}`,
         numberOfItems: articles.length,
         itemListElement: articles.map((article, index) => ({
           "@type": "ListItem",
@@ -94,14 +102,22 @@ export default async function BlogPage() {
       <JsonLd data={blogSchema} />
 
       <header
-        className="grid grid-cols-[160px_minmax(0,640px)] items-center gap-x-10 max-[680px]:grid-cols-[1fr_auto] max-[680px]:gap-x-6"
+        className="grid grid-cols-[160px_minmax(0,1fr)] items-center gap-x-10 max-[680px]:grid-cols-1"
         data-reveal="page-header"
       >
         <div data-reveal-item>
-          <IndexLink href="/" />
+          <IndexLink
+            href={localizePath("/", locale)}
+            label={messages.common.index}
+          />
         </div>
-        <div className="reveal-page-heading" data-reveal-item>
-          <h1 className="text-base font-medium leading-6">Writing</h1>
+        <div
+          className="reveal-page-heading max-[680px]:mt-10"
+          data-reveal-item
+        >
+          <h1 className="text-base font-medium leading-6">
+            {messages.writing.title}
+          </h1>
         </div>
       </header>
 
@@ -116,7 +132,7 @@ export default async function BlogPage() {
             className="border-y border-rule py-12 text-subtle"
             data-reveal-item
           >
-            No articles are available right now. Please check back soon.
+            {messages.writing.empty}
           </p>
         )}
       </section>

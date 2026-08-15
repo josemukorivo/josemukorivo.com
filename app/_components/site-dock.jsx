@@ -20,6 +20,10 @@ import {
   captureAnalyticsEvent
 } from "../../lib/analytics";
 import {
+  localizePath,
+  stripLocaleFromPathname
+} from "../../lib/i18n-config";
+import {
   HandDrawnArrowIcon,
   HandDrawnAssistantIcon,
   HandDrawnCloseIcon,
@@ -254,21 +258,21 @@ function playAssistantInvitationSound() {
 }
 
 const ITEMS = [
-  { href: "/", label: "Home", icon: HomeIcon },
-  { href: "/blog", label: "Writing", icon: WritingIcon },
-  { href: "/projects", label: "Projects", icon: ProjectsIcon }
+  { href: "/", labelKey: "home", icon: HomeIcon },
+  { href: "/blog", labelKey: "writing", icon: WritingIcon },
+  { href: "/projects", labelKey: "projects", icon: ProjectsIcon }
 ];
 
 function isActivePath(pathname, href) {
   return href === "/" ? pathname === href : pathname.startsWith(href);
 }
 
-function MobileAssistantLauncher({ onOpen, pathname }) {
+function MobileAssistantLauncher({ href, onOpen, pathname }) {
   return (
     <Link
       aria-label="Open Maya, Joseph’s AI assistant"
       className="mobile-assistant-launcher"
-      href="/assistant"
+      href={href}
       onClick={() => {
         rememberAssistantWasOpened();
         onOpen();
@@ -283,8 +287,9 @@ function MobileAssistantLauncher({ onOpen, pathname }) {
   );
 }
 
-export function SiteDock() {
+export function SiteDock({ locale, messages }) {
   const pathname = usePathname() ?? "";
+  const basePathname = stripLocaleFromPathname(pathname);
   const router = useRouter();
   const [dockVisible, setDockVisible] = useState(false);
   const [assistantOpen, setAssistantOpen] = useState(false);
@@ -295,8 +300,8 @@ export function SiteDock() {
   const invitationSoundPlayed = useRef(false);
   const dockEngaged = useRef(false);
   const dockHideTimeout = useRef(null);
-  const isAssistantPage = pathname === "/assistant";
-  const invitationCopy = getAssistantInvitationCopy(pathname);
+  const isAssistantPage = basePathname === "/assistant";
+  const invitationCopy = getAssistantInvitationCopy(basePathname);
 
   const clearDockHideTimeout = useCallback(() => {
     if (dockHideTimeout.current === null) {
@@ -355,7 +360,7 @@ export function SiteDock() {
 
     if (window.matchMedia("(max-width: 680px)").matches) {
       queuePortfolioAssistantPrompt(launchRequest);
-      router.push("/assistant");
+      router.push(localizePath("/assistant", locale));
       return;
     }
 
@@ -490,7 +495,7 @@ export function SiteDock() {
       });
 
       if (window.matchMedia("(max-width: 680px)").matches) {
-        router.push("/assistant");
+        router.push(localizePath("/assistant", locale));
         return;
       }
 
@@ -508,7 +513,7 @@ export function SiteDock() {
         OPEN_PORTFOLIO_ASSISTANT_EVENT,
         handleOpenAssistant
       );
-  }, [pathname, router]);
+  }, [locale, pathname, router]);
 
   return (
     <>
@@ -527,8 +532,9 @@ export function SiteDock() {
         onPointerLeave={releaseDock}
       >
         <span aria-hidden="true" className="site-dock-surface" />
-        {ITEMS.map(({ href, icon: Icon, label }) => {
-          const active = isActivePath(pathname, href);
+        {ITEMS.map(({ href, icon: Icon, labelKey }) => {
+          const active = isActivePath(basePathname, href);
+          const label = messages[labelKey];
 
           return (
             <Link
@@ -536,7 +542,7 @@ export function SiteDock() {
               aria-label={label}
               className="site-dock-item"
               data-active={active ? "true" : undefined}
-              href={href}
+              href={localizePath(href, locale)}
               key={href}
             >
               <Icon />
@@ -555,6 +561,7 @@ export function SiteDock() {
         <>
           {invitationState !== "visible" ? (
             <MobileAssistantLauncher
+              href={localizePath("/assistant", locale)}
               onOpen={() => setInvitationState("dismissed")}
               pathname={pathname}
             />
@@ -624,7 +631,7 @@ export function SiteDock() {
               type="button"
             >
               <span className="assistant-launcher-copy">
-                Talk to Maya
+                {messages.assistant}
               </span>
               <AssistantArrow />
             </button>

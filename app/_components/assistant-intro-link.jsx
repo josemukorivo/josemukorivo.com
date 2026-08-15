@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { requestPortfolioAssistantOpen } from "./assistant-events";
 import { HandDrawnArrowIcon } from "./hand-drawn-icon";
+import { localizePath } from "../../lib/i18n-config";
 
 function AssistantArrow() {
   return <HandDrawnArrowIcon />;
 }
 
-export function AssistantIntroLink({ children }) {
+export function AssistantIntroLink({ children, locale = "en" }) {
   return (
     <>
       <button
@@ -23,7 +24,7 @@ export function AssistantIntroLink({ children }) {
       </button>
       <Link
         className="assistant-intro-link assistant-intro-link-mobile"
-        href="/assistant"
+        href={localizePath("/assistant", locale)}
       >
         <span>{children}</span>
         <AssistantArrow />

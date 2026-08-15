@@ -1,4 +1,4 @@
-export function SiteHeader() {
+export function SiteHeader({ role }) {
   return (
     <header
       className="reveal-from-top flex items-baseline justify-between gap-6 text-sm leading-[1.65] text-muted"
@@ -12,9 +12,7 @@ export function SiteHeader() {
       >
         Joseph Mukorivo
       </a>
-      <span className="max-[640px]:hidden">
-        AI Product Engineer & Engineering Leader
-      </span>
+      <span className="max-[760px]:hidden">{role}</span>
     </header>
   );
 }

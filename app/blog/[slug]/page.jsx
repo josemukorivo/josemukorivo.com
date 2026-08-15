@@ -1,16 +1,18 @@
 import { notFound } from "next/navigation";
 import { IndexLink } from "../../_components/index-link";
 import { JsonLd } from "../../_components/json-ld";
+import { InlineLink } from "../../_components/inline-link";
 import { PageShell } from "../../_components/page-shell";
 import { ArticleMap } from "../_components/article-map";
 import { ArticleNavigation } from "../_components/article-navigation";
 import { CodeCopyEnhancer } from "../_components/code-copy-enhancer";
 import { ScrollToTop } from "../_components/scroll-to-top";
 import {
-  formatArticleDate,
   getArticle,
   getArticles
 } from "../../../lib/blog";
+import { LOCALE_DETAILS, localizePath } from "../../../lib/i18n-config";
+import { getMessages, getRequestLocale } from "../../../lib/i18n-server";
 import { getArticleHeadings } from "../../../lib/markdown";
 import { renderMdx } from "../../../lib/mdx";
 import { createPageMetadata } from "../../../lib/seo";
@@ -31,7 +33,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const { slug } = await params;
+  const [{ slug }, locale] = await Promise.all([params, getRequestLocale()]);
   const article = await getArticle(slug);
 
   if (!article) {
@@ -41,7 +43,13 @@ export async function generateMetadata({ params }) {
   return createPageMetadata({
     title: article.title,
     description: article.description,
-    path: `/blog/${article.slug}`,
+    path: localizePath(`/blog/${article.slug}`, locale),
+    canonicalPath: `/blog/${article.slug}`,
+    languageAlternates: false,
+    locale,
+    ...(locale === "en"
+      ? {}
+      : { robots: { follow: true, index: false } }),
     keywords: article.tags,
     type: "article",
     publishedTime: article.publishedAt,
@@ -51,7 +59,12 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ArticlePage({ params }) {
-  const [{ slug }, articles] = await Promise.all([params, getArticles()]);
+  const [{ slug }, articles, locale] = await Promise.all([
+    params,
+    getArticles(),
+    getRequestLocale()
+  ]);
+  const messages = getMessages(locale);
   const article = articles.find((item) => item.slug === slug);
 
   if (!article) {
@@ -62,7 +75,12 @@ export default async function ArticlePage({ params }) {
     renderMdx(article.content),
     getArticleHeadings(article.content)
   ]);
-  const articleUrl = `${SITE_URL}/blog/${article.slug}`;
+  const articlePath = `/blog/${article.slug}`;
+  const articleUrl = `${SITE_URL}${articlePath}`;
+  const articleDate = new Intl.DateTimeFormat(
+    LOCALE_DETAILS[locale].htmlLang,
+    { day: "numeric", month: "long", year: "numeric" }
+  ).format(new Date(article.publishedAt));
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -110,18 +128,23 @@ export default async function ArticlePage({ params }) {
       <article className="m-0">
         <header className="mb-11 text-ink" data-reveal="article-header">
           <div data-reveal-item>
-            <IndexLink href="/blog" />
+            <IndexLink
+              href={localizePath("/blog", locale)}
+              label={messages.common.index}
+            />
           </div>
           <div
             className="reveal-article-meta mb-[18px] mt-11 flex flex-wrap gap-x-4 gap-y-2 text-[13px] text-muted max-[680px]:mt-9"
             data-reveal-item
           >
             <time dateTime={article.publishedAt}>
-              {formatArticleDate(article.publishedAt)}
+              {articleDate}
             </time>
             <span>
-              {article.readingTimeMinutes} min
-              {article.readingTimeMinutes === 1 ? "" : "s"} read
+              {article.readingTimeMinutes}{" "}
+              {article.readingTimeMinutes === 1
+                ? messages.writing.minuteRead
+                : messages.writing.minutesRead}
             </span>
           </div>
           <h1
@@ -132,6 +155,12 @@ export default async function ArticlePage({ params }) {
           </h1>
         </header>
 
+        {locale !== "en" ? (
+          <p className="article-language-note" data-reveal-item>
+            {messages.common.englishArticle}
+          </p>
+        ) : null}
+
         <div
           className={styles.articleBody}
           id={ARTICLE_BODY_ID}
@@ -139,7 +168,12 @@ export default async function ArticlePage({ params }) {
           {articleContent}
         </div>
         <CodeCopyEnhancer containerId={ARTICLE_BODY_ID} />
-        <ArticleNavigation articles={articles} currentSlug={article.slug} />
+        <ArticleNavigation
+          articles={articles}
+          currentSlug={article.slug}
+          locale={locale}
+          messages={messages.writing}
+        />
       </article>
       <ScrollToTop />
     </PageShell>

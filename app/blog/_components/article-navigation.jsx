@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { localizePath } from "../../../lib/i18n-config";
 import styles from "../article.module.css";
 
 function NavigationArrow({ direction }) {
@@ -13,7 +14,7 @@ function NavigationArrow({ direction }) {
   );
 }
 
-function ArticleNavigationLink({ article, direction }) {
+function ArticleNavigationLink({ article, direction, locale, messages }) {
   const isPrevious = direction === "previous";
 
   return (
@@ -23,13 +24,13 @@ function ArticleNavigationLink({ article, direction }) {
           ? styles.articleNavigationLinkPrevious
           : styles.articleNavigationLinkNext
       }`}
-      href={`/blog/${article.slug}`}
+      href={localizePath(`/blog/${article.slug}`, locale)}
       rel={isPrevious ? "prev" : "next"}
     >
       {isPrevious ? <NavigationArrow direction={direction} /> : null}
       <span className={styles.articleNavigationCopy}>
         <span className={styles.articleNavigationLabel}>
-          {isPrevious ? "Previous article" : "Next article"}
+          {isPrevious ? messages.previous : messages.next}
         </span>
         <span className={styles.articleNavigationTitle}>{article.title}</span>
       </span>
@@ -38,7 +39,7 @@ function ArticleNavigationLink({ article, direction }) {
   );
 }
 
-export function ArticleNavigation({ articles, currentSlug }) {
+export function ArticleNavigation({ articles, currentSlug, locale, messages }) {
   if (articles.length < 2) {
     return null;
   }
@@ -60,8 +61,15 @@ export function ArticleNavigation({ articles, currentSlug }) {
       <ArticleNavigationLink
         article={previousArticle}
         direction="previous"
+        locale={locale}
+        messages={messages}
       />
-      <ArticleNavigationLink article={nextArticle} direction="next" />
+      <ArticleNavigationLink
+        article={nextArticle}
+        direction="next"
+        locale={locale}
+        messages={messages}
+      />
     </nav>
   );
 }

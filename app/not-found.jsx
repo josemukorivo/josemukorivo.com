@@ -1,7 +1,12 @@
 import { InlineLink } from "./_components/inline-link";
 import { PageShell } from "./_components/page-shell";
+import { localizePath } from "../lib/i18n-config";
+import { getMessages, getRequestLocale } from "../lib/i18n-server";
 
-export default function NotFound() {
+export default async function NotFound() {
+  const locale = await getRequestLocale();
+  const messages = getMessages(locale);
+
   return (
     <PageShell>
       <article className="mt-[88px] max-[640px]:mt-16">
@@ -11,7 +16,10 @@ export default function NotFound() {
           </h1>
           <p>
             The page you’re looking for does not exist or may have moved.{" "}
-            <InlineLink href="/">Return home</InlineLink>.
+            <InlineLink href={localizePath("/", locale)}>
+              {messages.navigation.home}
+            </InlineLink>
+            .
           </p>
         </div>
       </article>

@@ -1,8 +1,11 @@
 import { Newsreader, Shantell_Sans } from "next/font/google";
+import { LanguageSwitcher } from "./_components/language-switcher";
 import { SiteDock } from "./_components/site-dock";
 import { ThemeScript } from "./_components/theme-script";
 import { RevealObserver } from "./reveal-observer";
 import "./globals.css";
+import { LOCALE_DETAILS } from "../lib/i18n-config";
+import { getMessages, getRequestLocale } from "../lib/i18n-server";
 import {
   SITE_DESCRIPTION,
   SITE_EMAIL,
@@ -123,10 +126,13 @@ export const viewport = {
   themeColor: "#fbfaf5"
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const locale = await getRequestLocale();
+  const messages = getMessages(locale);
+
   return (
     <html
-      lang="en"
+      lang={LOCALE_DETAILS[locale].htmlLang}
       className={`${shantellSans.variable} ${newsreader.variable}`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
@@ -134,8 +140,11 @@ export default function RootLayout({ children }) {
       <head>
         <ThemeScript />
       </head>
-      <body className="min-w-80 bg-canvas font-body text-[14px] leading-[1.65] text-ink italic">
+      <body className="min-w-80 bg-canvas font-body text-[15px] leading-[1.65] text-ink italic">
         <RevealObserver />
+        <div className="global-language-switcher">
+          <LanguageSwitcher locale={locale} messages={messages.common} />
+        </div>
         <div
           aria-hidden="true"
           className="viewport-blur viewport-blur--top"
@@ -145,7 +154,7 @@ export default function RootLayout({ children }) {
           className="viewport-blur viewport-blur--bottom"
         />
         {children}
-        <SiteDock />
+        <SiteDock locale={locale} messages={messages.navigation} />
       </body>
     </html>
   );

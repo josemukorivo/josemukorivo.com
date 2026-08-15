@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export function IndexLink({ href }) {
+export function IndexLink({ href, label = "Index" }) {
   return (
     <Link
       className="group inline-flex w-fit items-center gap-2 bg-none font-serif text-lg font-medium italic leading-[1.2] text-ink max-[680px]:text-[17px]"
@@ -14,7 +14,7 @@ export function IndexLink({ href }) {
         <path d="M7 4 3.5 7.5 7 11" />
         <path d="M4 7.5h5.25a4.25 4.25 0 0 1 4.25 4.25V13" />
       </svg>
-      <span>Index</span>
+      <span>{label}</span>
     </Link>
   );
 }

@@ -5,40 +5,53 @@ import { JsonLd } from "../_components/json-ld";
 import { PageShell } from "../_components/page-shell";
 import { PreviewLink } from "../_components/preview-link";
 import { getLinkPreview } from "../../lib/link-previews";
+import { localizePath } from "../../lib/i18n-config";
+import { getMessages, getRequestLocale } from "../../lib/i18n-server";
 import { projects } from "../../lib/projects";
 import { createPageMetadata } from "../../lib/seo";
 import { PERSON_ID, SITE_URL, WEBSITE_ID } from "../../lib/site";
 
-const description =
-  "Selected AI products, open-source tools, and companies built by Joseph Mukorivo.";
+export async function generateMetadata() {
+  const locale = await getRequestLocale();
+  const messages = getMessages(locale);
 
-export const metadata = createPageMetadata({
-  title: "Projects",
-  socialTitle: "Projects — Joseph Mukorivo",
-  description,
-  path: "/projects",
-  keywords: [
-    "Joseph Mukorivo projects",
-    "AI product engineering",
-    "AI agents",
-    "FortyOne",
-    "Complexus",
-    "Go open source"
-  ]
-});
+  return createPageMetadata({
+    title: messages.projects.title,
+    socialTitle: `${messages.projects.title} — Joseph Mukorivo`,
+    description: messages.projects.description,
+    path: localizePath("/projects", locale),
+    locale,
+    keywords: [
+      "Joseph Mukorivo projects",
+      "AI product engineering",
+      "AI agents",
+      "FortyOne",
+      "Complexus",
+      "Go open source"
+    ]
+  });
+}
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const locale = await getRequestLocale();
+  const messages = getMessages(locale);
+  const localizedProjects = projects.map((project) => ({
+    ...project,
+    description:
+      messages.projects.items[project.id]?.description ?? project.description
+  }));
+  const description = messages.projects.description;
   const projectsSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "@id": `${SITE_URL}/projects#projects`,
-    url: `${SITE_URL}/projects`,
-    name: "Joseph Mukorivo projects",
+    url: `${SITE_URL}${localizePath("/projects", locale)}`,
+    name: `Joseph Mukorivo — ${messages.projects.title}`,
     description,
     isPartOf: { "@id": WEBSITE_ID },
     author: { "@id": PERSON_ID },
-    numberOfItems: projects.length,
-    itemListElement: projects.map((project, index) => ({
+    numberOfItems: localizedProjects.length,
+    itemListElement: localizedProjects.map((project, index) => ({
       "@type": "ListItem",
       position: index + 1,
       url: project.href,
@@ -50,20 +63,24 @@ export default function ProjectsPage() {
     <PageShell variant="writing">
       <JsonLd data={projectsSchema} />
       <header
-        className="grid grid-cols-[160px_minmax(0,640px)] items-start gap-x-10 max-[680px]:grid-cols-1"
+        className="grid grid-cols-[160px_minmax(0,1fr)] items-start gap-x-10 max-[680px]:grid-cols-1"
         data-reveal="page-header"
       >
         <div data-reveal-item>
-          <IndexLink href="/" />
+          <IndexLink
+            href={localizePath("/", locale)}
+            label={messages.common.index}
+          />
         </div>
         <div
           className="reveal-page-heading max-[680px]:mt-10"
           data-reveal-item
         >
-          <h1 className="text-base font-medium leading-6">Projects</h1>
+          <h1 className="text-base font-medium leading-6">
+            {messages.projects.title}
+          </h1>
           <p className="mt-4 max-w-[560px] text-subtle">
-            Products, open-source tools, and companies I have built with care.
-            Each one started with a problem worth understanding properly.
+            {messages.projects.description}
           </p>
         </div>
       </header>
@@ -73,7 +90,7 @@ export default function ProjectsPage() {
         className="project-index ml-[200px] mt-[64px] max-w-[640px] max-[680px]:ml-0 max-[680px]:mt-12 max-[680px]:max-w-none"
         data-reveal="project-list"
       >
-        {projects.map((project) => (
+        {localizedProjects.map((project) => (
           <PreviewLink
             className="project-index-row"
             data-reveal-item

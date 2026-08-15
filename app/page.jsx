@@ -14,7 +14,10 @@ import { RolePhrase } from "./_components/role-phrase";
 import { SiteFooter } from "./_components/site-footer";
 import { SiteHeader } from "./_components/site-header";
 import { WritingList } from "./_components/writing-list";
+import { localizePath } from "../lib/i18n-config";
+import { getMessages, getRequestLocale } from "../lib/i18n-server";
 import { projects } from "../lib/projects";
+import { createPageMetadata } from "../lib/seo";
 import {
   PERSON_ID,
   SITE_DESCRIPTION,
@@ -59,10 +62,11 @@ const writing = [
   }
 ];
 
-const homepageSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
+function createHomepageSchema(locale) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
       "@type": "Person",
       "@id": PERSON_ID,
       name: SITE_NAME,
@@ -115,7 +119,7 @@ const homepageSchema = {
       url: SITE_URL,
       name: SITE_NAME,
       description: SITE_DESCRIPTION,
-      inLanguage: "en",
+      inLanguage: locale,
       author: {
         "@id": PERSON_ID
       },
@@ -135,38 +139,59 @@ const homepageSchema = {
       mainEntity: {
         "@id": PERSON_ID
       }
-    }
-  ]
-};
+      }
+    ]
+  };
+}
 
-export default function Home() {
+export async function generateMetadata() {
+  const locale = await getRequestLocale();
+  const messages = getMessages(locale);
+
+  return createPageMetadata({
+    title: messages.headerRole,
+    socialTitle: `Joseph Mukorivo — ${messages.headerRole}`,
+    description: messages.home.introLocation,
+    path: localizePath("/", locale),
+    locale
+  });
+}
+
+export default async function Home() {
+  const locale = await getRequestLocale();
+  const messages = getMessages(locale);
+  const home = messages.home;
+  const localizedWriting = writing.map((article) => ({
+    ...article,
+    href: localizePath(article.href, locale)
+  }));
+  const localizedProjects = projects.map((project) => ({
+    ...project,
+    shortDescription:
+      messages.projects.items[project.id]?.short ?? project.shortDescription
+  }));
+
   return (
     <PageShell>
-      <JsonLd data={homepageSchema} />
-      <SiteHeader />
+      <JsonLd data={createHomepageSchema(locale)} />
+      <SiteHeader role={messages.headerRole} />
 
       <article className="mt-[88px] max-[640px]:mt-16" id="top">
         <div className="reveal-intro max-w-[600px]">
           <IntroSketches />
-          <div className="intro-copy text-[15px] leading-[1.75] [&>p+p]:mt-6">
+          <div className="intro-copy leading-[1.75] [&>p+p]:mt-6">
             <p className="intro-reveal-item">
-              I’m an{" "}
-              <RolePhrase>
-                AI product engineer and engineering leader🔧
-              </RolePhrase>
-              . Harare, Zimbabwe 🇿🇼 is home. I build production software and
-              AI systems—from secure full-stack products to agents,
-              conversational and voice interfaces, automation, and
-              human-in-the-loop workflows—that people can depend on beyond a
-              {" "}
+              {home.rolePrefix}{" "}
+              <RolePhrase>{home.role}</RolePhrase>.{" "}
+              {home.introBeforeEdit}{" "}
               <HandwrittenReplacement
-                correction="demo"
-                draft="prototype"
+                correction={home.introCorrection}
+                draft={home.introDraft}
               />
               .
             </p>
             <p className="intro-reveal-item">
-              I founded{" "}
+              {home.founderPrefix}{" "}
               <MarkerHighlight tone="violet" variant="underline">
                 <InlineLink
                   className="identity-link"
@@ -175,7 +200,7 @@ export default function Home() {
                   Complexus
                 </InlineLink>
               </MarkerHighlight>{" "}
-              and built{" "}
+              {home.founderJoin}{" "}
               <MarkerHighlight>
                 <InlineLink
                   className="identity-link"
@@ -184,45 +209,57 @@ export default function Home() {
                   FortyOne
                 </InlineLink>
               </MarkerHighlight>
-              ,
-              an agentic project management platform connecting company{" "}
-              <HandwrittenInsertion
-                after="als"
-                before="g"
-                character="o"
-                value="goals"
-              />
-              , customer feedback, planning, and delivery. I currently lead
-              engineering at Art Circles, setting technical direction, shaping
-              AI strategy, and guiding product delivery.
+              ,{" "}
+              {locale === "en" ? (
+                <>
+                  an agentic project management platform connecting company{" "}
+                  <HandwrittenInsertion
+                    after="als"
+                    before="g"
+                    character="o"
+                    value="goals"
+                  />
+                  , customer feedback, planning, and delivery. I currently lead
+                  engineering at Art Circles, setting technical direction,
+                  shaping AI strategy, and guiding product delivery.
+                </>
+              ) : (
+                home.founderAfter
+              )}
             </p>
             <p className="intro-reveal-item">
-              My work combines{" "}
+              {home.workPrefix}{" "}
               <MarkerHighlight tone="violet" variant="underline">
-                technical leadership
+                {home.technicalLeadership}
               </MarkerHighlight>
-              , product strategy, project management, and hands-on engineering
-              across secure full-stack systems, cloud architecture, analytics,
-              and integrations—often in fintech and regulated environments where
-              details matter.
+              , {home.workAfter}
             </p>
             <p className="intro-reveal-item">
-              I care about useful software, clear interfaces,{" "}
-              <HandwrittenReplacement
-                correction="reliable"
-                draft="strong"
-              />{" "}systems, and{" "}
-              <MarkerHighlight tone="cool" variant="underline">
-                thoughtful details
-              </MarkerHighlight>
-              .{" "}
+              {locale === "en" ? (
+                <>
+                  I care about useful software, clear interfaces,{" "}
+                  <HandwrittenReplacement
+                    correction="reliable"
+                    draft="strong"
+                  />{" "}
+                  systems, and{" "}
+                  <MarkerHighlight tone="cool" variant="underline">
+                    thoughtful details
+                  </MarkerHighlight>
+                  .{" "}
+                </>
+              ) : (
+                <>{home.care} </>
+              )}
               <span className="assistant-intro-copy">
-                <AssistantIntroLink>Ask Maya, my AI assistant</AssistantIntroLink>{" "}
-                to learn more about me.
+                <AssistantIntroLink locale={locale}>
+                  {home.askMaya}
+                </AssistantIntroLink>{" "}
+                {home.askMayaAfter}
               </span>
             </p>
             <p className="intro-reveal-item text-subtle">
-              Find me on{" "}
+              {home.findPrefix}{" "}
               <InlineLink href="https://github.com/josemukorivo">
                 GitHub
               </InlineLink>
@@ -230,10 +267,14 @@ export default function Home() {
               <InlineLink href="https://www.linkedin.com/in/josemukorivo/">
                 LinkedIn
               </InlineLink>
-              , or <InlineLink href="https://x.com/josemukorivo">X</InlineLink>,
-              read my <InlineLink href="/blog">writing</InlineLink>, or{" "}
+              , {home.socialOr} <InlineLink href="https://x.com/josemukorivo">X</InlineLink>,{" "}
+              {home.readMy}{" "}
+              <InlineLink href={localizePath("/blog", locale)}>
+                {home.writingLink}
+              </InlineLink>
+              , {home.socialOr}{" "}
               <InlineLink href={`mailto:${SITE_EMAIL}`}>
-                send me an email
+                {home.emailLink}
               </InlineLink>
               .
             </p>
@@ -244,31 +285,39 @@ export default function Home() {
           id="writing"
           sketch="branch"
           sketchTone="primary"
-          title="Writing"
+          title={home.sections.writing}
         >
-          <WritingList articles={writing} />
+          <WritingList articles={localizedWriting} />
           <p className="mt-[18px]">
-            <InlineLink href="/blog">All writing</InlineLink>
+            <InlineLink href={localizePath("/blog", locale)}>
+              {home.allWriting}
+            </InlineLink>
           </p>
         </PageSection>
 
-        <PageSection sketch="nodes" sketchTone="cool" title="Projects">
+        <PageSection
+          sketch="nodes"
+          sketchTone="cool"
+          title={home.sections.projects}
+        >
           <div className="grid grid-cols-3 gap-9 max-[640px]:grid-cols-1 max-[640px]:gap-[26px]">
-            {projects.map((project) => (
+            {localizedProjects.map((project) => (
               <div key={project.name}>
                 <span className="font-medium">
                   <ExternalLink href={project.href}>
                     {project.name}
                   </ExternalLink>
                 </span>
-                <p className="mt-1.5 text-subtle">
+                <p className="mt-1.5 text-[14px] text-subtle">
                   {project.shortDescription}
                 </p>
               </div>
             ))}
           </div>
           <p className="mt-[22px]">
-            <InlineLink href="/projects">All projects</InlineLink>
+            <InlineLink href={localizePath("/projects", locale)}>
+              {home.allProjects}
+            </InlineLink>
           </p>
         </PageSection>
 
@@ -276,7 +325,7 @@ export default function Home() {
           id="building"
           sketch="terminal"
           sketchTone="violet"
-          title="Building"
+          title={home.sections.building}
         >
           <div>
             <div className="mb-5 flex items-baseline justify-between gap-6">
@@ -287,76 +336,79 @@ export default function Home() {
                   </ExternalLink>
                 </MarkerHighlight>
               </span>
-              <span className="text-[13px] text-muted">Live product</span>
+              <span className="text-[13px] text-muted">
+                {home.liveProduct}
+              </span>
             </div>
             <div className="[&>p+p]:mt-6">
-              <p>
-                FortyOne is an agentic project management platform that
-                connects strategy, customer feedback, planning, and daily
-                delivery. I built Maya to turn requests into planned work,
-                suggest owners and estimates, answer workspace questions, and
-                surface delivery risk while keeping important changes
-                reviewable.
-              </p>
-              <p>
-                Company{" "}
-                <HandwrittenInsertion
-                  after="tategy"
-                  before="s"
-                  character="r"
-                  value="strategy"
-                />{" "}
-                starts with objectives and key results. Teams can map how goals
-                relate, connect them to roadmaps and planned work, and see
-                whether daily delivery is moving the{" "}
-                <HandwrittenReplacement
-                  correction="outcomes"
-                  draft="output"
-                />{" "}
-                they committed to.
-              </p>
-              <p>
-                Customer feedback lives in the same flow. Teams can collect and
-                prioritize requests, move accepted ideas into the plan, and let
-                customers follow their progress on a public roadmap.
-              </p>
+              {home.buildingParagraphs.map((paragraph, index) => (
+                <p key={paragraph}>
+                  {locale === "en" && index === 1 ? (
+                    <>
+                      Company{" "}
+                      <HandwrittenInsertion
+                        after="tategy"
+                        before="s"
+                        character="r"
+                        value="strategy"
+                      />{" "}
+                      starts with objectives and key results. Teams can map how
+                      goals relate, connect them to roadmaps and planned work,
+                      and see whether daily delivery is moving the{" "}
+                      <HandwrittenReplacement
+                        correction="outcomes"
+                        draft="output"
+                      />{" "}
+                      they committed to.
+                    </>
+                  ) : (
+                    paragraph
+                  )}
+                </p>
+              ))}
             </div>
           </div>
         </PageSection>
 
-        <PageSection sketch="data" sketchTone="primary" title="Education">
+        <PageSection
+          sketch="data"
+          sketchTone="primary"
+          title={home.sections.education}
+        >
           <div className="max-w-[600px] [&>p+p]:mt-6 [&_strong]:font-medium">
             <p>
               <MarkerHighlight tone="primary" variant="underline">
-                <strong>Master of Business Administration (MBA)</strong>
+                <strong>{home.mba}</strong>
               </MarkerHighlight>
               ,{" "}
-              National University of Science and Technology (NUST) — in
-              progress.
+              {home.mbaAfter}
             </p>
             <p>
-              I earned a{" "}
+              {home.degreePrefix}{" "}
               <MarkerHighlight tone="primary" variant="underline">
-                <strong>
-                  First Class BSc Honours in Information Technology
-                </strong>
+                <strong>{home.degree}</strong>
               </MarkerHighlight>{" "}
-              from Chinhoyi University of Technology in 2019.
+              {home.degreeAfter}
             </p>
           </div>
         </PageSection>
 
-        <PageSection sketch="signal" sketchTone="cool" title="Connect">
+        <PageSection
+          sketch="signal"
+          sketchTone="cool"
+          title={home.sections.connect}
+        >
           <p className="max-w-[560px]">
-            Reach me at{" "}
+            {home.connectPrefix}{" "}
             <InlineLink href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</InlineLink>,
-            find me on{" "}
+            {home.connectLinkedIn}{" "}
             <InlineLink href="https://www.linkedin.com/in/josemukorivo/">
               LinkedIn
             </InlineLink>
-            , follow me on{" "}
-            <InlineLink href="https://x.com/josemukorivo">X</InlineLink>, or view
-            my <InlineLink href={RESUME_URL}>résumé</InlineLink>.
+            , {home.connectX}{" "}
+            <InlineLink href="https://x.com/josemukorivo">X</InlineLink>,{" "}
+            {home.connectResume}{" "}
+            <InlineLink href={RESUME_URL}>{home.resume}</InlineLink>.
           </p>
         </PageSection>
       </article>
