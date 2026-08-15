@@ -134,7 +134,7 @@ export default function RootLayout({ children }) {
       <head>
         <ThemeScript />
       </head>
-      <body className="min-w-80 bg-canvas font-body text-[14px] leading-[1.65] text-ink antialiased font-medium dark:font-normal italic">
+      <body className="min-w-80 bg-canvas font-body text-[14px] leading-[1.65] text-ink antialiased font-medium italic">
         <RevealObserver />
         <div
           aria-hidden="true"
