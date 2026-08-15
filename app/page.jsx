@@ -197,8 +197,11 @@ export default function Home() {
               details matter.
             </p>
             <p className="intro-reveal-item">
-              I care about useful software, clear interfaces, strong systems,
-              and{" "}
+              I care about useful software, clear interfaces,{" "}
+              <HandwrittenReplacement
+                correction="reliable"
+                draft="strong"
+              />{" "}systems, and{" "}
               <MarkerHighlight tone="cool" variant="underline">
                 thoughtful details
               </MarkerHighlight>

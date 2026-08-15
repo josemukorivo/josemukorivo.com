@@ -119,9 +119,10 @@
 }
 
 .articleBody blockquote {
+  position: relative;
   margin: 2.15em 0;
   padding-left: 20px;
-  border-left: 1px solid var(--text);
+  border-left: 0;
   color: var(--text);
   font-family: var(--font-newsreader), Georgia, "Times New Roman", serif;
   font-size: 19px;
@@ -129,6 +130,24 @@
   font-weight: 400;
   letter-spacing: -0.012em;
   line-height: 1.55;
+}
+
+.articleBody blockquote::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -3px;
+  width: 8px;
+  background: var(--line);
+  content: "";
+  -webkit-mask-image: var(--hand-drawn-vertical-rule-mask);
+  mask-image: var(--hand-drawn-vertical-rule-mask);
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 8px 100%;
+  mask-size: 8px 100%;
 }
 
 .articleBody blockquote p {
@@ -140,9 +159,17 @@
 }
 
 .articleBody hr {
-  height: 1px;
+  height: 8px;
   border: 0;
   background: var(--line);
+  -webkit-mask-image: var(--hand-drawn-rule-mask);
+  mask-image: var(--hand-drawn-rule-mask);
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 8px;
+  mask-size: 100% 8px;
 }
 
 .articleBody table {
@@ -183,12 +210,24 @@
 }
 
 .articleBody :global(.codeBlock) {
+  position: relative;
   margin: 1.75em 0;
   overflow: hidden;
   border: 0;
   border-radius: var(--article-code-radius);
   background: var(--code-background);
   color: var(--text);
+}
+
+.articleBody :global(.codeBlock)::after {
+  position: absolute;
+  z-index: 2;
+  background-image: var(--content-sketch-frame-strong);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  content: "";
+  inset: 0;
+  pointer-events: none;
 }
 
 .articleBody :global(.codeBlockHeader) {
@@ -199,7 +238,11 @@
   padding: 0 12px;
   border: 0;
   color: var(--subtle);
-  background: var(--code-header-background);
+  background-color: var(--code-header-background);
+  background-image: var(--content-sketch-rule);
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 7px;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   font-size: 10px;
   letter-spacing: 0.08em;
@@ -268,11 +311,42 @@
 }
 
 .articleNavigation {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: 72px;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+}
+
+.articleNavigation::before,
+.articleNavigation::after,
+.articleNavigationLinkNext::before {
+  position: absolute;
+  background: var(--line);
+  content: "";
+  pointer-events: none;
+}
+
+.articleNavigation::before,
+.articleNavigation::after {
+  right: 0;
+  left: 0;
+  height: 8px;
+  -webkit-mask-image: var(--hand-drawn-rule-mask);
+  mask-image: var(--hand-drawn-rule-mask);
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 8px;
+  mask-size: 100% 8px;
+}
+
+.articleNavigation::before {
+  top: -4px;
+}
+
+.articleNavigation::after {
+  bottom: -4px;
 }
 
 .articleNavigationLink {
@@ -284,10 +358,25 @@
 }
 
 .articleNavigationLinkNext {
+  position: relative;
   justify-content: flex-end;
   padding-left: 24px;
-  border-left: 1px solid var(--line);
   text-align: right;
+}
+
+.articleNavigationLinkNext::before {
+  top: 0;
+  bottom: 0;
+  left: -4px;
+  width: 8px;
+  -webkit-mask-image: var(--hand-drawn-vertical-rule-mask);
+  mask-image: var(--hand-drawn-vertical-rule-mask);
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 8px 100%;
+  mask-size: 8px 100%;
 }
 
 .articleNavigationLinkPrevious {
@@ -456,8 +545,19 @@
 
   .articleNavigationLinkNext {
     padding-left: 0;
-    border-top: 1px solid var(--line);
-    border-left: 0;
+  }
+
+  .articleNavigationLinkNext::before {
+    top: -4px;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: 8px;
+    -webkit-mask-image: var(--hand-drawn-rule-mask);
+    mask-image: var(--hand-drawn-rule-mask);
+    -webkit-mask-size: 100% 8px;
+    mask-size: 100% 8px;
   }
 
   .scrollToTop {

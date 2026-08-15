@@ -76,16 +76,21 @@ export const metadata = {
   icons: {
     icon: [
       {
-        url: "/favicon-light.svg",
-        type: "image/svg+xml",
-        media: "(prefers-color-scheme: light)"
+        url: "/favicon.ico",
+        type: "image/x-icon"
       },
       {
-        url: "/favicon-dark.svg",
-        type: "image/svg+xml",
-        media: "(prefers-color-scheme: dark)"
+        url: "/favicon-16x16.png",
+        type: "image/png",
+        sizes: "16x16"
+      },
+      {
+        url: "/favicon-32x32.png",
+        type: "image/png",
+        sizes: "32x32"
       }
-    ]
+    ],
+    apple: "/apple-touch-icon.png"
   },
   manifest: "/manifest.webmanifest",
   openGraph: {

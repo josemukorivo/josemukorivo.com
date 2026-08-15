@@ -51,6 +51,7 @@ export function SectionSketch({ tone = "primary", variant }) {
       focusable="false"
       viewBox="0 0 52 48"
     >
+      <g className="section-sketch-echo">{sketches[variant]}</g>
       {sketches[variant]}
     </svg>
   );

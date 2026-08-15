@@ -35,12 +35,6 @@
   --radius-4xl: calc(var(--radius-base-4xl) * var(--radius-scale));
 }
 
-@property --assistant-invitation-angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
-
 :root {
   color-scheme: light;
   font-synthesis: none;
@@ -50,43 +44,41 @@
   --muted: #607594;
   --subtle: #496789;
   --line: #8499b7;
+  --pen-blue: #173f7a;
+  --pen-black: #303947;
+  --pen-red: #a13d42;
+  --sketch-primary: var(--pen-blue);
+  --sketch-secondary: var(--pen-black);
+  --sketch-accent: var(--pen-red);
+  --role-phrase-ink: var(--pen-blue);
+  --role-phrase-fill: none;
+  --role-mark-ink: var(--pen-red);
+  --hand-drawn-rule-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4.1C8 2.5 16 5.5 25 3.7S42 5.3 52 3.3S69 5.2 79 3.5S93 5 100 3.1' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round'/%3E%3Cpath d='M1 5.8C12 4.3 21 6.5 32 5S51 6.1 62 4.7S83 6.3 99 4.8' fill='none' stroke='%23000' stroke-width='.8' stroke-linecap='round' opacity='.42'/%3E%3C/svg%3E");
+  --hand-drawn-vertical-rule-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 100' preserveAspectRatio='none'%3E%3Cpath d='M4.2 0C2.7 9 5.3 18 3.6 27S5.2 44 3.4 55S5.1 72 3.5 81S5 94 3.2 100' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round'/%3E%3Cpath d='M5.7 1C4.4 13 6.4 24 5 35S6.2 54 4.8 65S6.2 84 4.7 99' fill='none' stroke='%23000' stroke-width='.8' stroke-linecap='round' opacity='.42'/%3E%3C/svg%3E");
   --paper-texture:
-    radial-gradient(
-      ellipse at 13% -8%,
-      rgb(255 255 255 / 0.9) 0%,
-      transparent 48%
-    ),
-    radial-gradient(
-      ellipse at 88% 18%,
-      rgb(23 63 122 / 0.028) 0%,
-      transparent 42%
-    ),
-    radial-gradient(
-      ellipse at 22% 78%,
-      rgb(77 67 50 / 0.018) 0%,
-      transparent 38%
-    ),
-    repeating-linear-gradient(
-      92deg,
-      transparent 0 5px,
-      rgb(23 63 122 / 0.017) 6px,
-      transparent 7px 13px
-    ),
-    repeating-linear-gradient(
-      1deg,
-      transparent 0 8px,
-      rgb(77 67 50 / 0.019) 9px,
-      transparent 10px 16px
-    );
-  --sketch-link-underline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23d94b15'/%3E%3Cstop offset='.5' stop-color='%236e5291'/%3E%3Cstop offset='1' stop-color='%23356c78'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 8.8C8 5.9 15 10.4 23 7.1S38 10.6 49 6.7S66 10.1 75 6.8S91 9.5 99 6.4' fill='none' stroke='url(%23g)' stroke-width='2.4' stroke-linecap='round' opacity='.78'/%3E%3Cpath d='M2 10.6C12 8 20 11.3 30 9.1S47 11.1 58 8.4S75 10.9 84 8.3S94 9.9 98 8.8' fill='none' stroke='url(%23g)' stroke-width='1.1' stroke-linecap='round' opacity='.5'/%3E%3C/svg%3E");
-  --sketch-link-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23f54e00'/%3E%3Cstop offset='.5' stop-color='%239871b8'/%3E%3Cstop offset='1' stop-color='%234b8997'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 8.8C8 5.9 15 10.4 23 7.1S38 10.6 49 6.7S66 10.1 75 6.8S91 9.5 99 6.4' fill='none' stroke='url(%23g)' stroke-width='2.8' stroke-linecap='round' opacity='.92'/%3E%3Cpath d='M2 10.6C12 8 20 11.3 30 9.1S47 11.1 58 8.4S75 10.9 84 8.3S94 9.9 98 8.8' fill='none' stroke='url(%23g)' stroke-width='1.25' stroke-linecap='round' opacity='.58'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='760' height='540' viewBox='0 0 760 540'%3E%3Cfilter id='c' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.008 .013' numOctaves='3' seed='19'/%3E%3CfeColorMatrix values='0 0 0 0 .19 0 0 0 0 .22 0 0 0 0 .25 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='760' height='540' filter='url(%23c)' opacity='.23'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.46 .21' numOctaves='4' seed='8'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .17 0 0 0 0 .22 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)' opacity='.3'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='210' viewBox='0 0 280 210'%3E%3Cg fill='none' stroke='%235f6d7d' stroke-linecap='round'%3E%3Cpath d='M8 31c23-3 38 4 61 0s41 2 70-1 45 4 72 0 39 2 61-2' stroke-width='.55' opacity='.14'/%3E%3Cpath d='M18 94c15 2 29-3 48 0s37-2 58 1 36-3 53 0 47-1 84 2' stroke-width='.42' opacity='.11'/%3E%3Cpath d='M3 163c25-2 44 3 70-1s49 3 78 0 52 2 85-2 32 2 40 1' stroke-width='.5' opacity='.12'/%3E%3Cpath d='M52 7c-2 22 3 38 0 60s2 41-1 65 3 39 0 69' stroke-width='.35' opacity='.09'/%3E%3Cpath d='M214 4c2 18-2 35 1 54s-2 43 1 67-2 47 0 78' stroke-width='.38' opacity='.08'/%3E%3C/g%3E%3C/svg%3E");
+  --paper-texture-size: 760px 540px, 180px 180px, 280px 210px;
+  --assistant-sketch-frame: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'%3E%3Cpath d='M.8 1.1C18 .5 34 1.4 51 .8S82 1.5 99.1 .7C99.6 18 98.8 34 99.3 51S98.7 82 99.2 99.1C81 99.7 65 98.8 48 99.3S17 98.7 .8 99.2C.3 81 1.3 65 .7 48S1.4 18 .8 1.1Z' fill='none' stroke='%23173f7a' stroke-width='1.15' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.4'/%3E%3Cpath d='M1.4 .6C20 1.3 35 .4 53 1.2S83 .4 98.6 1.3C98.9 20 99.6 36 98.8 53S99.7 83 98.5 98.6C81 98.9 64 99.7 47 98.8S17 99.6 1.5 98.5C1.1 80 .4 64 1.2 47S.4 17 1.4 .6Z' fill='none' stroke='%23303947' stroke-width='.62' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.18'/%3E%3C/svg%3E");
+  --assistant-sketch-frame-strong: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'%3E%3Cpath d='M.8 1.1C18 .5 34 1.4 51 .8S82 1.5 99.1 .7C99.6 18 98.8 34 99.3 51S98.7 82 99.2 99.1C81 99.7 65 98.8 48 99.3S17 98.7 .8 99.2C.3 81 1.3 65 .7 48S1.4 18 .8 1.1Z' fill='none' stroke='%23173f7a' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.58'/%3E%3Cpath d='M1.4 .6C20 1.3 35 .4 53 1.2S83 .4 98.6 1.3C98.9 20 99.6 36 98.8 53S99.7 83 98.5 98.6C81 98.9 64 99.7 47 98.8S17 99.6 1.5 98.5C1.1 80 .4 64 1.2 47S.4 17 1.4 .6Z' fill='none' stroke='%23303947' stroke-width='.66' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.25'/%3E%3C/svg%3E");
+  --assistant-sketch-rule: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 8'%3E%3Cpath d='M0 3.8C9 2.5 17 5.1 26 3.5S43 5 53 3.2S70 5 80 3.4S93 4.8 100 3' fill='none' stroke='%23173f7a' stroke-width='1.25' stroke-linecap='round' opacity='.32'/%3E%3Cpath d='M1 5.4C13 4.1 22 6 33 4.8S52 5.8 63 4.5S84 5.9 99 4.6' fill='none' stroke='%23303947' stroke-width='.62' stroke-linecap='round' opacity='.14'/%3E%3C/svg%3E");
+  --content-sketch-frame: var(--assistant-sketch-frame);
+  --content-sketch-frame-strong: var(--assistant-sketch-frame-strong);
+  --content-sketch-rule: var(--assistant-sketch-rule);
+  --sketch-link-underline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cpath d='M1 8.8C8 5.9 15 10.4 23 7.1S38 10.6 49 6.7S66 10.1 75 6.8S91 9.5 99 6.4' fill='none' stroke='%23173f7a' stroke-width='2.35' stroke-linecap='round' opacity='.76'/%3E%3Cpath d='M2 10.6C12 8 20 11.3 30 9.1S47 11.1 58 8.4S75 10.9 84 8.3S94 9.9 98 8.8' fill='none' stroke='%23303947' stroke-width='.9' stroke-linecap='round' opacity='.34'/%3E%3C/svg%3E");
+  --sketch-link-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cpath d='M1 8.8C8 5.9 15 10.4 23 7.1S38 10.6 49 6.7S66 10.1 75 6.8S91 9.5 99 6.4' fill='none' stroke='%23a13d42' stroke-width='2.65' stroke-linecap='round' opacity='.86'/%3E%3Cpath d='M2 10.6C12 8 20 11.3 30 9.1S47 11.1 58 8.4S75 10.9 84 8.3S94 9.9 98 8.8' fill='none' stroke='%23173f7a' stroke-width='1' stroke-linecap='round' opacity='.38'/%3E%3C/svg%3E");
   --code-background: #f4f4f0;
   --code-header-background: #eeeeea;
   --tooltip-background: rgba(251, 250, 245, 0.88);
   --viewport-blur-background: rgba(251, 250, 245, 0.08);
   --assistant-background: rgb(251 251 249 / 0.94);
   --assistant-invitation: rgb(253 253 252 / 0.82);
-  --assistant-input: rgb(244 244 241 / 0.96);
+  --assistant-input: color-mix(
+    in srgb,
+    var(--background) 96%,
+    var(--pen-blue) 4%
+  );
   --assistant-raised: #f7f7f4;
   --assistant-user: #e3e3de;
   --assistant-accent-warm: #a94f30;
@@ -112,6 +104,18 @@
   --subtle: #bdb2a4;
   --line: #342d27;
   --paper-texture: none;
+  --sketch-primary: var(--brand-primary);
+  --sketch-secondary: var(--assistant-accent-violet);
+  --sketch-accent: var(--assistant-accent-cool);
+  --role-phrase-ink: transparent;
+  --role-phrase-fill: linear-gradient(
+    92deg,
+    var(--assistant-accent-warm) 0%,
+    var(--assistant-accent-violet) 38%,
+    var(--assistant-accent-cool) 72%,
+    var(--text) 100%
+  );
+  --role-mark-ink: #c0785b;
   --sketch-link-underline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23ef7440'/%3E%3Cstop offset='.5' stop-color='%23ad91c8'/%3E%3Cstop offset='1' stop-color='%236a9da8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 8.8C8 5.9 15 10.4 23 7.1S38 10.6 49 6.7S66 10.1 75 6.8S91 9.5 99 6.4' fill='none' stroke='url(%23g)' stroke-width='2.4' stroke-linecap='round' opacity='.72'/%3E%3Cpath d='M2 10.6C12 8 20 11.3 30 9.1S47 11.1 58 8.4S75 10.9 84 8.3S94 9.9 98 8.8' fill='none' stroke='url(%23g)' stroke-width='1.1' stroke-linecap='round' opacity='.48'/%3E%3C/svg%3E");
   --code-background: #211c18;
   --code-header-background: #29221d;
@@ -120,6 +124,9 @@
   --assistant-background: rgb(33 28 24 / 0.78);
   --assistant-invitation: rgb(38 32 27 / 0.82);
   --assistant-input: rgb(244 232 217 / 0.045);
+  --assistant-sketch-frame: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'%3E%3Cpath d='M.8 1.1C18 .5 34 1.4 51 .8S82 1.5 99.1 .7C99.6 18 98.8 34 99.3 51S98.7 82 99.2 99.1C81 99.7 65 98.8 48 99.3S17 98.7 .8 99.2C.3 81 1.3 65 .7 48S1.4 18 .8 1.1Z' fill='none' stroke='%23e7dfd4' stroke-width='1.15' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.27'/%3E%3Cpath d='M1.4 .6C20 1.3 35 .4 53 1.2S83 .4 98.6 1.3C98.9 20 99.6 36 98.8 53S99.7 83 98.5 98.6C81 98.9 64 99.7 47 98.8S17 99.6 1.5 98.5C1.1 80 .4 64 1.2 47S.4 17 1.4 .6Z' fill='none' stroke='%23e7dfd4' stroke-width='.62' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.11'/%3E%3C/svg%3E");
+  --assistant-sketch-frame-strong: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'%3E%3Cpath d='M.8 1.1C18 .5 34 1.4 51 .8S82 1.5 99.1 .7C99.6 18 98.8 34 99.3 51S98.7 82 99.2 99.1C81 99.7 65 98.8 48 99.3S17 98.7 .8 99.2C.3 81 1.3 65 .7 48S1.4 18 .8 1.1Z' fill='none' stroke='%23e7dfd4' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.38'/%3E%3Cpath d='M1.4 .6C20 1.3 35 .4 53 1.2S83 .4 98.6 1.3C98.9 20 99.6 36 98.8 53S99.7 83 98.5 98.6C81 98.9 64 99.7 47 98.8S17 99.6 1.5 98.5C1.1 80 .4 64 1.2 47S.4 17 1.4 .6Z' fill='none' stroke='%23e7dfd4' stroke-width='.66' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.16'/%3E%3C/svg%3E");
+  --assistant-sketch-rule: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 8'%3E%3Cpath d='M0 3.8C9 2.5 17 5.1 26 3.5S43 5 53 3.2S70 5 80 3.4S93 4.8 100 3' fill='none' stroke='%23e7dfd4' stroke-width='1.25' stroke-linecap='round' opacity='.2'/%3E%3Cpath d='M1 5.4C13 4.1 22 6 33 4.8S52 5.8 63 4.5S84 5.9 99 4.6' fill='none' stroke='%23e7dfd4' stroke-width='.62' stroke-linecap='round' opacity='.08'/%3E%3C/svg%3E");
   --assistant-raised: rgb(244 232 217 / 0.06);
   --assistant-user: rgb(244 232 217 / 0.09);
   --assistant-accent-warm: #dc7a4a;
@@ -137,6 +144,18 @@
     --subtle: #bdb2a4;
     --line: #342d27;
     --paper-texture: none;
+    --sketch-primary: var(--brand-primary);
+    --sketch-secondary: var(--assistant-accent-violet);
+    --sketch-accent: var(--assistant-accent-cool);
+    --role-phrase-ink: transparent;
+    --role-phrase-fill: linear-gradient(
+      92deg,
+      var(--assistant-accent-warm) 0%,
+      var(--assistant-accent-violet) 38%,
+      var(--assistant-accent-cool) 72%,
+      var(--text) 100%
+    );
+    --role-mark-ink: #c0785b;
     --sketch-link-underline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23ef7440'/%3E%3Cstop offset='.5' stop-color='%23ad91c8'/%3E%3Cstop offset='1' stop-color='%236a9da8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M1 8.8C8 5.9 15 10.4 23 7.1S38 10.6 49 6.7S66 10.1 75 6.8S91 9.5 99 6.4' fill='none' stroke='url(%23g)' stroke-width='2.4' stroke-linecap='round' opacity='.72'/%3E%3Cpath d='M2 10.6C12 8 20 11.3 30 9.1S47 11.1 58 8.4S75 10.9 84 8.3S94 9.9 98 8.8' fill='none' stroke='url(%23g)' stroke-width='1.1' stroke-linecap='round' opacity='.48'/%3E%3C/svg%3E");
     --code-background: #211c18;
     --code-header-background: #29221d;
@@ -145,6 +164,9 @@
     --assistant-background: rgb(33 28 24 / 0.78);
     --assistant-invitation: rgb(38 32 27 / 0.82);
     --assistant-input: rgb(244 232 217 / 0.045);
+    --assistant-sketch-frame: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'%3E%3Cpath d='M.8 1.1C18 .5 34 1.4 51 .8S82 1.5 99.1 .7C99.6 18 98.8 34 99.3 51S98.7 82 99.2 99.1C81 99.7 65 98.8 48 99.3S17 98.7 .8 99.2C.3 81 1.3 65 .7 48S1.4 18 .8 1.1Z' fill='none' stroke='%23e7dfd4' stroke-width='1.15' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.27'/%3E%3Cpath d='M1.4 .6C20 1.3 35 .4 53 1.2S83 .4 98.6 1.3C98.9 20 99.6 36 98.8 53S99.7 83 98.5 98.6C81 98.9 64 99.7 47 98.8S17 99.6 1.5 98.5C1.1 80 .4 64 1.2 47S.4 17 1.4 .6Z' fill='none' stroke='%23e7dfd4' stroke-width='.62' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.11'/%3E%3C/svg%3E");
+    --assistant-sketch-frame-strong: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'%3E%3Cpath d='M.8 1.1C18 .5 34 1.4 51 .8S82 1.5 99.1 .7C99.6 18 98.8 34 99.3 51S98.7 82 99.2 99.1C81 99.7 65 98.8 48 99.3S17 98.7 .8 99.2C.3 81 1.3 65 .7 48S1.4 18 .8 1.1Z' fill='none' stroke='%23e7dfd4' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.38'/%3E%3Cpath d='M1.4 .6C20 1.3 35 .4 53 1.2S83 .4 98.6 1.3C98.9 20 99.6 36 98.8 53S99.7 83 98.5 98.6C81 98.9 64 99.7 47 98.8S17 99.6 1.5 98.5C1.1 80 .4 64 1.2 47S.4 17 1.4 .6Z' fill='none' stroke='%23e7dfd4' stroke-width='.66' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.16'/%3E%3C/svg%3E");
+    --assistant-sketch-rule: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 8'%3E%3Cpath d='M0 3.8C9 2.5 17 5.1 26 3.5S43 5 53 3.2S70 5 80 3.4S93 4.8 100 3' fill='none' stroke='%23e7dfd4' stroke-width='1.25' stroke-linecap='round' opacity='.2'/%3E%3Cpath d='M1 5.4C13 4.1 22 6 33 4.8S52 5.8 63 4.5S84 5.9 99 4.6' fill='none' stroke='%23e7dfd4' stroke-width='.62' stroke-linecap='round' opacity='.08'/%3E%3C/svg%3E");
     --assistant-raised: rgb(244 232 217 / 0.06);
     --assistant-user: rgb(244 232 217 / 0.09);
     --assistant-accent-warm: #dc7a4a;
@@ -169,7 +191,10 @@
 
   body {
     padding-bottom: calc(62px + env(safe-area-inset-bottom));
+    background-attachment: fixed;
     background-image: var(--paper-texture);
+    background-position: 17% 9%, 0 0, 37px 21px;
+    background-size: var(--paper-texture-size);
     transition:
       background-color 180ms var(--ease-standard),
       color 180ms var(--ease-standard);
@@ -389,15 +414,9 @@ a:focus-visible > .external-link-label {
 .role-phrase-copy {
   position: relative;
   z-index: 1;
-  color: transparent;
+  color: var(--role-phrase-ink);
   font-weight: var(--role-phrase-font-weight);
-  background-image: linear-gradient(
-    92deg,
-    var(--assistant-accent-warm) 0%,
-    var(--assistant-accent-violet) 38%,
-    var(--assistant-accent-cool) 72%,
-    var(--text) 100%
-  );
+  background-image: var(--role-phrase-fill);
   background-position: 0 50%;
   background-size: 145% 100%;
   background-clip: text;
@@ -429,15 +448,15 @@ a:focus-visible > .external-link-label {
 }
 
 .role-phrase-sketch-stroke--warm {
-  stroke: var(--assistant-accent-warm);
+  stroke: var(--sketch-accent);
 }
 
 .role-phrase-sketch-stroke--violet {
-  stroke: var(--assistant-accent-violet);
+  stroke: var(--sketch-secondary);
 }
 
 .role-phrase-sketch-stroke--cool {
-  stroke: var(--assistant-accent-cool);
+  stroke: var(--sketch-primary);
 }
 
 .role-phrase-mark {
@@ -449,7 +468,7 @@ a:focus-visible > .external-link-label {
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 1.15;
-  color: #c0785b;
+  color: var(--role-mark-ink);
   transform-origin: 45% 45%;
   transition:
     color 180ms var(--ease-standard),
@@ -463,13 +482,13 @@ a:focus-visible > .external-link-label {
 .marker-highlight {
   --marker-color: color-mix(
     in srgb,
-    var(--brand-primary) 52%,
+    var(--sketch-primary) 52%,
     transparent
   );
   --marker-rotation: -1.2deg;
   --marker-stroke: color-mix(
     in srgb,
-    var(--brand-primary) 92%,
+    var(--sketch-primary) 92%,
     transparent
   );
   position: relative;
@@ -550,13 +569,13 @@ a:focus-visible > .external-link-label {
 .marker-highlight--violet {
   --marker-color: color-mix(
     in srgb,
-    var(--assistant-accent-violet) 38%,
+    var(--sketch-secondary) 38%,
     transparent
   );
   --marker-rotation: 0.9deg;
   --marker-stroke: color-mix(
     in srgb,
-    var(--brand-primary) 86%,
+    var(--sketch-accent) 86%,
     transparent
   );
 }
@@ -564,13 +583,13 @@ a:focus-visible > .external-link-label {
 .marker-highlight--cool {
   --marker-color: color-mix(
     in srgb,
-    var(--assistant-accent-cool) 38%,
+    var(--sketch-accent) 38%,
     transparent
   );
   --marker-rotation: -0.7deg;
   --marker-stroke: color-mix(
     in srgb,
-    var(--assistant-accent-violet) 86%,
+    var(--sketch-primary) 86%,
     transparent
   );
 }
@@ -774,7 +793,6 @@ a:focus-visible > .external-link-label {
 }
 
 .assistant-invitation {
-  --assistant-invitation-angle: 0deg;
   position: fixed;
   right: 22px;
   bottom: calc(20px + env(safe-area-inset-bottom));
@@ -785,42 +803,17 @@ a:focus-visible > .external-link-label {
   align-items: start;
   gap: 6px;
   padding: 13px 9px 13px 14px;
-  border: 1px solid color-mix(in srgb, var(--text) 7%, transparent);
+  border: 0;
   border-radius: var(--radius-lg);
   color: var(--text);
-  background: var(--assistant-invitation);
+  background-color: var(--assistant-invitation);
+  background-image: var(--assistant-sketch-frame);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   box-shadow: none;
   animation: assistant-invitation-enter 440ms var(--ease-out) both;
   -webkit-backdrop-filter: blur(20px) saturate(1.08);
   backdrop-filter: blur(20px) saturate(1.08);
-  isolation: isolate;
-}
-
-.assistant-invitation::before {
-  position: absolute;
-  z-index: 0;
-  padding: 2px;
-  border-radius: var(--radius-xl);
-  background: conic-gradient(
-    from var(--assistant-invitation-angle),
-    var(--assistant-accent-warm),
-    var(--assistant-accent-violet) 42%,
-    var(--assistant-accent-cool) 70%,
-    var(--assistant-accent-warm)
-  );
-  content: "";
-  inset: -2px;
-  opacity: 0.72;
-  pointer-events: none;
-  animation: assistant-invitation-border 5.5s linear infinite;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
 }
 
 .assistant-invitation-action {
@@ -1191,10 +1184,13 @@ a:focus-visible > .external-link-label {
   max-width: none;
   max-height: none;
   padding: 0;
-  border: 1px solid color-mix(in srgb, var(--text) 4%, transparent);
+  border: 0;
   border-radius: var(--radius-lg);
   color: var(--text);
-  background: var(--assistant-background);
+  background-color: var(--assistant-background);
+  background-image: var(--assistant-sketch-frame);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   box-shadow: none;
   overflow: hidden;
   transform-origin: 100% 100%;
@@ -1212,10 +1208,13 @@ a:focus-visible > .external-link-label {
   min-height: 560px;
   margin: 28px auto calc(100px + env(safe-area-inset-bottom));
   overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--text) 5%, transparent);
+  border: 0;
   border-radius: var(--radius-lg);
   color: var(--text);
-  background: var(--assistant-background);
+  background-color: var(--assistant-background);
+  background-image: var(--assistant-sketch-frame);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   -webkit-backdrop-filter: blur(28px) saturate(1.08);
   backdrop-filter: blur(28px) saturate(1.08);
 }
@@ -1233,8 +1232,12 @@ a:focus-visible > .external-link-label {
   align-items: center;
   gap: 11px;
   padding: 15px 16px;
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 6%, transparent);
-  background: transparent;
+  border-bottom: 0;
+  background-color: transparent;
+  background-image: var(--assistant-sketch-rule);
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 7px;
 }
 
 .portfolio-assistant-avatar {
@@ -1361,7 +1364,11 @@ a:focus-visible > .external-link-label {
 .portfolio-assistant-suggestions {
   display: grid;
   margin-top: 22px;
-  border-top: 1px solid color-mix(in srgb, var(--text) 7%, transparent);
+  border-top: 0;
+  background-image: var(--assistant-sketch-rule);
+  background-position: left top;
+  background-repeat: no-repeat;
+  background-size: 100% 7px;
 }
 
 .portfolio-assistant-suggestions button {
@@ -1370,10 +1377,13 @@ a:focus-visible > .external-link-label {
   align-items: center;
   padding: 12px 1px;
   border: 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 7%, transparent);
   border-radius: 0;
   color: var(--text);
-  background: transparent;
+  background-color: transparent;
+  background-image: var(--assistant-sketch-rule);
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 7px;
   font: inherit;
   font-size: 14px;
   line-height: 1.4;
@@ -1574,12 +1584,17 @@ a:focus-visible > .external-link-label {
   gap: 0;
   margin-top: 12px;
   padding: 16px 1px 17px;
-  border-top: 1px solid color-mix(in srgb, var(--text) 9%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 9%, transparent);
-  background: transparent;
+  border: 0;
+  background-color: transparent;
+  background-image:
+    var(--assistant-sketch-rule), var(--assistant-sketch-rule);
+  background-position:
+    left top,
+    left bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 7px;
   text-decoration: none;
   transition:
-    border-color 150ms var(--ease-standard),
     color 150ms var(--ease-standard),
     transform 140ms var(--ease-out);
 }
@@ -1654,7 +1669,11 @@ a:focus-visible > .external-link-label {
 
 .assistant-article-list {
   display: grid;
-  border-top: 1px solid color-mix(in srgb, var(--text) 9%, transparent);
+  border-top: 0;
+  background-image: var(--assistant-sketch-rule);
+  background-position: left top;
+  background-repeat: no-repeat;
+  background-size: 100% 7px;
 }
 
 .assistant-article-card {
@@ -1664,8 +1683,12 @@ a:focus-visible > .external-link-label {
   gap: 14px;
   min-height: 50px;
   padding: 12px 1px;
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 9%, transparent);
-  background: transparent;
+  border: 0;
+  background-color: transparent;
+  background-image: var(--assistant-sketch-rule);
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 7px;
   font-size: 14px;
   line-height: 1.45;
   text-decoration: none;
@@ -1721,8 +1744,14 @@ a:focus-visible > .external-link-label {
   gap: 12px;
   margin-top: 12px;
   padding: 15px 1px 17px;
-  border-top: 1px solid color-mix(in srgb, var(--text) 9%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 9%, transparent);
+  border: 0;
+  background-image:
+    var(--assistant-sketch-rule), var(--assistant-sketch-rule);
+  background-position:
+    left top,
+    left bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 7px;
 }
 
 .assistant-contact-kicker {
@@ -1876,12 +1905,16 @@ a:focus-visible > .external-link-label {
   padding: 0;
   border: 0;
   border-radius: var(--radius-lg);
-  background: var(--assistant-input);
+  background-color: var(--assistant-input);
+  background-image: var(--assistant-sketch-frame);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   transition: background-color 150ms var(--ease-standard);
 }
 
 .portfolio-assistant-form:focus-within {
-  background: var(--assistant-input);
+  background-color: var(--assistant-input);
+  background-image: var(--assistant-sketch-frame-strong);
   box-shadow: none;
 }
 
@@ -1956,18 +1989,20 @@ a:focus-visible > .external-link-label {
   transition:
     color 140ms var(--ease-standard),
     background-color 140ms var(--ease-standard),
-    border-color 140ms var(--ease-standard),
     opacity 140ms var(--ease-standard);
 }
 
 .portfolio-assistant-talk-button {
-  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  border: 0;
   color: var(--text);
-  background: color-mix(in srgb, var(--text) 3%, transparent);
+  background-color: color-mix(in srgb, var(--text) 3%, transparent);
+  background-image: var(--assistant-sketch-frame);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .portfolio-assistant-voice-button {
-  border: 1px solid var(--text);
+  border: 0;
   color: var(--background);
   background: var(--text);
 }
@@ -1985,8 +2020,8 @@ a:focus-visible > .external-link-label {
 }
 
 .portfolio-assistant-talk-button[data-state="recording"] {
-  border-color: color-mix(in srgb, var(--text) 24%, transparent);
-  background: color-mix(in srgb, var(--text) 8%, transparent);
+  background-color: color-mix(in srgb, var(--text) 8%, transparent);
+  background-image: var(--assistant-sketch-frame-strong);
 }
 
 .portfolio-assistant-talk-button:disabled,
@@ -2047,12 +2082,6 @@ a:focus-visible > .external-link-label {
   100% {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes assistant-invitation-border {
-  to {
-    --assistant-invitation-angle: 360deg;
   }
 }
 
@@ -2382,7 +2411,7 @@ a:focus-visible .writing-link-title {
   top: 48%;
   left: -58px;
   width: 38px;
-  color: var(--assistant-accent-violet);
+  color: var(--sketch-secondary);
   opacity: 0.38;
   transform: rotate(-5deg);
 }
@@ -2391,7 +2420,7 @@ a:focus-visible .writing-link-title {
   top: 31%;
   right: -74px;
   width: 44px;
-  color: var(--assistant-accent-violet);
+  color: var(--sketch-primary);
   opacity: 0.3;
   transform: rotate(-8deg);
 }
@@ -2405,7 +2434,7 @@ a:focus-visible .writing-link-title {
   bottom: 12px;
   left: -72px;
   width: 40px;
-  color: var(--brand-primary);
+  color: var(--sketch-accent);
   fill: currentColor;
   stroke: none;
   opacity: 0.22;
@@ -2448,15 +2477,65 @@ a:focus-visible .writing-link-title {
 }
 
 .section-sketch--primary {
-  color: var(--brand-primary);
+  color: var(--sketch-primary);
 }
 
 .section-sketch--violet {
-  color: var(--assistant-accent-violet);
+  color: var(--sketch-secondary);
 }
 
 .section-sketch--cool {
-  color: var(--assistant-accent-cool);
+  color: var(--sketch-accent);
+}
+
+.section-sketch-echo {
+  opacity: 0.32;
+  transform: translate(0.7px, -0.45px) rotate(0.6deg);
+  transform-origin: center;
+}
+
+.writing-list {
+  position: relative;
+}
+
+.writing-list::before,
+.writing-list-item::after,
+.hand-drawn-footer-rule::before {
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 8px;
+  background: var(--line);
+  content: "";
+  pointer-events: none;
+  -webkit-mask-image: var(--hand-drawn-rule-mask);
+  mask-image: var(--hand-drawn-rule-mask);
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 8px;
+  mask-size: 100% 8px;
+}
+
+.writing-list::before {
+  top: -4px;
+}
+
+.writing-list-item {
+  position: relative;
+}
+
+.writing-list-item::after {
+  bottom: -4px;
+}
+
+.hand-drawn-footer-rule {
+  position: relative;
+}
+
+.hand-drawn-footer-rule::before {
+  top: -4px;
 }
 
 .section-sketch--branch {
@@ -2670,13 +2749,12 @@ a:focus-visible .writing-link-title {
   }
 
   .portfolio-assistant-talk-button:not(:disabled):hover {
-    border-color: color-mix(in srgb, var(--text) 18%, transparent);
-    background: color-mix(in srgb, var(--text) 6%, transparent);
+    background-color: color-mix(in srgb, var(--text) 6%, transparent);
+    background-image: var(--assistant-sketch-frame-strong);
   }
 
   .portfolio-assistant-voice-button:not(:disabled):hover {
-    border-color: var(--text);
-    background: color-mix(in srgb, var(--text) 88%, transparent);
+    background-color: color-mix(in srgb, var(--text) 88%, transparent);
   }
 
   .portfolio-assistant-suggestions button:hover {
@@ -2702,10 +2780,6 @@ a:focus-visible .writing-link-title {
 
   .assistant-intro-link:hover svg {
     transform: translate(1.5px, -1.5px);
-  }
-
-  .assistant-resource-card:hover {
-    border-color: color-mix(in srgb, var(--text) 15%, transparent);
   }
 
   .assistant-resource-card:hover .assistant-resource-heading svg,

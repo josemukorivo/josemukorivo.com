@@ -12,8 +12,8 @@ export function IntroSketches() {
             y="-30%"
           >
             <feTurbulence
-              baseFrequency="0.025 0.32"
-              numOctaves="1"
+              baseFrequency="0.018 0.24"
+              numOctaves="2"
               result="noise"
               seed="11"
               type="fractalNoise"
@@ -21,7 +21,7 @@ export function IntroSketches() {
             <feDisplacementMap
               in="SourceGraphic"
               in2="noise"
-              scale="0.8"
+              scale="1.25"
               xChannelSelector="R"
               yChannelSelector="B"
             />
