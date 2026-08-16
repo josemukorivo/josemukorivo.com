@@ -60,7 +60,7 @@ export function ThemeToggle({ className = "", messages }) {
   const theme = useSyncExternalStore(
     subscribeToTheme,
     getThemePreference,
-    () => "system"
+    () => "light"
   );
 
   return (

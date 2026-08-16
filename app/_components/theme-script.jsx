@@ -8,13 +8,17 @@ const themeScript = `(() => {
     storedTheme = window.localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)});
   } catch {}
 
+  const hasStoredTheme = storedTheme === "light" || storedTheme === "dark" || storedTheme === "system";
+
   if (storedTheme === "light" || storedTheme === "dark") {
     root.dataset.theme = storedTheme;
+  } else if (!hasStoredTheme) {
+    root.dataset.theme = "light";
   }
 
-  const effectiveTheme = storedTheme === "light" || storedTheme === "dark"
-    ? storedTheme
-    : window.matchMedia("(prefers-color-scheme: dark)").matches
+  const effectiveTheme = storedTheme === "dark"
+    ? "dark"
+    : storedTheme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
       : "light";
   const colors = ${JSON.stringify(THEME_COLORS)};

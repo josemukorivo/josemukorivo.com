@@ -16,16 +16,16 @@ export function SiteHeader() {
           <Image
             alt=""
             className="site-header-portrait-image site-header-portrait-image--light"
-            height={84}
+            height={100}
             src="/assets/joseph-mukorivo-sketch-light.webp"
-            width={84}
+            width={100}
           />
           <Image
             alt=""
             className="site-header-portrait-image site-header-portrait-image--dark"
-            height={84}
+            height={100}
             src="/assets/joseph-mukorivo-sketch-dark.webp"
-            width={84}
+            width={100}
           />
         </span>
         <span className="site-header-name">Joseph Mukorivo</span>
