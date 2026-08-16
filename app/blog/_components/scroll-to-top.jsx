@@ -58,7 +58,11 @@ export function ScrollToTop() {
       type="button"
     >
       <svg aria-hidden="true" viewBox="0 0 24 24">
-        <path d="M18 9.473 16.586 10.881 13 7.312V21.5h-2V7.311l-3.586 3.57L6 9.474 12 3.5 18 9.473Z" />
+        <path d="M6.8 10.6c1.7-1.6 3.4-3.4 5.2-5.1 1.6 1.5 3.2 3.3 5.2 4.9M12.1 5.7c-.2 4 .1 8.5-.2 12.7" />
+        <path
+          className={styles.scrollToTopEcho}
+          d="M7.4 11c1.5-1.3 3-3.1 4.7-4.6 1.5 1.4 3 3 4.6 4.4M11.5 6.6c.2 3.7-.1 7.5.2 11.2"
+        />
       </svg>
     </button>
   );

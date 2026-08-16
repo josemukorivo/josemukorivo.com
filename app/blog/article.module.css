@@ -427,33 +427,62 @@
   bottom: calc(20px + env(safe-area-inset-bottom));
   z-index: 90;
   display: grid;
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 44px;
   padding: 0;
   place-items: center;
   border: 0;
-  border-radius: 50%;
+  border-radius: 49% 51% 47% 53% / 53% 47% 52% 48%;
   color: var(--subtle);
-  background-color: color-mix(in srgb, var(--text) 7%, transparent);
+  background-color: color-mix(
+    in srgb,
+    var(--background) 88%,
+    var(--text) 12%
+  );
+  box-shadow: 2px 3px 0 color-mix(in srgb, var(--text) 6%, transparent);
   cursor: pointer;
+  isolation: isolate;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(8px) scale(0.96);
+  transform: translateY(8px) rotate(-1.5deg) scale(0.96);
   transition:
     background-color 160ms var(--ease-standard),
     color 160ms var(--ease-standard),
+    box-shadow 160ms var(--ease-standard),
     opacity 180ms var(--ease-reveal),
     transform 220ms var(--ease-reveal),
     visibility 180ms;
   visibility: hidden;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+}
+
+.scrollToTop::before {
+  position: absolute;
+  z-index: 0;
+  inset: -1px;
+  border: 1.35px solid currentColor;
+  border-radius: 48% 52% 46% 54% / 52% 46% 54% 48%;
+  content: "";
+  opacity: 0.54;
+  pointer-events: none;
+  transform: rotate(-1.8deg);
+}
+
+.scrollToTop::after {
+  position: absolute;
+  z-index: 0;
+  inset: 1px -2px -1px 1px;
+  border: 0.8px solid currentColor;
+  border-radius: 53% 47% 52% 48% / 46% 54% 47% 53%;
+  content: "";
+  opacity: 0.22;
+  pointer-events: none;
+  transform: rotate(2.2deg);
 }
 
 .scrollToTop[data-visible="true"] {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0) scale(1);
+  transform: translateY(0) rotate(-1.5deg) scale(1);
   visibility: visible;
 }
 
@@ -463,13 +492,25 @@
 }
 
 .scrollToTop:active {
-  transform: scale(0.96);
+  box-shadow: 1px 1px 0 color-mix(in srgb, var(--text) 4%, transparent);
+  transform: translateY(1px) rotate(0) scale(0.96);
 }
 
 .scrollToTop svg {
-  width: 21px;
-  height: 21px;
-  fill: currentColor;
+  position: relative;
+  z-index: 1;
+  width: 23px;
+  height: 23px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.scrollToTopEcho {
+  opacity: 0.28;
+  stroke-width: 0.8;
 }
 
 @supports (corner-shape: squircle) {
@@ -508,9 +549,14 @@
   }
 
   .scrollToTop:hover {
-    background-color: color-mix(in srgb, var(--text) 11%, transparent);
+    background-color: color-mix(
+      in srgb,
+      var(--background) 82%,
+      var(--text) 18%
+    );
     color: var(--text);
-    transform: translateY(-2px);
+    box-shadow: 3px 4px 0 color-mix(in srgb, var(--text) 7%, transparent);
+    transform: translateY(-2px) rotate(1deg);
   }
 }
 
@@ -563,7 +609,7 @@
   .scrollToTop {
     right: 12px;
     bottom: calc(21px + env(safe-area-inset-bottom));
-    width: 46px;
+    width: 48px;
     height: 46px;
   }
 }

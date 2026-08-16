@@ -7,7 +7,7 @@ import "./globals.css";
 import { LOCALE_DETAILS } from "../lib/i18n-config";
 import { getMessages, getRequestLocale } from "../lib/i18n-server";
 
-const SHOW_SITE_DOCK = false;
+const SHOW_SITE_NAVIGATION = false;
 import {
   SITE_DESCRIPTION,
   SITE_EMAIL,
@@ -156,14 +156,13 @@ export default async function RootLayout({ children }) {
           className="viewport-blur viewport-blur--bottom"
         />
         {children}
-        {SHOW_SITE_DOCK ? (
-          <SiteDock
-            invitationMessages={messages.assistantInvitation}
-            locale={locale}
-            messages={messages.navigation}
-            themeMessages={messages.theme}
-          />
-        ) : null}
+        <SiteDock
+          invitationMessages={messages.assistantInvitation}
+          locale={locale}
+          messages={messages.navigation}
+          showNavigation={SHOW_SITE_NAVIGATION}
+          themeMessages={messages.theme}
+        />
       </body>
     </html>
   );

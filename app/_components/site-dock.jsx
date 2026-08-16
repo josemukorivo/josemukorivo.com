@@ -303,6 +303,7 @@ export function SiteDock({
   invitationMessages,
   locale,
   messages,
+  showNavigation = true,
   themeMessages
 }) {
   const pathname = usePathname() ?? "";
@@ -537,46 +538,48 @@ export function SiteDock({
 
   return (
     <>
-      <nav
-        aria-label={messages.ariaLabel}
-        className="site-dock"
-        data-assistant-page={isAssistantPage ? "true" : undefined}
-        data-visible={dockVisible ? "true" : "false"}
-        onBlurCapture={(event) => {
-          if (!event.currentTarget.contains(event.relatedTarget)) {
-            releaseDock();
-          }
-        }}
-        onFocusCapture={keepDockOpen}
-        onPointerEnter={keepDockOpen}
-        onPointerLeave={releaseDock}
-      >
-        <span aria-hidden="true" className="site-dock-surface" />
-        {ITEMS.map(({ href, icon: Icon, labelKey }) => {
-          const active = isActivePath(basePathname, href);
-          const label = messages[labelKey];
+      {showNavigation ? (
+        <nav
+          aria-label={messages.ariaLabel}
+          className="site-dock"
+          data-assistant-page={isAssistantPage ? "true" : undefined}
+          data-visible={dockVisible ? "true" : "false"}
+          onBlurCapture={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) {
+              releaseDock();
+            }
+          }}
+          onFocusCapture={keepDockOpen}
+          onPointerEnter={keepDockOpen}
+          onPointerLeave={releaseDock}
+        >
+          <span aria-hidden="true" className="site-dock-surface" />
+          {ITEMS.map(({ href, icon: Icon, labelKey }) => {
+            const active = isActivePath(basePathname, href);
+            const label = messages[labelKey];
 
-          return (
-            <Link
-              aria-current={active ? "page" : undefined}
-              aria-label={label}
-              className="site-dock-item"
-              data-active={active ? "true" : undefined}
-              href={localizePath(href, locale)}
-              key={href}
-            >
-              <Icon />
-              <span className="site-dock-label" aria-hidden="true">
-                {label}
-              </span>
-            </Link>
-          );
-        })}
-        <span aria-hidden="true" className="site-dock-divider" />
-        <span className="site-dock-theme">
-          <ThemeToggle messages={themeMessages} />
-        </span>
-      </nav>
+            return (
+              <Link
+                aria-current={active ? "page" : undefined}
+                aria-label={label}
+                className="site-dock-item"
+                data-active={active ? "true" : undefined}
+                href={localizePath(href, locale)}
+                key={href}
+              >
+                <Icon />
+                <span className="site-dock-label" aria-hidden="true">
+                  {label}
+                </span>
+              </Link>
+            );
+          })}
+          <span aria-hidden="true" className="site-dock-divider" />
+          <span className="site-dock-theme">
+            <ThemeToggle messages={themeMessages} />
+          </span>
+        </nav>
+      ) : null}
       {!isAssistantPage ? (
         <>
           {invitationState !== "visible" ? (
