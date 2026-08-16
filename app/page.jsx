@@ -183,7 +183,17 @@ export default async function Home() {
             <p className="intro-reveal-item">
               {home.rolePrefix}{" "}
               <RolePhrase>{home.role}</RolePhrase>.{" "}
-              {home.introBeforeEdit}{" "}
+              {home.locationEdit ? (
+                <>
+                  <HandwrittenReplacement
+                    correction={home.locationEdit.correction}
+                    draft={home.locationEdit.draft}
+                  />
+                  {home.locationEdit.after}{" "}
+                </>
+              ) : (
+                <>{home.introBeforeEdit} </>
+              )}
               <HandwrittenReplacement
                 correction={home.introCorrection}
                 draft={home.introDraft}
