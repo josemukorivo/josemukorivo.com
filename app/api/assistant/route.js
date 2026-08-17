@@ -65,7 +65,7 @@ export async function POST(request) {
       ? body.currentPath
       : "/";
   const model = createPostHogTracedModel(
-    openai(process.env.OPENAI_MODEL || "gpt-5.6-terra"),
+    openai(process.env.OPENAI_MODEL || "gpt-5.6-luna"),
     {
       distinctId: getPostHogDistinctId(
         body.posthogDistinctId,
