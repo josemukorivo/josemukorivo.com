@@ -1,5 +1,6 @@
 import { ExternalLink } from "./_components/external-link";
 import { AssistantIntroLink } from "./_components/assistant-intro-link";
+import { CapabilitiesSection } from "./_components/capabilities-section";
 import {
   HandwrittenInsertion,
   HandwrittenReplacement
@@ -20,6 +21,7 @@ import { projects } from "../lib/projects";
 import { createPageMetadata } from "../lib/seo";
 import {
   PERSON_ID,
+  ORGANIZATION_ID,
   SITE_DESCRIPTION,
   SITE_EMAIL,
   SITE_NAME,
@@ -91,9 +93,7 @@ function createHomepageSchema(locale) {
           url: "https://www.fortyone.app"
         },
         {
-          "@type": "Organization",
-          name: "Complexus",
-          url: "https://complexus.tech"
+          "@id": ORGANIZATION_ID
         }
       ],
       alumniOf: {
@@ -112,6 +112,26 @@ function createHomepageSchema(locale) {
         "Next.js",
         "Go"
       ]
+    },
+    {
+      "@type": "Organization",
+      "@id": ORGANIZATION_ID,
+      name: "Complexus",
+      url: "https://complexus.tech",
+      founder: {
+        "@id": PERSON_ID
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "professional enquiries",
+        email: SITE_EMAIL,
+        availableLanguage: ["English", "Shona"]
+      },
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Harare",
+        addressCountry: "ZW"
+      }
     },
     {
       "@type": "WebSite",
@@ -397,6 +417,8 @@ export default async function Home() {
             </div>
           </div>
         </PageSection>
+
+        {locale === "en" ? <CapabilitiesSection /> : null}
 
         <PageSection
           sketch="data"

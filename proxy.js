@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { appendVary, preferredRepresentation } from "./lib/accept";
 import {
   DEFAULT_LOCALE,
   LOCALE_COOKIE_NAME,
@@ -8,6 +9,47 @@ import {
   localizePath,
   stripLocaleFromPathname
 } from "./lib/i18n-config";
+
+function prepareResponse(response) {
+  appendVary(response.headers);
+  response.headers.set("Link", "</llms.txt>; rel=\"describedby\"");
+  return response;
+}
+
+function negotiateResponse(request, pathname, requestHeaders, response) {
+  const representation = preferredRepresentation(
+    request.headers.get("accept")
+  );
+
+  if (representation === null) {
+    return prepareResponse(
+      new NextResponse(
+        "Not Acceptable\n\nAvailable representations: text/html, text/markdown\n",
+        {
+          status: 406,
+          headers: { "Content-Type": "text/plain; charset=utf-8" }
+        }
+      )
+    );
+  }
+
+  if (representation === "text/markdown") {
+    const markdownUrl = request.nextUrl.clone();
+    const normalizedPathname = stripLocaleFromPathname(pathname);
+    markdownUrl.pathname =
+      normalizedPathname === "/"
+        ? "/api/agent-content"
+        : `/api/agent-content${normalizedPathname}`;
+
+    return prepareResponse(
+      NextResponse.rewrite(markdownUrl, {
+        request: { headers: requestHeaders }
+      })
+    );
+  }
+
+  return prepareResponse(response);
+}
 
 export function proxy(request) {
   const { pathname } = request.nextUrl;
@@ -26,9 +68,14 @@ export function proxy(request) {
     const rewrittenUrl = request.nextUrl.clone();
     rewrittenUrl.pathname = stripLocaleFromPathname(pathname);
 
-    return NextResponse.rewrite(rewrittenUrl, {
-      request: { headers: requestHeaders }
-    });
+    return negotiateResponse(
+      request,
+      pathname,
+      requestHeaders,
+      NextResponse.rewrite(rewrittenUrl, {
+        request: { headers: requestHeaders }
+      })
+    );
   }
 
   const storedLocale = request.cookies.get(LOCALE_COOKIE_NAME)?.value;
@@ -44,7 +91,12 @@ export function proxy(request) {
     getLocaleFromPathname(pathname)
   );
 
-  return NextResponse.next({ request: { headers: requestHeaders } });
+  return negotiateResponse(
+    request,
+    pathname,
+    requestHeaders,
+    NextResponse.next({ request: { headers: requestHeaders } })
+  );
 }
 
 export const config = {

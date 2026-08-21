@@ -1,12 +1,15 @@
 {
   "name": "joseph-mukorivo-portfolio",
   "private": true,
+  "type": "module",
   "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "node --test",
+    "verify:agent-readiness": "node scripts/verify-agent-readiness.mjs"
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.17",

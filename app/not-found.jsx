@@ -21,6 +21,15 @@ export default async function NotFound() {
             </InlineLink>
             .
           </p>
+          <p className="mt-6 text-subtle">
+            Browse the{" "}
+            <InlineLink href={localizePath("/blog", locale)}>
+              writing index
+            </InlineLink>
+            , review the <InlineLink href="/sitemap.xml">sitemap</InlineLink>,
+            or read <InlineLink href="/llms.txt">llms.txt</InlineLink> for an
+            agent-friendly guide to the site.
+          </p>
         </div>
       </article>
     </PageShell>
