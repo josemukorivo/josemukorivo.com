@@ -16,16 +16,6 @@ const sketches = {
       <path d="M9 32C16 38 38 38 44 32" />
     </>
   ),
-  flow: (
-    <>
-      <path d="M7 15C14 9 21 9 27 15C33 21 39 21 46 15" />
-      <path d="M7 33C14 27 21 27 27 33C33 39 39 39 46 33" />
-      <path d="M14 12L14 36M40 12L40 36" />
-      <circle className="section-sketch-dot" cx="14" cy="12" r="2.6" />
-      <circle className="section-sketch-dot" cx="27" cy="24" r="2.8" />
-      <circle className="section-sketch-dot" cx="40" cy="36" r="2.6" />
-    </>
-  ),
   nodes: (
     <>
       <path d="M9 33L21 13L40 21L34 39L9 33Z" />

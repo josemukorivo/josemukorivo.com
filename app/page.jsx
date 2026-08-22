@@ -1,6 +1,5 @@
 import { ExternalLink } from "./_components/external-link";
 import { AssistantIntroLink } from "./_components/assistant-intro-link";
-import { CapabilitiesSection } from "./_components/capabilities-section";
 import {
   HandwrittenInsertion,
   HandwrittenReplacement
@@ -417,8 +416,6 @@ export default async function Home() {
             </div>
           </div>
         </PageSection>
-
-        {locale === "en" ? <CapabilitiesSection /> : null}
 
         <PageSection
           sketch="data"

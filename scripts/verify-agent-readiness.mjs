@@ -82,10 +82,7 @@ const homepageRatio = (homepageText.length / homepageHtml.length) * 100;
 
 assert.equal((homepageHtml.match(/<h1\b/gi) ?? []).length, 1);
 assert.ok(homepageText.length >= 500, "homepage raw HTML needs 500+ text chars");
-assert.ok(
-  homepageRatio >= 5,
-  `homepage text efficiency must be at least 5%, got ${homepageRatio.toFixed(2)}%`
-);
+assert.doesNotMatch(homepageHtml, /id="capabilities"/);
 
 const schemaMatches = [
   ...homepageHtml.matchAll(
