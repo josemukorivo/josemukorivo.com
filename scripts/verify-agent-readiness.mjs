@@ -3,9 +3,6 @@ import assert from "node:assert/strict";
 const baseUrl = process.env.AGENT_READINESS_BASE_URL ?? "http://127.0.0.1:3000";
 const publicPages = [
   "/",
-  "/about",
-  "/contact",
-  "/privacy",
   "/projects",
   "/blog",
   "/assistant",
@@ -90,14 +87,6 @@ assert.ok(
   `homepage text efficiency must be at least 5%, got ${homepageRatio.toFixed(2)}%`
 );
 
-for (const pathname of ["/about", "/contact", "/privacy"]) {
-  const response = await fetch(`${baseUrl}${pathname}`, {
-    headers: { Accept: "text/html" }
-  });
-  const text = visibleText(await response.text());
-  assert.ok(text.length >= 500, `${pathname} needs 500+ visible text chars`);
-}
-
 const schemaMatches = [
   ...homepageHtml.matchAll(
     /<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi
@@ -168,7 +157,17 @@ assert.match(llmsText, /## How agents should call this site/);
 
 const sitemap = await (await fetch(`${baseUrl}/sitemap.xml`)).text();
 for (const pathname of ["/about", "/contact", "/privacy"]) {
-  assert.match(sitemap, new RegExp(`<loc>https://www\\.josemukorivo\\.com${pathname}</loc>`));
+  assert.doesNotMatch(
+    sitemap,
+    new RegExp(`<loc>https://www\\.josemukorivo\\.com${pathname}</loc>`)
+  );
+
+  for (const accept of ["text/html", "text/markdown"]) {
+    const response = await fetch(`${baseUrl}${pathname}`, {
+      headers: { Accept: accept }
+    });
+    assert.equal(response.status, 404, `${pathname} ${accept} status`);
+  }
 }
 
 console.log(

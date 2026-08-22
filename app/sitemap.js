@@ -29,12 +29,7 @@ export default async function sitemap() {
       url: `${SITE_URL}${localizePath("/projects", locale)}`,
       changeFrequency: "monthly",
       priority: locale === "en" ? 0.8 : 0.7
-    },
-    ...["about", "contact", "privacy"].map((page) => ({
-      url: `${SITE_URL}${localizePath(`/${page}`, locale)}`,
-      changeFrequency: "yearly",
-      priority: locale === "en" ? 0.6 : 0.5
-    }))
+    }
   ]);
 
   return [

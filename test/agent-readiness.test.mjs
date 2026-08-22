@@ -2,10 +2,6 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { appendVary, preferredRepresentation } from "../lib/accept.js";
 import { LLMS_TXT } from "../lib/llms-txt.js";
-import {
-  getTrustPageText,
-  TRUST_PAGES
-} from "../lib/trust-pages.js";
 
 test("defaults browser and wildcard requests to HTML", () => {
   assert.equal(preferredRepresentation(null), "text/html");
@@ -57,16 +53,4 @@ test("llms.txt follows the required orientation format", () => {
   assert.match(LLMS_TXT, /## How agents should call this site/);
   assert.match(LLMS_TXT, /Accept: text\/markdown/);
   assert.match(LLMS_TXT, /https:\/\/www\.josemukorivo\.com\/sitemap\.xml/);
-});
-
-test("each trust page contains substantial, specific content", () => {
-  for (const [slug, page] of Object.entries(TRUST_PAGES)) {
-    const content = getTrustPageText(page);
-
-    assert.ok(
-      content.length >= 500,
-      `${slug} must contain at least 500 characters, got ${content.length}`
-    );
-    assert.match(content, /Joseph|site|information/i);
-  }
 });
