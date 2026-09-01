@@ -12,7 +12,6 @@ import { JsonLd } from "./_components/json-ld";
 import { PageSection } from "./_components/page-section";
 import { PageShell } from "./_components/page-shell";
 import { ProjectSlider } from "./_components/project-slider";
-import { RolePhrase } from "./_components/role-phrase";
 import { SiteFooter } from "./_components/site-footer";
 import { SiteHeader } from "./_components/site-header";
 import { WritingList } from "./_components/writing-list";
@@ -206,43 +205,7 @@ export default async function Home() {
         <div className="reveal-intro max-w-[600px]">
           <div className="intro-copy leading-[1.75] [&>p+p]:mt-6">
             <p className="intro-reveal-item">
-              {home.introLead ? (
-                <>
-                  {home.introLead} {home.introProgress}
-                </>
-              ) : (
-                <>
-                  {home.rolePrefix}{" "}
-                  <RolePhrase>{home.role}</RolePhrase>.{" "}
-                  {home.locationEdit ? (
-                    <>
-                      {home.introLocationPrefix}{" "}
-                      {home.introCountrySuffix ? (
-                        <>
-                          <span className="handwritten-location-lock">
-                            <HandwrittenReplacement
-                              correction={home.locationEdit.correction}
-                              draft={home.locationEdit.draft}
-                            />
-                            {home.introCountrySuffix}
-                          </span>{" "}
-                          {home.introSummaryAfterLocation}
-                        </>
-                      ) : (
-                        <>
-                          <HandwrittenReplacement
-                            correction={home.locationEdit.correction}
-                            draft={home.locationEdit.draft}
-                          />
-                          {home.introSummaryAfterLocation}
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    home.introSummary
-                  )}
-                </>
-              )}{" "}
+              {home.introLead} {home.introProgress}{" "}
               {home.currentWorkPrefix} Art Circles
               {home.currentWorkCompanySuffix ?? ","} {home.currentWorkFounder}{" "}
               <InlineLink

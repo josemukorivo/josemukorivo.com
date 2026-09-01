@@ -1432,11 +1432,6 @@ a:focus-visible > .external-link-label {
   white-space: nowrap;
 }
 
-.handwritten-location-lock {
-  display: inline-block;
-  white-space: nowrap;
-}
-
 .handwritten-replacement-visual {
   display: inline-flex;
   align-items: baseline;
