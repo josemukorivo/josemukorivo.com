@@ -1,15 +1,17 @@
-import { ExternalLink } from "./_components/external-link";
+import { Suspense } from "react";
+
 import { AssistantIntroLink } from "./_components/assistant-intro-link";
+import { ExperienceTimeline } from "./_components/experience-timeline";
 import {
-  HandwrittenInsertion,
-  HandwrittenReplacement
-} from "./_components/handwritten-edit";
-import { IntroSketches } from "./_components/intro-sketches";
+  GitHubContributions,
+  GitHubContributionsFallback
+} from "./_components/github-contributions";
+import { HandwrittenReplacement } from "./_components/handwritten-edit";
 import { InlineLink } from "./_components/inline-link";
 import { JsonLd } from "./_components/json-ld";
-import { MarkerHighlight } from "./_components/marker-highlight";
 import { PageSection } from "./_components/page-section";
 import { PageShell } from "./_components/page-shell";
+import { ProjectSlider } from "./_components/project-slider";
 import { RolePhrase } from "./_components/role-phrase";
 import { SiteFooter } from "./_components/site-footer";
 import { SiteHeader } from "./_components/site-header";
@@ -186,6 +188,7 @@ export default async function Home() {
   }));
   const localizedProjects = projects.map((project) => ({
     ...project,
+    meta: messages.projects.items[project.id]?.meta ?? project.domain,
     shortDescription:
       messages.projects.items[project.id]?.short ?? project.shortDescription
   }));
@@ -193,102 +196,83 @@ export default async function Home() {
   return (
     <PageShell>
       <JsonLd data={createHomepageSchema(locale)} />
-      <SiteHeader />
+      <SiteHeader
+        resumeHref={RESUME_URL}
+        socialLabels={home.socialLinks}
+        title={messages.headerRole}
+      />
 
       <article className="mt-14 max-[640px]:mt-10" id="top">
         <div className="reveal-intro max-w-[600px]">
-          <IntroSketches />
           <div className="intro-copy leading-[1.75] [&>p+p]:mt-6">
             <p className="intro-reveal-item">
-              {home.rolePrefix}{" "}
-              <RolePhrase>{home.role}</RolePhrase>.{" "}
-              {home.locationEdit ? (
+              {home.introLead ? (
                 <>
-                  <HandwrittenReplacement
-                    correction={home.locationEdit.correction}
-                    draft={home.locationEdit.draft}
-                  />
-                  {home.locationEdit.after}{" "}
+                  {home.introLead} {home.introProgress}
                 </>
               ) : (
-                <>{home.introBeforeEdit} </>
-              )}
-              <HandwrittenReplacement
-                correction={home.introCorrection}
-                draft={home.introDraft}
-              />
-              .
+                <>
+                  {home.rolePrefix}{" "}
+                  <RolePhrase>{home.role}</RolePhrase>.{" "}
+                  {home.locationEdit ? (
+                    <>
+                      {home.introLocationPrefix}{" "}
+                      {home.introCountrySuffix ? (
+                        <>
+                          <span className="handwritten-location-lock">
+                            <HandwrittenReplacement
+                              correction={home.locationEdit.correction}
+                              draft={home.locationEdit.draft}
+                            />
+                            {home.introCountrySuffix}
+                          </span>{" "}
+                          {home.introSummaryAfterLocation}
+                        </>
+                      ) : (
+                        <>
+                          <HandwrittenReplacement
+                            correction={home.locationEdit.correction}
+                            draft={home.locationEdit.draft}
+                          />
+                          {home.introSummaryAfterLocation}
+                        </>
+                      )}
+                    </>
+                  ) : (
+                    home.introSummary
+                  )}
+                </>
+              )}{" "}
+              {home.currentWorkPrefix} Art Circles
+              {home.currentWorkCompanySuffix ?? ","} {home.currentWorkFounder}{" "}
+              <InlineLink
+                className="identity-link"
+                href="https://complexus.tech"
+              >
+                Complexus
+              </InlineLink>{" "}
+              {home.currentWorkJoin}{" "}
+              <InlineLink
+                className="identity-link"
+                href="https://www.fortyone.app"
+              >
+                FortyOne
+              </InlineLink>
+              {home.currentWorkEnd ?? "."} {home.currentWorkAfter}
             </p>
             <p className="intro-reveal-item">
-              {home.founderPrefix}{" "}
-              <MarkerHighlight tone="violet" variant="underline">
-                <InlineLink
-                  className="identity-link"
-                  href="https://complexus.tech"
-                >
-                  Complexus
-                </InlineLink>
-              </MarkerHighlight>{" "}
-              {home.founderJoin}{" "}
-              <MarkerHighlight>
-                <InlineLink
-                  className="identity-link"
-                  href="https://www.fortyone.app"
-                >
-                  FortyOne
-                </InlineLink>
-              </MarkerHighlight>
-              ,{" "}
-              {home.founderAfterBeforeEdit ? (
+              {home.careEdit ? (
                 <>
-                  {home.founderAfterBeforeEdit}{" "}
+                  {home.carePrefix}{" "}
                   <HandwrittenReplacement
-                    correction={home.founderCorrection}
-                    draft={home.founderDraft}
+                    correction={home.careEdit.correction}
+                    draft={home.careEdit.draft}
                   />
-                  .
-                </>
-              ) : locale === "en" ? (
-                <>
-                  an agentic project management platform connecting company{" "}
-                  <HandwrittenInsertion
-                    after="als"
-                    before="g"
-                    character="o"
-                    value="goals"
-                  />
-                  , customer feedback, planning, and delivery. I currently lead
-                  engineering at Art Circles, setting technical direction,
-                  shaping AI strategy, and guiding product delivery.
+                  {home.careAfter}
                 </>
               ) : (
-                home.founderAfter
-              )}
-            </p>
-            <p className="intro-reveal-item">
-              {home.workPrefix}{" "}
-              <MarkerHighlight tone="violet" variant="underline">
-                {home.technicalLeadership}
-              </MarkerHighlight>
-              , {home.workAfter}
-            </p>
-            <p className="intro-reveal-item">
-              {locale === "en" ? (
-                <>
-                  I care about useful software, clear interfaces,{" "}
-                  <HandwrittenReplacement
-                    correction="reliable"
-                    draft="strong"
-                  />{" "}
-                  systems, and{" "}
-                  <MarkerHighlight tone="cool" variant="underline">
-                    thoughtful details
-                  </MarkerHighlight>
-                  .{" "}
-                </>
-              ) : (
-                <>{home.care} </>
-              )}
+                home.care
+              )}{" "}
               <span className="assistant-intro-copy">
                 <AssistantIntroLink locale={locale}>
                   {home.askMaya}
@@ -296,28 +280,40 @@ export default async function Home() {
                 {home.askMayaAfter}
               </span>
             </p>
-            <p className="intro-reveal-item text-subtle">
-              {home.findPrefix}{" "}
-              <InlineLink href="https://github.com/josemukorivo">
-                GitHub
-              </InlineLink>
-              ,{" "}
-              <InlineLink href="https://www.linkedin.com/in/josemukorivo/">
-                LinkedIn
-              </InlineLink>
-              , {home.socialOr} <InlineLink href="https://x.com/josemukorivo">X</InlineLink>,{" "}
-              {home.readMy}{" "}
-              <InlineLink href={localizePath("/blog", locale)}>
-                {home.writingLink}
-              </InlineLink>
-              , {home.socialOr}{" "}
-              <InlineLink href={`mailto:${SITE_EMAIL}`}>
-                {home.emailLink}
-              </InlineLink>
-              .
-            </p>
           </div>
         </div>
+
+        <PageSection
+          id="activity"
+          sketch="data"
+          sketchTone="primary"
+          title={home.sections.activity}
+        >
+          <Suspense
+            fallback={<GitHubContributionsFallback messages={home.github} />}
+          >
+            <GitHubContributions locale={locale} messages={home.github} />
+          </Suspense>
+        </PageSection>
+
+        <PageSection
+          id="experience"
+          title={home.sections.experience}
+        >
+          <ExperienceTimeline
+            items={home.experienceItems}
+            labels={home.experienceSlider}
+          />
+        </PageSection>
+
+        <PageSection title={home.sections.projects}>
+          <ProjectSlider
+            labels={home.projectSlider}
+            linkHref={localizePath("/projects", locale)}
+            linkLabel={home.allProjects}
+            projects={localizedProjects}
+          />
+        </PageSection>
 
         <PageSection
           id="writing"
@@ -333,131 +329,25 @@ export default async function Home() {
           </p>
         </PageSection>
 
-        <PageSection
-          sketch="nodes"
-          sketchTone="cool"
-          title={home.sections.projects}
-        >
-          <div className="grid grid-cols-3 gap-9 max-[640px]:grid-cols-1 max-[640px]:gap-[26px]">
-            {localizedProjects.map((project) => (
-              <div key={project.name}>
-                <span className="font-medium">
-                  <ExternalLink href={project.href}>
-                    {project.name}
-                  </ExternalLink>
-                </span>
-                <p className="mt-1.5 text-[14px] text-subtle">
-                  {project.shortDescription}
-                </p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-[22px]">
-            <InlineLink href={localizePath("/projects", locale)}>
-              {home.allProjects}
-            </InlineLink>
-          </p>
-        </PageSection>
-
-        <PageSection
-          id="building"
-          sketch="terminal"
-          sketchTone="violet"
-          title={home.sections.building}
-        >
-          <div>
-            <div className="mb-5 flex items-baseline justify-between gap-6">
-              <span className="font-medium">
-                <MarkerHighlight tone="primary" variant="underline">
-                  <ExternalLink href="https://www.fortyone.app">
-                    FortyOne
-                  </ExternalLink>
-                </MarkerHighlight>
-              </span>
-              <span className="text-[13px] text-muted">
-                {home.liveProduct}
-              </span>
-            </div>
-            <div className="[&>p+p]:mt-6">
-              {home.buildingParagraphs.map((paragraph, index) => (
-                <p key={paragraph}>
-                  {index === 0 && home.buildingIntroBeforeEdit ? (
-                    <>
-                      {home.buildingIntroBeforeEdit}{" "}
-                      <HandwrittenReplacement
-                        correction={home.buildingIntroCorrection}
-                        draft={home.buildingIntroDraft}
-                      />{" "}
-                      {home.buildingIntroAfterEdit}
-                    </>
-                  ) : locale === "en" && index === 1 ? (
-                    <>
-                      Company{" "}
-                      <HandwrittenInsertion
-                        after="tategy"
-                        before="s"
-                        character="r"
-                        value="strategy"
-                      />{" "}
-                      starts with objectives and key results. Teams can map how
-                      goals relate, connect them to roadmaps and planned work,
-                      and see whether daily delivery is moving the{" "}
-                      <HandwrittenReplacement
-                        correction="outcomes"
-                        draft="output"
-                      />{" "}
-                      they committed to.
-                    </>
-                  ) : (
-                    paragraph
-                  )}
-                </p>
-              ))}
-            </div>
-          </div>
-        </PageSection>
-
-        <PageSection
-          sketch="data"
-          sketchTone="primary"
-          title={home.sections.education}
-        >
+        <PageSection title={home.sections.education}>
           <div className="max-w-[600px] [&>p+p]:mt-6 [&_strong]:font-medium">
             <p>
-              <MarkerHighlight tone="primary" variant="underline">
+              <span className="sketch-underline">
                 <strong>{home.mba}</strong>
-              </MarkerHighlight>
+              </span>
               ,{" "}
               {home.mbaAfter}
             </p>
             <p>
               {home.degreePrefix}{" "}
-              <MarkerHighlight tone="primary" variant="underline">
+              <span className="sketch-underline">
                 <strong>{home.degree}</strong>
-              </MarkerHighlight>{" "}
+              </span>{" "}
               {home.degreeAfter}
             </p>
           </div>
         </PageSection>
 
-        <PageSection
-          sketch="signal"
-          sketchTone="cool"
-          title={home.sections.connect}
-        >
-          <p className="max-w-[560px]">
-            {home.connectPrefix}{" "}
-            <InlineLink href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</InlineLink>,{" "}
-            {home.connectLinkedIn}{" "}
-            <InlineLink href="https://www.linkedin.com/in/josemukorivo/">
-              LinkedIn
-            </InlineLink>
-            , {home.connectX}{" "}
-            <InlineLink href="https://x.com/josemukorivo">X</InlineLink>,{" "}
-            {home.connectResume}{" "}
-            <InlineLink href={RESUME_URL}>{home.resume}</InlineLink>.
-          </p>
-        </PageSection>
       </article>
 
       <SiteFooter />
