@@ -231,6 +231,7 @@ export default async function Home() {
                     correction={home.careEdit.correction}
                     draft={home.careEdit.draft}
                   />
+                  <span aria-hidden="true"> 😂</span>
                   {home.careAfter}
                 </>
               ) : (

@@ -2,10 +2,9 @@
 
 import { useSyncExternalStore } from "react";
 import {
-  THEME_CHANGE_EVENT,
   applyTheme,
   getThemePreference,
-  updateThemeColor
+  subscribeToTheme
 } from "../../lib/theme";
 import {
   HandDrawnDarkIcon,
@@ -30,27 +29,6 @@ const THEMES = [
   { id: "system", icon: SystemIcon },
   { id: "dark", icon: DarkIcon }
 ];
-
-function subscribeToTheme(onStoreChange) {
-  const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
-  const handleSystemThemeChange = () => {
-    if (getThemePreference() === "system") {
-      updateThemeColor();
-    }
-
-    onStoreChange();
-  };
-
-  window.addEventListener(THEME_CHANGE_EVENT, onStoreChange);
-  window.addEventListener("storage", onStoreChange);
-  colorScheme.addEventListener("change", handleSystemThemeChange);
-
-  return () => {
-    window.removeEventListener(THEME_CHANGE_EVENT, onStoreChange);
-    window.removeEventListener("storage", onStoreChange);
-    colorScheme.removeEventListener("change", handleSystemThemeChange);
-  };
-}
 
 function selectTheme(theme) {
   applyTheme(theme);

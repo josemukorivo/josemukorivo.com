@@ -24,14 +24,6 @@ export function SiteHeader({ resumeHref, socialLabels, title }) {
                 src="/assets/joseph-mukorivo-sketch-light.webp"
                 width={100}
               />
-              <Image
-                alt=""
-                className="site-header-portrait-image site-header-portrait-image--dark"
-                height={100}
-                loading="eager"
-                src="/assets/joseph-mukorivo-sketch-dark.webp"
-                width={100}
-              />
             </span>
             <span className="site-header-copy">
               <span className="site-header-name">Joseph Mukorivo</span>

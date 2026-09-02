@@ -166,7 +166,7 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --background: #11100f;
+  --background: #080807;
   --text: #d2d0cb;
   --muted: #a49f98;
   --subtle: #b7b2aa;
@@ -175,6 +175,8 @@
   --pen-black: #aaa098;
   --pen-red: #e38181;
   --emphasis-ink: #e5e1da;
+  --paper-wash: none;
+  --paper-wash-size: 100% 100%;
   --paper-texture: var(--dark-paper-texture);
   --sketch-primary: var(--pen-blue);
   --sketch-secondary: var(--pen-black);
@@ -193,8 +195,8 @@
   --code-background: #191817;
   --code-header-background: #201e1c;
   --tooltip-background: rgb(27 25 23 / 0.9);
-  --dock-glass-background: rgb(17 16 15 / 0.46);
-  --viewport-blur-background: rgb(17 16 15 / 0.14);
+  --dock-glass-background: rgb(8 8 7 / 0.56);
+  --viewport-blur-background: rgb(8 8 7 / 0.16);
   --assistant-background: rgb(27 25 23 / 0.86);
   --assistant-invitation: rgb(29 27 24 / 0.88);
   --assistant-input: rgb(199 184 165 / 0.065);
@@ -216,7 +218,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     color-scheme: dark;
-    --background: #11100f;
+    --background: #080807;
     --text: #d2d0cb;
     --muted: #a49f98;
     --subtle: #b7b2aa;
@@ -225,6 +227,8 @@
     --pen-black: #aaa098;
     --pen-red: #e38181;
     --emphasis-ink: #e5e1da;
+    --paper-wash: none;
+    --paper-wash-size: 100% 100%;
     --paper-texture: var(--dark-paper-texture);
     --sketch-primary: var(--pen-blue);
     --sketch-secondary: var(--pen-black);
@@ -243,8 +247,8 @@
     --code-background: #191817;
     --code-header-background: #201e1c;
     --tooltip-background: rgb(27 25 23 / 0.9);
-    --dock-glass-background: rgb(17 16 15 / 0.46);
-    --viewport-blur-background: rgb(17 16 15 / 0.14);
+    --dock-glass-background: rgb(8 8 7 / 0.56);
+    --viewport-blur-background: rgb(8 8 7 / 0.16);
     --assistant-background: rgb(27 25 23 / 0.86);
     --assistant-invitation: rgb(29 27 24 / 0.88);
     --assistant-input: rgb(199 184 165 / 0.065);
@@ -541,10 +545,6 @@
   object-fit: contain;
 }
 
-.site-header-portrait-image--dark {
-  display: none;
-}
-
 .social-links {
   flex: 0 0 auto;
 }
@@ -602,8 +602,8 @@
   display: none;
 }
 
-:root[data-theme="dark"] .site-header-portrait-image--dark {
-  display: block;
+:root[data-theme="dark"] .site-header-portrait {
+  display: none;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -611,8 +611,8 @@
     display: none;
   }
 
-  :root:not([data-theme]) .site-header-portrait-image--dark {
-    display: block;
+  :root:not([data-theme]) .site-header-portrait {
+    display: none;
   }
 }
 
@@ -623,40 +623,48 @@
 }
 
 .language-switcher-trigger {
+  position: relative;
   display: inline-flex;
-  min-height: 30px;
+  min-height: 32px;
   align-items: center;
-  gap: 6px;
-  padding: 4px 7px;
+  gap: 5px;
+  padding: 5px 3px;
   border: 0;
-  border-radius: var(--radius-sm);
-  color: var(--emphasis-ink);
-  background-color: color-mix(in srgb, var(--background) 82%, transparent);
-  background-image: var(--content-sketch-frame);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+  border-radius: 0;
+  color: var(--muted);
+  background: transparent;
   font: inherit;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.25;
   cursor: pointer;
   transition:
     color 150ms var(--ease-standard),
-    background-color 150ms var(--ease-standard);
-  -webkit-backdrop-filter: blur(14px) saturate(1.08);
-  backdrop-filter: blur(14px) saturate(1.08);
+    transform 180ms var(--ease-out);
+}
+
+.language-switcher-trigger::after {
+  position: absolute;
+  right: 2px;
+  bottom: 1px;
+  left: 2px;
+  height: 7px;
+  background-image: var(--sketch-link-underline);
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 7px;
+  content: "";
+  opacity: 0.38;
+  pointer-events: none;
+  transition: opacity 150ms var(--ease-standard);
 }
 
 .language-switcher-trigger[data-suggests-shona="true"] {
   color: var(--emphasis-ink);
-  background-image:
-    var(--sketch-link-accent), var(--content-sketch-frame);
-  background-position:
-    center bottom,
-    center;
-  background-repeat: no-repeat;
-  background-size:
-    calc(100% - 12px) 7px,
-    100% 100%;
+}
+
+.language-switcher-trigger[data-suggests-shona="true"]::after {
+  background-image: var(--sketch-link-accent);
+  opacity: 0.74;
 }
 
 .language-switcher-trigger svg {
@@ -675,9 +683,14 @@
   transform: rotate(180deg);
 }
 
+.language-switcher-trigger:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
 .language-switcher-menu {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 10px);
   right: 0;
   display: grid;
   width: 172px;
@@ -686,11 +699,11 @@
   border: 0;
   border-radius: var(--radius-md);
   color: var(--text);
-  background-color: var(--tooltip-background);
-  background-image: var(--content-sketch-frame-strong);
+  background-color: color-mix(in srgb, var(--background) 96%, transparent);
+  background-image: var(--content-sketch-frame);
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  box-shadow: 0 12px 32px rgb(0 0 0 / 0.12);
+  box-shadow: 0 14px 34px rgb(0 0 0 / 0.16);
   transform-origin: 100% 0;
   animation: language-menu-enter 170ms var(--ease-out) both;
   -webkit-backdrop-filter: blur(20px) saturate(1.08);
@@ -758,7 +771,110 @@
   position: fixed;
   z-index: 720;
   top: 20px;
-  right: clamp(18px, 2.5vw, 36px);
+  right: 64px;
+}
+
+.theme-icon-toggle {
+  position: fixed;
+  z-index: 730;
+  top: 17px;
+  right: 18px;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 49% 51% 46% 54% / 53% 47% 55% 45%;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    color 150ms var(--ease-standard),
+    background-color 180ms var(--ease-standard),
+    transform 180ms var(--ease-out);
+}
+
+.theme-icon-toggle-glyph {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  transform: rotate(-2deg);
+  transition: transform 220ms var(--ease-out);
+}
+
+.theme-icon-toggle svg {
+  width: 18px;
+  height: 18px;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.4;
+}
+
+.theme-icon-toggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+:root[data-theme-transition="revealing"]::view-transition-old(root),
+:root[data-theme-transition="revealing"]::view-transition-new(root) {
+  animation-duration: 540ms;
+  animation-timing-function: var(--ease-out-expo);
+  mix-blend-mode: normal;
+}
+
+:root[data-theme-transition="revealing"]::view-transition-old(root) {
+  animation-name: none;
+}
+
+:root[data-theme-transition="revealing"]::view-transition-new(root) {
+  animation-name: theme-icon-reveal;
+}
+
+@keyframes theme-icon-reveal {
+  from {
+    clip-path: circle(0 at calc(100% - 35px) 34px);
+  }
+
+  to {
+    clip-path: circle(150vmax at calc(100% - 35px) 34px);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .theme-icon-toggle:hover {
+    color: var(--text);
+    background-color: color-mix(in srgb, var(--text) 5%, transparent);
+    transform: translateY(-1px) rotate(-1deg);
+  }
+
+  .theme-icon-toggle:hover .theme-icon-toggle-glyph {
+    transform: rotate(7deg) scale(1.04);
+  }
+
+  .language-switcher-trigger:hover {
+    color: var(--text);
+    transform: translateY(-1px) rotate(-0.4deg);
+  }
+
+  .language-switcher-trigger:hover::after {
+    opacity: 0.72;
+  }
+}
+
+@media (max-width: 680px) {
+  .global-language-switcher {
+    right: 58px;
+  }
+
+  .theme-icon-toggle {
+    top: 16px;
+    right: 14px;
+  }
 }
 
 .article-language-note {
@@ -3930,6 +4046,18 @@ a:focus-visible .writing-link-title {
     margin: -34px 0 0 112px;
   }
 
+  :root[data-theme="dark"] .site-header .social-links {
+    width: 100%;
+    margin: 8px 0 0;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) .site-header .social-links {
+      width: 100%;
+      margin: 8px 0 0;
+    }
+  }
+
   .project-slide {
     flex-basis: 88%;
   }
@@ -4015,6 +4143,8 @@ a:focus-visible .writing-link-title {
   .external-link-label,
   .external-link-label + svg,
   .text-link,
+  .theme-icon-toggle,
+  .theme-icon-toggle-glyph,
   .theme-toggle,
   .theme-toggle-option,
   .writing-link-title,

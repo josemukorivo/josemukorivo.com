@@ -1,6 +1,7 @@
 import { Newsreader, Shantell_Sans } from "next/font/google";
 import { LanguageSwitcher } from "./_components/language-switcher";
 import { SiteDock } from "./_components/site-dock";
+import { ThemeIconToggle } from "./_components/theme-icon-toggle";
 import { ThemeScript } from "./_components/theme-script";
 import { RevealObserver } from "./reveal-observer";
 import "./globals.css";
@@ -125,7 +126,7 @@ export const metadata = {
 
 export const viewport = {
   colorScheme: "light dark",
-  themeColor: "#fbfaf5"
+  themeColor: "#faf6ee"
 };
 
 export default async function RootLayout({ children }) {
@@ -144,6 +145,7 @@ export default async function RootLayout({ children }) {
       </head>
       <body className="min-w-80 bg-canvas font-body text-[15px] leading-[1.65] text-ink italic">
         <RevealObserver />
+        <ThemeIconToggle messages={messages.theme.toggle} />
         <div className="global-language-switcher">
           <LanguageSwitcher locale={locale} messages={messages.common} />
         </div>

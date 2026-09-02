@@ -8,11 +8,11 @@ const themeScript = `(() => {
     storedTheme = window.localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)});
   } catch {}
 
-  const hasStoredTheme = storedTheme === "light" || storedTheme === "dark" || storedTheme === "system";
-
   if (storedTheme === "light" || storedTheme === "dark") {
     root.dataset.theme = storedTheme;
-  } else if (!hasStoredTheme) {
+  } else if (storedTheme === "system") {
+    delete root.dataset.theme;
+  } else {
     root.dataset.theme = "light";
   }
 
