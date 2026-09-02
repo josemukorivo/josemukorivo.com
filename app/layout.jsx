@@ -126,7 +126,7 @@ export const metadata = {
 
 export const viewport = {
   colorScheme: "light dark",
-  themeColor: "#faf6ee"
+  themeColor: "#fbfaf5"
 };
 
 export default async function RootLayout({ children }) {
