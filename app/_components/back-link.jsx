@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export function IndexLink({ href, label = "Index" }) {
+export function BackLink({ href, label }) {
   return (
     <Link
       className="group inline-flex w-fit items-center gap-2 bg-none font-serif text-lg font-medium italic leading-[1.2] text-ink max-[680px]:text-[17px]"

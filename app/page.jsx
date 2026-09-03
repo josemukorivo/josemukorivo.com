@@ -281,8 +281,6 @@ export default async function Home() {
 
         <PageSection
           id="writing"
-          sketch="branch"
-          sketchTone="primary"
           title={home.sections.writing}
         >
           <WritingList articles={localizedWriting} />

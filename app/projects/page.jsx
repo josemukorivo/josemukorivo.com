@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ExternalMark } from "../_components/external-link";
-import { IndexLink } from "../_components/index-link";
+import { BackLink } from "../_components/back-link";
 import { JsonLd } from "../_components/json-ld";
 import { PageShell } from "../_components/page-shell";
 import { PreviewLink } from "../_components/preview-link";
@@ -67,9 +67,9 @@ export default async function ProjectsPage() {
         data-reveal="page-header"
       >
         <div data-reveal-item>
-          <IndexLink
+          <BackLink
             href={localizePath("/", locale)}
-            label={messages.common.index}
+            label={messages.navigation.home}
           />
         </div>
         <div

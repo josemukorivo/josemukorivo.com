@@ -10,7 +10,7 @@ export function SiteHeader({ resumeHref, socialLabels, title }) {
       data-site-header="true"
     >
       <div className="site-header-profile">
-        <h1 className="font-body text-[19px] font-normal italic leading-[1.1]">
+        <h1 className="font-body text-[19px] font-light italic leading-[1.1]">
           <a
             className="name-link site-header-identity relative inline-flex items-center gap-3 text-ink"
             href="#top"

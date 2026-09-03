@@ -37,7 +37,7 @@
   color-scheme: light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  --background: #fbfaf5;
+  --background: #fff;
   --text: #173f7a;
   --muted: #607594;
   --subtle: #496789;
@@ -137,11 +137,11 @@
   --sketch-link-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'%3E%3Cpath d='M1 8.8C8 5.9 15 10.4 23 7.1S38 10.6 49 6.7S66 10.1 75 6.8S91 9.5 99 6.4' fill='none' stroke='%23a13d42' stroke-width='2.65' stroke-linecap='round' opacity='.86'/%3E%3Cpath d='M2 10.6C12 8 20 11.3 30 9.1S47 11.1 58 8.4S75 10.9 84 8.3S94 9.9 98 8.8' fill='none' stroke='%23173f7a' stroke-width='1' stroke-linecap='round' opacity='.38'/%3E%3C/svg%3E");
   --code-background: #f2eee5;
   --code-header-background: #ebe6dc;
-  --tooltip-background: rgb(251 250 245 / 0.88);
-  --dock-glass-background: rgb(251 250 245 / 0.44);
-  --viewport-blur-background: rgb(251 250 245 / 0.08);
-  --assistant-background: rgb(251 250 245 / 0.94);
-  --assistant-invitation: rgb(252 250 246 / 0.82);
+  --tooltip-background: rgb(255 255 255 / 0.88);
+  --dock-glass-background: rgb(255 255 255 / 0.44);
+  --viewport-blur-background: rgb(255 255 255 / 0.08);
+  --assistant-background: rgb(255 255 255 / 0.94);
+  --assistant-invitation: rgb(255 255 255 / 0.82);
   --assistant-input: color-mix(
     in srgb,
     var(--background) 96%,
@@ -152,8 +152,7 @@
   --assistant-accent-warm: #a94f30;
   --assistant-accent-violet: #71509b;
   --assistant-accent-cool: #2f6d7d;
-  --brand-primary: #f54e00;
-  --interactive-accent: var(--brand-primary);
+  --interactive-accent: var(--emphasis-ink);
   --role-phrase-font-weight: 500;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-reveal: cubic-bezier(0.23, 1, 0.32, 1);
@@ -162,22 +161,31 @@
 
 :root[data-theme="light"] {
   color-scheme: light;
+  --paper-texture: none;
+  --paper-wash: none;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --paper-texture: none;
+    --paper-wash: none;
+  }
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
   --background: #080807;
-  --text: #d2d0cb;
+  --text: #bbb7b0;
   --muted: #a49f98;
   --subtle: #b7b2aa;
   --line: color-mix(in srgb, var(--pen-blue) 58%, transparent);
   --pen-blue: #c7b8a5;
   --pen-black: #aaa098;
   --pen-red: #e38181;
-  --emphasis-ink: #e5e1da;
+  --emphasis-ink: #fff;
   --paper-wash: none;
   --paper-wash-size: 100% 100%;
-  --paper-texture: var(--dark-paper-texture);
+  --paper-texture: none;
   --sketch-primary: var(--pen-blue);
   --sketch-secondary: var(--pen-black);
   --sketch-accent: var(--pen-red);
@@ -219,17 +227,17 @@
   :root:not([data-theme]) {
     color-scheme: dark;
     --background: #080807;
-    --text: #d2d0cb;
+    --text: #bbb7b0;
     --muted: #a49f98;
     --subtle: #b7b2aa;
     --line: color-mix(in srgb, var(--pen-blue) 58%, transparent);
     --pen-blue: #c7b8a5;
     --pen-black: #aaa098;
     --pen-red: #e38181;
-    --emphasis-ink: #e5e1da;
+    --emphasis-ink: #fff;
     --paper-wash: none;
     --paper-wash-size: 100% 100%;
-    --paper-texture: var(--dark-paper-texture);
+    --paper-texture: none;
     --sketch-primary: var(--pen-blue);
     --sketch-secondary: var(--pen-black);
     --sketch-accent: var(--pen-red);
@@ -591,6 +599,7 @@
 }
 
 .social-link:focus-visible {
+  color: var(--interactive-accent);
   outline-offset: 1px;
 }
 
@@ -1265,10 +1274,10 @@ a:focus-visible > .external-link-label {
   display: block;
   width: 100%;
   height: 100%;
-  opacity: 0.97;
+  opacity: 1;
   object-fit: cover;
-  filter: saturate(0.94) contrast(0.98);
-  mix-blend-mode: multiply;
+  filter: saturate(0.98) contrast(1.01);
+  mix-blend-mode: normal;
 }
 
 :root[data-theme="dark"] .link-preview-media img {
@@ -3443,10 +3452,10 @@ a:focus-visible .writing-link-title {
 }
 
 .project-slide-media img {
-  opacity: 0.97;
+  opacity: 1;
   object-fit: cover;
-  filter: saturate(0.94) contrast(0.98);
-  mix-blend-mode: multiply;
+  filter: saturate(0.98) contrast(1.01);
+  mix-blend-mode: normal;
   transition:
     filter 180ms var(--ease-standard),
     opacity 180ms var(--ease-standard),
@@ -3666,7 +3675,7 @@ a:focus-visible .writing-link-title {
 
 @media (hover: hover) and (pointer: fine) {
   .social-link:hover {
-    color: var(--text);
+    color: var(--interactive-accent);
     background-color: color-mix(in srgb, var(--text) 5%, transparent);
     transform: translateY(-1px) rotate(-1deg);
   }
@@ -3746,7 +3755,7 @@ a:focus-visible .writing-link-title {
   }
 
   .site-dock-item:hover {
-    color: var(--text);
+    color: var(--interactive-accent);
     transform: translateY(-1px);
   }
 
@@ -3862,6 +3871,10 @@ a:focus-visible .writing-link-title {
   transform: translate(-50%, 0) scale(1);
   transition-duration: 0.01ms;
   transition-delay: 0ms;
+}
+
+.site-dock-item:focus-visible {
+  color: var(--interactive-accent);
 }
 
 .article-map-mobile summary:focus-visible {

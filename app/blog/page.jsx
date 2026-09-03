@@ -1,4 +1,4 @@
-import { IndexLink } from "../_components/index-link";
+import { BackLink } from "../_components/back-link";
 import { JsonLd } from "../_components/json-ld";
 import { PageShell } from "../_components/page-shell";
 import { WritingList } from "../_components/writing-list";
@@ -106,9 +106,9 @@ export default async function BlogPage() {
         data-reveal="page-header"
       >
         <div data-reveal-item>
-          <IndexLink
+          <BackLink
             href={localizePath("/", locale)}
-            label={messages.common.index}
+            label={messages.navigation.home}
           />
         </div>
         <div

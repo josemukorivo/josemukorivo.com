@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { IndexLink } from "../../_components/index-link";
+import { BackLink } from "../../_components/back-link";
 import { JsonLd } from "../../_components/json-ld";
 import { InlineLink } from "../../_components/inline-link";
 import { PageShell } from "../../_components/page-shell";
@@ -128,9 +128,9 @@ export default async function ArticlePage({ params }) {
       <article className="m-0">
         <header className="mb-11 text-ink" data-reveal="article-header">
           <div data-reveal-item>
-            <IndexLink
+            <BackLink
               href={localizePath("/blog", locale)}
-              label={messages.common.index}
+              label={messages.common.backToBlog}
             />
           </div>
           <div
