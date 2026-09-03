@@ -46,6 +46,7 @@
   --pen-black: #303947;
   --pen-red: #a13d42;
   --emphasis-ink: var(--text);
+  --header-name: var(--text);
   --sketch-primary: var(--pen-blue);
   --sketch-secondary: var(--pen-black);
   --sketch-accent: var(--pen-red);
@@ -183,6 +184,7 @@
   --pen-black: #aaa098;
   --pen-red: #e38181;
   --emphasis-ink: #fff;
+  --header-name: #fff;
   --paper-wash: none;
   --paper-wash-size: 100% 100%;
   --paper-texture: none;
@@ -235,6 +237,7 @@
     --pen-black: #aaa098;
     --pen-red: #e38181;
     --emphasis-ink: #fff;
+    --header-name: #fff;
     --paper-wash: none;
     --paper-wash-size: 100% 100%;
     --paper-texture: none;
@@ -529,6 +532,10 @@
   min-width: 0;
   flex-direction: column;
   gap: 6px;
+}
+
+.site-header-name {
+  color: var(--header-name);
 }
 
 .site-header-title {

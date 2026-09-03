@@ -22,7 +22,7 @@ import {
 
 const shantellSans = Shantell_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600"],
   style: "italic",
   variable: "--font-shantell-sans",
   display: "swap"
