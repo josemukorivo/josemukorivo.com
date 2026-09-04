@@ -3515,6 +3515,64 @@ a:focus-visible .writing-link-title {
   font-size: 11.5px;
 }
 
+.selected-work {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 24px;
+}
+
+.selected-project {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  color: inherit;
+}
+
+.selected-project[data-featured="true"] {
+  grid-column: 1 / -1;
+}
+
+.selected-project-copy {
+  display: grid;
+  align-content: start;
+}
+
+.selected-project-identity {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--emphasis-ink);
+}
+
+.selected-project-identity strong {
+  font-weight: 500;
+}
+
+.selected-project-identity svg {
+  width: 13px;
+  height: 13px;
+}
+
+.selected-project-meta {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+.selected-project[data-featured="true"] .selected-project-copy {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 16px;
+}
+
+.selected-project[data-featured="true"] .selected-project-description {
+  grid-column: 1 / -1;
+}
+
+.selected-project:focus-visible {
+  outline: 2px solid var(--interactive-accent);
+  outline-offset: 4px;
+}
+
 .writing-list::before,
 .writing-list-item::after,
 .hand-drawn-footer-rule::before {
@@ -3701,6 +3759,10 @@ a:focus-visible .writing-link-title {
   }
 
   .project-slide:hover .project-slide-heading {
+    color: var(--interactive-accent);
+  }
+
+  .selected-project:hover .selected-project-identity {
     color: var(--interactive-accent);
   }
 
@@ -4051,6 +4113,14 @@ a:focus-visible .writing-link-title {
 }
 
 @media (max-width: 640px) {
+  .selected-work {
+    gap: 24px 16px;
+  }
+
+  .selected-project[data-featured="true"] .selected-project-copy {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .site-header {
     align-items: flex-start;
     flex-wrap: wrap;

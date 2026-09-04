@@ -11,7 +11,7 @@ import { InlineLink } from "./_components/inline-link";
 import { JsonLd } from "./_components/json-ld";
 import { PageSection } from "./_components/page-section";
 import { PageShell } from "./_components/page-shell";
-import { ProjectSlider } from "./_components/project-slider";
+import { SelectedWork } from "./_components/selected-work";
 import { SiteFooter } from "./_components/site-footer";
 import { SiteHeader } from "./_components/site-header";
 import { WritingList } from "./_components/writing-list";
@@ -271,12 +271,12 @@ export default async function Home() {
         </PageSection>
 
         <PageSection title={home.sections.projects}>
-          <ProjectSlider
-            labels={home.projectSlider}
-            linkHref={localizePath("/projects", locale)}
-            linkLabel={home.allProjects}
-            projects={localizedProjects}
-          />
+          <SelectedWork projects={localizedProjects} />
+          <p className="mt-[18px]">
+            <InlineLink href={localizePath("/projects", locale)}>
+              {home.allProjects}
+            </InlineLink>
+          </p>
         </PageSection>
 
         <PageSection
